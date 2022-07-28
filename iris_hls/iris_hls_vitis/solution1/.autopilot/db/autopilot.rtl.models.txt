@@ -1,0 +1,3 @@
+iris_module_gmem_m_axi
+iris_module_control_s_axi
+iris_module

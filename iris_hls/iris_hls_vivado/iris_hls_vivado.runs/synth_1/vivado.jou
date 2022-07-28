@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Thu Jul 28 18:32:16 2022
+# Process ID: 16792
+# Current directory: E:/HLS_Projects/iris_hls/iris_hls_vivado/iris_hls_vivado.runs/synth_1
+# Command line: vivado.exe -log design_1_wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_wrapper.tcl
+# Log file: E:/HLS_Projects/iris_hls/iris_hls_vivado/iris_hls_vivado.runs/synth_1/design_1_wrapper.vds
+# Journal file: E:/HLS_Projects/iris_hls/iris_hls_vivado/iris_hls_vivado.runs/synth_1\vivado.jou
+# Running On: 51-0460864-H1, OS: Windows, CPU Frequency: 2112 MHz, CPU Physical cores: 4, Host memory: 17005 MB
+#-----------------------------------------------------------
+source design_1_wrapper.tcl -notrace

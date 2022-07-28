@@ -1,0 +1,27 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="E:/HLS_Projects/iris_hls/iris_hls_vitis/solution1/csynth.tcl:15:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="iris_module" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=iris_module" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="main.cpp:9:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="iris_module" ARG_PragmaIsValid="1" ARG_PragmaOptions="s_axilite port=return" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="main.cpp:10:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="iris_module" ARG_PragmaIsValid="1" ARG_PragmaOptions="m_axi port=input_features" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="main.cpp:11:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="iris_module" ARG_PragmaIsValid="1" ARG_PragmaOptions="m_axi port=output_result" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="main.cpp:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="iris_module" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="main.cpp:24:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="iris_module" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="main.cpp:4:0" msg_body="Unrolling loop 'SET_LOOP' (main.cpp:15:2) in function 'iris_module' completely with a factor of 8">
+        <args Factor="8" LoopLoc="main.cpp:15:2" LoopName="SET_LOOP"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="main.cpp:4:0" msg_body="Unrolling loop 'RESULT_LOOP' (main.cpp:22:3) in function 'iris_module' completely with a factor of 15">
+        <args Factor="15" LoopLoc="main.cpp:22:3" LoopName="RESULT_LOOP"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

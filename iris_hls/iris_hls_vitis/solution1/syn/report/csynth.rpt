@@ -1,0 +1,169 @@
+
+
+================================================================
+== Synthesis Summary Report of 'iris_module'
+================================================================
++ General Information: 
+    * Date:           Thu Jul 28 18:23:12 2022
+    * Version:        2022.1 (Build 3526262 on Mon Apr 18 15:48:16 MDT 2022)
+    * Project:        iris_hls_vitis
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: zynq
+    * Target device:  xc7z020-clg400-1
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +---------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+-----------+-----+
+    |    Modules    | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |    |           |           |     |
+    |    & Loops    | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF    |    LUT    | URAM|
+    +---------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+-----------+-----+
+    |+ iris_module  |     -|  0.00|      138|  1.380e+03|         -|      139|     -|        no|     -|   -|  1863 (1%)|  3184 (5%)|    -|
+    +---------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+-----------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface  | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|            | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_gmem | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          |
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+------------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| Interface     | Register         | Offset | Width | Access | Description                      | Bit Fields                                                           |
++---------------+------------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| s_axi_control | CTRL             | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER             | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
+| s_axi_control | IP_IER           | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
+| s_axi_control | IP_ISR           | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
+| s_axi_control | input_features_1 | 0x10   | 32    | W      | Data signal of input_features    |                                                                      |
+| s_axi_control | input_features_2 | 0x14   | 32    | W      | Data signal of input_features    |                                                                      |
+| s_axi_control | output_result_1  | 0x1c   | 32    | W      | Data signal of output_result     |                                                                      |
+| s_axi_control | output_result_2  | 0x20   | 32    | W      | Data signal of output_result     |                                                                      |
++---------------+------------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------+
+| Interface | Type       | Ports     |
++-----------+------------+-----------+
+| ap_clk    | clock      | ap_clk    |
+| ap_rst_n  | reset      | ap_rst_n  |
+| interrupt | interrupt  | interrupt |
+| ap_ctrl   | ap_ctrl_hs |           |
++-----------+------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------------+-----------+----------+
+| Argument       | Direction | Datatype |
++----------------+-----------+----------+
+| input_features | inout     | int*     |
+| output_result  | inout     | int*     |
++----------------+-----------+----------+
+
+* SW-to-HW Mapping
++----------------+---------------+-----------+----------+--------------------------------------------+
+| Argument       | HW Interface  | HW Type   | HW Usage | HW Info                                    |
++----------------+---------------+-----------+----------+--------------------------------------------+
+| input_features | m_axi_gmem    | interface |          |                                            |
+| input_features | s_axi_control | register  | offset   | name=input_features_1 offset=0x10 range=32 |
+| input_features | s_axi_control | register  | offset   | name=input_features_2 offset=0x14 range=32 |
+| output_result  | m_axi_gmem    | interface |          |                                            |
+| output_result  | s_axi_control | register  | offset   | name=output_result_1 offset=0x1c range=32  |
+| output_result  | s_axi_control | register  | offset   | name=output_result_2 offset=0x20 range=32  |
++----------------+---------------+-----------+----------+--------------------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------+--------+-------+----------------+
+| HW Interface | Direction | Length | Width | Location       |
++--------------+-----------+--------+-------+----------------+
+| m_axi_gmem   | read      | 32     | 32    | main.cpp:19:14 |
+| m_axi_gmem   | write     | 120    | 32    | main.cpp:22:11 |
++--------------+-----------+--------+-------+----------------+
+
+* Inferred Bursts and Widening Missed
++--------------+----------------+-------------------------------------------------------------------------------------------------------+------------+----------------+
+| HW Interface | Variable       | Problem                                                                                               | Resolution | Location       |
++--------------+----------------+-------------------------------------------------------------------------------------------------------+------------+----------------+
+| m_axi_gmem   | input_features | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | main.cpp:19:14 |
+| m_axi_gmem   | output_result  | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | main.cpp:22:11 |
++--------------+----------------+-------------------------------------------------------------------------------------------------------+------------+----------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++-------------------------+-----+--------+-------------+-----+--------+---------+
+| Name                    | DSP | Pragma | Variable    | Op  | Impl   | Latency |
++-------------------------+-----+--------+-------------+-----+--------+---------+
+| + iris_module           | 0   |        |             |     |        |         |
+|   grp_fu_190_p2         | -   |        | add_ln19_1  | add | fabric | 0       |
+|   grp_fu_228_p2         | -   |        | sub_ln19    | sub | fabric | 0       |
+|   sub_ln19_1_fu_288_p2  | -   |        | sub_ln19_1  | sub | fabric | 0       |
+|   grp_fu_190_p2         | -   |        | add_ln19_4  | add | fabric | 0       |
+|   grp_fu_228_p2         | -   |        | sub_ln19_2  | sub | fabric | 0       |
+|   sub_ln19_3_fu_313_p2  | -   |        | sub_ln19_3  | sub | fabric | 0       |
+|   grp_fu_190_p2         | -   |        | add_ln19_7  | add | fabric | 0       |
+|   grp_fu_228_p2         | -   |        | sub_ln19_4  | sub | fabric | 0       |
+|   sub_ln19_5_fu_334_p2  | -   |        | sub_ln19_5  | sub | fabric | 0       |
+|   grp_fu_190_p2         | -   |        | add_ln19_10 | add | fabric | 0       |
+|   grp_fu_228_p2         | -   |        | sub_ln19_6  | sub | fabric | 0       |
+|   sub_ln19_7_fu_359_p2  | -   |        | sub_ln19_7  | sub | fabric | 0       |
+|   grp_fu_190_p2         | -   |        | add_ln19_13 | add | fabric | 0       |
+|   grp_fu_228_p2         | -   |        | sub_ln19_8  | sub | fabric | 0       |
+|   sub_ln19_9_fu_380_p2  | -   |        | sub_ln19_9  | sub | fabric | 0       |
+|   grp_fu_190_p2         | -   |        | add_ln19_16 | add | fabric | 0       |
+|   grp_fu_228_p2         | -   |        | sub_ln19_10 | sub | fabric | 0       |
+|   sub_ln19_11_fu_401_p2 | -   |        | sub_ln19_11 | sub | fabric | 0       |
+|   grp_fu_190_p2         | -   |        | add_ln19_19 | add | fabric | 0       |
+|   grp_fu_228_p2         | -   |        | sub_ln19_12 | sub | fabric | 0       |
+|   sub_ln19_13_fu_422_p2 | -   |        | sub_ln19_13 | sub | fabric | 0       |
+|   grp_fu_190_p2         | -   |        | add_ln19_22 | add | fabric | 0       |
+|   grp_fu_228_p2         | -   |        | sub_ln19_14 | sub | fabric | 0       |
+|   sub_ln19_15_fu_447_p2 | -   |        | sub_ln19_15 | sub | fabric | 0       |
++-------------------------+-----+--------+-------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
+  No bind storage info in design
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------+---------------------------+--------------------------------------------+
+| Type      | Options                   | Location                                   |
++-----------+---------------------------+--------------------------------------------+
+| interface | s_axilite port=return     | main.cpp:9 in iris_module, return          |
+| interface | m_axi port=input_features | main.cpp:10 in iris_module, input_features |
+| interface | m_axi port=output_result  | main.cpp:11 in iris_module, output_result  |
+| unroll    |                           | main.cpp:17 in iris_module                 |
+| unroll    |                           | main.cpp:24 in iris_module                 |
++-----------+---------------------------+--------------------------------------------+
+
+

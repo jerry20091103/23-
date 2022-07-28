@@ -1,0 +1,7 @@
+<pragmas>
+<pragma file="main.cpp" line="17" pragmaType="unroll" parentfunction="iris_module" factor="-1" skip_exit_check="0"/>
+<pragma file="main.cpp" line="24" pragmaType="unroll" parentfunction="iris_module" factor="-1" skip_exit_check="0"/>
+<pragma file="main.cpp" line="9" pragmaType="interface" parentfunction="iris_module" mode="s_axilite" port="" bundle="" offset="-1" name="" clock="" impl="" register="0"/>
+<pragma file="main.cpp" line="10" pragmaType="interface" parentfunction="iris_module" mode="m_axi" port="input_features" bundle="" offset="" name="" depth="-1" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1"/>
+<pragma file="main.cpp" line="11" pragmaType="interface" parentfunction="iris_module" mode="m_axi" port="output_result" bundle="" offset="" name="" depth="-1" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1"/>
+</pragmas>

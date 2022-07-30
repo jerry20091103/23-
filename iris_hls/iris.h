@@ -5,6 +5,6 @@
 
 typedef signed int int32_t;
 
-void iris_module(int32_t input_features[32], int32_t *output_result);
+void sw_compute(volatile int* im, volatile int* output);
 
 #endif

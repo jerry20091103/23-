@@ -59,8 +59,6 @@
                                     									
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/win64/tools/systemc/include"/>
                                     									
-                                    <listOptionValue builtIn="false" value="E:/HLS_Projects/iris_hls"/>
-                                    									
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/include/ap_sysc"/>
                                     								
                                 </option>
@@ -94,8 +92,6 @@
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/win64/tools/auto_cc/include"/>
                                     									
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/win64/tools/systemc/include"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="E:/HLS_Projects/iris_hls"/>
                                     									
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/include/ap_sysc"/>
                                     								
@@ -231,8 +227,6 @@
                                     									
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/win64/tools/systemc/include"/>
                                     									
-                                    <listOptionValue builtIn="false" value="E:/HLS_Projects/iris_hls"/>
-                                    									
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/include/ap_sysc"/>
                                     								
                                 </option>
@@ -256,8 +250,6 @@
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/win64/tools/auto_cc/include"/>
                                     									
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/win64/tools/systemc/include"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="E:/HLS_Projects/iris_hls"/>
                                     									
                                     <listOptionValue builtIn="false" value="E:/Xilinx/Vitis_HLS/2022.1/include/ap_sysc"/>
                                     								

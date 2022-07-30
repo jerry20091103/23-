@@ -1,5 +1,5 @@
 
-set TopModule "iris_module"
+set TopModule "sw_compute"
 set ClockPeriod 10
 set ClockList ap_clk
 set HasVivadoClockPeriod 0
@@ -23,7 +23,7 @@ set ResetRegisterNum 0
 set FsmEncStyle onehot
 set MaxFanout 0
 set RtlPrefix {}
-set RtlSubPrefix iris_module_
+set RtlSubPrefix sw_compute_
 set ExtraCCFlags {}
 set ExtraCLdFlags {}
 set SynCheckOptions {}

@@ -6,4 +6,4 @@
 
 @echo off
 
-E:/Xilinx/Vivado/2022.1/bin/vivado  -notrace -mode batch -source ipi_example.tcl -tclargs xc7z020-clg400-1 ../xilinx_com_hls_iris_module_1_1.zip
+E:/Xilinx/Vivado/2022.1/bin/vivado  -notrace -mode batch -source ipi_example.tcl -tclargs xc7z020-clg400-1 ../xilinx_com_hls_sw_compute_1_2.zip

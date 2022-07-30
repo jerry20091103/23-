@@ -1,10 +1,10 @@
 
 
 ================================================================
-== Synthesis Summary Report of 'iris_module'
+== Synthesis Summary Report of 'sw_compute'
 ================================================================
 + General Information: 
-    * Date:           Thu Jul 28 18:23:12 2022
+    * Date:           Sat Jul 30 21:26:32 2022
     * Version:        2022.1 (Build 3526262 on Mon Apr 18 15:48:16 MDT 2022)
     * Project:        iris_hls_vitis
     * Solution:       solution1 (Vivado IP Flow Target)
@@ -15,12 +15,22 @@
 + Performance & Resource Estimates: 
     
     PS: '+' for module; 'o' for loop; '*' for dataflow
-    +---------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+-----------+-----+
-    |    Modules    | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |      |    |           |           |     |
-    |    & Loops    | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined| BRAM | DSP|     FF    |    LUT    | URAM|
-    +---------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+-----------+-----+
-    |+ iris_module  |     -|  0.00|      138|  1.380e+03|         -|      139|     -|        no|     -|   -|  1863 (1%)|  3184 (5%)|    -|
-    +---------------+------+------+---------+-----------+----------+---------+------+----------+------+----+-----------+-----------+-----+
+    +------------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+---------+-----------+-----------+-----+
+    |                                 Modules                                | Issue|      | Latency |  Latency  | Iteration|         | Trip |          |         |         |           |           |     |
+    |                                 & Loops                                | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|  BRAM   |   DSP   |     FF    |    LUT    | URAM|
+    +------------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+---------+-----------+-----------+-----+
+    |+ sw_compute                                                            |     -|  0.00|     2213|  2.213e+04|         -|     2214|     -|        no|  2 (~0%)|  17 (7%)|  3977 (3%)|  4531 (8%)|    -|
+    | + sw_compute_Pipeline_VITIS_LOOP_75_1                                  |     -|  0.00|      134|  1.340e+03|         -|      134|     -|        no|        -|        -|   65 (~0%)|  128 (~0%)|    -|
+    |  o VITIS_LOOP_75_1                                                     |     -|  7.30|      126|  1.260e+03|         3|        1|   125|       yes|        -|        -|          -|          -|    -|
+    | + sw_compute_Pipeline_VITIS_LOOP_79_2_VITIS_LOOP_80_3_VITIS_LOOP_81_4  |     -|  0.39|      772|  7.720e+03|         -|      772|     -|        no|        -|        -|  300 (~0%)|   562 (1%)|    -|
+    |  o VITIS_LOOP_79_2_VITIS_LOOP_80_3_VITIS_LOOP_81_4                     |    II|  7.30|      770|  7.700e+03|         6|        3|   256|       yes|        -|        -|          -|          -|    -|
+    | + sw_compute_Pipeline_VITIS_LOOP_89_5                                  |     -|  0.12|      135|  1.350e+03|         -|      135|     -|        no|        -|  1 (~0%)|  359 (~0%)|  303 (~0%)|    -|
+    |  o VITIS_LOOP_89_5                                                     |    II|  7.30|      133|  1.330e+03|         8|        2|    64|       yes|        -|        -|          -|          -|    -|
+    | + sw_compute_Pipeline_VITIS_LOOP_98_6_VITIS_LOOP_99_7                  |     -|  0.39|     1035|  1.035e+04|         -|     1035|     -|        no|        -|  14 (6%)|  1866 (1%)|  1408 (2%)|    -|
+    |  o VITIS_LOOP_98_6_VITIS_LOOP_99_7                                     |    II|  7.30|     1033|  1.033e+04|        44|       43|    24|       yes|        -|        -|          -|          -|    -|
+    | + sw_compute_Pipeline_VITIS_LOOP_107_9                                 |     -|  0.00|      127|  1.270e+03|         -|      127|     -|        no|        -|        -|   49 (~0%)|  126 (~0%)|    -|
+    |  o VITIS_LOOP_107_9                                                    |     -|  7.30|      121|  1.210e+03|         3|        1|   120|       yes|        -|        -|          -|          -|    -|
+    +------------------------------------------------------------------------+------+------+---------+-----------+----------+---------+------+----------+---------+---------+-----------+-----------+-----+
 
 
 ================================================================
@@ -42,18 +52,18 @@
 +---------------+------------+---------------+--------+----------+
 
 * S_AXILITE Registers
-+---------------+------------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
-| Interface     | Register         | Offset | Width | Access | Description                      | Bit Fields                                                           |
-+---------------+------------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
-| s_axi_control | CTRL             | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
-| s_axi_control | GIER             | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
-| s_axi_control | IP_IER           | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
-| s_axi_control | IP_ISR           | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
-| s_axi_control | input_features_1 | 0x10   | 32    | W      | Data signal of input_features    |                                                                      |
-| s_axi_control | input_features_2 | 0x14   | 32    | W      | Data signal of input_features    |                                                                      |
-| s_axi_control | output_result_1  | 0x1c   | 32    | W      | Data signal of output_result     |                                                                      |
-| s_axi_control | output_result_2  | 0x20   | 32    | W      | Data signal of output_result     |                                                                      |
-+---------------+------------------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
++---------------+----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| Interface     | Register | Offset | Width | Access | Description                      | Bit Fields                                                           |
++---------------+----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
+| s_axi_control | CTRL     | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 7=AUTO_RESTART 9=INTERRUPT |
+| s_axi_control | GIER     | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                             |
+| s_axi_control | IP_IER   | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN                                        |
+| s_axi_control | IP_ISR   | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST                                        |
+| s_axi_control | im_1     | 0x10   | 32    | W      | Data signal of im                |                                                                      |
+| s_axi_control | im_2     | 0x14   | 32    | W      | Data signal of im                |                                                                      |
+| s_axi_control | out_r_1  | 0x1c   | 32    | W      | Data signal of out_r             |                                                                      |
+| s_axi_control | out_r_2  | 0x20   | 32    | W      | Data signal of out_r             |                                                                      |
++---------------+----------+--------+-------+--------+----------------------------------+----------------------------------------------------------------------+
 
 * TOP LEVEL CONTROL
 +-----------+------------+-----------+
@@ -70,24 +80,23 @@
 == SW I/O Information
 ================================================================
 * Top Function Arguments
-+----------------+-----------+----------+
-| Argument       | Direction | Datatype |
-+----------------+-----------+----------+
-| input_features | inout     | int*     |
-| output_result  | inout     | int*     |
-+----------------+-----------+----------+
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| im       | inout     | pointer  |
+| out      | inout     | pointer  |
++----------+-----------+----------+
 
 * SW-to-HW Mapping
-+----------------+---------------+-----------+----------+--------------------------------------------+
-| Argument       | HW Interface  | HW Type   | HW Usage | HW Info                                    |
-+----------------+---------------+-----------+----------+--------------------------------------------+
-| input_features | m_axi_gmem    | interface |          |                                            |
-| input_features | s_axi_control | register  | offset   | name=input_features_1 offset=0x10 range=32 |
-| input_features | s_axi_control | register  | offset   | name=input_features_2 offset=0x14 range=32 |
-| output_result  | m_axi_gmem    | interface |          |                                            |
-| output_result  | s_axi_control | register  | offset   | name=output_result_1 offset=0x1c range=32  |
-| output_result  | s_axi_control | register  | offset   | name=output_result_2 offset=0x20 range=32  |
-+----------------+---------------+-----------+----------+--------------------------------------------+
++----------+---------------+-----------+----------+--------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                        |
++----------+---------------+-----------+----------+--------------------------------+
+| im       | m_axi_gmem    | interface |          |                                |
+| im       | s_axi_control | register  | offset   | name=im_1 offset=0x10 range=32 |
+| im       | s_axi_control | register  | offset   | name=im_2 offset=0x14 range=32 |
+| out      | m_axi_gmem    | interface |          |                                |
+| out      | s_axi_control | interface | offset   |                                |
++----------+---------------+-----------+----------+--------------------------------+
 
 
 ================================================================
@@ -95,75 +104,100 @@
 ================================================================
  Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
 
-* Inferred Burst Summary
-+--------------+-----------+--------+-------+----------------+
-| HW Interface | Direction | Length | Width | Location       |
-+--------------+-----------+--------+-------+----------------+
-| m_axi_gmem   | read      | 32     | 32    | main.cpp:19:14 |
-| m_axi_gmem   | write     | 120    | 32    | main.cpp:22:11 |
-+--------------+-----------+--------+-------+----------------+
-
 * Inferred Bursts and Widening Missed
-+--------------+----------------+-------------------------------------------------------------------------------------------------------+------------+----------------+
-| HW Interface | Variable       | Problem                                                                                               | Resolution | Location       |
-+--------------+----------------+-------------------------------------------------------------------------------------------------------+------------+----------------+
-| m_axi_gmem   | input_features | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | main.cpp:19:14 |
-| m_axi_gmem   | output_result  | Could not widen since type i32 size is greater than or equal to the max_widen_bitwidth threshold of 0 | 214-353    | main.cpp:22:11 |
-+--------------+----------------+-------------------------------------------------------------------------------------------------------+------------+----------------+
++--------------+----------+-------------------------------------------------+------------+-----------------+
+| HW Interface | Variable | Problem                                         | Resolution | Location        |
++--------------+----------+-------------------------------------------------+------------+-----------------+
+| m_axi_gmem   | im       | Volatile or Atomic access cannot be transformed | 214-227    | main.cpp:76:18  |
+| m_axi_gmem   | out      | Volatile or Atomic access cannot be transformed | 214-227    | main.cpp:108:16 |
++--------------+----------+-------------------------------------------------+------------+-----------------+
 
     * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
 
 ================================================================
 == Bind Op Report
 ================================================================
-+-------------------------+-----+--------+-------------+-----+--------+---------+
-| Name                    | DSP | Pragma | Variable    | Op  | Impl   | Latency |
-+-------------------------+-----+--------+-------------+-----+--------+---------+
-| + iris_module           | 0   |        |             |     |        |         |
-|   grp_fu_190_p2         | -   |        | add_ln19_1  | add | fabric | 0       |
-|   grp_fu_228_p2         | -   |        | sub_ln19    | sub | fabric | 0       |
-|   sub_ln19_1_fu_288_p2  | -   |        | sub_ln19_1  | sub | fabric | 0       |
-|   grp_fu_190_p2         | -   |        | add_ln19_4  | add | fabric | 0       |
-|   grp_fu_228_p2         | -   |        | sub_ln19_2  | sub | fabric | 0       |
-|   sub_ln19_3_fu_313_p2  | -   |        | sub_ln19_3  | sub | fabric | 0       |
-|   grp_fu_190_p2         | -   |        | add_ln19_7  | add | fabric | 0       |
-|   grp_fu_228_p2         | -   |        | sub_ln19_4  | sub | fabric | 0       |
-|   sub_ln19_5_fu_334_p2  | -   |        | sub_ln19_5  | sub | fabric | 0       |
-|   grp_fu_190_p2         | -   |        | add_ln19_10 | add | fabric | 0       |
-|   grp_fu_228_p2         | -   |        | sub_ln19_6  | sub | fabric | 0       |
-|   sub_ln19_7_fu_359_p2  | -   |        | sub_ln19_7  | sub | fabric | 0       |
-|   grp_fu_190_p2         | -   |        | add_ln19_13 | add | fabric | 0       |
-|   grp_fu_228_p2         | -   |        | sub_ln19_8  | sub | fabric | 0       |
-|   sub_ln19_9_fu_380_p2  | -   |        | sub_ln19_9  | sub | fabric | 0       |
-|   grp_fu_190_p2         | -   |        | add_ln19_16 | add | fabric | 0       |
-|   grp_fu_228_p2         | -   |        | sub_ln19_10 | sub | fabric | 0       |
-|   sub_ln19_11_fu_401_p2 | -   |        | sub_ln19_11 | sub | fabric | 0       |
-|   grp_fu_190_p2         | -   |        | add_ln19_19 | add | fabric | 0       |
-|   grp_fu_228_p2         | -   |        | sub_ln19_12 | sub | fabric | 0       |
-|   sub_ln19_13_fu_422_p2 | -   |        | sub_ln19_13 | sub | fabric | 0       |
-|   grp_fu_190_p2         | -   |        | add_ln19_22 | add | fabric | 0       |
-|   grp_fu_228_p2         | -   |        | sub_ln19_14 | sub | fabric | 0       |
-|   sub_ln19_15_fu_447_p2 | -   |        | sub_ln19_15 | sub | fabric | 0       |
-+-------------------------+-----+--------+-------------+-----+--------+---------+
++------------------------------------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| Name                                                                   | DSP | Pragma | Variable    | Op  | Impl   | Latency |
++------------------------------------------------------------------------+-----+--------+-------------+-----+--------+---------+
+| + sw_compute                                                           | 17  |        |             |     |        |         |
+|  + sw_compute_Pipeline_VITIS_LOOP_75_1                                 | 0   |        |             |     |        |         |
+|    add_ln75_fu_124_p2                                                  | -   |        | add_ln75    | add | fabric | 0       |
+|  + sw_compute_Pipeline_VITIS_LOOP_79_2_VITIS_LOOP_80_3_VITIS_LOOP_81_4 | 0   |        |             |     |        |         |
+|    empty_28_fu_337_p2                                                  | -   |        | empty_28    | add | fabric | 0       |
+|    add_ln79_fu_198_p2                                                  | -   |        | add_ln79    | add | fabric | 0       |
+|    add_ln79_1_fu_224_p2                                                | -   |        | add_ln79_1  | add | fabric | 0       |
+|    p_mid131_fu_382_p2                                                  | -   |        | p_mid131    | add | fabric | 0       |
+|    add_ln80_fu_260_p2                                                  | -   |        | add_ln80    | add | fabric | 0       |
+|    p_mid16_fu_406_p2                                                   | -   |        | p_mid16     | add | fabric | 0       |
+|    add_ln82_fu_424_p2                                                  | -   |        | add_ln82    | add | fabric | 0       |
+|    add_ln82_1_fu_304_p2                                                | -   |        | add_ln82_1  | add | fabric | 0       |
+|    add_ln82_2_fu_530_p2                                                | -   |        | add_ln82_2  | add | fabric | 0       |
+|    add_ln81_fu_481_p2                                                  | -   |        | add_ln81    | add | fabric | 0       |
+|    add_ln80_1_fu_486_p2                                                | -   |        | add_ln80_1  | add | fabric | 0       |
+|  + sw_compute_Pipeline_VITIS_LOOP_89_5                                 | 1   |        |             |     |        |         |
+|    mul_32s_10ns_32_2_1_U8                                              | 1   |        | mul_ln93    | mul | auto   | 1       |
+|    sub_ln93_fu_130_p2                                                  | -   |        | sub_ln93    | sub | fabric | 0       |
+|    sub_ln93_1_fu_149_p2                                                | -   |        | sub_ln93_1  | sub | fabric | 0       |
+|    add_ln89_fu_97_p2                                                   | -   |        | add_ln89    | add | fabric | 0       |
+|  + sw_compute_Pipeline_VITIS_LOOP_98_6_VITIS_LOOP_99_7                 | 14  |        |             |     |        |         |
+|    empty_24_fu_370_p2                                                  | -   |        | empty_24    | sub | fabric | 0       |
+|    add_ln98_fu_301_p2                                                  | -   |        | add_ln98    | add | fabric | 0       |
+|    add_ln98_9_fu_324_p2                                                | -   |        | add_ln98_9  | add | fabric | 0       |
+|    p_mid154_fu_390_p2                                                  | -   |        | p_mid154    | sub | fabric | 0       |
+|    add_ln98_1_fu_514_p2                                                | -   |        | add_ln98_1  | add | fabric | 0       |
+|    add_ln98_2_fu_630_p2                                                | -   |        | add_ln98_2  | add | fabric | 0       |
+|    add_ln98_3_fu_655_p2                                                | -   |        | add_ln98_3  | add | fabric | 0       |
+|    add_ln98_4_fu_679_p2                                                | -   |        | add_ln98_4  | add | fabric | 0       |
+|    add_ln98_5_fu_703_p2                                                | -   |        | add_ln98_5  | add | fabric | 0       |
+|    add_ln98_6_fu_728_p2                                                | -   |        | add_ln98_6  | add | fabric | 0       |
+|    add_ln98_7_fu_752_p2                                                | -   |        | add_ln98_7  | add | fabric | 0       |
+|    add_ln98_8_fu_776_p2                                                | -   |        | add_ln98_8  | add | fabric | 0       |
+|    add_ln100_fu_423_p2                                                 | -   |        | add_ln100   | add | fabric | 0       |
+|    add_ln100_1_fu_478_p2                                               | -   |        | add_ln100_1 | add | fabric | 0       |
+|    add_ln102_fu_607_p2                                                 | -   |        | add_ln102   | add | fabric | 0       |
+|    mul_32s_11s_32_2_1_U12                                              | 2   |        | mul_ln102_1 | mul | auto   | 1       |
+|    add_ln102_1_fu_650_p2                                               | -   |        | add_ln102_1 | add | fabric | 0       |
+|    mul_32s_11s_32_2_1_U13                                              | 2   |        | mul_ln102_2 | mul | auto   | 1       |
+|    add_ln102_2_fu_674_p2                                               | -   |        | add_ln102_2 | add | fabric | 0       |
+|    mul_32s_11s_32_2_1_U14                                              | 2   |        | mul_ln102_3 | mul | auto   | 1       |
+|    add_ln102_3_fu_698_p2                                               | -   |        | add_ln102_3 | add | fabric | 0       |
+|    mul_32s_11s_32_2_1_U15                                              | 2   |        | mul_ln102_4 | mul | auto   | 1       |
+|    add_ln102_4_fu_723_p2                                               | -   |        | add_ln102_4 | add | fabric | 0       |
+|    mul_32s_11s_32_2_1_U16                                              | 2   |        | mul_ln102_5 | mul | auto   | 1       |
+|    add_ln102_5_fu_747_p2                                               | -   |        | add_ln102_5 | add | fabric | 0       |
+|    mul_32s_11s_32_2_1_U17                                              | 2   |        | mul_ln102_6 | mul | auto   | 1       |
+|    add_ln102_6_fu_771_p2                                               | -   |        | add_ln102_6 | add | fabric | 0       |
+|    mul_32s_11s_32_2_1_U18                                              | 2   |        | mul_ln102_7 | mul | auto   | 1       |
+|    add_ln102_7_fu_815_p2                                               | -   |        | add_ln102_7 | add | fabric | 0       |
+|    add_ln99_fu_800_p2                                                  | -   |        | add_ln99    | add | fabric | 0       |
+|  + sw_compute_Pipeline_VITIS_LOOP_107_9                                | 0   |        |             |     |        |         |
+|    add_ln107_fu_134_p2                                                 | -   |        | add_ln107   | add | fabric | 0       |
++------------------------------------------------------------------------+-----+--------+-------------+-----+--------+---------+
 
 
 ================================================================
 == Bind Storage Report
 ================================================================
-  No bind storage info in design
++--------------+------+------+--------+----------+---------+------+---------+
+| Name         | BRAM | URAM | Pragma | Variable | Storage | Impl | Latency |
++--------------+------+------+--------+----------+---------+------+---------+
+| + sw_compute | 2    | 0    |        |          |         |      |         |
+|   acc_U      | 2    | -    |        | acc      | ram_t2p | auto | 1       |
+|   w_U        | -    | -    |        | w        | rom_1p  | auto | 1       |
++--------------+------+------+--------+----------+---------+------+---------+
+
 
 ================================================================
 == Pragma Report
 ================================================================
 * Valid Pragma Syntax
-+-----------+---------------------------+--------------------------------------------+
-| Type      | Options                   | Location                                   |
-+-----------+---------------------------+--------------------------------------------+
-| interface | s_axilite port=return     | main.cpp:9 in iris_module, return          |
-| interface | m_axi port=input_features | main.cpp:10 in iris_module, input_features |
-| interface | m_axi port=output_result  | main.cpp:11 in iris_module, output_result  |
-| unroll    |                           | main.cpp:17 in iris_module                 |
-| unroll    |                           | main.cpp:24 in iris_module                 |
-+-----------+---------------------------+--------------------------------------------+
++-----------+---------------------------------------+-----------------------------------+
+| Type      | Options                               | Location                          |
++-----------+---------------------------------------+-----------------------------------+
+| interface | s_axilite port=return                 | main.cpp:71 in sw_compute, return |
+| interface | m_axi depth=125 offset=slave port=im  | main.cpp:72 in sw_compute, im     |
+| interface | m_axi depth=125 offset=slave port=out | main.cpp:73 in sw_compute, out    |
++-----------+---------------------------------------+-----------------------------------+
 
 

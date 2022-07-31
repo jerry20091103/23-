@@ -1,0 +1,84 @@
+import numpy as np
+from time import time
+import matplotlib.pyplot as plt 
+
+from pynq import Overlay
+from pynq import allocate
+
+if __name__ == "__main__":
+    ol = Overlay("/home/xilinx/jupyter_notebooks/iris/iris_hls_v2.bit")
+    ip_iris = ol.sw_compute_0
+
+    # calculate the number of input data
+    Image = open("image.txt", "r+")
+    numImage = 0
+    line = Image.readline()
+    while line:
+        numImage = numImage + 1
+        line = Image.readline()
+
+    # allocate memory 
+    inBuffer = allocate(shape=(numImage,), dtype=np.int32) 
+    outBuffer = allocate(shape=(120,), dtype=np.int32)
+    outBufferPy = allocate(shape=(120,), dtype=np.int32)
+    
+    # prepare input data
+    Image.seek(0)
+    for i in range(numImage):
+        line = Image.readline()
+        inBuffer[i] = int(line)
+        outBufferPy[i] = int(line)
+    Image.close()
+
+    # *start the computation for hls hardware
+    timeKernelStart = time()
+    # write input address
+    ip_iris.write(0x10, inBuffer.device_address)
+    # write output address
+    ip_iris.write(0x1C, outBuffer.device_address)
+    # ap_start
+    ip_iris.write(0x00, 0x01)
+    # wait for the computation to finish
+    while (ip_iris.read(0x00) & 0x4) == 0x0:
+        continue
+    timeKernelEnd = time()
+    print("hardware execution time: " + str(timeKernelEnd - timeKernelStart) + " s")
+    
+    # *prepare weights data for python
+    scale_FC1 = 402
+    scale_FC2 = 288
+    weight = [31, 46, -99, -89, 26, 20, -91, -85, 62, -125, 127, -31, 60, -92, 
+            112, -17, 24, -40, 98, 14, -2, -9, -44, -66, 2, -17, -49, -66, -8,
+            -16, 3, 13, 82, 68, -128, -128, -126, 38, 37, 1, 29, 34, 4, 0, -19,
+            29, 35, -4, -80, -66, 14, 19, 26, -45, -48, -3, -843, -91, 654 ]
+
+    # *start the computation for python
+    timePythonStart = time()
+    for i in range(8):
+        for j in range(8):
+            for k in range(4):
+                outBufferPy[32+8*i+j] += outBufferPy[4*i+k]*weight[4*j+k] 
+    for i in range(32, 96):
+        # Relu
+        if(outBufferPy[i]<0):
+            outBufferPy[i] = 0
+        # Quan
+        outBufferPy[i] = outBufferPy[i]*scale_FC1 / 65536
+        if(outBufferPy[i]>127):
+            outBufferPy[i] = 127
+    for i in range(8):
+        for j in range(3):
+            outBufferPy[96+3*i+j] += weight[56+j]
+            for k in range(8):
+                outBufferPy[96+3*i+j] += outBufferPy[32+8*i+k]*weight[32+8*j+k]
+    timePythonEnd = time()
+    print("Python execution time: " + str(timePythonEnd - timePythonStart) + " s")
+    
+    # *compare results
+    if(np.array_equal(outBuffer, outBufferPy)):
+        print("results are the same!")
+    else:
+        print("results are different!")
+        for i in range(120):
+            print(f"{outBuffer[i]} <-> {outBufferPy[i]}")
+

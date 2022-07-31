@@ -89,9 +89,12 @@ if __name__ == "__main__":
     
     # *compare results
     if(np.array_equal(outBuffer, outBufferPy)):
-        print("results are the same!")
+        print(">> results are the same!")
+        print(">> the activation & result:")
+        print(outBuffer)
     else:
         print("results are different!")
         for i in range(inputNum*16):
             print(f"index {i}: {outBuffer[i]} <-> {outBufferPy[i]}")
+            
 

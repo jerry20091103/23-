@@ -1,6 +1,6 @@
 #include "iris.h"
-#define inputNum 16
-#define totalmem  15*inputNum
+#define inputNum 30
+#define totalmem  16*inputNum
 const int32_t scale_FC1 = 402;
 const int32_t scale_FC2 = 288;
 
@@ -107,6 +107,20 @@ void sw_compute(volatile int* im, volatile int* out){
             }
         }
     }
+    //maxpooling
+    for(int i = 0; i < inputNum; i++){
+        //find max
+        int max = acc[inputNum*12+3*i];
+        int max_index = 0, j;
+        for(j = 0; j < 3; j++){
+            if(acc[inputNum*12+3*i+j] > max){
+                max = acc[inputNum*12+3*i+j];
+                max_index = j;
+            }
+        }
+        acc[inputNum*15+i] = j;
+    }
+
     for(int i=0;i<totalmem;i++){
         out[i] = acc[i];
     }

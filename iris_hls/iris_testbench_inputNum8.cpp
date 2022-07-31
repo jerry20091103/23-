@@ -8,8 +8,8 @@ using namespace std;
 const int32_t scale_FC1 = 402;
 const int32_t scale_FC2 = 288;
 
-int out[inputNum*15];
-int im[inputNum*15] = {
+int out[inputNum*16];
+int im[inputNum*16] = {
 74,
 1,
 -91,

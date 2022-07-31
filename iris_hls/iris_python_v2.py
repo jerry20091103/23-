@@ -11,20 +11,21 @@ if __name__ == "__main__":
 
     # calculate the number of input data
     Image = open("image.txt", "r+")
-    numImage = 0
+    inputNum = 0
     line = Image.readline()
     while line:
-        numImage = numImage + 1
+        inputNum = inputNum + 1
         line = Image.readline()
+    inputNum = inputNum/4
 
     # allocate memory 
-    inBuffer = allocate(shape=(numImage,), dtype=np.int32) 
-    outBuffer = allocate(shape=(120,), dtype=np.int32)
-    outBufferPy = allocate(shape=(120,), dtype=np.int32)
+    inBuffer = allocate(shape=(inputNum*4,), dtype=np.int32) 
+    outBuffer = allocate(shape=(inputNum*16,), dtype=np.int32)
+    outBufferPy = allocate(shape=(inputNum*16,), dtype=np.int32)
     
     # prepare input data
     Image.seek(0)
-    for i in range(numImage):
+    for i in range(inputNum*4):
         line = Image.readline()
         inBuffer[i] = int(line)
         outBufferPy[i] = int(line)
@@ -54,11 +55,11 @@ if __name__ == "__main__":
 
     # *start the computation for python
     timePythonStart = time()
-    for i in range(8):
+    for i in range(inputNum):
         for j in range(8):
             for k in range(4):
-                outBufferPy[32+8*i+j] += outBufferPy[4*i+k]*weight[4*j+k] 
-    for i in range(32, 96):
+                outBufferPy[inputNum*4+8*i+j] += outBufferPy[4*i+k]*weight[4*j+k] 
+    for i in range(inputNum*4, inputNum*12):
         # Relu
         if(outBufferPy[i]<0):
             outBufferPy[i] = 0
@@ -66,11 +67,21 @@ if __name__ == "__main__":
         outBufferPy[i] = outBufferPy[i]*scale_FC1 / 65536
         if(outBufferPy[i]>127):
             outBufferPy[i] = 127
-    for i in range(8):
+    for i in range(inputNum):
         for j in range(3):
-            outBufferPy[96+3*i+j] += weight[56+j]
+            outBufferPy[inputNum*12+3*i+j] += weight[56+j]
             for k in range(8):
-                outBufferPy[96+3*i+j] += outBufferPy[32+8*i+k]*weight[32+8*j+k]
+                outBufferPy[inputNum*12+3*i+j] += outBufferPy[inputNum*4+8*i+k]*weight[32+8*j+k]
+    #maxpooling
+    for i in range(inputNum):
+        #find max
+        max = outBufferPy[inputNum*12+3*i]
+        max_index = 0, j
+        for j in range(3):
+            if(outBufferPy[inputNum*12+3*i+j] > max):
+                max = outBufferPy[inputNum*12+3*i+j]
+                max_index = j
+        outBufferPy[inputNum*15+i] = j
     timePythonEnd = time()
     print("Python execution time: " + str(timePythonEnd - timePythonStart) + " s")
     

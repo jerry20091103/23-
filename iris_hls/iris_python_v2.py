@@ -90,8 +90,9 @@ if __name__ == "__main__":
     # *compare results
     if(np.array_equal(outBuffer, outBufferPy)):
         print(">> results are the same!")
-        print(">> the activation & result:")
-        print(outBuffer)
+        print(">> the result:")
+        for i in range(inputNum):
+            print(f"   image{i} : {outBuffer[inputNum*15+i]}")
     else:
         print("results are different!")
         for i in range(inputNum*16):

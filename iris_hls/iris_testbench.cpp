@@ -6,7 +6,7 @@ const int32_t scale_FC1 = 402;
 const int32_t scale_FC2 = 288;
 using namespace std;
 int out[125];
-long long im[125] = {
+int im[125] = {
 74,
 1,
 -91,
@@ -41,7 +41,7 @@ long long im[125] = {
 -128
 };
 
-long long g[] = {
+int g[] = {
 74,
 1,
 -91,

@@ -75,7 +75,7 @@ void sw_compute(volatile int* im, volatile int* out){
     for(int i=0;i<125;i++){
         acc[i] = im[i];
     }
-//FC1
+    //FC1
     for(int i = 0; i < 8; i++){
         for(int j = 0; j < 8; j++){
             for(int k = 0; k < 4; k++){

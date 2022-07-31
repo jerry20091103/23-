@@ -118,7 +118,7 @@ void sw_compute(volatile int* im, volatile int* out){
                 max_index = j;
             }
         }
-        acc[inputNum*15+i] = j;
+        acc[inputNum*15+i] = max_index;
     }
 
     for(int i=0;i<totalmem;i++){

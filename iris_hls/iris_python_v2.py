@@ -6,7 +6,7 @@ from pynq import Overlay
 from pynq import allocate
 
 if __name__ == "__main__":
-    ol = Overlay("/home/xilinx/jupyter_notebooks/iris/iris_hls_v2.bit")
+    ol = Overlay("/home/xilinx/jupyter_notebooks/iris/iris_hls_v3.bit")
     ip_iris = ol.sw_compute_0
 
     # calculate the number of input data
@@ -16,16 +16,18 @@ if __name__ == "__main__":
     while line:
         inputNum = inputNum + 1
         line = Image.readline()
-    inputNum = inputNum/4
+    inputNum = int(inputNum/4)
 
     # allocate memory 
-    inBuffer = allocate(shape=(inputNum*4,), dtype=np.int32) 
-    outBuffer = allocate(shape=(inputNum*16,), dtype=np.int32)
-    outBufferPy = allocate(shape=(inputNum*16,), dtype=np.int32)
+    inputmem = inputNum*4
+    totalmem = inputNum*16
+    inBuffer = allocate(shape=(inputmem,), dtype=np.int32) 
+    outBuffer = allocate(shape=(totalmem,), dtype=np.int32)
+    outBufferPy = allocate(shape=(totalmem,), dtype=np.int32)
     
     # prepare input data
     Image.seek(0)
-    for i in range(inputNum*4):
+    for i in range(inputmem):
         line = Image.readline()
         inBuffer[i] = int(line)
         outBufferPy[i] = int(line)
@@ -76,12 +78,12 @@ if __name__ == "__main__":
     for i in range(inputNum):
         #find max
         max = outBufferPy[inputNum*12+3*i]
-        max_index = 0, j
+        max_index = 0
         for j in range(3):
             if(outBufferPy[inputNum*12+3*i+j] > max):
                 max = outBufferPy[inputNum*12+3*i+j]
                 max_index = j
-        outBufferPy[inputNum*15+i] = j
+        outBufferPy[inputNum*15+i] = max_index
     timePythonEnd = time()
     print("Python execution time: " + str(timePythonEnd - timePythonStart) + " s")
     
@@ -90,6 +92,6 @@ if __name__ == "__main__":
         print("results are the same!")
     else:
         print("results are different!")
-        for i in range(120):
-            print(f"{outBuffer[i]} <-> {outBufferPy[i]}")
+        for i in range(inputNum*16):
+            print(f"index {i}: {outBuffer[i]} <-> {outBufferPy[i]}")
 

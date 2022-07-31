@@ -1,6 +1,6 @@
-
-
 #include "iris.h"
+#define inputNum 16
+#define totalmem  15*inputNum
 const int32_t scale_FC1 = 402;
 const int32_t scale_FC2 = 288;
 
@@ -71,40 +71,43 @@ void sw_compute(volatile int* im, volatile int* out){
     #pragma HLS INTERFACE  s_axilite port=return
     #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=im
     #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=out
-    int acc[125];
-    for(int i=0;i<125;i++){
+    
+    int acc[totalmem];
+    for(int i = 0; i < totalmem; i++){
         acc[i] = im[i];
     }
     //FC1
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < inputNum; i++){
         for(int j = 0; j < 8; j++){
+			#pragma HLS UNROLL
             for(int k = 0; k < 4; k++){
-                acc[32+8*i+j] += acc[4*i+k]*w[4*j+k];
-                //cout << 32+8*i+j << ", " << 4*i+k << ", " << 4*j+k <<"\n";
+				#pragma HLS UNROLL
+                acc[inputNum*4+8*i+j] += acc[4*i+k]*w[4*j+k];
             }
         }
     }
 
 
-    for(int i = 32; i < 96; i++){
-        //Relu
+    for(int i = inputNum*4; i < inputNum*12; i++){
+		#pragma HLS UNROLL
+    	//Relu
         if(acc[i]<0)acc[i] = 0;
         //Quan
         acc[i] = acc[i]*scale_FC1 / 65536;
-        //cout << i << ": = "<<im[i]<<"\n";
         if(acc[i]>127)acc[i] = 127;
     }
     //FC2
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < inputNum; i++){
         for(int j = 0; j < 3; j++){
-            acc[96+3*i+j] += w[56+j];
+			#pragma HLS UNROLL
+            acc[inputNum*12+3*i+j] += w[56+j];
             for(int k = 0; k < 8; k++){
-                acc[96+3*i+j] += acc[32+8*i+k]*w[32+8*j+k];
-                //cout << 96+3*i+j << ", " << 32+8*i+k << ", " << 32+8*j+k <<"\n";
+				#pragma HLS UNROLL
+                acc[inputNum*12+3*i+j] += acc[inputNum*4+8*i+k]*w[32+8*j+k];
             }
         }
     }
-    for(int i=0;i<120;i++){
+    for(int i=0;i<totalmem;i++){
         out[i] = acc[i];
     }
     return;

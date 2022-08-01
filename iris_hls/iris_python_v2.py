@@ -35,6 +35,8 @@ if __name__ == "__main__":
 
     # *start the computation for hls hardware
     timeKernelStart = time()
+    # write input data number
+    ip_iris.write(0x28, inputNum)
     # write input address
     ip_iris.write(0x10, inBuffer.device_address)
     # write output address
@@ -89,7 +91,7 @@ if __name__ == "__main__":
     
     # *compare results
     if(np.array_equal(outBuffer, outBufferPy)):
-        print(">> results are the same!")
+        print(f">> {inputNum} image results are the same!")
         print(">> the result:")
         for i in range(inputNum):
             print(f"   image{i} : {outBuffer[inputNum*15+i]}")

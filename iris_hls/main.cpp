@@ -1,5 +1,5 @@
 #include "iris.h"
-#define inputNum 30
+
 #define totalmem  16*inputNum
 const int32_t scale_FC1 = 402;
 const int32_t scale_FC2 = 288;
@@ -67,14 +67,14 @@ long long w[] = {
 };
 
 
-void sw_compute(volatile int* im, volatile int* out){
+void sw_compute(volatile int* im, volatile int* out, int inputNum){
     #pragma HLS INTERFACE  s_axilite port=return
     #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=im
     #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=out
-    
-    int acc[totalmem];
+    #pragma HLS INTERFACE  s_axilite port=inputNum
+
     for(int i = 0; i < totalmem; i++){
-        acc[i] = im[i];
+        out[i] = im[i];
     }
     //FC1
     for(int i = 0; i < inputNum; i++){
@@ -82,7 +82,7 @@ void sw_compute(volatile int* im, volatile int* out){
 			#pragma HLS UNROLL
             for(int k = 0; k < 4; k++){
 				#pragma HLS UNROLL
-                acc[inputNum*4+8*i+j] += acc[4*i+k]*w[4*j+k];
+                out[inputNum*4+8*i+j] += out[4*i+k]*w[4*j+k];
             }
         }
     }
@@ -91,38 +91,34 @@ void sw_compute(volatile int* im, volatile int* out){
     for(int i = inputNum*4; i < inputNum*12; i++){
 		#pragma HLS UNROLL
     	//Relu
-        if(acc[i]<0)acc[i] = 0;
+        if(out[i]<0)out[i] = 0;
         //Quan
-        acc[i] = acc[i]*scale_FC1 / 65536;
-        if(acc[i]>127)acc[i] = 127;
+        out[i] = out[i]*scale_FC1 / 65536;
+        if(out[i]>127)out[i] = 127;
     }
     //FC2
     for(int i = 0; i < inputNum; i++){
         for(int j = 0; j < 3; j++){
 			#pragma HLS UNROLL
-            acc[inputNum*12+3*i+j] += w[56+j];
+            out[inputNum*12+3*i+j] += w[56+j];
             for(int k = 0; k < 8; k++){
 				#pragma HLS UNROLL
-                acc[inputNum*12+3*i+j] += acc[inputNum*4+8*i+k]*w[32+8*j+k];
+                out[inputNum*12+3*i+j] += out[inputNum*4+8*i+k]*w[32+8*j+k];
             }
         }
     }
     //maxpooling
     for(int i = 0; i < inputNum; i++){
         //find max
-        int max = acc[inputNum*12+3*i];
+        int max = out[inputNum*12+3*i];
         int max_index = 0, j;
         for(j = 0; j < 3; j++){
-            if(acc[inputNum*12+3*i+j] > max){
-                max = acc[inputNum*12+3*i+j];
+            if(out[inputNum*12+3*i+j] > max){
+                max = out[inputNum*12+3*i+j];
                 max_index = j;
             }
         }
-        acc[inputNum*15+i] = max_index;
-    }
-
-    for(int i=0;i<totalmem;i++){
-        out[i] = acc[i];
+        out[inputNum*15+i] = max_index;
     }
     return;
 }

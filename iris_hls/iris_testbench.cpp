@@ -650,7 +650,7 @@ static int sw_validate()
 
 int main(){
     unsigned errors = 0;
-    sw_compute(im,out, inputNum);
+    sw_compute(im,out);
     errors = sw_validate();
     if (errors)
         printf("[FAIL] There are some errors QQ\n");

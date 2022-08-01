@@ -4,7 +4,7 @@
 const int32_t scale_FC1 = 402;
 const int32_t scale_FC2 = 288;
 
-long long w[] = {
+int16_t w[] = {
 31,
 46,
 -99,
@@ -67,7 +67,7 @@ long long w[] = {
 };
 
 
-void sw_compute(volatile int* im, volatile int* out){
+void sw_compute(volatile int16_t* im, volatile int* out){
     #pragma HLS INTERFACE  s_axilite port=return
     #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=im
     #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=out

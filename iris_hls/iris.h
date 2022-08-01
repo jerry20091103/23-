@@ -4,7 +4,7 @@
 
 
 typedef signed int int32_t;
-
+typedef short int int16_t;
 void sw_compute(volatile int* im, volatile int* output);
 
 #endif

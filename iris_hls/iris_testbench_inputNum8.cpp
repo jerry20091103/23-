@@ -9,7 +9,7 @@ const int32_t scale_FC1 = 402;
 const int32_t scale_FC2 = 288;
 
 int out[inputNum*16];
-int im[inputNum*16] = {
+short int im[inputNum*16] = {
 74,
 1,
 -91,

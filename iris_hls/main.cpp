@@ -69,14 +69,14 @@ long long w[] = {
 };
 
 
-void sw_compute(volatile ap_int<8>* im, volatile int* out){
+void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
     #pragma HLS INTERFACE  s_axilite port=return
     #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=im
-    #pragma HLS INTERFACE  m_axi depth=480 offset=slave port=out
+    #pragma HLS INTERFACE  m_axi depth=30 offset=slave port=out
     
 	ap_int<8> acc[12*inputNum];
 	int fc2_acc[3*inputNum];
-	ap_int<2>result[inputNum];
+	ap_int<3>result[inputNum];
     for(int i = 0; i < 12*inputNum; i++){
         acc[i] = im[i];
     }
@@ -88,7 +88,6 @@ void sw_compute(volatile ap_int<8>* im, volatile int* out){
             for(int k = 0; k < 4; k++){
 				#pragma HLS UNROLL
             	temp += acc[4*i+k]*w[4*j+k];
-                acc[inputNum*4+8*i+j] += acc[4*i+k]*w[4*j+k];
 
             }
             if(temp<0)temp =0;
@@ -100,15 +99,6 @@ void sw_compute(volatile ap_int<8>* im, volatile int* out){
         }
     }
 
-
-//    for(int i = inputNum*4; i < inputNum*12; i++){
-//		#pragma HLS UNROLL
-//    	//Relu
-//        if(acc[i]<0)acc[i] = 0;
-//        //Quan
-//        acc[i] = acc[i]*scale_FC1 / 65536;
-//        if(acc[i]>127)acc[i] = 127;
-//    }
     //FC2
     for(int i = 0; i < inputNum; i++){
         for(int j = 0; j < 3; j++){
@@ -133,17 +123,17 @@ void sw_compute(volatile ap_int<8>* im, volatile int* out){
         }
         result[i] = max_index;
     }
-    int fc1Num = 12*inputNum;
-    int fc2Num = 3*inputNum;
-    int totalacc = 15*inputNum;
-    for(int i=0;i<fc1Num;i++){
-        out[i] = acc[i];
-    }
-    for(int i=0;i<fc2Num;i++){
-    	out[fc1Num+i] = fc2_acc[i];
-    }
+//    int fc1Num = 12*inputNum;
+//    int fc2Num = 3*inputNum;
+//    int totalacc = 15*inputNum;
+//    for(int i=0;i<fc1Num;i++){
+//        out[i] = acc[i];
+//    }
+//    for(int i=0;i<fc2Num;i++){
+//    	out[fc1Num+i] = fc2_acc[i];
+//    }
     for(int i=0;i<inputNum;i++){
-    	out[i+totalacc] = result[i];
+    	out[i] = result[i];
     }
     return;
 }

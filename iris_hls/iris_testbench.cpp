@@ -8,7 +8,7 @@ using namespace std;
 const int32_t scale_FC1 = 402;
 const int32_t scale_FC2 = 288;
 
-int out[inputNum*16];
+ap_int<3> out[inputNum];
 ap_int<8> im[inputNum*16] = {
 74,
 1,
@@ -595,53 +595,75 @@ static int sw_validate()
     int i, j;
     int errors = 0;
     int total_errors = 0;
+//
+//    // image
+//    for(i = 0 ; i < inputNum*4 ; i++){
+//        if(out[i] != g[i]){
+//            printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i, out[i], g[i]);
+//            errors++;
+//        }
+//        else{
+//            //printf("[CORRECT]: index %d, result:%lld, gold:%lld\n", i, im[i], g[i]);
+//        }
+//    }
+//    if(errors == 0)
+//        printf("===> Image pass!\n");
+//    else
+//        printf("===> Image fail!\n");
+//    total_errors += errors;
+//    errors = 0;
+//    // FC1
+//    for(i = inputNum*4 ; i < inputNum*12 ; i++){
+//        if(out[i] != g[i]){
+//            printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i-32, out[i], g[i]);
+//            errors++;
+//        }
+//        else{
+//            //printf("[CORRECT]: index %d, result:%lld, gold:%lld\n", i, im[i], g[i]);
+//        }
+//    }
+//    if(errors == 0)
+//        printf("===> FC1 pass!\n");
+//    else
+//        printf("===> FC1 fail!\n");
+//    total_errors += errors;
+//    errors = 0;
+//    // FC2
+//    for(i = inputNum*12 ; i < inputNum*15 ; i++){
+//        if(out[i] != g[i]){
+//            printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i-96, out[i], g[i]);
+//            errors++;
+//        }
+//        else{
+//            //printf("[CORRECT]: index %d, result:%lld, gold:%lld\n", i, im[20000+i], g[i]);
+//        }
+//    }
+//    if(errors == 0)
+//        printf("===> FC2 pass!\n");
+//    else
+//        printf("===> FC2 fail!\n");
 
-    // image
-    for(i = 0 ; i < inputNum*4 ; i++){
-        if(out[i] != g[i]){
-            printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i, out[i], g[i]);
+    int result[30];
+    for(int i = 0; i < inputNum; i++){
+        //find max
+        int max = g[inputNum*12+3*i];
+        int max_index = 0;
+        for(j = 1; j < 3; j++){
+            if(g[inputNum*12+3*i+j] > max){
+                max = g[inputNum*12+3*i+j];
+                max_index = j;
+            }
+        }
+        result[i] = max_index;
+    }
+
+    for(i = 0 ; i < inputNum ; i++){
+        if(out[i] != result[i]){
+            printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i, out[i], result[i]);
             errors++;
         }
-        else{
-            //printf("[CORRECT]: index %d, result:%lld, gold:%lld\n", i, im[i], g[i]);
-        }
+
     }
-    if(errors == 0)
-        printf("===> Image pass!\n");
-    else
-        printf("===> Image fail!\n");
-    total_errors += errors;
-    errors = 0;
-    // FC1
-    for(i = inputNum*4 ; i < inputNum*12 ; i++){
-        if(out[i] != g[i]){
-            printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i-32, out[i], g[i]);
-            errors++;
-        }
-        else{
-            //printf("[CORRECT]: index %d, result:%lld, gold:%lld\n", i, im[i], g[i]);
-        }
-    }
-    if(errors == 0)
-        printf("===> FC1 pass!\n");
-    else
-        printf("===> FC1 fail!\n");
-    total_errors += errors;
-    errors = 0;
-    // FC2
-    for(i = inputNum*12 ; i < inputNum*15 ; i++){
-        if(out[i] != g[i]){
-            printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i-96, out[i], g[i]);
-            errors++;
-        }
-        else{
-            //printf("[CORRECT]: index %d, result:%lld, gold:%lld\n", i, im[20000+i], g[i]);
-        }
-    }
-    if(errors == 0)
-        printf("===> FC2 pass!\n");
-    else
-        printf("===> FC2 fail!\n");
     total_errors += errors;
 
     return total_errors;

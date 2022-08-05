@@ -71,15 +71,18 @@ long long w[] = {
 
 void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
     #pragma HLS INTERFACE  s_axilite port=return
-    #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=im
+    #pragma HLS INTERFACE  m_axi depth=120 offset=slave port=im
     #pragma HLS INTERFACE  m_axi depth=30 offset=slave port=out
     
 	ap_int<8> acc[12*inputNum];
 	int fc2_acc[3*inputNum];
 	ap_int<3>result[inputNum];
-    for(int i = 0; i < 12*inputNum; i++){
+    for(int i = 0; i < 4*inputNum; i++){
         acc[i] = im[i];
     }
+    for(int i = 4*inputNum; i < 12*inputNum; i++){
+            acc[i] = 0;
+        }
     //FC1
     for(int i = 0; i < inputNum; i++){
         for(int j = 0; j < 8; j++){
@@ -98,6 +101,8 @@ void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
             acc[inputNum*4+8*i+j] = temp;
         }
     }
+
+
 
     //FC2
     for(int i = 0; i < inputNum; i++){

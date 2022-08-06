@@ -71,26 +71,38 @@ long long w[] = {
 
 void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
     #pragma HLS INTERFACE  s_axilite port=return
-    #pragma HLS INTERFACE  m_axi depth=120 offset=slave port=im
-    #pragma HLS INTERFACE  m_axi depth=30 offset=slave port=out
-    
-	ap_int<8> acc[12*inputNum];
+    #pragma HLS INTERFACE  m_axi depth=120 offset=slave port=im max_widen_bitwidth=64
+    #pragma HLS INTERFACE  m_axi depth=30 offset=slave port=out max_widen_bitwidth=64
+    ap_int<8> in_acc[4*inputNum];
+	ap_int<8> acc[8*inputNum];
 	int fc2_acc[3*inputNum];
 	ap_int<3>result[inputNum];
+
+
+	#pragma HLS ARRAY_PARTITION variable=in_acc type=cyclic factor=4
+	#pragma HLS ARRAY_PARTITION variable=acc type=cyclic factor=16
+	#pragma HLS ARRAY_PARTITION variable=fc2_acc type=cyclic factor=6
+
+	LOAD_LOOP:
     for(int i = 0; i < 4*inputNum; i++){
-        acc[i] = im[i];
+		#pragma HLS UNROLL factor=8
+        in_acc[i] = im[i];
     }
-    for(int i = 4*inputNum; i < 12*inputNum; i++){
-            acc[i] = 0;
-        }
+    ACC_ZERO_LOOP:
+    for(int i = 0; i < 8*inputNum; i++){
+		#pragma HLS UNROLL factor=16
+    	acc[i] = 0;
+    }
     //FC1
+    FC1_LOOP:
     for(int i = 0; i < inputNum; i++){
+	#pragma HLS UNROLL factor=2
         for(int j = 0; j < 8; j++){
 			#pragma HLS UNROLL
         	int temp = 0;
             for(int k = 0; k < 4; k++){
 				#pragma HLS UNROLL
-            	temp += acc[4*i+k]*w[4*j+k];
+            	temp += in_acc[4*i+k]*w[4*j+k];
 
             }
             if(temp<0)temp =0;
@@ -98,25 +110,29 @@ void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
             	temp = temp*scale_FC1 / 65536;
             	if(temp>127) temp = 127;
             }
-            acc[inputNum*4+8*i+j] = temp;
+            acc[8*i+j] = temp;
         }
     }
 
 
 
     //FC2
+    FC2_LOOP:
     for(int i = 0; i < inputNum; i++){
+	#pragma HLS UNROLL factor=2
         for(int j = 0; j < 3; j++){
 			#pragma HLS UNROLL
             fc2_acc[3*i+j] = w[56+j];
             for(int k = 0; k < 8; k++){
 				#pragma HLS UNROLL
-                fc2_acc[3*i+j] += acc[inputNum*4+8*i+k]*w[32+8*j+k];
+                fc2_acc[3*i+j] += acc[8*i+k]*w[32+8*j+k];
             }
         }
     }
     //maxpooling
+    MAXPOOL_LOOP:
     for(int i = 0; i < inputNum; i++){
+	#pragma HLS UNROLL factor=2
         //find max
         int max = fc2_acc[3*i];
         int max_index = 0, j;
@@ -137,6 +153,7 @@ void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
 //    for(int i=0;i<fc2Num;i++){
 //    	out[fc1Num+i] = fc2_acc[i];
 //    }
+    WRITE_LOOP:
     for(int i=0;i<inputNum;i++){
     	out[i] = result[i];
     }

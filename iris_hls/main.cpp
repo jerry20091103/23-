@@ -1,4 +1,7 @@
+// stream
 #include "iris.h"
+#include "ap_int.h"
+
 #define inputNum 30
 #define totalmem  16*inputNum
 const int32_t scale_FC1 = 402;
@@ -67,65 +70,79 @@ long long w[] = {
 };
 
 
-void sw_compute(volatile int* im, volatile int* out){
+void sw_compute(stream8_t* im, stream3_t* out){
     #pragma HLS INTERFACE  s_axilite port=return
-    #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=im
-    #pragma HLS INTERFACE  m_axi depth=125 offset=slave port=out
-    
-    int acc[totalmem];
-    for(int i = 0; i < totalmem; i++){
-        acc[i] = im[i];
+    #pragma HLS INTERFACE axis register both port=im
+    #pragma HLS INTERFACE axis register both port=out
+
+    ap_int<8> in_acc[4*inputNum];
+	ap_int<8> acc[8*inputNum];
+	int fc2_acc[3*inputNum];
+	ap_int<3>result[inputNum];
+
+
+	#pragma HLS ARRAY_PARTITION variable=in_acc type=cyclic factor=4
+	#pragma HLS ARRAY_PARTITION variable=acc type=cyclic factor=16
+	#pragma HLS ARRAY_PARTITION variable=fc2_acc type=cyclic factor=6
+
+	
+    LOAD_LOOP:
+    for(int i = 0; i < 4*inputNum; i++){
+		#pragma HLS UNROLL  //factor=8
+        in_acc[i] = im->read();
     }
+    ACC_ZERO_LOOP:
+    for(int i = 0; i < 8*inputNum; i++){
+		#pragma HLS UNROLL  //factor=16
+    	acc[i] = 0;
+    }
+
     //FC1
+    FC1_LOOP:
     for(int i = 0; i < inputNum; i++){
+	#pragma HLS UNROLL factor=2
         for(int j = 0; j < 8; j++){
 			#pragma HLS UNROLL
+        	int temp = 0;
             for(int k = 0; k < 4; k++){
 				#pragma HLS UNROLL
-                acc[inputNum*4+8*i+j] += acc[4*i+k]*w[4*j+k];
+            	temp += in_acc[4*i+k]*w[4*j+k];
+
             }
+            if(temp<0)temp =0;
+            else {
+            	temp = temp*scale_FC1 / 65536;
+            	if(temp>127) temp = 127;
+            }
+            acc[8*i+j] = temp;
         }
     }
 
-
-    for(int i = inputNum*4; i < inputNum*12; i++){
-		#pragma HLS UNROLL
-    	//Relu
-        if(acc[i]<0)acc[i] = 0;
-        //Quan
-        acc[i] = acc[i]*scale_FC1 / 65536;
-        if(acc[i]>127)acc[i] = 127;
-    }
     //FC2
     for(int i = 0; i < inputNum; i++){
+    #pragma HLS UNROLL factor=2	
+        int max = 0;
+    	int max_index = 0;
         for(int j = 0; j < 3; j++){
 			#pragma HLS UNROLL
-            acc[inputNum*12+3*i+j] += w[56+j];
+        	fc2_acc[3*i+j] = w[56+j];
             for(int k = 0; k < 8; k++){
 				#pragma HLS UNROLL
-                acc[inputNum*12+3*i+j] += acc[inputNum*4+8*i+k]*w[32+8*j+k];
+            	fc2_acc[3*i+j] += acc[8*i+k]*w[32+8*j+k];
+            }
+            if(fc2_acc[3*i+j]>max){
+            	max = fc2_acc[3*i+j];
+            	max_index = j;
             }
         }
-    }
-    //maxpooling
-    for(int i = 0; i < inputNum; i++){
-        //find max
-        int max = acc[inputNum*12+3*i];
-        int max_index = 0, j;
-        for(j = 0; j < 3; j++){
-            if(acc[inputNum*12+3*i+j] > max){
-                max = acc[inputNum*12+3*i+j];
-                max_index = j;
-            }
-        }
-        acc[inputNum*15+i] = max_index;
+       result[i]= max_index;
     }
 
-    for(int i=0;i<totalmem;i++){
-        out[i] = acc[i];
+    WRITE_LOOP:
+    for(int i=0;i<inputNum;i++){
+    	out->write(result[i]);
     }
     return;
 }
-
 
 

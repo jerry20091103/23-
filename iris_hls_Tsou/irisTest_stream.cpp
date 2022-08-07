@@ -1,7 +1,7 @@
 #include<iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include "iris.h"
+#include "iris_stream.h"
 using namespace std;
 
 #define inputNum 30
@@ -670,9 +670,20 @@ static int sw_validate()
 }
 
 
+stream8_t strm_im;
+stream3_t strm_out;
+
 int main(){
     unsigned errors = 0;
-    sw_compute(im,out);
+    // write im stream
+    for (int i = 0; i < inputNum*4; i++) {
+        strm_im.write(im[i]);
+    }
+    sw_compute(&strm_im, &strm_out);
+    // read out stream
+    for (int i = 0; i < inputNum; i++) {
+        out[i] = strm_out.read();
+    }
     errors = sw_validate();
     if (errors)
         printf("[FAIL] There are some errors QQ\n");

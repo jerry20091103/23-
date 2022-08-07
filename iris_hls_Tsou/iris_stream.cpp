@@ -1,4 +1,4 @@
-#include "iris.h"
+#include "iris_stream.h"
 #include "ap_int.h"
 
 #define inputNum 30
@@ -69,10 +69,11 @@ long long w[] = {
 };
 
 
-void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
+void sw_compute(stream8_t* im, stream3_t* out){
     #pragma HLS INTERFACE  s_axilite port=return
-    #pragma HLS INTERFACE  m_axi depth=120 offset=slave port=im max_widen_bitwidth=64
-    #pragma HLS INTERFACE  m_axi depth=30 offset=slave port=out max_widen_bitwidth=64
+    #pragma HLS INTERFACE axis register both port=im
+    #pragma HLS INTERFACE axis register both port=out
+
     ap_int<8> in_acc[4*inputNum];
 	ap_int<8> acc[8*inputNum];
 	int fc2_acc[3*inputNum];
@@ -86,12 +87,12 @@ void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
 	
     LOAD_LOOP:
     for(int i = 0; i < 4*inputNum; i++){
-		#pragma HLS UNROLL factor=8
-        in_acc[i] = im[i];
+		#pragma HLS UNROLL  factor=8
+        in_acc[i] = im->read();
     }
     ACC_ZERO_LOOP:
     for(int i = 0; i < 8*inputNum; i++){
-		#pragma HLS UNROLL factor=16
+		#pragma HLS UNROLL  factor=16
     	acc[i] = 0;
     }
 
@@ -138,7 +139,7 @@ void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
 
     WRITE_LOOP:
     for(int i=0;i<inputNum;i++){
-    	out[i] = result[i];
+    	out->write(result[i]);
     }
     return;
 }

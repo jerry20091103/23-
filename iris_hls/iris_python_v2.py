@@ -6,7 +6,7 @@ from pynq import Overlay
 from pynq import allocate
 
 if __name__ == "__main__":
-    ol = Overlay("/home/xilinx/jupyter_notebooks/iris/iris_hls_stream.bit")
+    ol = Overlay("/home/xilinx/jupyter_notebooks/iris/iris_hls_streamv2.bit")
     ip_iris = ol.sw_compute_0
     ipDMAIn = ol.axi_dma_in_0
     ipDMAOut = ol.axi_dma_out_0
@@ -37,17 +37,19 @@ if __name__ == "__main__":
     Image.close()
 
     # *start the computation for hls hardware
+    print("start compute hls")
     timeKernelStart = time()
     # ap_start
     ip_iris.write(0x00, 0x01)
     # write input output data
     ipDMAIn.sendchannel.transfer(inBuffer)
     ipDMAOut.recvchannel.transfer(outBuffer)
+    # wait for the computation to finish
     ipDMAIn.sendchannel.wait()
     ipDMAOut.recvchannel.wait()
     timeKernelEnd = time()
     print("hardware execution time: " + str(timeKernelEnd - timeKernelStart) + " s")
-    
+     
     # *prepare weights data for python
     scale_FC1 = 402
     scale_FC2 = 288

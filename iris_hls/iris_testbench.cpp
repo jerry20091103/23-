@@ -672,17 +672,30 @@ static int sw_validate()
 
 stream8_t strm_im;
 stream3_t strm_out;
+value8_t valDataCtrl;
 
 int main(){
     unsigned errors = 0;
+    // init valDataCtrl
+    valDataCtrl.data = 0;
+    valDataCtrl.keep = 0xF;
+    valDataCtrl.strb = 0;
+    valDataCtrl.user = 0;
+    valDataCtrl.last = 0;
+    valDataCtrl.id = 0;
+    valDataCtrl.dest = 0;
+
     // write im stream
     for (int i = 0; i < inputNum*4; i++) {
-        strm_im.write(im[i]);
+        valDataCtrl.data = im[i];
+        if (i >= (inputNum*4 - 1)) valDataCtrl.last = 1;
+        strm_im.write(valDataCtrl);
     }
+    // compute
     sw_compute(&strm_im, &strm_out);
     // read out stream
     for (int i = 0; i < inputNum; i++) {
-        out[i] = strm_out.read();
+        out[i] = strm_out.read().data;
     }
     errors = sw_validate();
     if (errors)

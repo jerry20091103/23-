@@ -80,7 +80,6 @@ void sw_compute(stream8_t* im, stream3_t* out){
 	int fc2_acc[3*inputNum];
 	ap_int<3>result[inputNum];
 
-
 	#pragma HLS ARRAY_PARTITION variable=in_acc type=cyclic factor=4
 	#pragma HLS ARRAY_PARTITION variable=acc type=cyclic factor=16
 	#pragma HLS ARRAY_PARTITION variable=fc2_acc type=cyclic factor=6
@@ -89,7 +88,8 @@ void sw_compute(stream8_t* im, stream3_t* out){
     LOAD_LOOP:
     for(int i = 0; i < 4*inputNum; i++){
 		#pragma HLS UNROLL  //factor=8
-        in_acc[i] = im->read();
+        value8_t valTemp = im->read();
+		in_acc[i] = valTemp.data;
     }
     ACC_ZERO_LOOP:
     for(int i = 0; i < 8*inputNum; i++){
@@ -140,7 +140,9 @@ void sw_compute(stream8_t* im, stream3_t* out){
 
     WRITE_LOOP:
     for(int i=0;i<inputNum;i++){
-    	out->write(result[i]);
+    	value3_t valTemp;
+        valTemp.data = result[i];
+		out->write(valTemp);
     }
     return;
 }

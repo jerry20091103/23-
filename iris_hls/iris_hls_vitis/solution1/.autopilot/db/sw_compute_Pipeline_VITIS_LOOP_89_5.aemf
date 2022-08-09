@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdfg:DBCdfg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdfg="http://www.autoesl.com/DBCdfg" timeStamp="1659187589967">
+  <ports id="1" name="acc" type="PortType" coreName="RAM" coreId="1953391988" bitwidth="32" direction="DirInOut" iftype="IfTypeRegister" arraysize="125">
+    <dataInputObjs>getelementptr</dataInputObjs>
+    <dataOutputObjs>getelementptr</dataOutputObjs>
+  </ports>
+  <edges id="47" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@blocks.0/@node_objs.1"/>
+  <edges id="48" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@blocks.0/@node_objs.2"/>
+  <edges id="49" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.0"/>
+  <edges id="50" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.1"/>
+  <edges id="53" source_obj="//@regions.0/@basic_blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.2"/>
+  <edges id="54" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.2"/>
+  <edges id="55" edge_type="CtrlEdge" source_obj="//@blocks.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.2"/>
+  <edges id="56" source_obj="//@regions.0/@basic_blocks.1/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.0"/>
+  <edges id="57" source_obj="//@regions.0/@basic_blocks.3/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.1"/>
+  <edges id="62" source_obj="//@regions.0/@basic_blocks.3/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.2"/>
+  <edges id="67" source_obj="//@regions.0/@basic_blocks.3/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.3"/>
+  <edges id="70" source_obj="//@regions.0/@basic_blocks.3/@node_objs.3" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.4"/>
+  <edges id="74" source_obj="//@regions.0/@basic_blocks.3/@node_objs.4" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.5"/>
+  <edges id="77" source_obj="//@regions.0/@basic_blocks.3/@node_objs.5" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.6"/>
+  <edges id="79" source_obj="//@regions.0/@basic_blocks.3/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.7"/>
+  <edges id="82" source_obj="//@regions.0/@basic_blocks.3/@node_objs.7" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.8"/>
+  <edges id="83" source_obj="//@regions.0/@basic_blocks.3/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.9"/>
+  <edges id="84" source_obj="//@regions.0/@basic_blocks.3/@node_objs.6" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.9"/>
+  <edges id="85" source_obj="//@regions.0/@basic_blocks.3/@node_objs.8" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.9"/>
+  <edges id="88" source_obj="//@regions.0/@basic_blocks.3/@node_objs.9" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.10"/>
+  <edges id="92" source_obj="//@regions.0/@basic_blocks.3/@node_objs.10" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.11"/>
+  <edges id="95" source_obj="//@regions.0/@basic_blocks.3/@node_objs.11" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.12"/>
+  <edges id="98" source_obj="//@regions.0/@basic_blocks.3/@node_objs.9" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.12"/>
+  <edges id="99" source_obj="//@regions.0/@basic_blocks.3/@node_objs.12" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.13"/>
+  <edges id="100" source_obj="//@regions.0/@basic_blocks.3/@node_objs.13" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.14"/>
+  <edges id="101" source_obj="//@regions.0/@basic_blocks.1/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.14"/>
+  <edges id="102" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.15"/>
+  <edges id="105" source_obj="//@regions.0/@basic_blocks.3/@node_objs.15" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.16"/>
+  <edges id="106" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.16"/>
+  <edges id="107" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.17"/>
+  <edges id="108" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.0"/>
+  <edges id="109" source_obj="//@ports.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.1"/>
+  <edges id="112" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.1"/>
+  <edges id="113" source_obj="//@regions.0/@basic_blocks.1/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.2"/>
+  <edges id="115" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.3"/>
+  <edges id="117" source_obj="//@regions.0/@basic_blocks.1/@node_objs.3" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.4"/>
+  <edges id="118" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.3" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.4"/>
+  <edges id="119" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.4"/>
+  <edges id="121" source_obj="//@regions.0/@basic_blocks.1/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.2/@node_objs.0"/>
+  <edges id="122" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.3" sink_obj="//@regions.0/@basic_blocks.2/@node_objs.1"/>
+  <edges id="142" edge_type="CtrlEdge" source_obj="//@blocks.0" sink_obj="//@regions.0/@basic_blocks.0"/>
+  <edges id="143" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@blocks.1"/>
+  <edges id="144" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@regions.0/@basic_blocks.1"/>
+  <edges id="145" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.2"/>
+  <edges id="146" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.3"/>
+  <edges id="147" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.2" sink_obj="//@regions.0/@basic_blocks.3"/>
+  <edges id="148" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.3" sink_obj="//@regions.0/@basic_blocks.0" is_back_edge="1"/>
+  <edges id="149" edge_type="VirtEdge" source_obj="//@regions.0/@basic_blocks.3/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.14"/>
+  <edges id="150" edge_type="VirtEdge" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.2/@node_objs.0"/>
+  <edges id="151" edge_type="VirtEdge" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.14"/>
+  <edges id="152" edge_type="VirtEdge" source_obj="//@regions.0/@basic_blocks.2/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.0"/>
+  <edges id="153" edge_type="VirtEdge" source_obj="//@blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.0"/>
+  <edges id="154" edge_type="VirtEdge" source_obj="//@blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.16"/>
+  <edges id="155" edge_type="VirtEdge" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.16"/>
+  <edges id="-109" source_obj="//@regions.0/@basic_blocks.1/@node_objs.1" sink_obj="//@ports.0"/>
+  <blocks id="5" name="newFuncRoot" type="BlockType">
+    <controlOutputObjs>for.body44</controlOutputObjs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="2" name="i" originalName="i" coreId="4294967295" bitwidth="7" opcode="alloca" m_display="0" m_topoIndex="1" m_clusterGroupNumber="-1">
+      <dataOutputObjs>store</dataOutputObjs>
+      <dataOutputObjs>load</dataOutputObjs>
+      <dataOutputObjs>store</dataOutputObjs>
+      <constName>empty</constName>
+    </node_objs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="3" name="i_write_ln0" coreId="4294967295" opcode="store" m_display="0" m_delay="1.58" m_topoIndex="2" m_clusterGroupNumber="-1">
+      <dataInputObjs>alloca</dataInputObjs>
+      <constName>empty</constName>
+    </node_objs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="4" name="br_ln0" coreId="1279795712" opcode="br" m_display="0" m_topoIndex="3" m_clusterGroupNumber="-1">
+      <controlInputObjs>for.body44</controlInputObjs>
+    </node_objs>
+  </blocks>
+  <blocks id="42" name="VITIS_LOOP_101_8.preheader.exitStub" type="BlockType">
+    <controlInputObjs>for.body44</controlInputObjs>
+    <controlOutputObjs>br</controlOutputObjs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="41" name="_ln0" coreId="0" opcode="ret" nodeLabel="5.0" m_display="0" m_topoIndex="20" m_clusterGroupNumber="-1"/>
+  </blocks>
+  <regions anchor_node="-1" region_type="8" interval="2" typeName="Pipeline" iiViolation="Resource Limitation;mFailedII=1;mDependenceDistancedII=-1;mLimitedResource=1;nodes=22__core/RAM/acc//load/store,15__core/RAM/acc//load/store,19__;" id="185" pipe_depth="8" RegionName="VITIS_LOOP_89_5">
+    <basic_blocks id="11" name="for.body44" type="BlockType">
+      <controlInputObjs>newFuncRoot</controlInputObjs>
+      <controlInputObjs>if.end</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>VITIS_LOOP_101_8.preheader.exitStub</controlOutputObjs>
+      <controlOutputObjs>for.body44.split</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="6" name="i_2" lineNumber="89" originalName="i" fileName="main.cpp" fileDirectory=".." coreId="1313415680" contextFuncName="sw_compute" bitwidth="7" opcode="load" m_display="0" m_topoIndex="4" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="89" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>alloca</dataInputObjs>
+        <dataOutputObjs>icmp</dataOutputObjs>
+        <dataOutputObjs>add</dataOutputObjs>
+        <dataOutputObjs>zext</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="8" name="icmp_ln89" lineNumber="89" fileName="main.cpp" fileDirectory=".." rtlName="icmp_ln89_fu_78_p2" coreName="Cmp" implIndex="auto" control="no" opType="icmp" coreId="9" contextFuncName="sw_compute" bitwidth="1" opcode="icmp" m_display="0" m_delay="1.48" m_topoIndex="5" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="89" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>br</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="10" name="br_ln89" lineNumber="89" fileName="main.cpp" fileDirectory=".." coreId="1986360064" contextFuncName="sw_compute" opcode="br" m_display="0" m_topoIndex="6" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="89" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>icmp</dataInputObjs>
+        <controlInputObjs>for.body44.split</controlInputObjs>
+        <controlInputObjs>VITIS_LOOP_101_8.preheader.exitStub</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="main.cpp">
+        <validLinenumbers>89</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="18" name="for.body44.split" type="BlockType">
+      <controlInputObjs>for.body44</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>if.then</controlOutputObjs>
+      <controlOutputObjs>if.end</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="12" name="i_2_cast" lineNumber="89" fileName="main.cpp" fileDirectory=".." rtlName="i_2_cast_fu_84_p1" coreId="808591428" contextFuncName="sw_compute" bitwidth="64" opcode="zext" m_display="0" m_topoIndex="7" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="89" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="14" name="acc_addr_1" lineNumber="91" fileName="main.cpp" fileDirectory=".." coreId="4294967295" contextFuncName="sw_compute" bitwidth="7" opcode="getelementptr" m_display="0" m_topoIndex="8" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="91" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>acc</dataInputObjs>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>load</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>load</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>acc</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="15" name="acc_load" lineNumber="91" fileName="main.cpp" fileDirectory=".." coreName="RAM" implIndex="auto" control="no" opType="ram" coreId="82" contextFuncName="sw_compute" bitwidth="32" opcode="load" nodeLatency="1" m_display="0" m_delay="3.25" m_topoIndex="9" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="91" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>getelementptr</dataInputObjs>
+        <dataOutputObjs>bitselect</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="16" name="tmp" lineNumber="91" fileName="main.cpp" fileDirectory=".." rtlName="tmp_fu_89_p3" coreId="1634956133" contextFuncName="sw_compute" bitwidth="1" opcode="bitselect" nodeLabel="1.0" m_display="0" m_topoIndex="10" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="91" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>br</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="17" name="br_ln91" lineNumber="91" fileName="main.cpp" fileDirectory=".." coreId="1816469550" contextFuncName="sw_compute" opcode="br" nodeLabel="1.0" m_display="0" m_topoIndex="11" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="91" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>bitselect</dataInputObjs>
+        <controlInputObjs>if.end</controlInputObjs>
+        <controlInputObjs>if.then</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="main.cpp">
+        <validLinenumbers>89</validLinenumbers>
+        <validLinenumbers>91</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="21" name="if.then" type="BlockType">
+      <controlInputObjs>for.body44.split</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>if.end</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="19" name="acc_addr_1_write_ln91" lineNumber="91" fileName="main.cpp" fileDirectory=".." coreName="RAM" implIndex="auto" control="no" opType="ram" coreId="82" contextFuncName="sw_compute" opcode="store" nodeLabel="1.0" m_display="0" m_delay="3.25" m_topoIndex="12" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="91" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>getelementptr</dataInputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="20" name="br_ln91" lineNumber="91" fileName="main.cpp" fileDirectory=".." coreId="543584032" contextFuncName="sw_compute" opcode="br" nodeLabel="1.0" m_display="0" m_topoIndex="13" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="91" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <controlInputObjs>if.end</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="main.cpp">
+        <validLinenumbers>91</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="40" name="if.end" type="BlockType">
+      <controlInputObjs>for.body44.split</controlInputObjs>
+      <controlInputObjs>if.then</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>for.body44</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="22" name="acc_load_1" lineNumber="93" fileName="main.cpp" fileDirectory=".." coreName="RAM" implIndex="auto" control="no" opType="ram" coreId="82" contextFuncName="sw_compute" bitwidth="32" opcode="load" nodeLabel="2.0" nodeLatency="1" m_display="0" m_delay="3.25" m_topoIndex="16" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>getelementptr</dataInputObjs>
+        <dataOutputObjs>mul</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="23" name="mul_ln93" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="mul_32s_10ns_32_2_1_U8" coreName="Multiplier" implIndex="auto" control="no" opType="mul" coreId="3" contextFuncName="sw_compute" bitwidth="32" opcode="mul" nodeLabel="4.0" nodeLatency="1" m_display="0" m_delay="6.91" m_topoIndex="17" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>bitselect</dataOutputObjs>
+        <dataOutputObjs>sub</dataOutputObjs>
+        <dataOutputObjs>partselect</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="24" name="tmp_1" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="tmp_1_reg_227" coreId="2241202720" contextFuncName="sw_compute" bitwidth="1" opcode="bitselect" nodeLabel="5.0" m_display="0" m_topoIndex="18" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>mul</dataInputObjs>
+        <dataOutputObjs>select</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="25" name="sub_ln93" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="sub_ln93_fu_130_p2" coreName="Adder" implIndex="fabric" control="no" opType="sub" coreId="1" contextFuncName="sw_compute" bitwidth="32" opcode="sub" nodeLabel="6.0" m_display="0" m_delay="2.55" m_topoIndex="21" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>mul</dataInputObjs>
+        <dataOutputObjs>partselect</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="26" name="trunc_ln93_1" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="trunc_ln93_1_fu_135_p4" coreId="0" contextFuncName="sw_compute" bitwidth="16" opcode="partselect" nodeLabel="6.0" m_display="0" m_topoIndex="22" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>sub</dataInputObjs>
+        <dataOutputObjs>zext</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="27" name="zext_ln93" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="zext_ln93_fu_145_p1" coreId="2824526720" contextFuncName="sw_compute" bitwidth="17" opcode="zext" nodeLabel="6.0" m_display="0" m_topoIndex="23" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>partselect</dataInputObjs>
+        <dataOutputObjs>sub</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="28" name="sub_ln93_1" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="sub_ln93_1_fu_149_p2" coreName="Adder" implIndex="fabric" control="no" opType="sub" coreId="1" contextFuncName="sw_compute" bitwidth="17" opcode="sub" nodeLabel="6.0" m_display="0" m_delay="2.07" m_topoIndex="24" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>select</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="29" name="trunc_ln93_2" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="trunc_ln93_2_reg_232" coreId="0" contextFuncName="sw_compute" bitwidth="16" opcode="partselect" nodeLabel="5.0" m_display="0" m_topoIndex="19" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>mul</dataInputObjs>
+        <dataOutputObjs>zext</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="30" name="zext_ln93_1" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="zext_ln93_1_fu_155_p1" coreId="0" contextFuncName="sw_compute" bitwidth="17" opcode="zext" nodeLabel="6.0" m_display="0" m_topoIndex="25" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>partselect</dataInputObjs>
+        <dataOutputObjs>select</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="31" name="select_ln93" lineNumber="93" fileName="main.cpp" fileDirectory=".." rtlName="select_ln93_fu_158_p3" coreName="Sel" implIndex="auto_sel" control="no" opType="select" coreId="73" contextFuncName="sw_compute" bitwidth="17" opcode="select" nodeLabel="6.0" m_display="0" m_delay="0.78" m_topoIndex="26" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="93" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>bitselect</dataInputObjs>
+        <dataInputObjs>sub</dataInputObjs>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>partselect</dataOutputObjs>
+        <dataOutputObjs>select</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="32" name="tmp_2" lineNumber="95" fileName="main.cpp" fileDirectory=".." rtlName="tmp_2_fu_165_p4" coreId="4294967295" contextFuncName="sw_compute" bitwidth="10" opcode="partselect" nodeLabel="6.0" m_display="0" m_topoIndex="27" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="95" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>select</dataInputObjs>
+        <dataOutputObjs>icmp</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="33" name="icmp_ln95" lineNumber="95" fileName="main.cpp" fileDirectory=".." rtlName="icmp_ln95_fu_175_p2" coreName="Cmp" implIndex="auto" control="no" opType="icmp" coreId="9" contextFuncName="sw_compute" bitwidth="1" opcode="icmp" nodeLabel="6.0" m_display="0" m_delay="1.77" m_topoIndex="28" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="95" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>partselect</dataInputObjs>
+        <dataOutputObjs>select</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="34" name="select_ln95" lineNumber="95" fileName="main.cpp" fileDirectory=".." rtlName="select_ln95_fu_181_p3" coreName="Sel" implIndex="auto_sel" control="no" opType="select" coreId="73" contextFuncName="sw_compute" bitwidth="17" opcode="select" nodeLabel="7.0" m_display="0" m_delay="0.78" m_topoIndex="29" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="95" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>icmp</dataInputObjs>
+        <dataInputObjs>select</dataInputObjs>
+        <dataOutputObjs>sext</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="35" name="select_ln95_cast" lineNumber="95" fileName="main.cpp" fileDirectory=".." rtlName="acc_d0" coreId="2241197200" contextFuncName="sw_compute" bitwidth="32" opcode="sext" nodeLabel="7.0" m_display="0" m_topoIndex="30" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="95" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>select</dataInputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="36" name="acc_addr_1_write_ln95" lineNumber="95" fileName="main.cpp" fileDirectory=".." coreName="RAM" implIndex="auto" control="no" opType="ram" coreId="82" contextFuncName="sw_compute" opcode="store" nodeLabel="7.0" m_display="0" m_delay="3.25" m_topoIndex="31" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="95" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>sext</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="37" name="add_ln89" lineNumber="89" fileName="main.cpp" fileDirectory=".." rtlName="add_ln89_fu_97_p2" coreName="Adder" implIndex="fabric" control="no" opType="add" coreId="1" contextFuncName="sw_compute" bitwidth="7" opcode="add" nodeLabel="1.0" m_display="0" m_delay="1.87" m_topoIndex="14" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="89" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="38" name="i_write_ln89" lineNumber="89" fileName="main.cpp" fileDirectory=".." coreId="0" contextFuncName="sw_compute" opcode="store" nodeLabel="1.0" m_display="0" m_delay="1.58" m_topoIndex="15" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="89" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <dataInputObjs>add</dataInputObjs>
+        <dataInputObjs>alloca</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="39" name="br_ln89" lineNumber="89" fileName="main.cpp" fileDirectory=".." coreId="0" contextFuncName="sw_compute" opcode="br" nodeLabel="7.0" m_display="0" m_topoIndex="32" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="main.cpp" linenumber="89" fileDirectory="E:\HLS_Projects\iris_hls" functionName="sw_compute"/>
+        <controlInputObjs>for.body44</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="main.cpp">
+        <validLinenumbers>93</validLinenumbers>
+        <validLinenumbers>95</validLinenumbers>
+        <validLinenumbers>89</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+  </regions>
+  <ScheduleInfo time="0"/>
+  <ScheduleInfo time="1"/>
+  <ScheduleInfo time="2"/>
+  <ScheduleInfo time="3"/>
+  <ScheduleInfo time="4"/>
+  <ScheduleInfo time="5"/>
+  <ScheduleInfo time="6"/>
+  <ScheduleInfo time="7"/>
+  <regnodes realName="acc_load_1_reg_217">
+    <nodeIds>22</nodeIds>
+  </regnodes>
+  <regnodes realName="i_2_reg_199">
+    <nodeIds>6</nodeIds>
+  </regnodes>
+  <regnodes realName="i_reg_192">
+    <nodeIds>2</nodeIds>
+  </regnodes>
+  <regnodes realName="icmp_ln89_reg_204">
+    <nodeIds>8</nodeIds>
+  </regnodes>
+  <regnodes realName="mul_ln93_reg_222">
+    <nodeIds>23</nodeIds>
+  </regnodes>
+  <regnodes realName="acc_addr_1_reg_208">
+    <nodeIds>14</nodeIds>
+  </regnodes>
+  <regnodes realName="tmp_1_reg_227">
+    <nodeIds>24</nodeIds>
+  </regnodes>
+  <regnodes realName="select_ln93_reg_237">
+    <nodeIds>31</nodeIds>
+  </regnodes>
+  <regnodes realName="icmp_ln95_reg_242">
+    <nodeIds>33</nodeIds>
+  </regnodes>
+  <regnodes realName="trunc_ln93_2_reg_232">
+    <nodeIds>29</nodeIds>
+  </regnodes>
+  <expressionNodes realName="i_fu_48">
+    <nodeIds>2</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="icmp_ln95_fu_175">
+    <nodeIds>33</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="sub_ln93_fu_130">
+    <nodeIds>25</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="tmp_1_fu_112">
+    <nodeIds>24</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="add_ln89_fu_97">
+    <nodeIds>37</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="trunc_ln93_1_fu_135">
+    <nodeIds>26</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="tmp_fu_89">
+    <nodeIds>16</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="i_2_cast_fu_84">
+    <nodeIds>12</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="icmp_ln89_fu_78">
+    <nodeIds>8</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="tmp_2_fu_165">
+    <nodeIds>32</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="select_ln95_fu_181">
+    <nodeIds>34</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="sub_ln93_1_fu_149">
+    <nodeIds>28</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="select_ln93_fu_158">
+    <nodeIds>31</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="zext_ln93_fu_145">
+    <nodeIds>27</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="trunc_ln93_2_fu_120">
+    <nodeIds>29</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="select_ln95_cast_fu_187">
+    <nodeIds>35</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="zext_ln93_1_fu_155">
+    <nodeIds>30</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="acc_addr_1_gep_fu_52">
+    <nodeIds>14</nodeIds>
+  </expressionNodes>
+  <moduleNodes realName="grp_fu_107">
+    <nodeIds>23</nodeIds>
+  </moduleNodes>
+  <ioNodes realName="store_ln0_store_fu_70">
+    <nodeIds>3</nodeIds>
+  </ioNodes>
+  <ioNodes realName="store_ln89_store_fu_102">
+    <nodeIds>38</nodeIds>
+  </ioNodes>
+  <ioNodes realName="i_2_load_fu_75">
+    <nodeIds>6</nodeIds>
+  </ioNodes>
+  <memoryPorts dataString="acc">
+    <nodeIds>22</nodeIds>
+    <nodeIds>36</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="acc" portID="1">
+    <nodeIds>15</nodeIds>
+    <nodeIds>19</nodeIds>
+  </memoryPorts>
+  <ioPorts name="acc(p0)">
+    <contents name="load">
+      <nodeIds>22</nodeIds>
+    </contents>
+    <contents name="store">
+      <nodeIds>36</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="acc(p1)">
+    <contents name="load">
+      <nodeIds>15</nodeIds>
+    </contents>
+    <contents name="store">
+      <nodeIds>19</nodeIds>
+    </contents>
+  </ioPorts>
+  <fsm>
+    <states id="1">
+      <operations id="2" stage="1" latency="1"/>
+      <operations id="3" stage="1" latency="1"/>
+      <operations id="4" stage="1" latency="1"/>
+      <operations id="6" stage="1" latency="1"/>
+      <operations id="7" stage="1" latency="1"/>
+      <operations id="8" stage="1" latency="1"/>
+      <operations id="9" stage="1" latency="1"/>
+      <operations id="10" stage="1" latency="1"/>
+      <operations id="12" stage="1" latency="1"/>
+      <operations id="14" stage="1" latency="1"/>
+      <operations id="15" stage="2" latency="2"/>
+    </states>
+    <states id="2">
+      <operations id="13" stage="1" latency="1"/>
+      <operations id="15" stage="1" latency="2"/>
+      <operations id="16" stage="1" latency="1"/>
+      <operations id="17" stage="1" latency="1"/>
+      <operations id="19" stage="1" latency="1"/>
+      <operations id="20" stage="1" latency="1"/>
+      <operations id="37" stage="1" latency="1"/>
+      <operations id="38" stage="1" latency="1"/>
+    </states>
+    <states id="3">
+      <operations id="22" stage="2" latency="2"/>
+    </states>
+    <states id="4">
+      <operations id="22" stage="1" latency="2"/>
+    </states>
+    <states id="5">
+      <operations id="23" stage="2" latency="2"/>
+    </states>
+    <states id="6">
+      <operations id="23" stage="1" latency="2"/>
+      <operations id="24" stage="1" latency="1"/>
+      <operations id="29" stage="1" latency="1"/>
+      <operations id="41" stage="1" latency="1"/>
+    </states>
+    <states id="7">
+      <operations id="25" stage="1" latency="1"/>
+      <operations id="26" stage="1" latency="1"/>
+      <operations id="27" stage="1" latency="1"/>
+      <operations id="28" stage="1" latency="1"/>
+      <operations id="30" stage="1" latency="1"/>
+      <operations id="31" stage="1" latency="1"/>
+      <operations id="32" stage="1" latency="1"/>
+      <operations id="33" stage="1" latency="1"/>
+    </states>
+    <states id="8">
+      <operations id="34" stage="1" latency="1"/>
+      <operations id="35" stage="1" latency="1"/>
+      <operations id="36" stage="1" latency="1"/>
+      <operations id="39" stage="1" latency="1"/>
+    </states>
+    <transitions inState="2" outState="3">
+      <condition id="-1"/>
+    </transitions>
+    <transitions inState="3" outState="4">
+      <condition id="-1"/>
+    </transitions>
+    <transitions inState="4" outState="5">
+      <condition id="-1"/>
+    </transitions>
+    <transitions inState="5" outState="6">
+      <condition id="-1"/>
+    </transitions>
+    <transitions inState="6" outState="7">
+      <condition id="-1"/>
+    </transitions>
+    <transitions inState="7" outState="8">
+      <condition id="-1"/>
+    </transitions>
+    <transitions inState="1" outState="2">
+      <condition id="-1"/>
+    </transitions>
+  </fsm>
+  <CFGRegionsRoot>
+    <cfgRegions mId="1" mTag="sw_compute_Pipeline_VITIS_LOOP_89_5" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1" mMinLatency="135" mMaxLatency="135">
+      <subRegions>2</subRegions>
+      <subRegions>3</subRegions>
+      <subRegions>4</subRegions>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="2" mTag="Entry" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1">
+      <basicBlocks>5</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="3" mTag="VITIS_LOOP_89_5" mII="2" mDepth="8" mMinTripCount="64" mMaxTripCount="64" mMinLatency="133" mMaxLatency="133" mType="1">
+      <basicBlocks>11</basicBlocks>
+      <basicBlocks>18</basicBlocks>
+      <basicBlocks>21</basicBlocks>
+      <basicBlocks>40</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="4" mTag="Return" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1">
+      <basicBlocks>42</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+  </CFGRegionsRoot>
+</cdfg:DBCdfg>

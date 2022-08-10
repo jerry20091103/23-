@@ -671,7 +671,7 @@ static int sw_validate()
 
 
 stream8_t strm_im;
-stream3_t strm_out;
+stream8_t strm_out;
 value8_t valDataCtrl;
 
 int main(){

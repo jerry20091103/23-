@@ -1,41 +1,251 @@
 INFO: [HLS 200-10] Running 'E:/Xilinx/Vitis_HLS/2022.1/bin/unwrapped/win64.o/vitis_hls.exe'
-INFO: [HLS 200-10] For user 'Lenovo' on host '51-0460864-h1' (Windows NT_amd64 version 6.2) on Thu Jul 28 18:23:51 +0800 2022
-INFO: [HLS 200-10] In directory 'E:/HLS_Projects/iris_hls'
-Sourcing Tcl script 'E:/HLS_Projects/iris_hls/iris_hls_vitis/solution1/export.tcl'
-INFO: [HLS 200-1510] Running: source E:/HLS_Projects/iris_hls/iris_hls_vitis/solution1/export.tcl
+INFO: [HLS 200-10] For user 'Lenovo' on host '51-0460864-h1' (Windows NT_amd64 version 6.2) on Thu Aug 11 00:51:20 +0800 2022
+INFO: [HLS 200-10] In directory 'E:/project/23th-project/iris_hls'
+Sourcing Tcl script 'E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/cosim.tcl'
+INFO: [HLS 200-1510] Running: source E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/cosim.tcl
 INFO: [HLS 200-1510] Running: open_project iris_hls_vitis 
-INFO: [HLS 200-10] Opening project 'E:/HLS_Projects/iris_hls/iris_hls_vitis'.
-INFO: [HLS 200-1510] Running: set_top iris_module 
+INFO: [HLS 200-10] Opening project 'E:/project/23th-project/iris_hls/iris_hls_vitis'.
+INFO: [HLS 200-1510] Running: set_top sw_compute 
 INFO: [HLS 200-1510] Running: add_files iris.h 
 INFO: [HLS 200-10] Adding design file 'iris.h' to the project
 INFO: [HLS 200-1510] Running: add_files main.cpp 
 INFO: [HLS 200-10] Adding design file 'main.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb iris_testbench.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
+INFO: [HLS 200-10] Adding test bench file 'iris_testbench.cpp' to the project
 INFO: [HLS 200-1510] Running: open_solution solution1 -flow_target vivado 
-INFO: [HLS 200-10] Opening solution 'E:/HLS_Projects/iris_hls/iris_hls_vitis/solution1'.
+INFO: [HLS 200-10] Opening solution 'E:/project/23th-project/iris_hls/iris_hls_vitis/solution1'.
 INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
 INFO: [HLS 200-1611] Setting target device to 'xc7z020-clg400-1'
 INFO: [HLS 200-1505] Using flow_target 'vivado'
 Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
 INFO: [HLS 200-1464] Running solution command: config_export -format=ip_catalog
 INFO: [HLS 200-1464] Running solution command: config_export -rtl=verilog
-INFO: [HLS 200-1464] Running solution command: config_export -version=1.1
-INFO: [HLS 200-1510] Running: set_part xc7z020clg400-1 
+INFO: [HLS 200-1464] Running solution command: config_export -version=1.4
+INFO: [HLS 200-1510] Running: set_part xc7z020-clg400-1 
 INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
-INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
-INFO: [HLS 200-1510] Running: config_export -format ip_catalog -rtl verilog -version 1.1 
-INFO: [HLS 200-1510] Running: export_design -rtl verilog -format ip_catalog 
-INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
-
-****** Vivado v2022.1 (64-bit)
-  **** SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
-  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-
-source run_ippack.tcl -notrace
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/Xilinx/Vivado/2022.1/data/ip'.
-INFO: [Common 17-206] Exiting Vivado at Thu Jul 28 18:24:07 2022...
-INFO: [HLS 200-802] Generated output file iris_hls_vitis/solution1/impl/export.zip
-INFO: [HLS 200-111] Finished Command export_design CPU user time: 2 seconds. CPU system time: 0 seconds. Elapsed time: 14.368 seconds; current allocated memory: 3.625 MB.
-INFO: [HLS 200-112] Total CPU user time: 5 seconds. Total CPU system time: 2 seconds. Total elapsed time: 17.261 seconds; peak allocated memory: 1.220 GB.
+INFO: [HLS 200-1510] Running: config_export -format ip_catalog -rtl verilog -version 1.4 
+INFO: [HLS 200-1510] Running: source ./iris_hls_vitis/solution1/directives.tcl
+INFO: [HLS 200-1510] Running: set_directive_top -name sw_compute sw_compute 
+INFO: [HLS 200-1510] Running: cosim_design 
+WARNING: [HLS 200-626] This design is unable to schedule all read ports in the first II cycle. The RTL testbench may treat the design as non-pipelined
+INFO: [COSIM 212-47] Using XSIM for RTL simulation.
+INFO: [COSIM 212-14] Instrumenting C test bench ...
+   Build using "E:/Xilinx/Vitis_HLS/2022.1/tps/win64/msys64/mingw64/bin/g++"
+   Compiling apatb_sw_compute.cpp
+   Compiling main.cpp_pre.cpp.tb.cpp
+   Compiling apatb_sw_compute_util.cpp
+   Compiling iris_testbench.cpp_pre.cpp.tb.cpp
+   Compiling apatb_sw_compute_ir.ll
+   Generating cosim.tv.exe
+INFO: [COSIM 212-302] Starting C TB testing ... 
+[PASS] Congratulation! All results are correct
+INFO: [COSIM 212-333] Generating C post check test bench ...
+INFO: [COSIM 212-12] Generating RTL test bench ...
+INFO: [COSIM 212-1] *** C/RTL co-simulation file generation completed. ***
+INFO: [COSIM 212-323] Starting verilog simulation. 
+INFO: [COSIM 212-15] Starting XSIM ...
+
+E:\project\23th-project\iris_hls\iris_hls_vitis\solution1\sim\verilog>set PATH= 
+
+E:\project\23th-project\iris_hls\iris_hls_vitis\solution1\sim\verilog>call E:/Xilinx/Vivado/2022.1/bin/xelab xil_defaultlib.apatb_sw_compute_top glbl -Oenable_linking_all_libraries  -prj sw_compute.prj -L smartconnect_v1_0 -L axi_protocol_checker_v1_1_12 -L axi_protocol_checker_v1_1_13 -L axis_protocol_checker_v1_1_11 -L axis_protocol_checker_v1_1_12 -L xil_defaultlib -L unisims_ver -L xpm  -L floating_point_v7_0_20 -L floating_point_v7_1_14 --lib "ieee_proposed=./ieee_proposed" -s sw_compute  
+Vivado Simulator v2022.1
+Copyright 1986-1999, 2001-2022 Xilinx, Inc. All Rights Reserved.
+Running: E:/Xilinx/Vivado/2022.1/bin/unwrapped/win64.o/xelab.exe xil_defaultlib.apatb_sw_compute_top glbl -Oenable_linking_all_libraries -prj sw_compute.prj -L smartconnect_v1_0 -L axi_protocol_checker_v1_1_12 -L axi_protocol_checker_v1_1_13 -L axis_protocol_checker_v1_1_11 -L axis_protocol_checker_v1_1_12 -L xil_defaultlib -L unisims_ver -L xpm -L floating_point_v7_0_20 -L floating_point_v7_1_14 --lib ieee_proposed=./ieee_proposed -s sw_compute 
+Multi-threading is on. Using 6 slave threads.
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/glbl.v" into library work
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/AESL_axi_slave_control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_axi_slave_control
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/AESL_axi_s_im.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_axi_s_im
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/AESL_axi_s_out_r.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_axi_s_out_r
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/AESL_deadlock_idx0_monitor.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_deadlock_idx0_monitor
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/AESL_deadlock_kernel_monitor_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AESL_deadlock_kernel_monitor_top
+WARNING: [VRFC 10-3824] variable 'block_delay' must explicitly be declared as automatic or static [E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/AESL_deadlock_kernel_monitor_top.v:29]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/AESL_fifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fifo
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute.autotb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module apatb_sw_compute_top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_control_s_axi.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_control_s_axi
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_flow_control_loop_pipe.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_flow_control_loop_pipe
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_10s_5ns_13s_15_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_10s_5ns_13s_15_4_1_DSP48_17
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_10s_5ns_13s_15_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8ns_6ns_14ns_15_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8ns_6ns_14ns_15_4_1_DSP48_18
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8ns_6ns_14ns_15_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8ns_6ns_15s_16_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8ns_6ns_15s_16_4_1_DSP48_19
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8ns_6ns_15s_16_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_4ns_13s_14_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_4ns_13s_14_4_1_DSP48_8
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_4ns_13s_14_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_5ns_13s_14_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_5ns_13s_14_4_1_DSP48_14
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_5ns_13s_14_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_5ns_15s_15_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_5ns_15s_15_4_1_DSP48_0
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_5ns_15s_15_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_6ns_16s_16_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_6ns_16s_16_4_1_DSP48_1
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_6ns_16s_16_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_6s_9s_13_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_6s_9s_13_4_1_DSP48_16
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_6s_9s_13_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_7ns_10s_15_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_7ns_10s_15_4_1_DSP48_15
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_7ns_10s_15_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_7ns_14s_16_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_7ns_14s_16_4_1_DSP48_4
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_7ns_14s_16_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_7s_12s_14_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_7s_12s_14_4_1_DSP48_5
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_7s_12s_14_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_7s_9s_14_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_7s_9s_14_4_1_DSP48_6
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_7s_9s_14_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_8s_12s_15_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_8s_12s_15_4_1_DSP48_7
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_8s_12s_15_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_8s_13s_15_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_8s_13s_15_4_1_DSP48_3
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_8s_13s_15_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mac_muladd_8s_8s_14s_16_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_8s_14s_16_4_1_DSP48_2
+INFO: [VRFC 10-311] analyzing module sw_compute_mac_muladd_8s_8s_14s_16_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_8ns_7ns_14_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_8ns_7ns_14_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_8ns_7s_15_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_8ns_7s_15_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_8s_8s_15_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_8s_8s_15_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_8s_8s_16_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_8s_8s_16_1_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_mul_14s_9ns_22_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_14s_9ns_22_4_1_DSP48_13
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_14s_9ns_22_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_mul_15s_9ns_24_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_15s_9ns_24_4_1_DSP48_11
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_15s_9ns_24_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_mul_16s_9ns_24_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_16s_9ns_24_4_1_DSP48_12
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_16s_9ns_24_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_mul_16s_9ns_26_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_16s_9ns_26_4_1_DSP48_10
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_16s_9ns_26_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_mul_mul_17s_9ns_27_4_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_17s_9ns_27_4_1_DSP48_9
+INFO: [VRFC 10-311] analyzing module sw_compute_mul_mul_17s_9ns_27_4_1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute_regslice_both.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sw_compute_regslice_both
+INFO: [VRFC 10-311] analyzing module sw_compute_regslice_both_w1
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/dataflow_monitor.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dataflow_monitor
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3645] port 'axis_block_info' remains unconnected for this instance [E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/AESL_deadlock_kernel_monitor_top.v:19]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package xil_defaultlib.$unit_dataflow_monitor_sv
+Compiling module xil_defaultlib.sw_compute_control_s_axi
+Compiling module xil_defaultlib.sw_compute_mul_8s_8s_15_1_1(NUM_...
+Compiling module xil_defaultlib.sw_compute_mul_8s_8s_16_1_1(NUM_...
+Compiling module xil_defaultlib.sw_compute_mul_8ns_7ns_14_1_1(NU...
+Compiling module xil_defaultlib.sw_compute_mul_8ns_7s_15_1_1(NUM...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_5ns_15s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_5ns_15s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_6ns_16s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_6ns_16s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_8s_14s_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_8s_14s_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_8s_13s_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_8s_13s_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_7ns_14s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_7ns_14s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_7s_12s_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_7s_12s_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_7s_9s_1...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_7s_9s_1...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_8s_12s_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_8s_12s_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_4ns_13s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_4ns_13s...
+Compiling module xil_defaultlib.sw_compute_mul_mul_17s_9ns_27_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_17s_9ns_27_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_16s_9ns_26_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_16s_9ns_26_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_15s_9ns_24_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_15s_9ns_24_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_16s_9ns_24_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_16s_9ns_24_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_14s_9ns_22_4_...
+Compiling module xil_defaultlib.sw_compute_mul_mul_14s_9ns_22_4_...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_5ns_13s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_5ns_13s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_7ns_10s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_7ns_10s...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_6s_9s_1...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8s_6s_9s_1...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_10s_5ns_13...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_10s_5ns_13...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8ns_6ns_14...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8ns_6ns_14...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8ns_6ns_15...
+Compiling module xil_defaultlib.sw_compute_mac_muladd_8ns_6ns_15...
+Compiling module xil_defaultlib.sw_compute_flow_control_loop_pip...
+Compiling module xil_defaultlib.sw_compute_regslice_both(DataWid...
+Compiling module xil_defaultlib.sw_compute_regslice_both(DataWid...
+Compiling module xil_defaultlib.sw_compute
+Compiling module xil_defaultlib.fifo(DEPTH=120)
+Compiling module xil_defaultlib.fifo(DEPTH=120,WIDTH=1)
+Compiling module xil_defaultlib.AESL_axi_s_im
+Compiling module xil_defaultlib.fifo(DEPTH=30)
+Compiling module xil_defaultlib.fifo(DEPTH=30,WIDTH=1)
+Compiling module xil_defaultlib.AESL_axi_s_out_r
+Compiling module xil_defaultlib.AESL_axi_slave_control
+Compiling module xil_defaultlib.AESL_deadlock_idx0_monitor
+Compiling module xil_defaultlib.AESL_deadlock_kernel_monitor_top...
+Compiling module xil_defaultlib.nodf_module_intf
+Compiling module xil_defaultlib.upc_loop_intf(FSM_WIDTH=4)
+Compiling module xil_defaultlib.dataflow_monitor_1
+Compiling module xil_defaultlib.apatb_sw_compute_top
+Compiling module work.glbl
+Built simulation snapshot sw_compute
+
+****** xsim v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source xsim.dir/sw_compute/xsim_script.tcl
+# xsim {sw_compute} -autoloadwcfg -tclbatch {sw_compute.tcl}
+Time resolution is 1 ps
+source sw_compute.tcl
+## run all
+////////////////////////////////////////////////////////////////////////////////////
+// Inter-Transaction Progress: Completed Transaction / Total Transaction
+// Intra-Transaction Progress: Measured Latency / Latency Estimation * 100%
+//
+// RTL Simulation : "Inter-Transaction Progress" ["Intra-Transaction Progress"] @ "Simulation Time"
+////////////////////////////////////////////////////////////////////////////////////
+// RTL Simulation : 0 / 1 [0.00%] @ "125000"
+// RTL Simulation : 1 / 1 [100.00%] @ "1625000"
+////////////////////////////////////////////////////////////////////////////////////
+$finish called at time : 1685 ns : File "E:/project/23th-project/iris_hls/iris_hls_vitis/solution1/sim/verilog/sw_compute.autotb.v" Line 446
+## quit
+INFO: [Common 17-206] Exiting xsim at Thu Aug 11 00:52:08 2022...
+INFO: [COSIM 212-316] Starting C post checking ...
+[PASS] Congratulation! All results are correct
+INFO: [COSIM 212-1000] *** C/RTL co-simulation finished: PASS ***
+INFO: [COSIM 212-211] II is measurable only when transaction number is greater than 1 in RTL simulation. Otherwise, they will be marked as all NA. If user wants to calculate them, please make sure there are at least 2 transactions in RTL simulation.
+INFO: [HLS 200-111] Finished Command cosim_design CPU user time: 3 seconds. CPU system time: 0 seconds. Elapsed time: 45.689 seconds; current allocated memory: 1.980 MB.
+INFO: [HLS 200-112] Total CPU user time: 7 seconds. Total CPU system time: 3 seconds. Total elapsed time: 49.659 seconds; peak allocated memory: 1.218 GB.

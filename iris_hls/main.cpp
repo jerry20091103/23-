@@ -5,9 +5,8 @@
 #define inputNum 30
 #define totalmem 16 * inputNum
 const int32_t scale_FC1 = 402;
-const int32_t scale_FC2 = 288;
 
-long long w[] = {
+int w[] = {
     31,
     46,
     -99,
@@ -79,8 +78,6 @@ void sw_compute(stream8_t *im, stream8_t *out)
     int fc2_acc[3 * inputNum];
     ap_int<3> result[inputNum];
 
-    value8_t valTemp;
-
 	#pragma HLS ARRAY_PARTITION variable = in_acc type = cyclic factor = 4
 	#pragma HLS ARRAY_PARTITION variable = acc type = cyclic factor = 16
 	#pragma HLS ARRAY_PARTITION variable = fc2_acc type = cyclic factor = 6
@@ -88,7 +85,11 @@ void sw_compute(stream8_t *im, stream8_t *out)
     OUTER_LOOP:
     for (int i = 0; i < inputNum; i++)
     {
-    	LOAD_LOOP:
+    	value8_t valTemp;
+        // Packet for Output
+        value8_t valTemp_out;
+
+        LOAD_LOOP:
         for (int j = 0; j < 4; j++)
         {
             #pragma HLS UNROLL // factor=8
@@ -146,8 +147,11 @@ void sw_compute(stream8_t *im, stream8_t *out)
         result[i] = max_index;
 
         WRITE_LOOP:
-        valTemp.data = result[i];
-        out->write(valTemp);
+        // Setting data and configuration to output packet
+        valTemp_out.data = result[i];
+        valTemp_out.last = valTemp.last;
+        valTemp_out.keep = -1; //Enabling all bytes
+        out->write(valTemp_out); // Writing packet to output stream
     }
 
     return;

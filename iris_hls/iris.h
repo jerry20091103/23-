@@ -7,7 +7,6 @@
 #include <hls_stream.h>
 
 typedef signed int int32_t;
-typedef short int int16_t;
 typedef ap_axis<8,1,1,1> value8_t;
 typedef hls::stream<value8_t> stream8_t;
 void sw_compute(stream8_t* im, stream8_t* out);

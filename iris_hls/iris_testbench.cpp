@@ -6,7 +6,6 @@ using namespace std;
 
 #define inputNum 30
 const int32_t scale_FC1 = 402;
-const int32_t scale_FC2 = 288;
 
 ap_int<3> out[inputNum];
 ap_int<8> im[inputNum*16] = {

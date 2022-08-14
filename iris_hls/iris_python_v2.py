@@ -6,8 +6,8 @@ from pynq import Overlay
 from pynq import allocate
 
 if __name__ == "__main__":
-    ol = Overlay("/home/xilinx/jupyter_notebooks/iris/iris_hls_streamv2.bit")
-    ip_iris = ol.sw_compute_0
+    ol = Overlay("/home/xilinx/jupyter_notebooks/iris/iris_hls_streamv4.bit")
+    ip_iris = ol.iris_compute_0
     ipDMAIn = ol.axi_dma_in_0
     ipDMAOut = ol.axi_dma_out_0
 
@@ -23,18 +23,24 @@ if __name__ == "__main__":
     # allocate memory 
     inputmem = inputNum*4
     totalmem = inputNum*16
-    inBuffer = allocate(shape=(inputmem,), dtype=np.int8) 
+    inBuffer = allocate(shape=(inputNum,), dtype=np.uint32) 
     outBuffer = allocate(shape=(inputNum,), dtype=np.int8)
     outBufferPy = allocate(shape=(inputNum,), dtype=np.int8)
-    acc = [0]*totalmem
+    inBuffer_8bit = [0]*inputmem
+    acc = [0]*totalmem # for computing validation on python  
+    
 
     # prepare input data
     Image.seek(0)
     for i in range(inputmem):
         line = Image.readline()
-        inBuffer[i] = int(line)
+        inBuffer_8bit[i] = np.uint8(line)
         acc[i] = int(line)
     Image.close()
+    
+    # store four 8 bit integers as a 32 bit unsigned integer
+    for i in range(inputNum):
+        inBuffer[i] = (inBuffer_8bit[3 + i*4] << 24) | (inBuffer_8bit[2 + i*4] << 16) | (inBuffer_8bit[1 + i*4] << 8) | inBuffer_8bit[0 + i*4]
 
     # *start the computation for hls hardware
     print("start compute hls")
@@ -57,6 +63,7 @@ if __name__ == "__main__":
             112, -17, 24, -40, 98, 14, -2, -9, -44, -66, 2, -17, -49, -66, -8,
             -16, 3, 13, 82, 68, -128, -128, -126, 38, 37, 1, 29, 34, 4, 0, -19,
             29, 35, -4, -80, -66, 14, 19, 26, -45, -48, -3, -843, -91, 654 ]
+    
     # *start the computation for python
     timePythonStart = time()
     #FC1

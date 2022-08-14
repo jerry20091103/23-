@@ -6,7 +6,7 @@
 #define totalmem 16 * inputNum
 const int32_t scale_FC1 = 402;
 
-int w[] = {
+int32_t w[] = {
     31,
     46,
     -99,
@@ -67,16 +67,16 @@ int w[] = {
     -91,
     654};
 
-void sw_compute(stream8_t *im, stream8_t *out)
+void iris_compute(stream32u_t* im, stream3_t* out)
 {
 	#pragma HLS INTERFACE s_axilite port = return
 	#pragma HLS INTERFACE axis register both port = im
 	#pragma HLS INTERFACE axis register both port = out
 
-    ap_int<8> in_acc[4 * inputNum];
-    ap_int<8> acc[8 * inputNum];
-    int fc2_acc[3 * inputNum];
-    ap_int<3> result[inputNum];
+    int8_t in_acc[4 * inputNum];
+    int8_t acc[8 * inputNum];
+    int32_t fc2_acc[3 * inputNum];
+    int8_t result[inputNum];
 
 	#pragma HLS ARRAY_PARTITION variable = in_acc type = cyclic factor = 4
 	#pragma HLS ARRAY_PARTITION variable = acc type = cyclic factor = 16
@@ -85,17 +85,17 @@ void sw_compute(stream8_t *im, stream8_t *out)
     OUTER_LOOP:
     for (int i = 0; i < inputNum; i++)
     {
-    	value8_t valTemp;
+    	value32u_t valTemp;
         // Packet for Output
-        value8_t valTemp_out;
+        value3_t valTemp_out;
 
         LOAD_LOOP:
-        for (int j = 0; j < 4; j++)
-        {
-            #pragma HLS UNROLL // factor=8
-            valTemp = im->read();
-            in_acc[j + i * 4] = valTemp.data;
-        }
+        valTemp = im->read();
+        in_acc[0 + i*4] = valTemp.data & 0xff;
+        in_acc[1 + i*4] = (valTemp.data >> 8) & 0xff;
+        in_acc[2 + i*4] = (valTemp.data >> 16) & 0xff;
+        in_acc[3 + i*4] = (valTemp.data >> 24) & 0xff;
+
         ACC_ZERO_LOOP:
         for (int j = 0; j < 8; j++)
         {

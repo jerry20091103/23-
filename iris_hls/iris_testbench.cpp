@@ -7,8 +7,8 @@ using namespace std;
 #define inputNum 30
 const int32_t scale_FC1 = 402;
 
-ap_int<3> out[inputNum];
-ap_int<8> im[inputNum*16] = {
+int8_t out[inputNum];
+int8_t im[inputNum*16] = {
 74,
 1,
 -91,
@@ -589,7 +589,7 @@ int g[] = {
 
 
 
-static int sw_validate()
+static int validate()
 {
     int i, j;
     int errors = 0;
@@ -660,6 +660,8 @@ static int sw_validate()
         if(out[i] != result[i]){
             printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i, out[i], result[i]);
             errors++;
+        } else{
+            printf("[CORRECT]: index %d, result:%d, gold:%d\n", i, out[i], result[i]);
         }
 
     }
@@ -669,9 +671,9 @@ static int sw_validate()
 }
 
 
-stream8_t strm_im;
-stream8_t strm_out;
-value8_t valDataCtrl;
+stream32u_t strm_im;
+stream3_t strm_out;
+value32u_t valDataCtrl;
 
 int main(){
     unsigned errors = 0;
@@ -685,18 +687,19 @@ int main(){
     valDataCtrl.dest = 0;
 
     // write im stream
-    for (int i = 0; i < inputNum*4; i++) {
-        valDataCtrl.data = im[i];
-        if (i >= (inputNum*4 - 1)) valDataCtrl.last = 1;
+    for (int i = 0; i < inputNum; i++) {
+        uint32_t ui32 = (uint8_t(im[3 + i*4]) << 24) | (uint8_t(im[2 + i*4]) << 16) | (uint8_t(im[1 + i*4]) << 8) | uint8_t(im[0 + i*4]);
+        valDataCtrl.data = ui32;
+        if (i >= (inputNum - 1)) valDataCtrl.last = 1;
         strm_im.write(valDataCtrl);
     }
     // compute
-    sw_compute(&strm_im, &strm_out);
+    iris_compute(&strm_im, &strm_out);
     // read out stream
     for (int i = 0; i < inputNum; i++) {
         out[i] = strm_out.read().data;
     }
-    errors = sw_validate();
+    errors = validate();
     if (errors)
         printf("[FAIL] There are some errors QQ\n");
     else

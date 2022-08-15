@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "xlocale": "cpp",
-        "xiosbase": "cpp"
+        "xiosbase": "cpp",
+        "iostream": "cpp"
     }
 }

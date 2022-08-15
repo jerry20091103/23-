@@ -661,6 +661,7 @@ static int validate()
             printf("[ERROR]: index %d, result:%lld, gold:%lld\n", i, out[i], result[i]);
             errors++;
         } else{
+            // cout << "[CORRECT]: index "<< i <<", result:"<< out[i] <<", gold:"<< result[i] <<"\n";
             printf("[CORRECT]: index %d, result:%d, gold:%d\n", i, out[i], result[i]);
         }
 

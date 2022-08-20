@@ -1,12 +1,12 @@
 import numpy as np
-from time import time
+import time
 import matplotlib.pyplot as plt 
 
 from pynq import Overlay
 from pynq import allocate
 
 if __name__ == "__main__":
-    ol = Overlay("/home/xilinx/jupyter_notebooks/iris/iris_hls_streamv4.bit")
+    ol = Overlay("/home/xilinx/jupyter_notebooks/iris_hls_stream/iris_hls_streamv5.bit")
     ip_iris = ol.iris_compute_0
     ipDMAIn = ol.axi_dma_in_0
     ipDMAOut = ol.axi_dma_out_0
@@ -23,37 +23,45 @@ if __name__ == "__main__":
     # allocate memory 
     inputmem = inputNum*4
     totalmem = inputNum*16
-    inBuffer = allocate(shape=(inputNum,), dtype=np.uint32) 
+    inBuffer = allocate(shape=(inputmem,), dtype=np.int8) 
     outBuffer = allocate(shape=(inputNum,), dtype=np.int8)
     outBufferPy = allocate(shape=(inputNum,), dtype=np.int8)
-    inBuffer_8bit = [0]*inputmem
-    acc = [0]*totalmem # for computing validation on python  
-    
+    acc = [0]*totalmem
 
     # prepare input data
     Image.seek(0)
     for i in range(inputmem):
         line = Image.readline()
-        inBuffer_8bit[i] = np.uint8(line)
+        inBuffer[i] = int(line)
         acc[i] = int(line)
     Image.close()
-    
-    # store four 8 bit integers as a 32 bit unsigned integer
-    for i in range(inputNum):
-        inBuffer[i] = (inBuffer_8bit[3 + i*4] << 24) | (inBuffer_8bit[2 + i*4] << 16) | (inBuffer_8bit[1 + i*4] << 8) | inBuffer_8bit[0 + i*4]
 
     # *start the computation for hls hardware
     print("start compute hls")
-    timeKernelStart = time()
+    timeKernelStart = time.time()
+
+    send_count = 0
+    recv_count = 0
+    
     # ap_start
-    ip_iris.write(0x00, 0x01)
-    # write input output data
-    ipDMAIn.sendchannel.transfer(inBuffer)
-    ipDMAOut.recvchannel.transfer(outBuffer)
-    # wait for the computation to finish
-    ipDMAIn.sendchannel.wait()
-    ipDMAOut.recvchannel.wait()
-    timeKernelEnd = time()
+    #ipDMAIn.sendchannel.transfer(inBuffer)
+    #ipDMAOut.recvchannel.transfer(outBuffer)
+    while recv_count < inputNum:
+        ip_iris.write(0x00, 0x01)
+        # we send 4 sets of data at once, because DMA library requires 32bit aligned transfer, 
+        # our output is only 8 bit at a time
+        ipDMAIn.sendchannel.transfer(inBuffer, recv_count * 16, 16)
+        ipDMAOut.recvchannel.transfer(outBuffer, recv_count * 4, 4)
+        # wait for the computation to finish
+        ipDMAIn.sendchannel.wait()
+        ipDMAOut.recvchannel.wait()
+        print(f"   image{recv_count} : {outBuffer[recv_count]}")
+        recv_count = recv_count + 1
+        #time.sleep(1)
+    
+    
+
+    timeKernelEnd = time.time()
     print("hardware execution time: " + str(timeKernelEnd - timeKernelStart) + " s")
      
     # *prepare weights data for python
@@ -63,9 +71,8 @@ if __name__ == "__main__":
             112, -17, 24, -40, 98, 14, -2, -9, -44, -66, 2, -17, -49, -66, -8,
             -16, 3, 13, 82, 68, -128, -128, -126, 38, 37, 1, 29, 34, 4, 0, -19,
             29, 35, -4, -80, -66, 14, 19, 26, -45, -48, -3, -843, -91, 654 ]
-    
     # *start the computation for python
-    timePythonStart = time()
+    timePythonStart = time.time()
     #FC1
     for i in range(inputNum):
         for j in range(8):
@@ -95,15 +102,13 @@ if __name__ == "__main__":
                 max = acc[inputNum*12+3*i+j]
                 max_index = j
         outBufferPy[i] = max_index
-    timePythonEnd = time()
+    timePythonEnd = time.time()
     print("Python execution time: " + str(timePythonEnd - timePythonStart) + " s")
     
     # *compare results
     if(np.array_equal(outBuffer, outBufferPy)):
         print(">> results are the same!")
-        print(">> the result:")
-        for i in range(inputNum):
-            print(f"   image{i} : {outBuffer[i]}")
+    
     else:
         print("results are different!")
         for i in range(inputNum):

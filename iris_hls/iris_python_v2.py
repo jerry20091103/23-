@@ -40,22 +40,22 @@ if __name__ == "__main__":
     print("start compute hls")
     timeKernelStart = time.time()
 
-    send_count = 0
     recv_count = 0
-    
-    # ap_start
-    #ipDMAIn.sendchannel.transfer(inBuffer)
-    #ipDMAOut.recvchannel.transfer(outBuffer)
-    while recv_count < inputNum:
+
+    while recv_count < inputNum / 4:
+        # ap_start
         ip_iris.write(0x00, 0x01)
-        # we send 4 sets of data at once, because DMA library requires 32bit aligned transfer, 
+        # we send 4 sets of data at once, because the DMA library requires 32bit aligned transfer, 
         # our output is only 8 bit at a time
         ipDMAIn.sendchannel.transfer(inBuffer, recv_count * 16, 16)
         ipDMAOut.recvchannel.transfer(outBuffer, recv_count * 4, 4)
         # wait for the computation to finish
         ipDMAIn.sendchannel.wait()
         ipDMAOut.recvchannel.wait()
-        print(f"   image{recv_count} : {outBuffer[recv_count]}")
+        # print 4 results
+        for i in range(4):
+            if recv_count * 4 + i < inputNum:
+                print(f"   image{recv_count * 4 + i} : {outBuffer[recv_count * 4 + i]}")
         recv_count = recv_count + 1
         #time.sleep(1)
     
@@ -114,4 +114,3 @@ if __name__ == "__main__":
         for i in range(inputNum):
             print(f"index {i}: {outBuffer[i]} <-> {outBufferPy[i]}")
             
-

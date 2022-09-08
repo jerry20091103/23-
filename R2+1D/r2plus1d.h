@@ -7,7 +7,7 @@ typedef signed int int32_t;
 typedef short int int16_t;
 
 typedef struct Array_5D_ {
-    int *data;
+    float *data;
     int *num;
 } Array_5D;
 

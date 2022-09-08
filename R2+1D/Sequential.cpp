@@ -1,11 +1,6 @@
+#include "r2plus1d.h"
 #include<iostream>
-#include <stdio.h>
-#include <stdlib.h>
 using namespace std;
-typedef signed char   ap_int;
-typedef unsigned char ap_uint;
-
-
 
 void Sequential(psum_range, x, weights, out_channels, kernel_size=5, stride=1, bias=False, psum_record=False){
     psum_record_list = [np.complex64(x) for x in range(0)];

@@ -83,80 +83,69 @@ void sw_compute(volatile ap_int<8>* im, volatile ap_int<3>* out){
 	#pragma HLS ARRAY_PARTITION variable=acc type=cyclic factor=16
 	#pragma HLS ARRAY_PARTITION variable=fc2_acc type=cyclic factor=6
 
-	LOAD_LOOP:
-    for(int i = 0; i < 4*inputNum; i++){
-		#pragma HLS UNROLL factor=8
-        in_acc[i] = im[i];
-    }
-    ACC_ZERO_LOOP:
-    for(int i = 0; i < 8*inputNum; i++){
-		#pragma HLS UNROLL factor=16
-    	acc[i] = 0;
-    }
-    //FC1
-    FC1_LOOP:
-    for(int i = 0; i < inputNum; i++){
-	#pragma HLS UNROLL factor=2
-        for(int j = 0; j < 8; j++){
-			#pragma HLS UNROLL
-        	int temp = 0;
-            for(int k = 0; k < 4; k++){
-				#pragma HLS UNROLL
-            	temp += in_acc[4*i+k]*w[4*j+k];
-
-            }
-            if(temp<0)temp =0;
-            else {
-            	temp = temp*scale_FC1 / 65536;
-            	if(temp>127) temp = 127;
-            }
-            acc[8*i+j] = temp;
+    OUTER_LOOP:
+    for (int i = 0; i < inputNum; i++)
+    {
+        LOAD_LOOP:
+        for (int j = 0; j < 4; j++)
+        {
+            #pragma HLS UNROLL factor=8
+            in_acc[j + i * 4] = im[j + i * 4];
         }
-    }
-
-
-
-    //FC2
-    FC2_LOOP:
-    for(int i = 0; i < inputNum; i++){
-	#pragma HLS UNROLL factor=2
-        for(int j = 0; j < 3; j++){
-			#pragma HLS UNROLL
-            fc2_acc[3*i+j] = w[56+j];
-            for(int k = 0; k < 8; k++){
-				#pragma HLS UNROLL
-                fc2_acc[3*i+j] += acc[8*i+k]*w[32+8*j+k];
-            }
+        ACC_ZERO_LOOP:
+        for (int j = 0; j < 8; j++)
+        {
+            #pragma HLS UNROLL factor=16
+            acc[j + i * 8] = 0;
         }
-    }
-    //maxpooling
-    MAXPOOL_LOOP:
-    for(int i = 0; i < inputNum; i++){
-	#pragma HLS UNROLL factor=2
-        //find max
-        int max = fc2_acc[3*i];
-        int max_index = 0, j;
-        for(j = 1; j < 3; j++){
-            if(fc2_acc[3*i+j] > max){
-                max = fc2_acc[3*i+j];
+
+        // FC1
+        FC1_LOOP:
+        for (int j = 0; j < 8; j++)
+        {
+            #pragma HLS UNROLL
+            int temp = 0;
+            for (int k = 0; k < 4; k++)
+            {
+                #pragma HLS UNROLL
+                temp += in_acc[4 * i + k] * w[4 * j + k];
+            }
+            if (temp < 0)
+                temp = 0;
+            else
+            {
+                temp = temp * scale_FC1 / 65536;
+                if (temp > 127)
+                    temp = 127;
+            }
+            acc[8 * i + j] = temp;
+        }
+
+        // FC2
+        FC2_MAX_LOOP:
+        int max = 0;
+        int max_index = 0;
+        for (int j = 0; j < 3; j++)
+        {
+            #pragma HLS UNROLL
+            fc2_acc[3 * i + j] = w[56 + j];
+            for (int k = 0; k < 8; k++)
+            {
+                #pragma HLS UNROLL
+                fc2_acc[3 * i + j] += acc[8 * i + k] * w[32 + 8 * j + k];
+            }
+            if (fc2_acc[3 * i + j] > max)
+            {
+                max = fc2_acc[3 * i + j];
                 max_index = j;
             }
         }
         result[i] = max_index;
+
+        WRITE_LOOP:
+        out[i] = result[i];
     }
-//    int fc1Num = 12*inputNum;
-//    int fc2Num = 3*inputNum;
-//    int totalacc = 15*inputNum;
-//    for(int i=0;i<fc1Num;i++){
-//        out[i] = acc[i];
-//    }
-//    for(int i=0;i<fc2Num;i++){
-//    	out[fc1Num+i] = fc2_acc[i];
-//    }
-    WRITE_LOOP:
-    for(int i=0;i<inputNum;i++){
-    	out[i] = result[i];
-    }
+    
     return;
 }
 

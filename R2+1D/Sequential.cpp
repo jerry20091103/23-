@@ -7,8 +7,7 @@ typedef unsigned char ap_uint;
 
 
 
-int main(){
-    Conv2d(psum_range, x, weights, out_channels, kernel_size=5, stride=1, bias=False, psum_record=False):
+void Sequential(psum_range, x, weights, out_channels, kernel_size=5, stride=1, bias=False, psum_record=False){
     psum_record_list = [np.complex64(x) for x in range(0)];
     N, C, H, W = x.shape;
     x_out = np.zeros((N, out_channels, int(((H-kernel_size)/stride)+1), int((W-kernel_size)/stride + 1)), dtype='int32');

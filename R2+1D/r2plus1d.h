@@ -15,6 +15,5 @@ void r2plus1d(Array_5D X, Array_5D Kernel_1, Array_5D Kernel_2);
 void Conv3d(Array_5D X_in, Array_5D X_out, Array_5D Kernel, int* stride, int* padding);
 void BatchNorm3d(Array_5D X, int e = 0.00001, int r = 1, int b = 0);
 void ReLU(Array_5D X);
-void Sequential(psum_range, x, weights, out_channels, kernel_size=5, stride=1, bias=False, psum_record=False);
-
+void Linear(int* psum_range,Array_2D x, Array_2D weights, int* weightsBias, bool bias,Array_2D x_out);
 #endif

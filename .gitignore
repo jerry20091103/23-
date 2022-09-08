@@ -1,3 +1,5 @@
 iris_hls/vitis_hls.log
 iris_hls_vitis/
 iris_hls_vivado/
+imageIO_test_vitis/
+imageIO_test_vivado/

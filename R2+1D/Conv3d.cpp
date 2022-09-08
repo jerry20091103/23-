@@ -7,7 +7,7 @@ using namespace std;
 #define _H 56
 #define _W 56
 
-void conv3D(Array_5D X_in, Array_5D X_out, Array_5D Kernel, int* stride, int* padding)
+void Conv3d(Array_5D X_in, Array_5D X_out, Array_5D Kernel, int* stride, int* padding)
 {
 	float X_data[_N][_C][_D][_H][_W];
 

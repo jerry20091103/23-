@@ -2,11 +2,11 @@
 using namespace std;
 
 void ReLU(Array_5D X){
-	int N = X_in.num[0];
-	int C = X_in.num[1];
-	int D = X_in.num[2];
-	int H = X_in.num[3];
-	int W = X_in.num[4];
+	int N = X.num[0];
+	int C = X.num[1];
+	int D = X.num[2];
+	int H = X.num[3];
+	int W = X.num[4];
 
 	for(int n = 0; n < N; n++){
 		for(int c = 0; c < C; c++){

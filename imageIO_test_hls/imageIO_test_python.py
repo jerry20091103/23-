@@ -26,6 +26,7 @@ print("Before:")
 display(Image.fromarray(image_in_array))
 
 # run the IP
+# This IP sets the blue channel to 0
 print("Start IP")
 ip_imageIO.write(0x10, image_in_array.device_address)
 ip_imageIO.write(0x1C, image_out_array.device_address)

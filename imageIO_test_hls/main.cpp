@@ -4,9 +4,9 @@
 #define width 112
 #define height 112
 
-// This function streams one 1024 bits at a time and store a full frame in buffer
-// Then the blue component is removed
-// We can not stream the whole image at once because the max bitwidth of the AXI stream seems to be 4096 bits.
+// This function transfers 1024 bits at a time and store a full frame in buffer.
+// Then the blue component is set to zero.
+// Finally, the result is sent to the output.
 void imageIO_test(packet_t* input, packet_t* output)
 {
 	#pragma HLS INTERFACE s_axilite port=return

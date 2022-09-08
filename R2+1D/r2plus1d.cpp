@@ -1,39 +1,37 @@
 #include "r2plus1d.h"
 #include<iostream>
 using namespace std;
-#include "r2plus1d.h"
 
-void r2plus1d(float* input_X_in, float* Conv3d_Kernel_1, float* Conv3d_Kernel_2)
+void r2plus1d(float* X_in, float* Kernel_1, float* Kernel_2)
 {
-	int conv3d_X_in_num[5] = {1, 3, 1, 111, 111};
-    Array_5D conv3d_X_in = {.data = X_in, .num = conv3d_X_in_num};
+	int X_in_num[5] = {1, 3, 1, 111, 111};
+    Array_5D X_in = {.data = X_in, .num = X_in_num};
     
-    float conv3d_X_out_data[141120];
-    int conv3d_X_out_num[5] = {1, 45, 1, 56, 56};
-    Array_5D conv3d_X_out = {.data = conv3d_X_out_data, .num = conv3d_X_out_num};
+    float X_out_data[141120];
+    int X_out_num[5] = {1, 45, 1, 56, 56};
+    Array_5D X_out = {.data = X_out_data, .num = X_out_num};
     
+    int Kernel_num[3] = {1, 7, 7};
+    Array_5D Kernel = {.data = Kernel_1, .num = Kernel_num};
     
-    int conv3d_Kernel_num[3] = {1, 7, 7};
-    Array_5D conv3d_Kernel = {.data = Conv3d_Kernel_1, .num = conv3d_Kernel_num};
-    
-    int conv3d_stride[3] = {1, 2, 2};
-    int conv3d_padding[3] = {0, 3, 3};
-    Conv3d(conv3d_X_in, conv3d_X_out, conv3d_Kernel, conv3d_stride, conv3d_padding);
-    BatchNorm3d(conv3d_X_out, int e = 0.00001, int r = 1, int b = 0);
-    ReLU(conv3d_X_out);
+    int stride[3] = {1, 2, 2};
+    int padding[3] = {0, 3, 3};
+    Conv3d(X_in, X_out, Kernel, stride, padding);
+    BatchNorm3d(X_out, int e = 0.00001, int r = 1, int b = 0);
+    ReLU(X_out);
     // ==========================================================
-    float conv3d_X_out_data_2[200704];
-    int conv3d_X_out_num_2[5] = {1, 64, 1, 56, 56};
-    Array_5D conv3d_X_out_2 = {.data = conv3d_X_out_data_2, .num = conv3d_X_out_num_2};
+    float X_out_data_2[200704];
+    int X_out_num_2[5] = {1, 64, 1, 56, 56};
+    Array_5D X_out_2 = {.data = X_out_data_2, .num = X_out_num_2};
     
-    int conv3d_Kernel_num_2[3] = {3, 1, 1};
-    Array_5D conv3d_Kernel_2 = {.data = Conv3d_Kernel_2, .num = conv3d_Kernel_num_2};
+    int Kernel_num_2[3] = {3, 1, 1};
+    Array_5D Kernel_2 = {.data = Kernel_2, .num = Kernel_num_2};
     
-    int conv3d_stride_2[3] = {1, 1, 1};
-    int conv3d_padding_2[3] = {1, 0, 0};
-    Conv3d(conv3d_X_out, conv3d_X_out_2, conv3d_Kernel_2, conv3d_stride_2, conv3d_padding_2);
-    BatchNorm3d(conv3d_X_out_2, int e = 0.00001, int r = 1, int b = 0);
-    ReLU(conv3d_X_out_2);
+    int stride_2[3] = {1, 1, 1};
+    int padding_2[3] = {1, 0, 0};
+    Conv3d(X_out, X_out_2, Kernel_2, stride_2, padding_2);
+    BatchNorm3d(X_out_2, int e = 0.00001, int r = 1, int b = 0);
+    ReLU(X_out_2);
 
     
 	// └─Conv3d: 2-1                            [1, 45, 1, 56, 56]        6,615

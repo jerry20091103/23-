@@ -2,7 +2,7 @@
 using namespace std;
 
 #define _N 1
-#define _K 64
+#define _C 64
 #define _D 1
 #define _H 56
 #define _W 56

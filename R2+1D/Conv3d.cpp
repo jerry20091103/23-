@@ -45,4 +45,5 @@ void Conv3d(Array_5D X_in, Array_5D X_out, Array_5D Kernel, int* stride, int* pa
 								for(int kh = 0; kh < KH; kh++)
 									for(int kw = 0; kw < KW; kw++)
 										X_out.data[n*C_out*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] += X_data[n][c][d*stride[0]+kd][h*stride[1]+kh][w*stride[2]+kw] * Kernel[c][kc][kd][kh][kw];
+	return;
 }

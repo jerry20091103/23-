@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 
-void r2plus1d(float* X, float* Kernel_1, float* Kernel_2)
+void r2plus1d(float* X, float* X_out, float* Kernel_1, float* Kernel_2)
 {
 	int X_in_num[5] = {1, 3, 1, 111, 111};
     Array_5D X_in = {.data = X, .num = X_in_num};
@@ -32,8 +32,9 @@ void r2plus1d(float* X, float* Kernel_1, float* Kernel_2)
     Conv3d(X_out_1, X_out_2, Kernel_2, stride_2, padding_2);
     BatchNorm3d(X_out_2, int e = 0.00001, int r = 1, int b = 0);
     ReLU(X_out_2);
-
     
+    X_out = X_out_2.data;
+    return;
 	// └─Conv3d: 2-1                            [1, 45, 1, 56, 56]        6,615
     // └─BatchNorm3d: 2-2                       [1, 45, 1, 56, 56]        90
     // └─ReLU: 2-3                              [1, 45, 1, 56, 56]        --

@@ -21,4 +21,5 @@ void ReLU(Array_5D X){
 			}
 		}
 	}
+	return;
 }

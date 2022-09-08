@@ -8,6 +8,21 @@ using namespace std;
 #define _H 56
 #define _W 56
 
+// https://www.codeproject.com/Articles/570700/SquareplusRootplusalgorithmplusforplusC
+double powerOfTen(int num){
+    double rst = 1.0;
+    if(num >= 0){
+        for(int i = 0; i < num ; i++){
+            rst *= 10.0;
+        }
+    }else{
+        for(int i = 0; i < (0 - num ); i++){
+           rst *= 0.1;
+       }
+   }
+   return rst;
+}
+
 double sqrt(double a)
 {
     /*
@@ -15,7 +30,6 @@ double sqrt(double a)
 
           *** Babylonian method cannot get exact zero but approximately value of the square_root
 
-		  https://www.codeproject.com/Articles/570700/SquareplusRootplusalgorithmplusforplusC
      */
     double z = a; 
     double rst = 0.0;

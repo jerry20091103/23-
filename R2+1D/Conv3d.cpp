@@ -1,20 +1,49 @@
 #include<iostream>
 using namespace std;
 
-void Conv3d(DATA_TYPE X_in(N1, C1, D1, H1, W1), DATA_TYPE X_out(N2, C2, D2, H2, W2), DATA_TYPE Kernel(KN, KC, KD, KH, KW), TYPE stride = {1, 1, 1}, TYPE padding = {0, 0, 0})
+#define _N 1
+#define _K 64
+#define _D 1
+#define _H 56
+#define _W 56
+
+void Conv3d(Array_5D X_in, Array_5D X_out, Array_5D Kernel, int* stride, int* padding)
 {
-	
-	
-	for(int n = 0; n < N2; n++){
-		for(int c = 0; c < C2; c++){
-            for (int d = 0; d < ((D1+2*padding[0]-FD)/stride[0] + 1); d++){
-                for (int h = 0; h < ((H1+2*padding[1]-FH)/stride[1] + 1); h++){
-                	for (int w = 0; w < ((W1+2*padding[2]-FW)/stride[2] + 1); w++){
+	float X_data[_N][_C][_D][_H][_W];
+
+	int N = X_in.num[0];
+	int C = X_in.num[1];
+	int D = X_in.num[2];
+	int H = X_in.num[3];
+	int W = X_in.num[4];
+
+	int KC = Kernel.num[1];
+	int KD = Kernel.num[2];
+	int KH = Kernel.num[3];
+	int KW = Kernel.num[4];
+
+	int C_out = X_in.num[1];
+	int D_out = X_in.num[2]; // N+2*padding[0]-KD)/stride[0] + 1
+	int H_out = X_in.num[3]; // H+2*padding[1]-KH)/stride[1] + 1
+	int W_out = X_in.num[4]; // W+2*padding[2]-KW)/stride[2] + 1
+
+	for(int n = 0; n < N; n++)
+		for(int c = 0; c < C; c++)
+			for(int d = 0; d < D; d++)
+				for(int h = 0; h < H; h++)
+					for(int w = 0; w < W; w++)
+						X_data[n][c][d][h][w] = X_in.data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w];	
+
+	for(int n = 0; n < N; n++){
+		for(int c = 0; c < C_out; c++){
+            for (int d = 0; d < D_out; d++){
+                for (int h = 0; h < H_out; h++){
+                	for (int w = 0; w < W_out; w++){
 						for(int kc = 0; kc < KC; kc++){
 							for(int kd = 0; kd < KD; kd++){
 								for(int kh = 0; kh < KH; kh++){
 									for(int kw = 0; kw < KW; kw++){
-										X_out[n][c][d][h][w] += X_in[n][c][d*stride[0]+kd][h*stride[1]+kh][w*stride[2]+kw] * Weights[c][kc][kd][kh][kw];
+										X_out.data[n*C_out*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] += X_data[n][c][d*stride[0]+kd][h*stride[1]+kh][w*stride[2]+kw] * Kernel[c][kc][kd][kh][kw];
 									}
 								}
 							}
@@ -24,4 +53,5 @@ void Conv3d(DATA_TYPE X_in(N1, C1, D1, H1, W1), DATA_TYPE X_out(N2, C2, D2, H2, 
 			}
 		}
 	}
+
 }

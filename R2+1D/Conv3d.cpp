@@ -1,3 +1,4 @@
+#include "r2plus1d.h"
 #include<iostream>
 using namespace std;
 
@@ -34,24 +35,14 @@ void Conv3d(Array_5D X_in, Array_5D X_out, Array_5D Kernel, int* stride, int* pa
 					for(int w = 0; w < W; w++)
 						X_data[n][c][d][h][w] = X_in.data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w];	
 
-	for(int n = 0; n < N; n++){
-		for(int c = 0; c < C_out; c++){
-            for (int d = 0; d < D_out; d++){
-                for (int h = 0; h < H_out; h++){
-                	for (int w = 0; w < W_out; w++){
-						for(int kc = 0; kc < KC; kc++){
-							for(int kd = 0; kd < KD; kd++){
-								for(int kh = 0; kh < KH; kh++){
-									for(int kw = 0; kw < KW; kw++){
+	for(int n = 0; n < N; n++)
+		for(int c = 0; c < C_out; c++)
+            for (int d = 0; d < D_out; d++)
+                for (int h = 0; h < H_out; h++)
+                	for (int w = 0; w < W_out; w++)
+						for(int kc = 0; kc < KC; kc++)
+							for(int kd = 0; kd < KD; kd++)
+								for(int kh = 0; kh < KH; kh++)
+									for(int kw = 0; kw < KW; kw++)
 										X_out.data[n*C_out*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] += X_data[n][c][d*stride[0]+kd][h*stride[1]+kh][w*stride[2]+kw] * Kernel[c][kc][kd][kh][kw];
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
 }

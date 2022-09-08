@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-void conv3D(DATA_TYPE X_in(N1, C1, D1, H1, W1), DATA_TYPE X_out(N2, C2, D2, H2, W2), DATA_TYPE Kernel(KN, KC, KD, KH, KW), TYPE stride = {1, 1, 1}, TYPE padding = {0, 0, 0})
+void Conv3d(DATA_TYPE X_in(N1, C1, D1, H1, W1), DATA_TYPE X_out(N2, C2, D2, H2, W2), DATA_TYPE Kernel(KN, KC, KD, KH, KW), TYPE stride = {1, 1, 1}, TYPE padding = {0, 0, 0})
 {
 	
 	

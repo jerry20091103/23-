@@ -3,6 +3,8 @@ using namespace std;
 
 void conv3D(DATA_TYPE X_in(N1, C1, D1, H1, W1), DATA_TYPE X_out(N2, C2, D2, H2, W2), DATA_TYPE Kernel(KN, KC, KD, KH, KW), TYPE stride = {1, 1, 1}, TYPE padding = {0, 0, 0})
 {
+	
+	
 	for(int n = 0; n < N2; n++){
 		for(int c = 0; c < C2; c++){
             for (int d = 0; d < ((D1+2*padding[0]-FD)/stride[0] + 1); d++){

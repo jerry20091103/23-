@@ -2,23 +2,23 @@
 #include<iostream>
 using namespace std;
 
-void r2plus1d(float* X_in, float* Kernel_1, float* Kernel_2)
+void r2plus1d(float* X, float* Kernel_1, float* Kernel_2)
 {
 	int X_in_num[5] = {1, 3, 1, 111, 111};
-    Array_5D X_in = {.data = X_in, .num = X_in_num};
+    Array_5D X_in = {.data = X, .num = X_in_num};
     
     float X_out_data[141120];
     int X_out_num[5] = {1, 45, 1, 56, 56};
-    Array_5D X_out = {.data = X_out_data, .num = X_out_num};
+    Array_5D X_out_1 = {.data = X_out_data, .num = X_out_num};
     
     int Kernel_num[3] = {1, 7, 7};
-    Array_5D Kernel = {.data = Kernel_1, .num = Kernel_num};
+    Array_5D Kernel_1 = {.data = Kernel_1, .num = Kernel_num};
     
-    int stride[3] = {1, 2, 2};
-    int padding[3] = {0, 3, 3};
-    Conv3d(X_in, X_out, Kernel, stride, padding);
-    BatchNorm3d(X_out, int e = 0.00001, int r = 1, int b = 0);
-    ReLU(X_out);
+    int stride_1[3] = {1, 2, 2};
+    int padding_1[3] = {0, 3, 3};
+    Conv3d(X_in, X_out_1, Kernel_1, stride_1, padding_1);
+    BatchNorm3d(X_out_1, int e = 0.00001, int r = 1, int b = 0);
+    ReLU(X_out_1);
     // ==========================================================
     float X_out_data_2[200704];
     int X_out_num_2[5] = {1, 64, 1, 56, 56};
@@ -29,7 +29,7 @@ void r2plus1d(float* X_in, float* Kernel_1, float* Kernel_2)
     
     int stride_2[3] = {1, 1, 1};
     int padding_2[3] = {1, 0, 0};
-    Conv3d(X_out, X_out_2, Kernel_2, stride_2, padding_2);
+    Conv3d(X_out_1, X_out_2, Kernel_2, stride_2, padding_2);
     BatchNorm3d(X_out_2, int e = 0.00001, int r = 1, int b = 0);
     ReLU(X_out_2);
 

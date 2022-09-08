@@ -14,6 +14,8 @@ double sqrt(double a)
           find more detail of this method on wiki methods_of_computing_square_roots
 
           *** Babylonian method cannot get exact zero but approximately value of the square_root
+
+		  https://www.codeproject.com/Articles/570700/SquareplusRootplusalgorithmplusforplusC
      */
     double z = a; 
     double rst = 0.0;

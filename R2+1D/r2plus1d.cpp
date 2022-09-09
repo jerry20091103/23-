@@ -2,38 +2,40 @@
 #include<iostream>
 using namespace std;
 
-void r2plus1d(float* X, float* X_out, float* Kernel_1, float* Kernel_2)
+void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_2_data)
 {
-	int X_in_num[5] = {1, 3, 1, 111, 111};
-    Array_5D X_in = {.data = X, .num = X_in_num};
+	int X_num[5] = {1, 3, 1, 111, 111};
+    Array_5D X = {.data = X_data, .num = X_num};
     
     float X_out_data[141120];
     int X_out_num[5] = {1, 45, 1, 56, 56};
-    Array_5D X_out_1 = {.data = X_out_data, .num = X_out_num};
+    Array_5D X_out = {.data = X_out_data, .num = X_out_num};
     
-    int Kernel_num[3] = {1, 7, 7};
-    Array_5D Kernel_1_in = {.data = Kernel_1, .num = Kernel_num};
+    int Kernel_1_num[3] = {1, 7, 7};
+    Array_5D Kernel_1 = {.data = Kernel_1_data, .num = Kernel_1_num};
     
     int stride_1[3] = {1, 2, 2};
     int padding_1[3] = {0, 3, 3};
-    Conv3d(X_in, X_out_1, Kernel_1_in, stride_1, padding_1);
-    BatchNorm3d(X_out_1, 0.00001, 1, 0);
-    ReLU(X_out_1);
+    Conv3d(X, X_out, Kernel_1, stride_1, padding_1);
+    BatchNorm3d(X_out, 0.00001, 1, 0);
+    ReLU(X_out);
     // ==========================================================
-    float X_out_data_2[200704];
-    int X_out_num_2[5] = {1, 64, 1, 56, 56};
-    Array_5D X_out_2 = {.data = X_out_data_2, .num = X_out_num_2};
+    float Y_tmp_data[200704];
+    int Y_num[5] = {1, 64, 1, 56, 56};
+    Array_5D Y = {.data = Y_tmp_data, .num = Y_num};
     
-    int Kernel_num_2[3] = {3, 1, 1};
-    Array_5D Kernel_2_in = {.data = Kernel_2, .num = Kernel_num_2};
+    int Kernel_2_num[3] = {3, 1, 1};
+    Array_5D Kernel_2 = {.data = Kernel_2_data, .num = Kernel_2_num};
     
     int stride_2[3] = {1, 1, 1};
     int padding_2[3] = {1, 0, 0};
-    Conv3d(X_out_1, X_out_2, Kernel_2_in, stride_2, padding_2);
-    BatchNorm3d(X_out_2, 0.00001, 1, 0);
-    ReLU(X_out_2);
+    Conv3d(X_out, Y, Kernel_2, stride_2, padding_2);
+    BatchNorm3d(Y, 0.00001, 1, 0);
+    ReLU(Y);
     
-    X_out = X_out_2.data;
+    for(int i = 0; i < 200704; i++)
+        Y_data[i] = Y.data[i];
+    
     return;
 	// └─Conv3d: 2-1                            [1, 45, 1, 56, 56]        6,615
     // └─BatchNorm3d: 2-2                       [1, 45, 1, 56, 56]        90

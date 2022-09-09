@@ -12,12 +12,12 @@ void r2plus1d(float* X, float* X_out, float* Kernel_1, float* Kernel_2)
     Array_5D X_out_1 = {.data = X_out_data, .num = X_out_num};
     
     int Kernel_num[3] = {1, 7, 7};
-    Array_5D Kernel_1 = {.data = Kernel_1, .num = Kernel_num};
+    Array_5D Kernel_1_in = {.data = Kernel_1, .num = Kernel_num};
     
     int stride_1[3] = {1, 2, 2};
     int padding_1[3] = {0, 3, 3};
-    Conv3d(X_in, X_out_1, Kernel_1, stride_1, padding_1);
-    BatchNorm3d(X_out_1, int e = 0.00001, int r = 1, int b = 0);
+    Conv3d(X_in, X_out_1, Kernel_1_in, stride_1, padding_1);
+    BatchNorm3d(X_out_1, 0.00001, 1, 0);
     ReLU(X_out_1);
     // ==========================================================
     float X_out_data_2[200704];
@@ -25,12 +25,12 @@ void r2plus1d(float* X, float* X_out, float* Kernel_1, float* Kernel_2)
     Array_5D X_out_2 = {.data = X_out_data_2, .num = X_out_num_2};
     
     int Kernel_num_2[3] = {3, 1, 1};
-    Array_5D Kernel_2 = {.data = Kernel_2, .num = Kernel_num_2};
+    Array_5D Kernel_2_in = {.data = Kernel_2, .num = Kernel_num_2};
     
     int stride_2[3] = {1, 1, 1};
     int padding_2[3] = {1, 0, 0};
-    Conv3d(X_out_1, X_out_2, Kernel_2, stride_2, padding_2);
-    BatchNorm3d(X_out_2, int e = 0.00001, int r = 1, int b = 0);
+    Conv3d(X_out_1, X_out_2, Kernel_2_in, stride_2, padding_2);
+    BatchNorm3d(X_out_2, 0.00001, 1, 0);
     ReLU(X_out_2);
     
     X_out = X_out_2.data;

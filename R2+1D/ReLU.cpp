@@ -2,12 +2,12 @@
 #include<iostream>
 using namespace std;
 
-void ReLU(Array_5D X){
-	int N = X.num[0];
-	int C = X.num[1];
-	int D = X.num[2];
-	int H = X.num[3];
-	int W = X.num[4];
+void ReLU(float* X_data, int* X_num){
+	int N = X_num[0];
+	int C = X_num[1];
+	int D = X_num[2];
+	int H = X_num[3];
+	int W = X_num[4];
 
 	for(int n = 0; n < N; n++){
 		for(int c = 0; c < C; c++){
@@ -15,7 +15,7 @@ void ReLU(Array_5D X){
 				for(int h = 0; h < H; h++){
 					for(int w = 0; w < W; w++){
 						int pos = n*C*D*H*W + c*D*H*W + d*H*W + h*W + w;
-						X.data[pos] = (X.data[pos] > 0) ? X.data[pos] : 0;
+						X_data[pos] = (X_data[pos] > 0) ? X_data[pos] : 0;
 					}
 				}
 			}

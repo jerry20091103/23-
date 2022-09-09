@@ -65,35 +65,35 @@ double sqrt(double a)
      return rst;
 }
 
-void BatchNorm3d(Array_5D X, float e, int r, int b){
+void BatchNorm3d(float* X_data, int* X_num, float e, int r, int b){
 
     // float X_data[_N][_C][_D][_H][_W];
 
-	int N = X.num[0];
-	int C = X.num[1];
-	int D = X.num[2];
-	int H = X.num[3];
-	int W = X.num[4];
+	int N = X_num[0];
+	int C = X_num[1];
+	int D = X_num[2];
+	int H = X_num[3];
+	int W = X_num[4];
 
-	int mu[_N][_C];
+	float mu[_N*_C];
 	for(int n = 0; n < N; n++){
 		for(int c = 0; c < C; c++){
 			for(int d = 0; d < D; d++)
 				for(int h = 0; h < H; h++)
 					for(int w = 0; w < W; w++)
-						mu[n][c]  += X.data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w];
-			mu[n][c] /= N*C;
+						mu[n*C + c]  += X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w];
+			mu[n*C + c] /= N*C;
 		}
 	}
 
-	int var[_N][_C];
+	float var[_N*_C];
 	for(int n = 0; n < N; n++){
 		for(int c = 0; c < C; c++){
 			for(int d = 0; d < D; d++)
 				for(int h = 0; h < H; h++)
 					for(int w = 0; w < W; w++)
-						var[n][c]  += (X.data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w]-mu[n][c]) * (X.data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w]-mu[n][c]);
-			var[n][c] /= N*C;
+						var[n*C + c]  += (X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w]-mu[n*C + c]) * (X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w]-mu[n*C + c]);
+			var[n*C + c] /= N*C;
 		}
 	}
 
@@ -102,5 +102,5 @@ void BatchNorm3d(Array_5D X, float e, int r, int b){
 			for(int d = 0; d < D; d++)
 				for(int h = 0; h < H; h++)
 					for(int w = 0; w < W; w++)
-						X.data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = ((X.data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] - mu[n][c]) / sqrt(var[n][c]+e)) * r + b;
+						X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = ((X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] - mu[n*C + c]) / sqrt(var[n*C + c]+e)) * r + b;
 }

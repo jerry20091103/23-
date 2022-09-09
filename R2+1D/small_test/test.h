@@ -7,5 +7,5 @@ typedef struct Array_5D_ {
     int *num;
 } Array_5D;
 
-void test(Array_5D X, Array_5D Kernel_1, Array_5D Kernel_2);
+void test(float* X, float* Xout);
 #endif

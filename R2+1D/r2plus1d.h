@@ -11,7 +11,7 @@ typedef struct Array_5D_ {
     int *num;
 } Array_5D;
 
-void r2plus1d(Array_5D X, Array_5D Kernel_1, Array_5D Kernel_2);
+void r2plus1d(float* X, float* X_out, float* Kernel_1, float* Kernel_2);
 void Conv3d(Array_5D X_in, Array_5D X_out, Array_5D Kernel, int* stride, int* padding);
 void BatchNorm3d(Array_5D X, int e = 0.00001, int r = 1, int b = 0);
 void ReLU(Array_5D X);

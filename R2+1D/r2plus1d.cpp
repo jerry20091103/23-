@@ -17,7 +17,7 @@ void r2plus1d(float* X, float* X_out, float* Kernel_1, float* Kernel_2)
     int stride_1[3] = {1, 2, 2};
     int padding_1[3] = {0, 3, 3};
     Conv3d(X_in, X_out_1, Kernel_1, stride_1, padding_1);
-    BatchNorm3d(X_out_1, int e = 0.00001, int r = 1, int b = 0);
+    BatchNorm3d(X_out_1, 0.00001, 1, 0);
     ReLU(X_out_1);
     // ==========================================================
     float X_out_data_2[200704];
@@ -30,7 +30,7 @@ void r2plus1d(float* X, float* X_out, float* Kernel_1, float* Kernel_2)
     int stride_2[3] = {1, 1, 1};
     int padding_2[3] = {1, 0, 0};
     Conv3d(X_out_1, X_out_2, Kernel_2, stride_2, padding_2);
-    BatchNorm3d(X_out_2, int e = 0.00001, int r = 1, int b = 0);
+    BatchNorm3d(X_out_2, 0.00001, 1, 0);
     ReLU(X_out_2);
     
     X_out = X_out_2.data;

@@ -13,7 +13,7 @@ typedef struct Array_5D_ {
 
 void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_2_data);
 void Conv3d(Array_5D X_in, Array_5D X_out, Array_5D Kernel, int* stride, int* padding);
-void BatchNorm3d(Array_5D X, int e = 0.00001, int r = 1, int b = 0);
+void BatchNorm3d(Array_5D X, float e, int r, int b);
 void ReLU(Array_5D X);
 void Linear(int* psum_range,Array_5D x, Array_5D weights, int* weightsBias, bool bias,Array_5D x_out);
 #endif

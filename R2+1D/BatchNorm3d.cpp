@@ -65,8 +65,7 @@ double sqrt(double a)
      return rst;
 }
 
-void BatchNorm3d(Array_5D X, int e, int r, int b){
-
+void BatchNorm3d(Array_5D X, float e, int r, int b){
 	float X_data[_N][_C][_D][_H][_W];
 
 	int N = X.num[0];

@@ -2,17 +2,8 @@
 #include<iostream>
 using namespace std;
 
-#define _N 1
-#define _C 64
-#define _D 1
-#define _H 56
-#define _W 56
-
 void Conv3d(float* X_data, int* X_num, float* Y_data, int* Y_num, float* Kernel_data, int* Kernel_num, int* stride, int* padding)
 {
-	// float X_data[_N][_C][_D][_H][_W];
-	// float Kernel_data[_N][_C][_D][_H][_W];
-
 	int N = X_num[0];
 	int C = X_num[1];
 	int D = X_num[2];
@@ -29,21 +20,6 @@ void Conv3d(float* X_data, int* X_num, float* Y_data, int* Y_num, float* Kernel_
 	int D_out = Y_num[2]; // N+2*padding[0]-KD)/stride[0] + 1
 	int H_out = Y_num[3]; // H+2*padding[1]-KH)/stride[1] + 1
 	int W_out = Y_num[4]; // W+2*padding[2]-KW)/stride[2] + 1
-
-	// RESIZE_X:
-	// for(int n = 0; n < N; n++)
-	// 	for(int c = 0; c < C; c++)
-	// 		for(int d = 0; d < D; d++)
-	// 			for(int h = 0; h < H; h++)
-	// 				for(int w = 0; w < W; w++)
-	// 					X_data[n][c][d][h][w] = X_in.data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w];
-	// RESIZE_Kernel:
-	// for(int n = 0; n < KN; n++)
-	// 	for(int c = 0; c < KC; c++)
-	// 		for(int d = 0; d < KD; d++)
-	// 			for(int h = 0; h < KH; h++)
-	// 				for(int w = 0; w < KW; w++)
-	// 					Kernel_data[n][c][d][h][w] = Kernel.data[n*KC*KD*KH*KW + c*KD*KH*KW + d*KH*KW + h*KW + w];
 
 	for(int n = 0; n < N; n++)
 		for(int c = 0; c < C_out; c++)

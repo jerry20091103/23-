@@ -3,10 +3,7 @@
 using namespace std;
 
 #define _N 1
-#define _C 64
-#define _D 1
-#define _H 56
-#define _W 56
+#define _C 16
 
 // https://www.codeproject.com/Articles/570700/SquareplusRootplusalgorithmplusforplusC
 double powerOfTen(int num){
@@ -66,9 +63,6 @@ double sqrt(double a)
 }
 
 void BatchNorm3d(float* X_data, int* X_num, float e, int r, int b){
-
-    // float X_data[_N][_C][_D][_H][_W];
-
 	int N = X_num[0];
 	int C = X_num[1];
 	int D = X_num[2];

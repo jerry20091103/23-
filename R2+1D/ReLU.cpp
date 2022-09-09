@@ -15,7 +15,7 @@ void ReLU(Array_5D X){
 				for(int h = 0; h < H; h++){
 					for(int w = 0; w < W; w++){
 						int pos = n*C*D*H*W + c*D*H*W + d*H*W + h*W + w;
-						X[pos] = (X[pos] > 0) ? X[pos] : 0;
+						X.data[pos] = (X.data[pos] > 0) ? X.data[pos] : 0;
 					}
 				}
 			}

@@ -9,7 +9,7 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
     float X_out_data[141120];
     int X_out_num[5] = {1, 45, 1, 56, 56};
     
-    int Kernel_1_num[3] = {1, 7, 7};
+    int Kernel_1_num[5] = {1, 7, 7};
     
     int stride_1[3] = {1, 2, 2};
     int padding_1[3] = {0, 3, 3};
@@ -20,7 +20,7 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
     float Y_tmp_data[200704];
     int Y_num[5] = {1, 64, 1, 56, 56};
     
-    int Kernel_2_num[3] = {3, 1, 1};
+    int Kernel_2_num[5] = {3, 1, 1};
     
     int stride_2[3] = {1, 1, 1};
     int padding_2[3] = {1, 0, 0};

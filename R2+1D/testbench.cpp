@@ -46,7 +46,7 @@ int main()
 
     int X_out_num_1[5] = {1, 45, 1, 56, 56};
 
-    int Kernel_num_1[5] = {3, 45, 1, 7, 7};
+    int Kernel_num_1[3] = {1, 7, 7};
 
     int stride_1[3] = {1, 2, 2};
     int padding_1[3] = {0, 3, 3};

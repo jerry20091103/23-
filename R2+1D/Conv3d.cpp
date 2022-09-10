@@ -34,14 +34,7 @@ void Conv3d(float* X_data, int* X_num, float* Y_data, int* Y_num, float* Kernel_
 										int Wpos = yw*stride[2]+kw-padding[2];
 
 										if(Dpos >= 0 && Hpos >= 0 && Wpos >= 0 && Dpos < XD && Hpos < XH && Wpos < XW)
-											Y_data[yn*YC*YD*YH*YW + yc*YD*YH*YW + yd*YH*YW + yh*YW + yw] = X_data[yn*XC*XD*XH*XW + xc*XD*XH*XW + Dpos*XH*XW + Hpos*XW + Wpos] * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
+											Y_data[yn*YC*YD*YH*YW + yc*YD*YH*YW + yd*YH*YW + yh*YW + yw] += X_data[yn*XC*XD*XH*XW + xc*XD*XH*XW + Dpos*XH*XW + Hpos*XW + Wpos] * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
 									}
-//									Y_data[n*C_out*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] += X_data[(n*C*D*H*W) + (c*D*H*W) + (d*stride[0]+kd)*H*W + (h*stride[1]+kh)*W + (w*stride[2]+kw)] * Kernel_data[c*KC*KD*KH*KW + kc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
 	return;
 }
-
-																																// {1, 3, 1, 111, 111};
-
-																																// {1, 7, 7};	{1, 2, 2}, {0, 3, 3};
-
-																																// {1, 45, 1, 56, 56};

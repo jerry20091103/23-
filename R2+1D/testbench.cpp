@@ -10,7 +10,6 @@ static int validate(float* ourOutput, float* golden, int len);
 float input[36963];
 float Kernel_1[6615];
 float X_out_data_1[141120];
-float BatchNorm3d1output[141120];
 float Kernel_2[8640];
 int main()
 {
@@ -36,11 +35,11 @@ int main()
 
     // Conv3d1
     int X_num[5] = {1, 3, 1, 111, 111};
-    float Conv3d1output[141120];
+    float output[200704];
     file.open("Conv3d1output.dat");
     for(int i = 0; i < 141120; i++){
         file >> data;
-        Conv3d1output[i] = data;
+        output[i] = data;
     }
     file.close();
 
@@ -52,7 +51,7 @@ int main()
     int padding_1[3] = {0, 3, 3};
 
     Conv3d(input, X_num, X_out_data_1, X_out_num_1, Kernel_1, Kernel_num_1, stride_1, padding_1);
-    errors = validate(X_out_data_1, Conv3d1output, 141120);
+    errors = validate(X_out_data_1, output, 141120);
     total_errors += errors;
 
     // BatchNorm3d1
@@ -61,23 +60,22 @@ int main()
     file.open("BatchNorm3d1output.dat");
     for(int i = 0; i < 141120; i++){
         file >> data;
-        BatchNorm3d1output[i] = data;
+        output[i] = data;
     }
     file.close();
-    errors = validate(X_out_data_1, BatchNorm3d1output, 141120);
+    errors = validate(X_out_data_1, output, 141120);
     total_errors += errors;
 
     // ReLU1
     ReLU(X_out_data_1, X_out_num_1);
-    float ReLU1output[141120];
     file.open("ReLU1output.dat");
     for(int i = 0; i < 141120; i++){
         file >> data;
-        ReLU1output[i] = data;
+        output[i] = data;
     }
     file.close();
 
-    errors = validate(X_out_data_1, ReLU1output, 141120);
+    errors = validate(X_out_data_1, output, 141120);
     total_errors += errors;
 
     // ==========================================================
@@ -86,7 +84,7 @@ int main()
     float X_out_data_2[200704];
     int X_out_num_2[5] = {1, 64, 1, 56, 56};
 
-    int Kernel_num_2[5] = {3, 1, 1};
+    int Kernel_num_2[3] = {3, 1, 1};
 
     int stride_2[3] = {1, 1, 1};
     int padding_2[3] = {1, 0, 0};
@@ -101,39 +99,36 @@ int main()
 
     Conv3d(X_out_data_1, X_out_num_1, X_out_data_2, X_out_num_2, Kernel_2, Kernel_num_2, stride_2, padding_2);
 
-    float Conv3d2output[200704];
     file.open("Conv3d2output.dat");
     for(int i = 0; i < 200704; i++){
         file >> data;
-        Conv3d2output[i] = data;
+        output[i] = data;
     }
     file.close();
 
-    errors = validate(X_out_data_2, Conv3d2output, 200704);
+    errors = validate(X_out_data_2, output, 200704);
     total_errors += errors;
 
     // BatchNorm3d2
     BatchNorm3d(X_out_data_2, X_out_num_2, 0.00001, 1, 0);
-    float BatchNorm3d2output[200704];
     file.open("BatchNorm3d2output.dat");
     for(int i = 0; i < 200704; i++){
         file >> data;
-        BatchNorm3d2output[i] = data;
+        output[i] = data;
     }
     file.close();
-    errors = validate(X_out_data_2, BatchNorm3d2output, 200704);
+    errors = validate(X_out_data_2, output, 200704);
     total_errors += errors;
 
     // ReLU2
     ReLU(X_out_data_2, X_out_num_2);
-    float ReLU2output[200704];
     file.open("ReLU2output.dat");
     for(int i = 0; i < 200704; i++){
         file >> data;
-        ReLU2output[i] = data;
+        output[i] = data;
     }
     file.close();
-    errors = validate(X_out_data_2, ReLU2output, 200704);
+    errors = validate(X_out_data_2, output, 200704);
     total_errors += errors;
 
     if (total_errors)

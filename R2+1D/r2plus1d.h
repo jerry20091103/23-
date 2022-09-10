@@ -6,6 +6,6 @@ void Conv3d(float* X_data, int* X_num, float* Y_data, int* Y_num, float* Kernel_
 void BatchNorm3d(float* X_data, int* X_num, float e, int r, int b);
 void ReLU(float* X_data, int* X_num);
 
-//void Linear(int* psum_range, float* X_data, int* X_num, float* weights_data, int* weights_num, int* weightsBias, bool bias, float* X_out, int* X_out_num);
-
+//void Linear(int* psum_range,float* x,int* x_num, float* weights, int* weights_num , int* weightsBias, bool bias,float* x_out);
 #endif
+

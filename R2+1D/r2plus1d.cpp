@@ -5,8 +5,13 @@ using namespace std;
 void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_2_data)
 {
 	int X_num[5] = {1, 3, 1, 111, 111};
-    
+ #ifdef __SYNTHESIS__
     float X_out_data[141120];
+    float Y_tmp_data[200704];
+ #else
+     float* X_out_data = (float*)malloc(141120*sizeof(float));
+     float* Y_tmp_data = (float*)malloc(200704*sizeof(float));
+ #endif
     int X_out_num[5] = {1, 45, 1, 56, 56};
     
     int Kernel_1_num[5] = {1, 7, 7};
@@ -17,7 +22,6 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
     BatchNorm3d(X_out_data, X_out_num, 0.00001, 1, 0);
     ReLU(X_out_data, X_out_num);
     // ==========================================================
-    float Y_tmp_data[200704];
     int Y_num[5] = {1, 64, 1, 56, 56};
     
     int Kernel_2_num[5] = {3, 1, 1};
@@ -30,7 +34,7 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
     
     for(int i = 0; i < 200704; i++)
         Y_data[i] = Y_tmp_data[i];
-    
+
     return;
 	// └─Conv3d: 2-1                            [1, 45, 1, 56, 56]        6,615
     // └─BatchNorm3d: 2-2                       [1, 45, 1, 56, 56]        90

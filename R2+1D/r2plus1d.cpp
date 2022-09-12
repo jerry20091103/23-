@@ -7,6 +7,12 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
  #ifdef __SYNTHESIS__
     float X_out_data[141120];
     float Y_tmp_data[200704];
+
+    #pragma HLS INTERFACE s_axilite port=return
+	#pragma HLS INTERFACE m_axi port=X_data
+	#pragma HLS INTERFACE m_axi port=Y_data
+    #pragma HLS INTERFACE m_axi port=Kernel_1_data
+	#pragma HLS INTERFACE m_axi port=Kernel_2_data
  #else
      float* X_out_data = (float*)malloc(141120*sizeof(float)); // value after first Conv-Batch-ReLU layer
      float* Y_tmp_data = (float*)malloc(200704*sizeof(float)); // value after second Conv-Batch-ReLU layer

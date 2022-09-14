@@ -44,7 +44,7 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
     
     // ==========================================================
 
-    // Sequential 1
+    // Sequential 1~4
 
 
     return;

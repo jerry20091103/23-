@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 
-void Conv2Plus1D(float* X_data, int* X_num, float* X_out_data, int planes, int midplanes, float* Kernel_1_data, float* Kernel_2_data, int s, int p){
+void Conv2Plus1D(float* X_data, int* X_num, float* X_out_data, int* X_out_num, int midplanes, float* Kernel_1_data, float* Kernel_2_data, int s, int p){
     int stride[3] = {1, 1, 1};
     int padding[3] = {0, 0, 0};
 
@@ -23,12 +23,6 @@ void Conv2Plus1D(float* X_data, int* X_num, float* X_out_data, int planes, int m
     BatchNorm3d(X_mid_data, X_mid_num, 0.00001, 1, 0);
     ReLU(X_mid_data, X_mid_num);
 
-    int X_out_num[5];
-    X_out_num[0] = X_mid_num[0];
-    X_out_num[1] = planes;
-    X_out_num[2] = (X_mid_num[2] + 2*p - 3) / s + 1; // (D+2*padding[0]-KD)/stride[0] + 1
-    X_out_num[3] = X_mid_num[3]; // (H+2*padding[1]-KH)/stride[1] + 1
-    X_out_num[4] = X_mid_num[4]; // (W+2*padding[2]-KW)/stride[2] + 1
     int Kernel_2_num[3] = {3, 1, 1};
     stride[0] = s;  stride[1] = 1;  stride[2] = 1;
     padding[0] = p; padding[1] = 0; padding[2] = 0;

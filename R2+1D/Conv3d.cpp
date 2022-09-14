@@ -16,9 +16,12 @@ void Conv3d(float* X_data, int* X_num, float* Y_data, int* Y_num, float* Kernel_
 
 	int YN = Y_num[0];
 	int YC = Y_num[1];
-	int YD = Y_num[2]; // (N+2*padding[0]-KD)/stride[0] + 1
+	int YD = Y_num[2]; // (D+2*padding[0]-KD)/stride[0] + 1
 	int YH = Y_num[3]; // (H+2*padding[1]-KH)/stride[1] + 1
 	int YW = Y_num[4]; // (W+2*padding[2]-KW)/stride[2] + 1
+
+	for(int i = YN*YC*YD*YH*YW; i >= 0; i--)
+		Y_data[i] = 0;
 
 	for(int yn = 0; yn < YN; yn++)
 		for(int yc = 0; yc < YC; yc++)

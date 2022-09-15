@@ -12,7 +12,7 @@ float input[200704];
 float Kernel_1[36864], Kernel_3[36864], Kernel_5[36864], Kernel_7[36864], Kernel_9[36864], Kernel_11[36864];
 float Kernel_2[12288], Kernel_4[12288], Kernel_6[12288], Kernel_8[12288], Kernel_10[12288], Kernel_12[12288];
 // todo
-string kernel_dat_name[12] = {}; 
+string kernel_dat_name[12] = {layer1_1_weight.dat, layer1_2_weight.dat, layer1_3_weight.dat,layer1_4_weight.dat,layer1_5_weight.dat, layer1_6_weight.dat,layer1_7_weight.dat, layer1_8_weight.dat, layer1_9_weight.dat, layer1_10_weight.dat, layer1_11_weight.dat, layer1_12_weight.dat }; 
 float X_out_data[200704];
 
 
@@ -24,7 +24,7 @@ int main()
     float data=0;
 
     // load input
-    file.open("input.dat");
+    file.open("layer1_input.dat");
     for(int i = 0; i < 200704; i++){
         file >> data;
         input[i] = data;
@@ -63,7 +63,7 @@ int main()
  // Sequential_1 layer 1
     // load gloden result
     float output[200704];
-    file.open("ReLU.dat");  // todo
+    file.open("layer1_out.dat");  // todo
     for(int i = 0; i < 200704; i++){
         file >> data;
         output[i] = data;

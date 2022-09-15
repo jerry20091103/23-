@@ -1,4 +1,5 @@
-void AdaptiveAvgPool3d(float* X_data,float* X_num, int* out_size, float* Y_data, float* Y_num ){
+#include "r2plus1d.h"
+void AdaptiveAvgPool3d(float* X_data,int* X_num, int* out_size, float* Y_data, int* Y_num ){
     int N = X_num[0];
 	int C = X_num[1];
 	int D = X_num[2];

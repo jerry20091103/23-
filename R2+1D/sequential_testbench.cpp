@@ -11,11 +11,10 @@ int validate(float* ourOutput, float* golden, int len);
 float input[200704], X_out_data[200704];
 float output[200704];
 
-// todo
-string kernel_dat_name[12] = {"layer1_1_weight.dat", "layer1_2_weight.dat", "layer1_3_weight.dat","layer1_4_weight.dat","layer1_5_weight.dat", "layer1_6_weight.dat","layer1_7_weight.dat", "layer1_8_weight.dat", "layer1_9_weight.dat", "layer1_10_weight.dat", "layer1_11_weight.dat", "layer1_12_weight.dat"};
 float Kernel_1[82944], Kernel_3[82944], Kernel_5[82944], Kernel_7[82944], Kernel_9[82944], Kernel_11[82944];
 float Kernel_2[27648], Kernel_4[27648], Kernel_6[27648], Kernel_8[27648], Kernel_10[27648], Kernel_12[27648];
 // kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
+string kernel_dat_name[12] = {"layer1_1_weight.dat", "layer1_2_weight.dat", "layer1_3_weight.dat","layer1_4_weight.dat","layer1_5_weight.dat", "layer1_6_weight.dat","layer1_7_weight.dat", "layer1_8_weight.dat", "layer1_9_weight.dat", "layer1_10_weight.dat", "layer1_11_weight.dat", "layer1_12_weight.dat"};
 
 int main() {
     FILE         *fp;
@@ -58,9 +57,9 @@ int main() {
         file.close();
     }
 
- // Sequential layer 1
+ // Sequential_1 layer 1
     // load gloden result
-    file.open("layer1_out.dat");  // todo
+    file.open("layer1_out.dat");
     for(int i = 0; i < 200704; i++){
         file >> data;
         output[i] = data;

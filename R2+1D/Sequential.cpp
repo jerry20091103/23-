@@ -3,7 +3,6 @@
 using namespace std;
 
 void Sequential(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_2_data, float* Kernel_3_data, float* Kernel_4_data, float* Kernel_5_data, float* Kernel_6_data, float* Kernel_7_data, float* Kernel_8_data, float* Kernel_9_data, float* Kernel_10_data, float* Kernel_11_data, float* Kernel_12_data)
-// void Sequential(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_2_data, float* Kernel_3_data, float* Kernel_4_data)
 {
  #ifdef __SYNTHESIS__
     float X_tmp_data[200704];
@@ -59,7 +58,6 @@ void Sequential(float* X_data, float* Y_data, float* Kernel_1_data, float* Kerne
     for(int i = 0; i < 200704; i++)
         X_data[i] += X_tmp_data[i];
     ReLU(X_data, X_num);
-
 
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_9_data, Kernel_10_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
     BatchNorm3d(X_data, X_num, 0.00001, 1, 0);

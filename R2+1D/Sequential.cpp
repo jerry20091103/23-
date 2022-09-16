@@ -2,24 +2,24 @@
 #include<iostream>
 using namespace std;
 
-void Sequential_1(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_2_data, float* Kernel_3_data, float* Kernel_4_data, float* Kernel_5_data, float* Kernel_6_data, float* Kernel_7_data, float* Kernel_8_data, float* Kernel_9_data, float* Kernel_10_data, float* Kernel_11_data, float* Kernel_12_data)
+void Sequential(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_2_data, float* Kernel_3_data, float* Kernel_4_data, float* Kernel_5_data, float* Kernel_6_data, float* Kernel_7_data, float* Kernel_8_data, float* Kernel_9_data, float* Kernel_10_data, float* Kernel_11_data, float* Kernel_12_data)
 {
  #ifdef __SYNTHESIS__
     float X_tmp_data[200704];
-    float X2_data[100352];
-    float X2_tmp_data[100352];
-    float X3_data[50176];
-    float X3_tmp_data[50176];
-    float X4_data[25088];
-    float X4_tmp_data[25088];
+//    float X2_data[100352];
+//    float X2_tmp_data[100352];
+//    float X3_data[50176];
+//    float X3_tmp_data[50176];
+//    float X4_data[25088];
+//    float X4_tmp_data[25088];
  #else
     float* X_tmp_data = (float*)malloc(200704*sizeof(float));
-    float* X2_data = (float*)malloc(100352*sizeof(float));
-    float* X2_tmp_data = (float*)malloc(100352*sizeof(float));
-    float* X3_data = (float*)malloc(50176*sizeof(float));
-    float* X3_tmp_data = (float*)malloc(50176*sizeof(float));
-    float* X4_data = (float*)malloc(25088*sizeof(float));
-    float* X4_tmp_data = (float*)malloc(25088*sizeof(float));
+//    float* X2_data = (float*)malloc(100352*sizeof(float));
+//    float* X2_tmp_data = (float*)malloc(100352*sizeof(float));
+//    float* X3_data = (float*)malloc(50176*sizeof(float));
+//    float* X3_tmp_data = (float*)malloc(50176*sizeof(float));
+//    float* X4_data = (float*)malloc(25088*sizeof(float));
+//    float* X4_tmp_data = (float*)malloc(25088*sizeof(float));
  #endif
 
     // layer 1
@@ -29,11 +29,11 @@ void Sequential_1(float* X_data, float* Y_data, float* Kernel_1_data, float* Ker
     int X_num[5] = {1, 64, 1, 56, 56};
     // //easy to read
     // for(int t = 0; t < 3; t++){
-    //     Conv2Plus1D(X_data, X_num, X_data, X_num, X_num, 144, Kernel_1_data, Kernel_2_data, 1, 0); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
+    //     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_data, Kernel_2_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
     //     BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
     //     ReLU(X_data, X_num);
 
-    //     Conv2Plus1D(X_data, X_num, X_data, X_num, X_num, 144, Kernel_1_data, Kernel_2_data, 1, 0);
+    //     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_data, Kernel_2_data, 1, 1);
     //     BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
 
     //     for(int i = 0; i < 200704; i++)

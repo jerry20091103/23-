@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "r2plus1d.h"
+#include <math.h>
 using namespace std;
 
 int validate(float* ourOutput, float* golden, int len);
@@ -71,8 +72,8 @@ int validate(float* ourOutput, float* golden, int len)
     int errors = 0;
 
     for (i = 0; i < len; i++){
-        if (ourOutput[i] != golden[i]){
-             cout<<"[ERROR]: index "<<i<<", result: "<<ourOutput[i]<<", gold: "<<golden[i]<<endl;
+        if (ourOutput[i] != golden[i] && abs(ourOutput[i] - golden[i]) / golden[i] >= 0.005){
+             cout<<"[ERROR]: index "<<i<<", result: "<<ourOutput[i]<<", gold: "<<golden[i]<< ", error: "<< abs(ourOutput[i] - golden[i]) / golden[i] << endl;
             errors++;
         }
     }

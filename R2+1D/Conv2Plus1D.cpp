@@ -4,7 +4,7 @@ using namespace std;
 
 void Conv2Plus1D(float* X_data, int* X_num, float* X_out_data, int* X_out_num, int midplanes, float* Kernel_1_data, float* Kernel_2_data, int s, int p){
     int stride[3] = {1, 1, 1};
-    int padding[3] = {0, 0, 0};
+    int padding[3] = {0, 1, 1};
 
     int Kernel_1_num[3] = {1, 3, 3};
     stride[1] = s;  stride[2] = s;

@@ -8,16 +8,16 @@ using namespace std;
 
 int validate(float* ourOutput, float* golden, int len);
 
-float input[200704];
+float input[200704], X_out_data[200704];
+float output[200704];
+
+// todo
+string kernel_dat_name[12] = {"layer1_1_weight.dat", "layer1_2_weight.dat", "layer1_3_weight.dat","layer1_4_weight.dat","layer1_5_weight.dat", "layer1_6_weight.dat","layer1_7_weight.dat", "layer1_8_weight.dat", "layer1_9_weight.dat", "layer1_10_weight.dat", "layer1_11_weight.dat", "layer1_12_weight.dat"};
 float Kernel_1[82944], Kernel_3[82944], Kernel_5[82944], Kernel_7[82944], Kernel_9[82944], Kernel_11[82944];
 float Kernel_2[27648], Kernel_4[27648], Kernel_6[27648], Kernel_8[27648], Kernel_10[27648], Kernel_12[27648];
-// todo
-string kernel_dat_name[12] = {layer1_1_weight.dat, layer1_2_weight.dat, layer1_3_weight.dat,layer1_4_weight.dat,layer1_5_weight.dat, layer1_6_weight.dat,layer1_7_weight.dat, layer1_8_weight.dat, layer1_9_weight.dat, layer1_10_weight.dat, layer1_11_weight.dat, layer1_12_weight.dat }; 
-float X_out_data[200704];
+// kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
 
-//kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
-int main()
-{
+int main() {
     FILE         *fp;
     std::ifstream file;
     float data=0;
@@ -57,19 +57,17 @@ int main()
         }
         file.close();
     }
-        
 
- // Sequential_1 layer 1
+ // Sequential layer 1
     // load gloden result
-    float output[200704];
     file.open("layer1_out.dat");  // todo
     for(int i = 0; i < 200704; i++){
         file >> data;
         output[i] = data;
     }
     file.close();
-
-    Sequential_1(input, X_out_data, Kernel_1, Kernel_2, Kernel_3, Kernel_4, Kernel_5, Kernel_6, Kernel_7, Kernel_8, Kernel_9, Kernel_10, Kernel_11, Kernel_12);
+    
+    Sequential(input, X_out_data, Kernel_1, Kernel_2, Kernel_3, Kernel_4, Kernel_5, Kernel_6, Kernel_7, Kernel_8, Kernel_9, Kernel_10, Kernel_11, Kernel_12);
 
     // calculate errors
     int errors, total_errors = 0;
@@ -89,8 +87,8 @@ int validate(float* ourOutput, float* golden, int len)
     int errors = 0;
 
     for (i = 0; i < len; i++){
-        if (ourOutput[i] != golden[i]){
-             cout<<"[ERROR]: index "<<i<<", result: "<<ourOutput[i]<<", gold: "<<golden[i]<<endl;
+        if (ourOutput[i] != golden[i] && ((ourOutput[i] - golden[i]) / golden[i] >= 0.005 || (ourOutput[i] - golden[i]) / golden[i] <= -0.005)){
+            cout<<"[ERROR]: index "<<i<<", result: "<<ourOutput[i]<<", gold: "<<golden[i]<< ", error: "<< (ourOutput[i] - golden[i]) / golden[i] << endl;
             errors++;
         }
     }

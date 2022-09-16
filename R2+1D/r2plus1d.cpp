@@ -18,12 +18,11 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
      float* Y_tmp_data = (float*)malloc(200704*sizeof(float)); // value after second Conv-Batch-ReLU layer
  #endif
 
-	for(int i = 0; i < 141120; i++)
-        X_out_data[i] = 0; // init X_out_data[]
+    // R2Plus1dStem
 
 	int X_num[5] = {1, 3, 1, 111, 111};
     int X_out_num[5] = {1, 45, 1, 56, 56};
-    int Kernel_1_num[5] = {1, 7, 7};
+    int Kernel_1_num[3] = {1, 7, 7};
     int stride_1[3] = {1, 2, 2};
     int padding_1[3] = {0, 3, 3};
 
@@ -31,13 +30,8 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
     BatchNorm3d(X_out_data, X_out_num, 0.00001, 1, 0);
     ReLU(X_out_data, X_out_num);
 
-    // ==========================================================
-    
-	for(int i = 0; i < 200704; i++)
-        Y_tmp_data[i] = 0; // init Y_tmp_data[]
-    
     int Y_num[5] = {1, 64, 1, 56, 56};
-    int Kernel_2_num[5] = {3, 1, 1};
+    int Kernel_2_num[3] = {3, 1, 1};
     int stride_2[3] = {1, 1, 1};
     int padding_2[3] = {1, 0, 0};
 
@@ -47,6 +41,11 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
     
     for(int i = 0; i < 200704; i++)
         Y_data[i] = Y_tmp_data[i]; // assign result to output
+    
+    // ==========================================================
+
+    // Sequential 1~4
+
 
     return;
 	// └─Conv3d: 2-1                            [1, 45, 1, 56, 56]        6,615
@@ -66,5 +65,4 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
     //                   bias=False),
     // nn.BatchNorm3d(64),
     // nn.ReLU(inplace=True))
-
 }

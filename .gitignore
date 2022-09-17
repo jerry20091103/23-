@@ -4,3 +4,5 @@ iris_hls_vivado/
 imageIO_test_vitis/
 imageIO_test_vivado/
 r2plus1d_vitis/
+imageIO_RAM_vitis/
+imageIO_RAM_vivado/

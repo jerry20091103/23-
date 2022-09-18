@@ -58,14 +58,43 @@ int main() {
     }
 
  // Sequential_1 layer 1
-    // load gloden result
-    file.open("layer1_out.dat");
+    // ======== chose one to run ==========
+    // load Conv2Plus1d_1
+    file.open("Conv2+1d_1_out.dat");
     for(int i = 0; i < 200704; i++){
         file >> data;
         output[i] = data;
     }
     file.close();
-    
+    // // load BatchNorm3d_1
+    // file.open("BatchNorm3d_1_out.dat");
+    // for(int i = 0; i < 200704; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // // load layer1_2_out
+    // file.open("layer1_2_out.dat");
+    // for(int i = 0; i < 200704; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // // load Conv2Plus1d_2
+    // file.open("Conv2+1d_2_out.dat");
+    // for(int i = 0; i < 200704; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // // load layer1_4_out
+    // file.open("layer1_4_out.dat");
+    // for(int i = 0; i < 200704; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // ====================================
     Sequential(input, X_out_data, Kernel_1, Kernel_2, Kernel_3, Kernel_4, Kernel_5, Kernel_6, Kernel_7, Kernel_8, Kernel_9, Kernel_10, Kernel_11, Kernel_12);
 
     // calculate errors

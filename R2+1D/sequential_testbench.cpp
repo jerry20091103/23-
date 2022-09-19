@@ -8,8 +8,8 @@ using namespace std;
 
 int validate(float* ourOutput, float* golden, int len);
 
-float input[200704], X_out_data[200704];
-float output[200704];
+float input[200704], X_out_data[451584];
+float output[451584];
 
 float Kernel_1[82944], Kernel_3[82944], Kernel_5[82944], Kernel_7[82944], Kernel_9[82944], Kernel_11[82944];
 float Kernel_2[27648], Kernel_4[27648], Kernel_6[27648], Kernel_8[27648], Kernel_10[27648], Kernel_12[27648];
@@ -60,6 +60,24 @@ int main() {
  // Sequential_1 layer 1
     // ======== chose one to run ==========
     // load Conv2Plus1d_1
+    file.open("layer1_1_conv3d.dat");
+    for(int i = 0; i < 451584; i++){
+        file >> data;
+        output[i] = data;
+    }
+    file.close();
+    file.open("layer1_1_BatchNorm3d.dat");
+    for(int i = 0; i < 451584; i++){
+        file >> data;
+        output[i] = data;
+    }
+    file.close();
+    file.open("layer1_1_ReLU.dat");
+    for(int i = 0; i < 451584; i++){
+        file >> data;
+        output[i] = data;
+    }
+    file.close();
     file.open("Conv2+1d_1_out.dat");
     for(int i = 0; i < 200704; i++){
         file >> data;

@@ -20,7 +20,7 @@ void Conv3d(float* X_data, int* X_num, float* Y_data, int* Y_num, float* Kernel_
 	int YH = Y_num[3]; // (H+2*padding[1]-KH)/stride[1] + 1
 	int YW = Y_num[4]; // (W+2*padding[2]-KW)/stride[2] + 1
 
-	for(int i = YN*YC*YD*YH*YW; i >= 0; i--)
+	for(int i = YN*YC*YD*YH*YW - 1; i >= 0; i--)
 		Y_data[i] = 0;
 
 	for(int yn = 0; yn < YN; yn++)
@@ -38,6 +38,7 @@ void Conv3d(float* X_data, int* X_num, float* Y_data, int* Y_num, float* Kernel_
 
 										if(Dpos >= 0 && Hpos >= 0 && Wpos >= 0 && Dpos < XD && Hpos < XH && Wpos < XW)
 											Y_data[yn*YC*YD*YH*YW + yc*YD*YH*YW + yd*YH*YW + yh*YW + yw] += X_data[yn*XC*XD*XH*XW + xc*XD*XH*XW + Dpos*XH*XW + Hpos*XW + Wpos] * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
+											// Y_data[yn][yc][yd][yh][yw] += X_data[yn][xc][Dpos][Hpos][Wpos] * Kernel_data[yc][xc][kd][kh][kw];
 									}
 	return;
 }

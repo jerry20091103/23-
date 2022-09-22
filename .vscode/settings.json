@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "xlocale": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "fstream": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }

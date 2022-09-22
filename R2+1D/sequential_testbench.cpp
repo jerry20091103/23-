@@ -9,7 +9,7 @@ using namespace std;
 
 int validate(float* ourOutput, float* golden, int* size);
 
-float input[200704], X_out_data[451584];
+float input[200704], X_out_data[200704];
 float output[451584];
 
 float Kernel_1[82944], Kernel_3[82944], Kernel_5[82944], Kernel_7[82944], Kernel_9[82944], Kernel_11[82944];
@@ -31,84 +31,47 @@ int main() {
     file.close();
 
     // load kernel
-    // for(int j = 1; j < 12; j += 2){
-    //     file.open(kernel_dat_name[j]);
-    //     for(int i = 0; i < 82944; i++){
-    //         file >> data;
-    //         if(j == 1) Kernel_1[i] = data;
-    //         else if(j == 3) Kernel_3[i] = data;
-    //         else if(j == 5) Kernel_5[i] = data;
-    //         else if(j == 7) Kernel_7[i] = data;
-    //         else if(j == 9) Kernel_9[i] = data;
-    //         else if(j == 11) Kernel_11[i] = data;
-    //     }
-    //     file.close();
-    // }
-    // for(int j = 2; j <= 12; j += 2){
-    //     file.open(kernel_dat_name[j]);
-    //     for(int i = 0; i < 27648; i++){
-    //         file >> data;
-    //         if(j == 2) Kernel_2[i] = data;
-    //         else if(j == 4) Kernel_4[i] = data;
-    //         else if(j == 6) Kernel_6[i] = data;
-    //         else if(j == 8) Kernel_8[i] = data;
-    //         else if(j == 10) Kernel_10[i] = data;
-    //         else if(j == 12) Kernel_12[i] = data;
-    //     }
-    //     file.close();
-    // }
+    for(int j = 1; j < 12; j += 2){
+        file.open(kernel_dat_name[j-1]);
+        for(int i = 0; i < 82944; i++){
+            file >> data;
+            if(j == 1) Kernel_1[i] = data;
+            else if(j == 3) Kernel_3[i] = data;
+            else if(j == 5) Kernel_5[i] = data;
+            else if(j == 7) Kernel_7[i] = data;
+            else if(j == 9) Kernel_9[i] = data;
+            else if(j == 11) Kernel_11[i] = data;
+        }
+        file.close();
+    }
+    for(int j = 2; j <= 12; j += 2){
+        file.open(kernel_dat_name[j-1]);
+        for(int i = 0; i < 27648; i++){
+            file >> data;
+            if(j == 2) Kernel_2[i] = data;
+            else if(j == 4) Kernel_4[i] = data;
+            else if(j == 6) Kernel_6[i] = data;
+            else if(j == 8) Kernel_8[i] = data;
+            else if(j == 10) Kernel_10[i] = data;
+            else if(j == 12) Kernel_12[i] = data;
+        }
+        file.close();
+    }
 
     // load output
-    // file.open("layer1_1_conv3d.dat");
-    // for(int i = 0; i < 25088; i++){
-    //     file >> data;
-    //     output[i] = data;
-    // }
-    // file.close();
-
-    // ====================================
-    // Sequential(input, X_out_data, Kernel_1, Kernel_2, Kernel_3, Kernel_4, Kernel_5, Kernel_6, Kernel_7, Kernel_8, Kernel_9, Kernel_10, Kernel_11, Kernel_12);
-	
-    int X_num[5] = {1, 64, 1, 56, 56};
-    // Conv2Plus1D(input, X_num, input, X_num, 144, Kernel_1, Kernel_2, 1, 1);
-
-    file.open("Conv3d1_weight.dat");
-    for(int i = 0; i < 82944; i++){
-        file >> data;
-        Kernel_1[i] = data;
-    }
-    file.close();
-    file.open("Conv3d2_weight.dat");
-    for(int i = 0; i < 27648; i++){
-        file >> data;
-        Kernel_2[i] = data;
-    }
-    file.close();
-
-    float X_mid_data[451584];
-    int X_mid_num[5] = {1, 144, 1, 56, 56};
-    int Kernel_1_num[3] = {1, 3, 3};
-    int stride_1[3] = {1, 1, 1};
-    int padding_1[3] = {0, 1, 1};
-    Conv3d(input, X_num, X_mid_data, X_mid_num, Kernel_1, Kernel_1_num, stride_1, padding_1);
-    
-    BatchNorm3d(X_mid_data, X_mid_num, 0.00001, 1, 0);
-    ReLU(X_mid_data, X_mid_num);
-    
-    int Kernel_2_num[3] = {3, 1, 1};
-    int stride_2[3] = {1, 1, 1};
-    int padding_2[3] = {1, 0, 0};
-    Conv3d(X_mid_data, X_mid_num, X_out_data, X_num, Kernel_2, Kernel_2_num, stride_2, padding_2);
-
-    file.open("Conv3d2_output.dat");
+    file.open("layer1_output.dat");
     for(int i = 0; i < 200704; i++){
         file >> data;
         output[i] = data;
     }
     file.close();
-
+    
+    // ====================================
+    Sequential(input, X_out_data, Kernel_1, Kernel_2, Kernel_3, Kernel_4, Kernel_5, Kernel_6, Kernel_7, Kernel_8, Kernel_9, Kernel_10, Kernel_11, Kernel_12);
+    
     // calculate errors
     float errors;
+    int X_num[5] = {1, 64, 1, 56, 56};
     errors = 100*float(validate(X_out_data, output, X_num)) / 200704;
 
     if (errors != 0)

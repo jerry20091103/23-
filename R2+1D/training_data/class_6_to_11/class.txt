@@ -1,0 +1,7 @@
+0 none
+6 Scroll_hand_towards_left
+7 Scroll_hand_towards_right
+8 Zoom_in_with_fingers
+9 Zoom_out_with_fingers
+10 Move_hand_upward
+11 Move_hand_downward

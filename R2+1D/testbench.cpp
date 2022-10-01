@@ -9,9 +9,16 @@ using namespace std;
 
 int validate(float* ourOutput, float* golden, int* size);
 
-float X_out_data_1[141120];
-int X_out_num_1[5] = {1, 45, 1, 56, 56};
-float X_out_data_2[200704];
+float input[36963];
+float Kernel_1[6615];
+float Kernel_2[8640];
+float X_out_data[200704];
+
+// // for detail debug
+// float X_out_data_1[141120];
+// int X_out_num_1[5] = {1, 45, 1, 56, 56};
+// float X_out_data_2[200704];
+
 
 
 int main()
@@ -23,26 +30,23 @@ int main()
     float output[200704];
     int errors, total_errors = 0;
 
-    // // load input
-    // float input[36963];
-    // file.open("input.dat");
-    // for(int i = 0; i < 36963; i++){
-    //     file >> data;
-    //     input[i] = data;
-    // }
-    // file.close();
+    // load input
+    file.open("input.dat");
+    for(int i = 0; i < 36963; i++){
+        file >> data;
+        input[i] = data;
+    }
+    file.close();
 
-    // // load kernel_1
-    // float Kernel_1[6615];
-    // file.open("Conv3d1weight.dat");
-    // for(int i = 0; i < 6615; i++){
-    //     file >> data;
-    //     Kernel_1[i] = data;
-    // }
-    // file.close();
+    // load kernel_1
+    file.open("Conv3d1weight.dat");
+    for(int i = 0; i < 6615; i++){
+        file >> data;
+        Kernel_1[i] = data;
+    }
+    file.close();
 
     // load kernel_2
-    float Kernel_2[8640];
     file.open("Conv3d2weight.dat");
     for(int i = 0; i < 8640; i++){
         file >> data;
@@ -50,14 +54,13 @@ int main()
     }
     file.close();
 
-    // ==========================================================
+    // // ==========================================================
     // // Conv3d1
+    // cout << "==> Conv3d1\n";
     // int X_num[5] = {1, 3, 1, 111, 111};
-    // int X_out_num_1[5] = {1, 45, 1, 56, 56};
     // int Kernel_num_1[3] = {1, 7, 7};
     // int stride_1[3] = {1, 2, 2};
     // int padding_1[3] = {0, 3, 3};
-    // float X_out_data_1[141120];
     // Conv3d(input, X_num, X_out_data_1, X_out_num_1, Kernel_1, Kernel_num_1, stride_1, padding_1);
 
     // file.open("Conv3d1output.dat");
@@ -69,132 +72,138 @@ int main()
     // errors = validate(X_out_data_1, output, X_out_num_1);
     // total_errors += errors;
 
-    // BatchNorm3d1
-    cout << "==> BatchNorm3d1\n";
-    file.open("Conv3d1output.dat");
-    for(int i = 0; i < 141120; i++){
-        file >> data;
-        X_out_data_1[i] = data;
-    }
-    file.close();
-    BatchNorm3d(X_out_data_1, X_out_num_1, 0.00001, 1, 0);
+    // // BatchNorm3d1
+    // cout << "==> BatchNorm3d1\n";
+    // file.open("Conv3d1output.dat");
+    // for(int i = 0; i < 141120; i++){
+    //     file >> data;
+    //     X_out_data_1[i] = data;
+    // }
+    // file.close();
+    // BatchNorm3d(X_out_data_1, X_out_num_1, 0.00001, 1, 0);
 
-    file.open("BatchNorm3d1output.dat");
-    for(int i = 0; i < 141120; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    errors = validate(X_out_data_1, output, X_out_num_1);
-    total_errors += errors;
+    // file.open("BatchNorm3d1output.dat");
+    // for(int i = 0; i < 141120; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // errors = validate(X_out_data_1, output, X_out_num_1);
+    // total_errors += errors;
     
 
-    // ReLU1
-    cout << "==> ReLU1\n";
+    // // ReLU1
+    // cout << "==> ReLU1\n";
     // file.open("BatchNorm3d1output.dat");
     // for(int i = 0; i < 141120; i++){
     //     file >> data;
     //     X_out_data_1[i] = data;
     // }
     // file.close();
-    ReLU(X_out_data_1, X_out_num_1);
+    // ReLU(X_out_data_1, X_out_num_1);
 
-    file.open("ReLU1output.dat");
-    for(int i = 0; i < 141120; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    errors = validate(X_out_data_1, output, X_out_num_1);
-    total_errors += errors;
+    // file.open("ReLU1output.dat");
+    // for(int i = 0; i < 141120; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // errors = validate(X_out_data_1, output, X_out_num_1);
+    // total_errors += errors;
     
 
-    // ==========================================================
+    // // ==========================================================
 
-    // Conv3d2
-    cout << "==> Conv3d2\n";
-    // float X_out_data_1[141120];
-    // int X_out_num_1[5] = {1, 45, 1, 56, 56};
-    // float X_out_data_2[200704];
-    int X_out_num_2[5] = {1, 64, 1, 56, 56};
-    int Kernel_num_2[3] = {3, 1, 1};
-    int stride_2[3] = {1, 1, 1};
-    int padding_2[3] = {1, 0, 0};
-    file.open("ReLU1output.dat");
-    for(int i = 0; i < 141120; i++){
-        file >> data;
-        X_out_data_1[i] = data;
-    }
-    file.close();
-    Conv3d(X_out_data_1, X_out_num_1, X_out_data_2, X_out_num_2, Kernel_2, Kernel_num_2, stride_2, padding_2);
+    // // Conv3d2
+    // cout << "==> Conv3d2\n";
+    // int X_out_num_2[5] = {1, 64, 1, 56, 56};
+    // int Kernel_num_2[3] = {3, 1, 1};
+    // int stride_2[3] = {1, 1, 1};
+    // int padding_2[3] = {1, 0, 0};
+    // file.open("ReLU1output.dat");
+    // for(int i = 0; i < 141120; i++){
+    //     file >> data;
+    //     X_out_data_1[i] = data;
+    // }
+    // file.close();
+    // Conv3d(X_out_data_1, X_out_num_1, X_out_data_2, X_out_num_2, Kernel_2, Kernel_num_2, stride_2, padding_2);
 
-    file.open("Conv3d2output.dat");
-    for(int i = 0; i < 200704; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    errors = validate(X_out_data_2, output, X_out_num_2);
-    total_errors += errors;
+    // file.open("Conv3d2output.dat");
+    // for(int i = 0; i < 200704; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // errors = validate(X_out_data_2, output, X_out_num_2);
+    // total_errors += errors;
     
 
-    // BatchNorm3d2
-    cout << "==> BatchNorm3d2\n";
-    file.open("Conv3d2output.dat");
-    for(int i = 0; i < 200704; i++){
-        file >> data;
-        X_out_data_2[i] = data;
-    }
-    file.close();
-    BatchNorm3d(X_out_data_2, X_out_num_2, 0.00001, 1, 0);
+    // // BatchNorm3d2
+    // cout << "==> BatchNorm3d2\n";
+    // file.open("Conv3d2output.dat");
+    // for(int i = 0; i < 200704; i++){
+    //     file >> data;
+    //     X_out_data_2[i] = data;
+    // }
+    // file.close();
+    // BatchNorm3d(X_out_data_2, X_out_num_2, 0.00001, 1, 0);
 
-    file.open("BatchNorm3d2output.dat");
-    for(int i = 0; i < 200704; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    errors = validate(X_out_data_2, output, X_out_num_2);
-    total_errors += errors;
+    // file.open("BatchNorm3d2output.dat");
+    // for(int i = 0; i < 200704; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // errors = validate(X_out_data_2, output, X_out_num_2);
+    // total_errors += errors;
     
 
-    // ReLU1
-    cout << "==> ReLU2\n";
+    // // ReLU2
+    // cout << "==> ReLU2\n";
     // file.open("BatchNorm3d2output.dat");
     // for(int i = 0; i < 200704; i++){
     //     file >> data;
     //     X_out_data_2[i] = data;
     // }
     // file.close();
-    ReLU(X_out_data_2, X_out_num_2);
+    // ReLU(X_out_data_2, X_out_num_2);
 
-    file.open("ReLU1output.dat");
-    for(int i = 0; i < 200704; i++){
+    // file.open("ReLU1output.dat");
+    // for(int i = 0; i < 200704; i++){
+    //     file >> data;
+    //     output[i] = data;
+    // }
+    // file.close();
+    // errors = validate(X_out_data_1, output, X_out_num_1);
+    // total_errors += errors;
+    
+    // // ==========================================================
+
+
+    // R2Plus1dStem
+    r2plus1d(input, X_out_data, Kernel_1, Kernel_2);
+
+    // load gloden result
+    file.open("Conv3d1output.dat");
+    for(int i = 0; i < 141120; i++){
         file >> data;
         output[i] = data;
     }
     file.close();
-    errors = validate(X_out_data_1, output, X_out_num_1);
-    total_errors += errors;
-    
-    // ==========================================================
-
-
-    // // R2Plus1dStem
-    // float X_out_data[200704];
-    // r2plus1d(input, X_out_data, Kernel_1, Kernel_2);
-
-    // // load gloden result
     // file.open("ReLU2output.dat");
     // for(int i = 0; i < 200704; i++){
     //     file >> data;
     //     output[i] = data;
     // }
-    // // calculate errors
-    // int X_num[5] = {1, 64, 1, 56, 56};
-    // errors = validate(X_out_data, output, X_num);
-    // total_errors += errors;
+    // file.close();
 
+    // calculate errors
+    int X_num[5] = {1, 45, 1, 56, 56};
+    // int X_num[5] = {1, 64, 1, 56, 56};
+    errors = validate(X_out_data, output, X_num);
+    total_errors += errors;
+
+    cout << "\n\n=======================================\n";
     cout << "==> Total\n";
     if (total_errors)
         printf("[FAIL] There are some errors QQ\n");

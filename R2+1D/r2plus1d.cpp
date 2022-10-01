@@ -19,16 +19,23 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
  #endif
 
     // R2Plus1dStem
-
 	int X_num[5] = {1, 3, 1, 111, 111};
     int X_out_num[5] = {1, 45, 1, 56, 56};
     int Kernel_1_num[3] = {1, 7, 7};
     int stride_1[3] = {1, 2, 2};
     int padding_1[3] = {0, 3, 3};
 
+    // // for detail test
+    // for(int i = 0; i < 141120; i++)
+    //     X_out_data[i] = X_data[i]; // assign result to output
+
     Conv3d(X_data, X_num, X_out_data, X_out_num, Kernel_1_data, Kernel_1_num, stride_1, padding_1);
     BatchNorm3d(X_out_data, X_out_num, 0.00001, 1, 0);
     ReLU(X_out_data, X_out_num);
+    
+    // // for detail test
+    // for(int i = 0; i < 141120; i++)
+    //     Y_data[i] = X_out_data[i]; // assign result to output
 
     int Y_num[5] = {1, 64, 1, 56, 56};
     int Kernel_2_num[3] = {3, 1, 1};

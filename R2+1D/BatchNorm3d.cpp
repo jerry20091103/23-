@@ -42,4 +42,23 @@ void BatchNorm3d(float* X_data, int* X_num, float e, int r, int b){
 				for(int h = 0; h < H; h++)
 					for(int w = 0; w < W; w++)
 						X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = ((X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] - mu[c]) / sqrt(var[c]+e)) * r + b;
+
+	// running mean
+	// int num, sum, sum_2;
+	// for(int n = 0; n < N; n++)
+	// 	for(int c = 0; c < C; c++){
+	// 		num = 0;
+	// 		sum = 0;
+	// 		sum_2 = 0;
+			
+	// 		for(int d = 0; d < D; d++)
+	// 			for(int h = 0; h < H; h++)
+	// 				for(int w = 0; w < W; w++){
+	// 					int pos = n*C*D*H*W + c*D*H*W + d*H*W + h*W + w;
+	// 					num++;
+	// 					sum += X_data[pos];
+	// 					sum_2 += X_data[pos] * X_data[pos];
+	// 					X_data[pos] = ((X_data[pos] - (float)sum/num) / sqrt((float)sum_2/num - ((float)sum/num)*((float)sum/num) + e)) * r + b;
+	// 				}
+	// 	}
 }

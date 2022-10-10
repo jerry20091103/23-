@@ -32,56 +32,56 @@ void Sequential(float* X_data, float* Y_data, float* Kernel_1_1_data, float* Ker
     // layer 1
     int X_num[5] = {1, 64, 1, 56, 56};
 
-    // for(int i = 0; i < 200704; i++)
-    //     X_tmp_data[i] = X_data[i];
-    // Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_1_data, Kernel_1_2_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    // BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
-    // ReLU(X_data, X_num);
-    // Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_3_data, Kernel_1_4_data, 1, 1);
-    // BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
-    // for(int i = 0; i < 200704; i++)
-    //     X_data[i] += X_tmp_data[i];
-    // ReLU(X_data, X_num);
-
-    // for(int i = 0; i < 200704; i++)
-    //     X_tmp_data[i] = X_data[i];
-    // Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_5_data, Kernel_1_6_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    // BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
-    // ReLU(X_data, X_num);
-    // Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_7_data, Kernel_1_8_data, 1, 1);
-    // BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
-    // for(int i = 0; i < 200704; i++)
-    //     X_data[i] += X_tmp_data[i];
-    // ReLU(X_data, X_num);
-
-    // =============================================================================
-    // layer 2
-    int X2_num[5] = {1, 128, 1, 28, 28};
+    for(int i = 0; i < 200704; i++)
+        X_tmp_data[i] = X_data[i];
+    Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_1_data, Kernel_1_2_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
+    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
+    ReLU(X_data, X_num);
+    Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_3_data, Kernel_1_4_data, 1, 1);
+    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
+    for(int i = 0; i < 200704; i++)
+        X_data[i] += X_tmp_data[i];
+    ReLU(X_data, X_num);
 
     for(int i = 0; i < 200704; i++)
         X_tmp_data[i] = X_data[i];
-    Conv2Plus1D(X_data, X_num, X2_data, X2_num, 230, Kernel_2_1_data, Kernel_2_2_data, 2, 1); // 230 = (64 * 128 * 3 * 3) / (64 * 3 + 128)
-    BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
-    ReLU(X2_data, X2_num);
-    Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 230, Kernel_2_3_data, Kernel_2_4_data, 1, 1);
-    BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+    Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_5_data, Kernel_1_6_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
+    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
+    ReLU(X_data, X_num);
+    Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_7_data, Kernel_1_8_data, 1, 1);
+    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
+    for(int i = 0; i < 200704; i++)
+        X_data[i] += X_tmp_data[i];
+    ReLU(X_data, X_num);
 
-    Conv3d(X_tmp_data, X_num, X2_tmp_data, X2_num, Kernel_2_5_data, Kernel_num, stride, padding);
-    BatchNorm3d(X2_tmp_data, X2_num, 0.00001, 1, 0);
-    for(int i = 0; i< 100352; i++)
-        X2_data[i] += X2_tmp_data[i];
-    ReLU(X2_data, X2_num);
+    // // =============================================================================
+    // // layer 2
+    // int X2_num[5] = {1, 128, 1, 28, 28};
+
+    // for(int i = 0; i < 200704; i++)
+    //     X_tmp_data[i] = X_data[i];
+    // Conv2Plus1D(X_data, X_num, X2_data, X2_num, 230, Kernel_2_1_data, Kernel_2_2_data, 2, 1); // 230 = (64 * 128 * 3 * 3) / (64 * 3 + 128)
+    // BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+    // ReLU(X2_data, X2_num);
+    // Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 230, Kernel_2_3_data, Kernel_2_4_data, 1, 1);
+    // BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+
+    // Conv3d(X_tmp_data, X_num, X2_tmp_data, X2_num, Kernel_2_5_data, Kernel_num, stride, padding);
+    // BatchNorm3d(X2_tmp_data, X2_num, 0.00001, 1, 0);
+    // for(int i = 0; i< 100352; i++)
+    //     X2_data[i] += X2_tmp_data[i];
+    // ReLU(X2_data, X2_num);
     
-    for(int i = 0; i < 100352; i++)
-        X2_tmp_data[i] = X2_data[i];
-    Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 288, Kernel_2_6_data, Kernel_2_7_data, 1, 1); // 288 = (128 * 128 * 3 * 3) / (128 * 3 + 128)
-    BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
-    ReLU(X2_data, X2_num);
-    Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 288, Kernel_2_8_data, Kernel_2_9_data, 1, 1);
-    BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
-    for(int i = 0; i < 100352; i++)
-        X2_data[i] += X2_tmp_data[i];
-    ReLU(X2_data, X2_num);
+    // for(int i = 0; i < 100352; i++)
+    //     X2_tmp_data[i] = X2_data[i];
+    // Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 288, Kernel_2_6_data, Kernel_2_7_data, 1, 1); // 288 = (128 * 128 * 3 * 3) / (128 * 3 + 128)
+    // BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+    // ReLU(X2_data, X2_num);
+    // Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 288, Kernel_2_8_data, Kernel_2_9_data, 1, 1);
+    // BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+    // for(int i = 0; i < 100352; i++)
+    //     X2_data[i] += X2_tmp_data[i];
+    // ReLU(X2_data, X2_num);
 
     // // =============================================================================
     // // layer 3
@@ -144,8 +144,8 @@ void Sequential(float* X_data, float* Y_data, float* Kernel_1_1_data, float* Ker
 
     // =============================================================================
 
-    for(int i = 0; i < 100352; i++)  //for test
-        Y_data[i] = X2_data[i];
+    for(int i = 0; i < 200704; i++)  //for test
+        Y_data[i] = X_data[i];
     
     return;
 }

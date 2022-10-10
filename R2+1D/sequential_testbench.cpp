@@ -54,13 +54,13 @@ int main() {
     std::ifstream file;
     float data = 0;
 
-    // load input
-    file.open("output_1.dat");
-    for(int i = 0; i < 200704; i++){
-        file >> data;
-        input[i] = data;
-    }
-    file.close();
+     load input
+     file.open("output_0.dat");
+     for(int i = 0; i < 200704; i++){
+         file >> data;
+         input[i] = data;
+     }
+     file.close();
 
     // load layer1 kernel
     for(int j = 1; j < 8; j += 2){
@@ -255,7 +255,7 @@ int main() {
     file.close();
 
     // load output
-    file.open("output_2.dat");
+    file.open("output_1.dat");
     for(int i = 0; i < 100352; i++){
         file >> data;
         output[i] = data;
@@ -263,15 +263,16 @@ int main() {
     file.close();
     
     // ====================================
-    Sequential(input, X_out_data, Kernel_1_1, Kernel_1_2, Kernel_1_3, Kernel_1_4, Kernel_1_5, Kernel_1_6, Kernel_1_7, Kernel_1_8, 
-                    Kernel_2_1, Kernel_2_2, Kernel_2_3, Kernel_2_4, Kernel_2_5, Kernel_2_6, Kernel_2_7, Kernel_2_8, Kernel_2_9, 
-                    Kernel_3_1, Kernel_3_2, Kernel_3_3, Kernel_3_4, Kernel_3_5, Kernel_3_6, Kernel_3_7, Kernel_3_8, Kernel_3_9, 
-                    Kernel_4_1, Kernel_4_2, Kernel_4_3, Kernel_4_4, Kernel_4_5, Kernel_4_6, Kernel_4_7, Kernel_4_8, Kernel_4_9);
+
+	Sequential(input, X_out_data, Kernel_1_1, Kernel_1_2, Kernel_1_3, Kernel_1_4, Kernel_1_5, Kernel_1_6, Kernel_1_7, Kernel_1_8,
+					Kernel_2_1, Kernel_2_2, Kernel_2_3, Kernel_2_4, Kernel_2_5, Kernel_2_6, Kernel_2_7, Kernel_2_8, Kernel_2_9,
+					Kernel_3_1, Kernel_3_2, Kernel_3_3, Kernel_3_4, Kernel_3_5, Kernel_3_6, Kernel_3_7, Kernel_3_8, Kernel_3_9,
+					Kernel_4_1, Kernel_4_2, Kernel_4_3, Kernel_4_4, Kernel_4_5, Kernel_4_6, Kernel_4_7, Kernel_4_8, Kernel_4_9);
     
     // calculate errors
     float errors;
-    int X_num[5] = {1, 128, 1, 28, 28};
-    errors = 100*float(validate(X_out_data, output, X_num)) / 100352;
+    int X_num[5] = {1, 64, 1, 56, 56};
+    errors = 100*float(validate(X_out_data, output, X_num)) / 200704;
 
     if (errors != 0)
         printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
@@ -301,4 +302,3 @@ int validate(float* ourOutput, float* golden, int* size)
                     }
     return errors;
 }
-

@@ -19,8 +19,6 @@ float X_out_data[200704];
 // int X_out_num_1[5] = {1, 45, 1, 56, 56};
 // float X_out_data_2[200704];
 
-
-
 int main()
 {
     FILE         *fp;
@@ -28,7 +26,6 @@ int main()
     float data=0;
 
     float output[200704];
-    int errors, total_errors = 0;
 
     // load input
     file.open("input.dat");
@@ -196,17 +193,17 @@ int main()
     //     output[i] = data;
     // }
     // file.close();
-
+    
     // calculate errors
-    int X_num[5] = {1, 45, 1, 56, 56};
-    // int X_num[5] = {1, 64, 1, 56, 56};
-    errors = validate(X_out_data, output, X_num);
-    total_errors += errors;
-
+    float errors;
+    // int X_num[5] = {1, 45, 1, 56, 56};
+    int X_num[5] = {1, 64, 1, 56, 56};
+    errors = 100*(float)validate(X_out_data, output, X_num)/200704;
+    
     cout << "\n\n=======================================\n";
     cout << "==> Total\n";
-    if (total_errors)
-        printf("[FAIL] There are some errors QQ\n");
+    if (errors != 0)
+        printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
     else
         printf("[PASS] Congratulation! All results are correct\n");
     return 0;
@@ -231,10 +228,5 @@ int validate(float* ourOutput, float* golden, int* size)
                             errors++;
                         }
                     }
-    if (errors)
-        printf("[FAIL] There are some errors QQ\n");
-    else
-        printf("[PASS] Congratulation! All results are correct\n");
     return errors;
 }
-

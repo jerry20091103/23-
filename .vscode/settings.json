@@ -2,7 +2,10 @@
     "files.associations": {
         "xlocale": "cpp",
         "iostream": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }

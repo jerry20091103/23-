@@ -53,6 +53,11 @@ void r2plus1d(float* X_data, float* Y_data, float* Kernel_1_data, float* Kernel_
 
     // Sequential 1~4
 
+    // ==========================================================
+ #ifndef __SYNTHESIS__
+    free(X_out_data);
+    free(Y_tmp_data);
+ #endif
 
     return;
 	// └─Conv3d: 2-1                            [1, 45, 1, 56, 56]        6,615

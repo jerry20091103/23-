@@ -54,13 +54,13 @@ int main() {
     std::ifstream file;
     float data = 0;
 
-     load input
-     file.open("output_0.dat");
-     for(int i = 0; i < 200704; i++){
-         file >> data;
-         input[i] = data;
-     }
-     file.close();
+    // load input
+    file.open("output_0.dat");
+    for(int i = 0; i < 200704; i++){
+        file >> data;
+        input[i] = data;
+    }
+    file.close();
 
     // load layer1 kernel
     for(int j = 1; j < 8; j += 2){

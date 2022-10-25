@@ -14,7 +14,7 @@ void Conv2Plus1D(float* X_data, int* X_num, float* X_out_data, int* X_out_num, i
     int X_mid_num[5];
     X_mid_num[0] = X_num[0];
     X_mid_num[1] = midplanes;
-    X_mid_num[2] = X_num[2]; // (D+2*padding[0]-KD)/stride[0] + 1
+    X_mid_num[2] = X_num[2]; // (D+2*padding[0]-KD)/stride[0] + 1 // (X_num[2] + 2*0 - 1) / 1 + 1
     X_mid_num[3] = (X_num[3] + 2*p - 3) / s + 1; // (H+2*padding[1]-KH)/stride[1] + 1
     X_mid_num[4] = (X_num[4] + 2*p - 3) / s + 1; // (W+2*padding[2]-KW)/stride[2] + 1
     

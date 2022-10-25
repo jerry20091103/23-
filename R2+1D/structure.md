@@ -1,3 +1,7 @@
+=====generate data colab=====
+https://colab.research.google.com/drive/1BY2jyu7_5NfBomK_VPusbMld6_Euzgjm#scrollTo=1GbsP_5lzjEz
+
+
 ===============================================================================================
 Layer (type:depth-idx)                        Output Shape              Param #
 ===============================================================================================

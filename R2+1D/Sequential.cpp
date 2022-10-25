@@ -9,16 +9,16 @@ void Sequential(float* X_data, float* Y_data, float* Kernel_1_1_data, float* Ker
 {
  #ifdef __SYNTHESIS__
     float X_tmp_data[200704];
-    float X2_data[100352];
-    float X2_tmp_data[100352];
+    // float X2_data[100352];
+    // float X2_tmp_data[100352];
     // float X3_data[50176];
     // float X3_tmp_data[50176];
     // float X4_data[25088];
     // float X4_tmp_data[25088];
  #else
     float* X_tmp_data = (float*)malloc(200704*sizeof(float));
-    float* X2_data = (float*)malloc(100352*sizeof(float));
-    float* X2_tmp_data = (float*)malloc(100352*sizeof(float));
+    // float* X2_data = (float*)malloc(100352*sizeof(float));
+    // float* X2_tmp_data = (float*)malloc(100352*sizeof(float));
     // float* X3_data = (float*)malloc(50176*sizeof(float));
     // float* X3_tmp_data = (float*)malloc(50176*sizeof(float));
     // float* X4_data = (float*)malloc(25088*sizeof(float));
@@ -151,37 +151,210 @@ void Sequential(float* X_data, float* Y_data, float* Kernel_1_1_data, float* Ker
 }
 
 
+// =====================================================================
 
-        // layer1 = BasicBlock(64, 64, Conv2Plus1D, 1, None)
-        //          BasicBlock(64, 64, Conv2Plus1D)
-        //          BasicBlock(64, 64, Conv2Plus1D)
-        //
-        // layer2 = BasicBlock(64, 128, Conv2Plus1D, 2, nn.Sequential(
-        //                                             nn.Conv3d(self.inplanes, planes, kernel_size=1, stride={stride, stride, stride}),
-        //                                             nn.BatchNorm3d(planes),
-        //                                         ))
-        //          BasicBlock(128, 128, Conv2Plus1D)
-        //          BasicBlock(128, 128, Conv2Plus1D)
-        //
-        // layer3 = BasicBlock(128, 256, Conv2Plus1D, 2, nn.Sequential(
-        //                                             nn.Conv3d(self.inplanes, planes, kernel_size=1, stride={stride, stride, stride}),
-        //                                             nn.BatchNorm3d(planes),
-        //                                         ))
-        //          BasicBlock(256, 256, Conv2Plus1D)
-        //          BasicBlock(256, 256, Conv2Plus1D)
-        //
-        // layer4 = BasicBlock(256, 512, Conv2Plus1D, 2, nn.Sequential(
-        //                                             nn.Conv3d(self.inplanes, planes, kernel_size=1, stride={stride, stride, stride}),
-        //                                             nn.BatchNorm3d(planes),
-        //                                         ))
-        //          BasicBlock(512, 512, Conv2Plus1D)
-        //          BasicBlock(512, 512, Conv2Plus1D)
-        //
-        // =============================================================================
-        //
-        // self.conv1 = nn.Sequential(
-        //     conv_builder(inplanes, planes, midplanes, stride), nn.BatchNorm3d(planes), nn.ReLU(inplace=True)
-        // )
-        // self.conv2 = nn.Sequential(conv_builder(planes, planes, midplanes), nn.BatchNorm3d(planes))
-        // out += (downsample) ? downsample : x
-        // self.relu = nn.ReLU(inplace=True)
+//   (layer1): Sequential(
+//     (0): BasicBlock(
+//       (conv1): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(64, 144, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(144, 64, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//         (2): ReLU(inplace=True)
+//       )
+//       (conv2): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(64, 144, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(144, 64, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//       (relu): ReLU(inplace=True)
+//     )
+//     (1): BasicBlock(
+//       (conv1): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(64, 144, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(144, 64, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//         (2): ReLU(inplace=True)
+//       )
+//       (conv2): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(64, 144, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(144, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(144, 64, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//       (relu): ReLU(inplace=True)
+//     )
+//   )
+
+// =====================================================================
+
+//   (layer2): Sequential(
+//     (0): BasicBlock(
+//       (conv1): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(64, 230, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(230, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(230, 128, kernel_size=(3, 1, 1), stride=(2, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//         (2): ReLU(inplace=True)
+//       )
+//       (conv2): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(128, 230, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(230, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(230, 128, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//       (relu): ReLU(inplace=True)
+//       (downsample): Sequential(
+//         (0): Conv3d(64, 128, kernel_size=(1, 1, 1), stride=(2, 2, 2), bias=False)
+//         (1): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//     )
+//     (1): BasicBlock(
+//       (conv1): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(128, 288, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(288, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(288, 128, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//         (2): ReLU(inplace=True)
+//       )
+//       (conv2): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(128, 288, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(288, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(288, 128, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//       (relu): ReLU(inplace=True)
+//     )
+//   )
+
+// =====================================================================
+
+//   (layer3): Sequential(
+//     (0): BasicBlock(
+//       (conv1): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(128, 460, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(460, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(460, 256, kernel_size=(3, 1, 1), stride=(2, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//         (2): ReLU(inplace=True)
+//       )
+//       (conv2): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(256, 460, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(460, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(460, 256, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//       (relu): ReLU(inplace=True)
+//       (downsample): Sequential(
+//         (0): Conv3d(128, 256, kernel_size=(1, 1, 1), stride=(2, 2, 2), bias=False)
+//         (1): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//     )
+//     (1): BasicBlock(
+//       (conv1): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(256, 576, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(576, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(576, 256, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//         (2): ReLU(inplace=True)
+//       )
+//       (conv2): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(256, 576, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(576, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(576, 256, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//       (relu): ReLU(inplace=True)
+//     )
+//   )
+
+// =====================================================================
+
+//   (layer4): Sequential(
+//     (0): BasicBlock(
+//       (conv1): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(256, 921, kernel_size=(1, 3, 3), stride=(1, 2, 2), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(921, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(921, 512, kernel_size=(3, 1, 1), stride=(2, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//         (2): ReLU(inplace=True)
+//       )
+//       (conv2): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(512, 921, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(921, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(921, 512, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//       (relu): ReLU(inplace=True)
+//       (downsample): Sequential(
+//         (0): Conv3d(256, 512, kernel_size=(1, 1, 1), stride=(2, 2, 2), bias=False)
+//         (1): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//     )
+//     (1): BasicBlock(
+//       (conv1): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(512, 1152, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(1152, 512, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//         (2): ReLU(inplace=True)
+//       )
+//       (conv2): Sequential(
+//         (0): Conv2Plus1D(
+//           (0): Conv3d(512, 1152, kernel_size=(1, 3, 3), stride=(1, 1, 1), padding=(0, 1, 1), bias=False)
+//           (1): BatchNorm3d(1152, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//           (2): ReLU(inplace=True)
+//           (3): Conv3d(1152, 512, kernel_size=(3, 1, 1), stride=(1, 1, 1), padding=(1, 0, 0), bias=False)
+//         )
+//         (1): BatchNorm3d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=False)
+//       )
+//       (relu): ReLU(inplace=True)
+//     )
+//   )

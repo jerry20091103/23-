@@ -29,6 +29,10 @@ int main()
 
     // load input
     file.open("input.dat");
+    if(!file.is_open()){
+        cout << "input.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 36963; i++){
         file >> data;
         input[i] = data;
@@ -37,6 +41,10 @@ int main()
 
     // load kernel_1
     file.open("Conv3d1weight.dat");
+    if(!file.is_open()){
+        cout << "Conv3d1weight.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 6615; i++){
         file >> data;
         Kernel_1[i] = data;
@@ -45,6 +53,10 @@ int main()
 
     // load kernel_2
     file.open("Conv3d2weight.dat");
+    if(!file.is_open()){
+        cout << "Conv3d2weight.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 8640; i++){
         file >> data;
         Kernel_2[i] = data;
@@ -181,18 +193,22 @@ int main()
     r2plus1d(input, X_out_data, Kernel_1, Kernel_2);
 
     // load gloden result
-    file.open("Conv3d1output.dat");
-    for(int i = 0; i < 141120; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    // file.open("ReLU2output.dat");
-    // for(int i = 0; i < 200704; i++){
+    // file.open("Conv3d1output.dat");
+    // for(int i = 0; i < 141120; i++){
     //     file >> data;
     //     output[i] = data;
     // }
     // file.close();
+    file.open("ReLU2output.dat");
+    if(!file.is_open()){
+        cout << "ReLU2output.dat not found!\n";
+        return 0;
+    }
+    for(int i = 0; i < 200704; i++){
+        file >> data;
+        output[i] = data;
+    }
+    file.close();
     
     // calculate errors
     float errors;

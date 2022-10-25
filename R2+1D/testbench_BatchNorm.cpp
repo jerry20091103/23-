@@ -25,6 +25,10 @@ int main()
     int X_out_num_1[5] = {1, 45, 1, 56, 56};
     cout << "==> BatchNorm3d1\n";
     file.open("Conv3d1output.dat");
+    if(!file.is_open()){
+        cout << "Conv3d1output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 141120; i++){
         file >> data;
         X_out_data[i] = data;
@@ -33,6 +37,10 @@ int main()
     BatchNorm3d(X_out_data, X_out_num_1, 0.00001, 1, 0);
 
     file.open("BatchNorm3d1output.dat");
+    if(!file.is_open()){
+        cout << "BatchNorm3d1output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 141120; i++){
         file >> data;
         output[i] = data;

@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 
-void Conv3d(float* X_data, int* X_num, float* Y_data, int* Y_num, float* Kernel_data, int* Kernel_num, int* stride, int* padding)
+void Conv3d(double* X_data, int* X_num, double* Y_data, int* Y_num, double* Kernel_data, int* Kernel_num, int* stride, int* padding)
 {
 	// get X(input) size
 	int XN = X_num[0];

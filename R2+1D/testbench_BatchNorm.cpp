@@ -7,16 +7,16 @@
 #include <iomanip>
 using namespace std;
 
-int validate(float* ourOutput, float* golden, int* size);
+int validate(double* ourOutput, double* golden, int* size);
 
 int main()
 {
     FILE         *fp;
     std::ifstream file;
-    float data=0;
+    double data=0;
 
-    float *X_out_data = (float*)malloc(141120*sizeof(float));
-    float *output = (float*)malloc(141120*sizeof(float));
+    double *X_out_data = (double*)malloc(141120*sizeof(double));
+    double *output = (double*)malloc(141120*sizeof(double));
 
     int errors, total_errors = 0;
 
@@ -24,9 +24,9 @@ int main()
     // BatchNorm3d1
     int X_out_num_1[5] = {1, 45, 1, 56, 56};
     cout << "==> BatchNorm3d1\n";
-    file.open("Conv3d1output.dat");
+    file.open("A.dat");
     if(!file.is_open()){
-        cout << "Conv3d1output.dat not found!" << endl;
+        cout << "A.dat not found!" << endl;
         return 0;
     }
     for(int i = 0; i < 141120; i++){
@@ -36,9 +36,9 @@ int main()
     file.close();
     BatchNorm3d(X_out_data, X_out_num_1, 0.00001, 1, 0);
 
-    file.open("BatchNorm3d1output.dat");
+    file.open("B.dat");
     if(!file.is_open()){
-        cout << "BatchNorm3d1output.dat not found!" << endl;
+        cout << "B.dat not found!" << endl;
         return 0;
     }
     for(int i = 0; i < 141120; i++){
@@ -82,7 +82,7 @@ int main()
     return 0;
 }
 
-int validate(float* ourOutput, float* golden, int* size)
+int validate(double* ourOutput, double* golden, int* size)
 {
     int errors = 0;
     int N = size[0];
@@ -96,7 +96,7 @@ int validate(float* ourOutput, float* golden, int* size)
                 for(int h = 0; h < H; h++)
                     for(int w = 0; w < W; w++){
                         int pos = n*C*D*H*W + c*D*H*W + d*H*W + h*W +w;
-                        if (ourOutput[pos] != golden[pos] && ((ourOutput[pos] - golden[pos]) / golden[pos] >= 0.005 || (ourOutput[pos] - golden[pos]) / golden[pos] <= -0.005)){
+                        if (ourOutput[pos] != golden[pos] && ((ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002)){
                             cout<<"[ERROR]  result["<<n<<"]["<<setw(2)<<c<<"]["<<d<<"]["<<setw(2)<<h<<"]["<<setw(2)<<w<<"]: "<<setw(13)<<ourOutput[pos]<<", gold: "<<setw(10)<<golden[pos]<<", error: "<< 100*(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
                             errors++;
                         }

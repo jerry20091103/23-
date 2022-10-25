@@ -13,14 +13,14 @@ using namespace std;
 // modify this:
 #define TEST_MODE separate_test
 
-int validate(float* ourOutput, float* golden, int* size);
+int validate(double* ourOutput, double* golden, int* size);
 
-float Kernel_1[6615];
-float Kernel_2[8640];
+double Kernel_1[6615];
+double Kernel_2[8640];
 
-// float X_out_data_2[200704];
-// float output[200704];
-// float input[36963];
+// double X_out_data_2[200704];
+// double output[200704];
+// double input[36963];
 
 
 
@@ -28,13 +28,13 @@ int main()
 {
     FILE         *fp;
     std::ifstream file;
-    float data=0;
+    double data=0;
 
     int errors, total_errors = 0;
 
-    float *X_out_data_2 = (float*)malloc(200704 * sizeof(float));
-    float *output = (float*)malloc(200704 * sizeof(float));
-    float *input = (float*)malloc(36963 * sizeof(float));
+    double *X_out_data_2 = (double*)malloc(200704 * sizeof(double));
+    double *output = (double*)malloc(200704 * sizeof(double));
+    double *input = (double*)malloc(36963 * sizeof(double));
 
     // load input
     file.open("input.dat");
@@ -208,7 +208,7 @@ int main()
     return 0;
 }
 
-int validate(float* ourOutput, float* golden, int* size)
+int validate(double* ourOutput, double* golden, int* size)
 {
     int errors = 0;
     int N = size[0];

@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 
-void Linear(int* psum_range,float* x,int* x_num, float* weights, int* weights_num , int* weightsBias, bool bias,float* x_out){
+void Linear(int* psum_range,double* x,int* x_num, double* weights, int* weights_num , int* weightsBias, bool bias,double* x_out){
        int H = x_num[0];
     int W = x_num[1];
     int C = weights_num[0];

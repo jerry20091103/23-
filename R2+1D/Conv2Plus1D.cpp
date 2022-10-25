@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 
-void Conv2Plus1D(float* X_data, int* X_num, float* X_out_data, int* X_out_num, int midplanes, float* Kernel_1_data, float* Kernel_2_data, int s, int p){
+void Conv2Plus1D(double* X_data, int* X_num, double* X_out_data, int* X_out_num, int midplanes, double* Kernel_1_data, double* Kernel_2_data, int s, int p){
     int stride[3] = {1, 1, 1};
     int padding[3] = {0, 1, 1};
 
@@ -10,7 +10,7 @@ void Conv2Plus1D(float* X_data, int* X_num, float* X_out_data, int* X_out_num, i
     stride[1] = s;  stride[2] = s;
     padding[1] = p; padding[2] = p;
 
-    float X_mid_data[451584];
+    double X_mid_data[451584];
     int X_mid_num[5];
     X_mid_num[0] = X_num[0];
     X_mid_num[1] = midplanes;

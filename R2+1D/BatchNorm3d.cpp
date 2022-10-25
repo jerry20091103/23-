@@ -5,7 +5,7 @@ using namespace std;
 
 #define _C 1152
 
-void BatchNorm3d(float* X_data, int* X_num, float e, int r, int b){
+void BatchNorm3d(double* X_data, int* X_num, double e, int r, int b){
 	int N = X_num[0];
 	int C = X_num[1];
 	int D = X_num[2];
@@ -13,7 +13,7 @@ void BatchNorm3d(float* X_data, int* X_num, float e, int r, int b){
 	int W = X_num[4];
 
     // find channel mean
-	float mu[_C];
+	double mu[_C];
     for(int c = 0; c < C; c++){
 	    for(int n = 0; n < N; n++){
 			for(int d = 0; d < D; d++)
@@ -25,7 +25,7 @@ void BatchNorm3d(float* X_data, int* X_num, float e, int r, int b){
 	}
 
     // find channel variance
-	float var[_C];
+	double var[_C];
     for(int c = 0; c < C; c++){
 	    for(int n = 0; n < N; n++){
 			for(int d = 0; d < D; d++)
@@ -58,7 +58,7 @@ void BatchNorm3d(float* X_data, int* X_num, float e, int r, int b){
 	// 					num++;
 	// 					sum += X_data[pos];
 	// 					sum_2 += X_data[pos] * X_data[pos];
-	// 					X_data[pos] = ((X_data[pos] - (float)sum/num) / sqrt((float)sum_2/num - ((float)sum/num)*((float)sum/num) + e)) * r + b;
+	// 					X_data[pos] = ((X_data[pos] - (double)sum/num) / sqrt((double)sum_2/num - ((double)sum/num)*((double)sum/num) + e)) * r + b;
 	// 				}
 	// 	}
 }

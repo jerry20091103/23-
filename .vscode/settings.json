@@ -6,7 +6,8 @@
         "vector": "cpp",
         "xstring": "cpp",
         "xutility": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iosfwd": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }

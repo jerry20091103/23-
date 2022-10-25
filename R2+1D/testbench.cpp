@@ -7,25 +7,25 @@
 #include <iomanip>
 using namespace std;
 
-int validate(float* ourOutput, float* golden, int* size);
+int validate(double* ourOutput, double* golden, int* size);
 
-float input[36963];
-float Kernel_1[6615];
-float Kernel_2[8640];
-float X_out_data[200704];
+double input[36963];
+double Kernel_1[6615];
+double Kernel_2[8640];
+double X_out_data[200704];
 
 // // for detail debug
-// float X_out_data_1[141120];
+// double X_out_data_1[141120];
 // int X_out_num_1[5] = {1, 45, 1, 56, 56};
-// float X_out_data_2[200704];
+// double X_out_data_2[200704];
 
 int main()
 {
     FILE         *fp;
     std::ifstream file;
-    float data=0;
+    double data=0;
 
-    float output[200704];
+    double output[200704];
 
     // load input
     file.open("input.dat");
@@ -211,10 +211,10 @@ int main()
     file.close();
     
     // calculate errors
-    float errors;
+    double errors;
     // int X_num[5] = {1, 45, 1, 56, 56};
     int X_num[5] = {1, 64, 1, 56, 56};
-    errors = 100*(float)validate(X_out_data, output, X_num)/200704;
+    errors = 100*(double)validate(X_out_data, output, X_num)/200704;
     
     cout << "\n\n=======================================\n";
     cout << "==> Total\n";
@@ -225,7 +225,7 @@ int main()
     return 0;
 }
 
-int validate(float* ourOutput, float* golden, int* size)
+int validate(double* ourOutput, double* golden, int* size)
 {
     int errors = 0;
     int N = size[0];

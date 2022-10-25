@@ -2,27 +2,27 @@
 #include<iostream>
 using namespace std;
 
-void Sequential(float* X_data, float* Y_data, float* Kernel_1_1_data, float* Kernel_1_2_data, float* Kernel_1_3_data, float* Kernel_1_4_data, float* Kernel_1_5_data, float* Kernel_1_6_data, float* Kernel_1_7_data, float* Kernel_1_8_data, 
-                    float* Kernel_2_1_data, float* Kernel_2_2_data, float* Kernel_2_3_data, float* Kernel_2_4_data, float* Kernel_2_5_data, float* Kernel_2_6_data, float* Kernel_2_7_data, float* Kernel_2_8_data, float* Kernel_2_9_data, 
-                    float* Kernel_3_1_data, float* Kernel_3_2_data, float* Kernel_3_3_data, float* Kernel_3_4_data, float* Kernel_3_5_data, float* Kernel_3_6_data, float* Kernel_3_7_data, float* Kernel_3_8_data, float* Kernel_3_9_data, 
-                    float* Kernel_4_1_data, float* Kernel_4_2_data, float* Kernel_4_3_data, float* Kernel_4_4_data, float* Kernel_4_5_data, float* Kernel_4_6_data, float* Kernel_4_7_data, float* Kernel_4_8_data, float* Kernel_4_9_data)
+void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double* Kernel_1_2_data, double* Kernel_1_3_data, double* Kernel_1_4_data, double* Kernel_1_5_data, double* Kernel_1_6_data, double* Kernel_1_7_data, double* Kernel_1_8_data, 
+                    double* Kernel_2_1_data, double* Kernel_2_2_data, double* Kernel_2_3_data, double* Kernel_2_4_data, double* Kernel_2_5_data, double* Kernel_2_6_data, double* Kernel_2_7_data, double* Kernel_2_8_data, double* Kernel_2_9_data, 
+                    double* Kernel_3_1_data, double* Kernel_3_2_data, double* Kernel_3_3_data, double* Kernel_3_4_data, double* Kernel_3_5_data, double* Kernel_3_6_data, double* Kernel_3_7_data, double* Kernel_3_8_data, double* Kernel_3_9_data, 
+                    double* Kernel_4_1_data, double* Kernel_4_2_data, double* Kernel_4_3_data, double* Kernel_4_4_data, double* Kernel_4_5_data, double* Kernel_4_6_data, double* Kernel_4_7_data, double* Kernel_4_8_data, double* Kernel_4_9_data)
 {
  #ifdef __SYNTHESIS__
-    float X_tmp_data[200704];
-    // float X2_data[100352];
-    // float X2_tmp_data[100352];
-    // float X3_data[50176];
-    // float X3_tmp_data[50176];
-    // float X4_data[25088];
-    // float X4_tmp_data[25088];
+    double X_tmp_data[200704];
+    // double X2_data[100352];
+    // double X2_tmp_data[100352];
+    // double X3_data[50176];
+    // double X3_tmp_data[50176];
+    // double X4_data[25088];
+    // double X4_tmp_data[25088];
  #else
-    float* X_tmp_data = (float*)malloc(200704*sizeof(float));
-    // float* X2_data = (float*)malloc(100352*sizeof(float));
-    // float* X2_tmp_data = (float*)malloc(100352*sizeof(float));
-    // float* X3_data = (float*)malloc(50176*sizeof(float));
-    // float* X3_tmp_data = (float*)malloc(50176*sizeof(float));
-    // float* X4_data = (float*)malloc(25088*sizeof(float));
-    // float* X4_tmp_data = (float*)malloc(25088*sizeof(float));
+    double* X_tmp_data = (double*)malloc(200704*sizeof(double));
+    // double* X2_data = (double*)malloc(100352*sizeof(double));
+    // double* X2_tmp_data = (double*)malloc(100352*sizeof(double));
+    // double* X3_data = (double*)malloc(50176*sizeof(double));
+    // double* X3_tmp_data = (double*)malloc(50176*sizeof(double));
+    // double* X4_data = (double*)malloc(25088*sizeof(double));
+    // double* X4_tmp_data = (double*)malloc(25088*sizeof(double));
  #endif
 
     int Kernel_num[3] = {1, 1, 1};

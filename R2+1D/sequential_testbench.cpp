@@ -7,40 +7,41 @@
 #include <iomanip>
 using namespace std;
 
-int validate(float* ourOutput, float* golden, int* size);
+int validate(double* ourOutput, double* golden, int* size);
 
-float input[200704], X_out_data[200704];
-float output[451584];
+// double input = (double*)malloc(141120*sizeof(double));
+// [200704], X_out_data[200704];
+double output[451584];
 
-float Kernel_1_1[82944], Kernel_1_3[82944], Kernel_1_5[82944], Kernel_1_7[82944];
-float Kernel_1_2[27648], Kernel_1_4[27648], Kernel_1_6[27648], Kernel_1_8[27648];
+double Kernel_1_1[82944], Kernel_1_3[82944], Kernel_1_5[82944], Kernel_1_7[82944];
+double Kernel_1_2[27648], Kernel_1_4[27648], Kernel_1_6[27648], Kernel_1_8[27648];
 // kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
 
-float Kernel_2_1[132480], Kernel_2_2[88320];
+double Kernel_2_1[132480], Kernel_2_2[88320];
 // kernel_size=(64, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-float Kernel_2_3[264960], Kernel_2_4[88320];
+double Kernel_2_3[264960], Kernel_2_4[88320];
 // kernel_size=(128, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-float Kernel_2_5[8192]; // kernel_size=(64, 128, 1, 1, 1)
-float Kernel_2_6[331776], Kernel_2_8[331776];
-float Kernel_2_7[110592], Kernel_2_9[110592];
+double Kernel_2_5[8192]; // kernel_size=(64, 128, 1, 1, 1)
+double Kernel_2_6[331776], Kernel_2_8[331776];
+double Kernel_2_7[110592], Kernel_2_9[110592];
 // kernel_size=(128, 288, 1, 3, 3),  kernel_size=(128, 288, 3, 1, 1)
 
-float Kernel_3_1[529920], Kernel_3_2[353280];
+double Kernel_3_1[529920], Kernel_3_2[353280];
 // kernel_size=(128, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-float Kernel_3_3[1059840], Kernel_3_4[353280];
+double Kernel_3_3[1059840], Kernel_3_4[353280];
 // kernel_size=(256, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-float Kernel_3_5[32768]; // kernel_size=(128, 256, 1, 1, 1)
-float Kernel_3_6[1327104], Kernel_3_8[1327104];
-float Kernel_3_7[442368], Kernel_3_9[442368];
+double Kernel_3_5[32768]; // kernel_size=(128, 256, 1, 1, 1)
+double Kernel_3_6[1327104], Kernel_3_8[1327104];
+double Kernel_3_7[442368], Kernel_3_9[442368];
 // kernel_size=(256, 576, 1, 3, 3),  kernel_size=(256, 576, 3, 1, 1)
 
-float Kernel_4_1[2121984], Kernel_4_2[1414656];
+double Kernel_4_1[2121984], Kernel_4_2[1414656];
 // kernel_size=(256, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-float Kernel_4_3[4243968], Kernel_4_4[1414656];
+double Kernel_4_3[4243968], Kernel_4_4[1414656];
 // kernel_size=(512, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-float Kernel_4_5[131072]; // kernel4size=(256, 512, 1, 1, 1)
-float Kernel_4_6[5308416], Kernel_4_8[5308416];
-float Kernel_4_7[1769472], Kernel_4_9[1769472];
+double Kernel_4_5[131072]; // kernel4size=(256, 512, 1, 1, 1)
+double Kernel_4_6[5308416], Kernel_4_8[5308416];
+double Kernel_4_7[1769472], Kernel_4_9[1769472];
 // kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
 
 //string kernel_dat_name[12] = {"layer1_1_weight.dat", "layer1_2_weight.dat", "layer1_3_weight.dat","layer1_4_weight.dat","layer1_5_weight.dat", "layer1_6_weight.dat","layer1_7_weight.dat", "layer1_8_weight.dat", "layer1_9_weight.dat", "layer1_10_weight.dat", "layer1_11_weight.dat", "layer1_12_weight.dat"};
@@ -52,7 +53,7 @@ string kernel_4_dat_name[9] = {"weight_4_1.dat", "weight_4_2.dat", "weight_4_3.d
 int main() {
     FILE         *fp;
     std::ifstream file;
-    float data = 0;
+    double data = 0;
 
     // load input
     file.open("output_0.dat");
@@ -256,7 +257,7 @@ int main() {
 
     // load output
     file.open("output_1.dat");
-    for(int i = 0; i < 100352; i++){
+    for(int i = 0; i < 200704; i++){
         file >> data;
         output[i] = data;
     }
@@ -270,9 +271,9 @@ int main() {
 					Kernel_4_1, Kernel_4_2, Kernel_4_3, Kernel_4_4, Kernel_4_5, Kernel_4_6, Kernel_4_7, Kernel_4_8, Kernel_4_9);
     
     // calculate errors
-    float errors;
+    double errors;
     int X_num[5] = {1, 64, 1, 56, 56};
-    errors = 100*float(validate(X_out_data, output, X_num)) / 200704;
+    errors = 100*double(validate(X_out_data, output, X_num)) / 200704;
 
     if (errors != 0)
         printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
@@ -281,7 +282,7 @@ int main() {
     return 0;
 }
 
-int validate(float* ourOutput, float* golden, int* size)
+int validate(double* ourOutput, double* golden, int* size)
 {
     int errors = 0;
     int N = size[0];

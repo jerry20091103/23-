@@ -18,61 +18,64 @@ string kernel_4_dat_name[9] = { "weight_4_1.dat", "weight_4_2.dat", "weight_4_3.
 
 int_t main() {
 
-	dtype *input = (dtype*)malloc(200704*sizeof(dtype));
-	dtype *X_out_data = (dtype*)malloc(200704*sizeof(dtype));
-	dtype *output = (dtype*)malloc(451584*sizeof(dtype));
-	
-	dtype *Kernel_1_1 = (dtype*)malloc(82944*sizeof(dtype));
-	dtype *Kernel_1_3 = (dtype*)malloc(82944*sizeof(dtype));
-	dtype *Kernel_1_5 = (dtype*)malloc(82944*sizeof(dtype));
-	dtype *Kernel_1_7 = (dtype*)malloc(82944*sizeof(dtype));
-	
-	dtype *Kernel_1_2 = (dtype*)malloc(27648*sizeof(dtype));
-	dtype *Kernel_1_4 = (dtype*)malloc(27648*sizeof(dtype));
-	dtype *Kernel_1_6 = (dtype*)malloc(27648*sizeof(dtype));
-	dtype *Kernel_1_8 = (dtype*)malloc(27648*sizeof(dtype));
+	dtype *input = (dtype*)malloc(36963 * sizeof(dtype));
+	dtype *output = (dtype*)malloc(25088 * sizeof(dtype));
+	dtype *output_golden = (dtype*)malloc(25088 * sizeof(dtype));
+
+	dtype *kernel_stem_1 = (dtype*)malloc(6615 * sizeof(dtype));
+	dtype *kernel_stem_2 = (dtype*)malloc(8640 * sizeof(dtype));
+
+	dtype *Kernel_1_1 = (dtype*)malloc(82944 * sizeof(dtype));
+	dtype *Kernel_1_3 = (dtype*)malloc(82944 * sizeof(dtype));
+	dtype *Kernel_1_5 = (dtype*)malloc(82944 * sizeof(dtype));
+	dtype *Kernel_1_7 = (dtype*)malloc(82944 * sizeof(dtype));
+
+	dtype *Kernel_1_2 = (dtype*)malloc(27648 * sizeof(dtype));
+	dtype *Kernel_1_4 = (dtype*)malloc(27648 * sizeof(dtype));
+	dtype *Kernel_1_6 = (dtype*)malloc(27648 * sizeof(dtype));
+	dtype *Kernel_1_8 = (dtype*)malloc(27648 * sizeof(dtype));
 	// kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
-	
-	dtype *Kernel_2_1 = (dtype*)malloc(132480*sizeof(dtype));
-	dtype *Kernel_2_2 = (dtype*)malloc(88320*sizeof(dtype));
+
+	dtype *Kernel_2_1 = (dtype*)malloc(132480 * sizeof(dtype));
+	dtype *Kernel_2_2 = (dtype*)malloc(88320 * sizeof(dtype));
 	// kernel_size=(64, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-	dtype *Kernel_2_3 = (dtype*)malloc(264960*sizeof(dtype));
-	dtype *Kernel_2_4 = (dtype*)malloc(88320*sizeof(dtype));
+	dtype *Kernel_2_3 = (dtype*)malloc(264960 * sizeof(dtype));
+	dtype *Kernel_2_4 = (dtype*)malloc(88320 * sizeof(dtype));
 	// kernel_size=(128, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-	dtype *Kernel_2_5 = (dtype*)malloc(8192*sizeof(dtype));
+	dtype *Kernel_2_5 = (dtype*)malloc(8192 * sizeof(dtype));
 	// kernel_size=(64, 128, 1, 1, 1)
-	dtype *Kernel_2_6 = (dtype*)malloc(331776*sizeof(dtype));
-	dtype *Kernel_2_8 = (dtype*)malloc(331776*sizeof(dtype));
-	dtype *Kernel_2_7 = (dtype*)malloc(110592*sizeof(dtype));
-	dtype *Kernel_2_9 = (dtype*)malloc(110592*sizeof(dtype));
+	dtype *Kernel_2_6 = (dtype*)malloc(331776 * sizeof(dtype));
+	dtype *Kernel_2_8 = (dtype*)malloc(331776 * sizeof(dtype));
+	dtype *Kernel_2_7 = (dtype*)malloc(110592 * sizeof(dtype));
+	dtype *Kernel_2_9 = (dtype*)malloc(110592 * sizeof(dtype));
 	// kernel_size=(128, 288, 1, 3, 3),  kernel_size=(128, 288, 3, 1, 1)
-	
-	dtype *Kernel_3_1 = (dtype*)malloc(529920*sizeof(dtype));
-	dtype *Kernel_3_2 = (dtype*)malloc(353280*sizeof(dtype));
+
+	dtype *Kernel_3_1 = (dtype*)malloc(529920 * sizeof(dtype));
+	dtype *Kernel_3_2 = (dtype*)malloc(353280 * sizeof(dtype));
 	// kernel_size=(128, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-	dtype *Kernel_3_3 = (dtype*)malloc(1059840*sizeof(dtype));
-	dtype *Kernel_3_4 = (dtype*)malloc(353280*sizeof(dtype));
+	dtype *Kernel_3_3 = (dtype*)malloc(1059840 * sizeof(dtype));
+	dtype *Kernel_3_4 = (dtype*)malloc(353280 * sizeof(dtype));
 	// kernel_size=(256, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-	dtype *Kernel_3_5 = (dtype*)malloc(32768*sizeof(dtype));
+	dtype *Kernel_3_5 = (dtype*)malloc(32768 * sizeof(dtype));
 	// kernel_size=(128, 256, 1, 1, 1)
-	dtype *Kernel_3_6 = (dtype*)malloc(1327104*sizeof(dtype));
-	dtype *Kernel_3_8 = (dtype*)malloc(1327104*sizeof(dtype));
-	dtype *Kernel_3_7 = (dtype*)malloc(442368*sizeof(dtype));
-	dtype *Kernel_3_9 = (dtype*)malloc(442368*sizeof(dtype));
+	dtype *Kernel_3_6 = (dtype*)malloc(1327104 * sizeof(dtype));
+	dtype *Kernel_3_8 = (dtype*)malloc(1327104 * sizeof(dtype));
+	dtype *Kernel_3_7 = (dtype*)malloc(442368 * sizeof(dtype));
+	dtype *Kernel_3_9 = (dtype*)malloc(442368 * sizeof(dtype));
 	// kernel_size=(256, 576, 1, 3, 3),  kernel_size=(256, 576, 3, 1, 1)
-	
-	dtype *Kernel_4_1 = (dtype*)malloc(2121984*sizeof(dtype));
-	dtype *Kernel_4_2 = (dtype*)malloc(1414656*sizeof(dtype));
+
+	dtype *Kernel_4_1 = (dtype*)malloc(2121984 * sizeof(dtype));
+	dtype *Kernel_4_2 = (dtype*)malloc(1414656 * sizeof(dtype));
 	// kernel_size=(256, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-	dtype *Kernel_4_3 = (dtype*)malloc(4243968*sizeof(dtype));
-	dtype *Kernel_4_4 = (dtype*)malloc(1414656*sizeof(dtype));
+	dtype *Kernel_4_3 = (dtype*)malloc(4243968 * sizeof(dtype));
+	dtype *Kernel_4_4 = (dtype*)malloc(1414656 * sizeof(dtype));
 	// kernel_size=(512, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-	dtype *Kernel_4_5 = (dtype*)malloc(131072*sizeof(dtype));
+	dtype *Kernel_4_5 = (dtype*)malloc(131072 * sizeof(dtype));
 	// kernel4size=(256, 512, 1, 1, 1)
-	dtype *Kernel_4_6 = (dtype*)malloc(5308416*sizeof(dtype));
-	dtype *Kernel_4_8 = (dtype*)malloc(5308416*sizeof(dtype));
-	dtype *Kernel_4_7 = (dtype*)malloc(1769472*sizeof(dtype));
-	dtype *Kernel_4_9 = (dtype*)malloc(1769472*sizeof(dtype));
+	dtype *Kernel_4_6 = (dtype*)malloc(5308416 * sizeof(dtype));
+	dtype *Kernel_4_8 = (dtype*)malloc(5308416 * sizeof(dtype));
+	dtype *Kernel_4_7 = (dtype*)malloc(1769472 * sizeof(dtype));
+	dtype *Kernel_4_9 = (dtype*)malloc(1769472 * sizeof(dtype));
 	// kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
 
 	FILE         *fp;
@@ -80,10 +83,35 @@ int_t main() {
 	dtype data = 0;
 
 	// load input
-	file.open("output_0.dat");
-	for (int_t i = 0; i < 200704; i++) {
+	file.open("input.dat");
+	for (int_t i = 0; i < 36963; i++) {
 		file >> data;
 		input[i] = data;
+	}
+	file.close();
+
+	// load stem kernel
+	// load kernel_1
+	file.open("weight_0_1.dat");
+	if (!file.is_open()) {
+		cout << "weight_0_1.dat not found!" << endl;
+		return 0;
+	}
+	for (int_t i = 0; i < 6615; i++) {
+		file >> data;
+		kernel_stem_1[i] = data;
+	}
+	file.close();
+
+	// load kernel_2
+	file.open("weight_0_2.dat");
+	if (!file.is_open()) {
+		cout << "weight_0_2.dat not found!" << endl;
+		return 0;
+	}
+	for (int_t i = 0; i < 8640; i++) {
+		file >> data;
+		kernel_stem_2[i] = data;
 	}
 	file.close();
 
@@ -283,21 +311,23 @@ int_t main() {
 	file.open("output_4.dat");
 	for (int_t i = 0; i < 25088; i++) {
 		file >> data;
-		output[i] = data;
+		output_golden[i] = data;
 	}
 	file.close();
 
 	// ====================================
+	// Function to test here:
 
-	Sequential(input, X_out_data, Kernel_1_1, Kernel_1_2, Kernel_1_3, Kernel_1_4, Kernel_1_5, Kernel_1_6, Kernel_1_7, Kernel_1_8,
+	r2plus1d(input, output, kernel_stem_1, kernel_stem_2,
+		Kernel_1_1, Kernel_1_2, Kernel_1_3, Kernel_1_4, Kernel_1_5, Kernel_1_6, Kernel_1_7, Kernel_1_8,
 		Kernel_2_1, Kernel_2_2, Kernel_2_3, Kernel_2_4, Kernel_2_5, Kernel_2_6, Kernel_2_7, Kernel_2_8, Kernel_2_9,
 		Kernel_3_1, Kernel_3_2, Kernel_3_3, Kernel_3_4, Kernel_3_5, Kernel_3_6, Kernel_3_7, Kernel_3_8, Kernel_3_9,
 		Kernel_4_1, Kernel_4_2, Kernel_4_3, Kernel_4_4, Kernel_4_5, Kernel_4_6, Kernel_4_7, Kernel_4_8, Kernel_4_9);
 
 	// calculate errors
-	dtype errors;
+	float errors;
 	int_t X_num[5] = { 1, 512, 1, 7, 7 };
-	errors = 100 * dtype(validate(X_out_data, output, X_num)) / 25088;
+	errors = 100 * float(validate(output, output_golden, X_num)) / 25088;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
@@ -305,7 +335,7 @@ int_t main() {
 		printf("[PASS] Congratulation! All results are correct\n");
 
 	free(input);
-	free(X_out_data);
+	free(output_golden);
 	free(output);
 
 	free(Kernel_1_1);
@@ -336,7 +366,7 @@ int_t main() {
 	free(Kernel_3_8);
 	free(Kernel_3_7);
 	free(Kernel_3_9);
-	
+
 	free(Kernel_4_1);
 	free(Kernel_4_2);
 	free(Kernel_4_3);

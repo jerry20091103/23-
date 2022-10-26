@@ -4,7 +4,11 @@
 typedef double dtype;
 typedef int int_t;
 
-void r2plus1d(dtype* X_data, dtype* Y_data, dtype* Kernel_1_data, dtype* Kernel_2_data);
+void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2, 
+            dtype* Kernel_seq_1_1, dtype* Kernel_seq_1_2, dtype* Kernel_seq_1_3, dtype* Kernel_seq_1_4, dtype* Kernel_seq_1_5, dtype* Kernel_seq_1_6, dtype* Kernel_seq_1_7, dtype* Kernel_seq_1_8, 
+            dtype* Kernel_seq_2_1, dtype* Kernel_seq_2_2, dtype* Kernel_seq_2_3, dtype* Kernel_seq_2_4, dtype* Kernel_seq_2_5, dtype* Kernel_seq_2_6, dtype* Kernel_seq_2_7, dtype* Kernel_seq_2_8, dtype* Kernel_seq_2_9, 
+            dtype* Kernel_seq_3_1, dtype* Kernel_seq_3_2, dtype* Kernel_seq_3_3, dtype* Kernel_seq_3_4, dtype* Kernel_seq_3_5, dtype* Kernel_seq_3_6, dtype* Kernel_seq_3_7, dtype* Kernel_seq_3_8, dtype* Kernel_seq_3_9, 
+            dtype* Kernel_seq_4_1, dtype* Kernel_seq_4_2, dtype* Kernel_seq_4_3, dtype* Kernel_seq_4_4, dtype* Kernel_seq_4_5, dtype* Kernel_seq_4_6, dtype* Kernel_seq_4_7, dtype* Kernel_seq_4_8, dtype* Kernel_seq_4_9);
 void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding);
 void BatchNorm3d(dtype* X_data, int_t* X_num, double e, int_t r, int_t b);
 void ReLU(dtype* X_data, int_t* X_num);

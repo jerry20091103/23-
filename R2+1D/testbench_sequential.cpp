@@ -9,58 +9,61 @@ using namespace std;
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
 
-dtype *input = (double*)malloc(200704*sizeof(double));
-double *X_out_data = (double*)malloc(200704*sizeof(double));
-dtype *output = (double*)malloc(451584*sizeof(double));
+dtype *input = (dtype*)malloc(200704*sizeof(dtype));
+dtype *X_out_data = (dtype*)malloc(200704*sizeof(dtype));
+dtype *output = (dtype*)malloc(451584*sizeof(dtype));
 
-double *Kernel_1_1 = (double*)malloc(82944*sizeof(double));
-double *Kernel_1_3 = (double*)malloc(82944*sizeof(double));
-double *Kernel_1_5 = (double*)malloc(82944*sizeof(double));
-double *Kernel_1_7 = (double*)malloc(82944*sizeof(double));
+dtype *Kernel_1_1 = (dtype*)malloc(82944*sizeof(dtype));
+dtype *Kernel_1_3 = (dtype*)malloc(82944*sizeof(dtype));
+dtype *Kernel_1_5 = (dtype*)malloc(82944*sizeof(dtype));
+dtype *Kernel_1_7 = (dtype*)malloc(82944*sizeof(dtype));
 
-double *Kernel_1_2 = (double*)malloc(27648*sizeof(double));
-double *Kernel_1_4 = (double*)malloc(27648*sizeof(double));
-double *Kernel_1_6 = (double*)malloc(27648*sizeof(double));
-double *Kernel_1_8 = (double*)malloc(27648*sizeof(double));
+dtype *Kernel_1_2 = (dtype*)malloc(27648*sizeof(dtype));
+dtype *Kernel_1_4 = (dtype*)malloc(27648*sizeof(dtype));
+dtype *Kernel_1_6 = (dtype*)malloc(27648*sizeof(dtype));
+dtype *Kernel_1_8 = (dtype*)malloc(27648*sizeof(dtype));
 // kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
 
-double *Kernel_2_1 = (double*)malloc(132480*sizeof(double));
-double *Kernel_2_2 = (double*)malloc(88320*sizeof(double));
+dtype *Kernel_2_1 = (dtype*)malloc(132480*sizeof(dtype));
+dtype *Kernel_2_2 = (dtype*)malloc(88320*sizeof(dtype));
 // kernel_size=(64, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-double *Kernel_2_3 = (double*)malloc(264960*sizeof(double));
-double *Kernel_2_4 = (double*)malloc(88320*sizeof(double));
+dtype *Kernel_2_3 = (dtype*)malloc(264960*sizeof(dtype));
+dtype *Kernel_2_4 = (dtype*)malloc(88320*sizeof(dtype));
 // kernel_size=(128, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-double *Kernel_2_5 = (double*)malloc(8192*sizeof(double));
+dtype *Kernel_2_5 = (dtype*)malloc(8192*sizeof(dtype));
 // kernel_size=(64, 128, 1, 1, 1)
-double *Kernel_2_6 = (double*)malloc(331776*sizeof(double));
-double *Kernel_2_8 = (double*)malloc(331776*sizeof(double));
-double *Kernel_2_7 = (double*)malloc(110592*sizeof(double));
-double *Kernel_2_9 = (double*)malloc(110592*sizeof(double));
+dtype *Kernel_2_6 = (dtype*)malloc(331776*sizeof(dtype));
+dtype *Kernel_2_8 = (dtype*)malloc(331776*sizeof(dtype));
+dtype *Kernel_2_7 = (dtype*)malloc(110592*sizeof(dtype));
+dtype *Kernel_2_9 = (dtype*)malloc(110592*sizeof(dtype));
 // kernel_size=(128, 288, 1, 3, 3),  kernel_size=(128, 288, 3, 1, 1)
 
-double *Kernel_3_1 = (double*)malloc(529920*sizeof(double));
-double *Kernel_3_2 = (double*)malloc(353280*sizeof(double));
+dtype *Kernel_3_1 = (dtype*)malloc(529920*sizeof(dtype));
+dtype *Kernel_3_2 = (dtype*)malloc(353280*sizeof(dtype));
 // kernel_size=(128, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-double *Kernel_3_3 = (double*)malloc(1059840*sizeof(double));
-double *Kernel_3_4 = (double*)malloc(353280*sizeof(double));
+dtype *Kernel_3_3 = (dtype*)malloc(1059840*sizeof(dtype));
+dtype *Kernel_3_4 = (dtype*)malloc(353280*sizeof(dtype));
 // kernel_size=(256, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-double *Kernel_3_5 = (double*)malloc(32768*sizeof(double));
+dtype *Kernel_3_5 = (dtype*)malloc(32768*sizeof(dtype));
 // kernel_size=(128, 256, 1, 1, 1)
-double *Kernel_3_6 = (double*)malloc(1327104*sizeof(double));
-double *Kernel_3_8 = (double*)malloc(1327104*sizeof(double));
-double *Kernel_3_7 = (double*)malloc(442368*sizeof(double));
-double *Kernel_3_9 = (double*)malloc(442368*sizeof(double));
+dtype *Kernel_3_6 = (dtype*)malloc(1327104*sizeof(dtype));
+dtype *Kernel_3_8 = (dtype*)malloc(1327104*sizeof(dtype));
+dtype *Kernel_3_7 = (dtype*)malloc(442368*sizeof(dtype));
+dtype *Kernel_3_9 = (dtype*)malloc(442368*sizeof(dtype));
 // kernel_size=(256, 576, 1, 3, 3),  kernel_size=(256, 576, 3, 1, 1)
 
-double *Kernel_4_1 = (double*)malloc(2121984*sizeof(double));
-double *Kernel_4_2 = (double*)malloc(1414656*sizeof(double));
+dtype *Kernel_4_1 = (dtype*)malloc(2121984*sizeof(dtype));
+dtype *Kernel_4_2 = (dtype*)malloc(1414656*sizeof(dtype));
 // kernel_size=(256, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-double *Kernel_4_3 = (double*)malloc(4243968*sizeof(double));
-double *Kernel_4_4 = (double*)malloc(1414656*sizeof(double));
+dtype *Kernel_4_3 = (dtype*)malloc(4243968*sizeof(dtype));
+dtype *Kernel_4_4 = (dtype*)malloc(1414656*sizeof(dtype));
 // kernel_size=(512, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-double Kernel_4_5[131072]; // kernel4size=(256, 512, 1, 1, 1)
-double Kernel_4_6[5308416], Kernel_4_8[5308416];
-double Kernel_4_7[1769472], Kernel_4_9[1769472];
+dtype *Kernel_4_5 = (dtype*)malloc(131072*sizeof(dtype));
+// kernel4size=(256, 512, 1, 1, 1)
+dtype *Kernel_4_6 = (dtype*)malloc(5308416*sizeof(dtype));
+dtype *Kernel_4_8 = (dtype*)malloc(5308416*sizeof(dtype));
+dtype *Kernel_4_7 = (dtype*)malloc(1769472*sizeof(dtype));
+dtype *Kernel_4_9 = (dtype*)malloc(1769472*sizeof(dtype));
 // kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
 
 //string kernel_dat_name[12] = {"layer1_1_weight.dat", "layer1_2_weight.dat", "layer1_3_weight.dat","layer1_4_weight.dat","layer1_5_weight.dat", "layer1_6_weight.dat","layer1_7_weight.dat", "layer1_8_weight.dat", "layer1_9_weight.dat", "layer1_10_weight.dat", "layer1_11_weight.dat", "layer1_12_weight.dat"};
@@ -107,176 +110,176 @@ int_t main() {
 	}
 
 	//// load layer2 kernel
-	//file.open(kernel_2_dat_name[0]);
-	//for (int_t i = 0; i < 132480; i++) {
-	//	file >> data;
-	//	Kernel_2_1[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[1]);
-	//for (int_t i = 0; i < 88320; i++) {
-	//	file >> data;
-	//	Kernel_2_2[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[2]);
-	//for (int_t i = 0; i < 264960; i++) {
-	//	file >> data;
-	//	Kernel_2_3[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[3]);
-	//for (int_t i = 0; i < 88320; i++) {
-	//	file >> data;
-	//	Kernel_2_4[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[4]);
-	//for (int_t i = 0; i < 8192; i++) {
-	//	file >> data;
-	//	Kernel_2_5[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[5]);
-	//for (int_t i = 0; i < 331776; i++) {
-	//	file >> data;
-	//	Kernel_2_6[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[6]);
-	//for (int_t i = 0; i < 110592; i++) {
-	//	file >> data;
-	//	Kernel_2_7[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[7]);
-	//for (int_t i = 0; i < 331776; i++) {
-	//	file >> data;
-	//	Kernel_2_8[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[8]);
-	//for (int_t i = 0; i < 110592; i++) {
-	//	file >> data;
-	//	Kernel_2_9[i] = data;
-	//}
-	//file.close();
+	file.open(kernel_2_dat_name[0]);
+	for (int_t i = 0; i < 132480; i++) {
+		file >> data;
+		Kernel_2_1[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[1]);
+	for (int_t i = 0; i < 88320; i++) {
+		file >> data;
+		Kernel_2_2[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[2]);
+	for (int_t i = 0; i < 264960; i++) {
+		file >> data;
+		Kernel_2_3[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[3]);
+	for (int_t i = 0; i < 88320; i++) {
+		file >> data;
+		Kernel_2_4[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[4]);
+	for (int_t i = 0; i < 8192; i++) {
+		file >> data;
+		Kernel_2_5[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[5]);
+	for (int_t i = 0; i < 331776; i++) {
+		file >> data;
+		Kernel_2_6[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[6]);
+	for (int_t i = 0; i < 110592; i++) {
+		file >> data;
+		Kernel_2_7[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[7]);
+	for (int_t i = 0; i < 331776; i++) {
+		file >> data;
+		Kernel_2_8[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[8]);
+	for (int_t i = 0; i < 110592; i++) {
+		file >> data;
+		Kernel_2_9[i] = data;
+	}
+	file.close();
 
 	//// load layer3 kernel
-	//file.open(kernel_3_dat_name[0]);
-	//for (int_t i = 0; i < 529920; i++) {
-	//	file >> data;
-	//	Kernel_3_1[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[1]);
-	//for (int_t i = 0; i < 353280; i++) {
-	//	file >> data;
-	//	Kernel_3_2[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[2]);
-	//for (int_t i = 0; i < 1059840; i++) {
-	//	file >> data;
-	//	Kernel_3_3[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[3]);
-	//for (int_t i = 0; i < 353280; i++) {
-	//	file >> data;
-	//	Kernel_3_4[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[4]);
-	//for (int_t i = 0; i < 32768; i++) {
-	//	file >> data;
-	//	Kernel_3_5[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[5]);
-	//for (int_t i = 0; i < 1327104; i++) {
-	//	file >> data;
-	//	Kernel_3_6[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[6]);
-	//for (int_t i = 0; i < 442368; i++) {
-	//	file >> data;
-	//	Kernel_3_7[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[7]);
-	//for (int_t i = 0; i < 1327104; i++) {
-	//	file >> data;
-	//	Kernel_3_8[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[8]);
-	//for (int_t i = 0; i < 442368; i++) {
-	//	file >> data;
-	//	Kernel_3_9[i] = data;
-	//}
-	//file.close();
+	file.open(kernel_3_dat_name[0]);
+	for (int_t i = 0; i < 529920; i++) {
+		file >> data;
+		Kernel_3_1[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[1]);
+	for (int_t i = 0; i < 353280; i++) {
+		file >> data;
+		Kernel_3_2[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[2]);
+	for (int_t i = 0; i < 1059840; i++) {
+		file >> data;
+		Kernel_3_3[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[3]);
+	for (int_t i = 0; i < 353280; i++) {
+		file >> data;
+		Kernel_3_4[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[4]);
+	for (int_t i = 0; i < 32768; i++) {
+		file >> data;
+		Kernel_3_5[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[5]);
+	for (int_t i = 0; i < 1327104; i++) {
+		file >> data;
+		Kernel_3_6[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[6]);
+	for (int_t i = 0; i < 442368; i++) {
+		file >> data;
+		Kernel_3_7[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[7]);
+	for (int_t i = 0; i < 1327104; i++) {
+		file >> data;
+		Kernel_3_8[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[8]);
+	for (int_t i = 0; i < 442368; i++) {
+		file >> data;
+		Kernel_3_9[i] = data;
+	}
+	file.close();
 
 	//// load layer4 kernel
-	//file.open(kernel_4_dat_name[0]);
-	//for (int_t i = 0; i < 2121984; i++) {
-	//	file >> data;
-	//	Kernel_4_1[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[1]);
-	//for (int_t i = 0; i < 1414656; i++) {
-	//	file >> data;
-	//	Kernel_4_2[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[2]);
-	//for (int_t i = 0; i < 4243968; i++) {
-	//	file >> data;
-	//	Kernel_4_3[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[3]);
-	//for (int_t i = 0; i < 1414656; i++) {
-	//	file >> data;
-	//	Kernel_4_4[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[4]);
-	//for (int_t i = 0; i < 131072; i++) {
-	//	file >> data;
-	//	Kernel_4_5[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[5]);
-	//for (int_t i = 0; i < 5308416; i++) {
-	//	file >> data;
-	//	Kernel_4_6[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[6]);
-	//for (int_t i = 0; i < 1769472; i++) {
-	//	file >> data;
-	//	Kernel_4_7[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[7]);
-	//for (int_t i = 0; i < 5308416; i++) {
-	//	file >> data;
-	//	Kernel_4_8[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[8]);
-	//for (int_t i = 0; i < 1769472; i++) {
-	//	file >> data;
-	//	Kernel_4_9[i] = data;
-	//}
-	//file.close();
+	file.open(kernel_4_dat_name[0]);
+	for (int_t i = 0; i < 2121984; i++) {
+		file >> data;
+		Kernel_4_1[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[1]);
+	for (int_t i = 0; i < 1414656; i++) {
+		file >> data;
+		Kernel_4_2[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[2]);
+	for (int_t i = 0; i < 4243968; i++) {
+		file >> data;
+		Kernel_4_3[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[3]);
+	for (int_t i = 0; i < 1414656; i++) {
+		file >> data;
+		Kernel_4_4[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[4]);
+	for (int_t i = 0; i < 131072; i++) {
+		file >> data;
+		Kernel_4_5[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[5]);
+	for (int_t i = 0; i < 5308416; i++) {
+		file >> data;
+		Kernel_4_6[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[6]);
+	for (int_t i = 0; i < 1769472; i++) {
+		file >> data;
+		Kernel_4_7[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[7]);
+	for (int_t i = 0; i < 5308416; i++) {
+		file >> data;
+		Kernel_4_8[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[8]);
+	for (int_t i = 0; i < 1769472; i++) {
+		file >> data;
+		Kernel_4_9[i] = data;
+	}
+	file.close();
 
 	// load output
-	file.open("output_1.dat");
-	for (int_t i = 0; i < 200704; i++) {
+	file.open("output_4.dat");
+	for (int_t i = 0; i < 25088; i++) {
 		file >> data;
 		output[i] = data;
 	}
@@ -291,8 +294,8 @@ int_t main() {
 
 	// calculate errors
 	dtype errors;
-	int_t X_num[5] = { 1, 64, 1, 56, 56 };
-	errors = 100 * dtype(validate(X_out_data, output, X_num)) / 200704;
+	int_t X_num[5] = { 1, 512, 1, 7, 7 };
+	errors = 100 * dtype(validate(X_out_data, output, X_num)) / 25088;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

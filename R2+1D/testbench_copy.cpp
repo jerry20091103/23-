@@ -38,6 +38,10 @@ int main()
 
     // load input
     file.open("input.dat");
+    if (!file.is_open()) {
+        cout << "input.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 36963; i++){
         file >> data;
         input[i] = data;
@@ -46,6 +50,10 @@ int main()
 
     // load kernel_1
     file.open("Conv3d1weight.dat");
+    if (!file.is_open()) {
+        cout << "Conv3d1weight.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 6615; i++){
         file >> data;
         Kernel_1[i] = data;
@@ -54,6 +62,10 @@ int main()
 
     // load kernel_2
     file.open("Conv3d2weight.dat");
+    if (!file.is_open()) {
+        cout << "Conv3d2weight.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 8640; i++){
         file >> data;
         Kernel_2[i] = data;
@@ -71,6 +83,10 @@ int main()
     Conv3d(input, X_num, X_out_data_2, X_out_num_1, Kernel_1, Kernel_num_1, stride_1, padding_1);
 
     file.open("Conv3d1output.dat");
+    if (!file.is_open()) {
+        cout << "Conv3d1output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 141120; i++){
         file >> data;
         output[i] = data;
@@ -82,6 +98,10 @@ int main()
     // BatchNorm3d1
     cout << "==> BatchNorm3d1\n";
     file.open("Conv3d1output.dat");
+    if (!file.is_open()) {
+        cout << "Conv3d1output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 141120; i++){
         file >> data;
         X_out_data_2[i] = data;
@@ -90,6 +110,10 @@ int main()
     BatchNorm3d(X_out_data_2, X_out_num_1, 0.00001, 1, 0);
 
     file.open("BatchNorm3d1output.dat");
+    if (!file.is_open()) {
+        cout << "BatchNorm3d1output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 141120; i++){
         file >> data;
         output[i] = data;
@@ -102,6 +126,10 @@ int main()
     // ReLU1
     cout << "==> ReLU1\n";
     file.open("BatchNorm3d1output.dat");
+    if (!file.is_open()) {
+        cout << "BatchNorm3d1output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 141120; i++){
         file >> data;
         X_out_data_2[i] = data;
@@ -110,6 +138,10 @@ int main()
     ReLU(X_out_data_2, X_out_num_1);
 
     file.open("ReLU1output.dat");
+    if (!file.is_open()) {
+        cout << "ReLU1output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 141120; i++){
         file >> data;
         output[i] = data;
@@ -128,6 +160,10 @@ int main()
     int stride_2[3] = {1, 1, 1};
     int padding_2[3] = {1, 0, 0};
     file.open("ReLU1output.dat");
+    if (!file.is_open()) {
+        cout << "ReLU1output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 141120; i++){
         file >> data;
         output[i] = data;
@@ -136,6 +172,10 @@ int main()
     Conv3d(output, X_out_num_1, X_out_data_2, X_out_num_2, Kernel_2, Kernel_num_2, stride_2, padding_2);
 
     file.open("Conv3d2output.dat");
+    if (!file.is_open()) {
+        cout << "Conv3d2output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 200704; i++){
         file >> data;
         output[i] = data;
@@ -148,6 +188,10 @@ int main()
     // BatchNorm3d2
     cout << "==> BatchNorm3d2\n";
     file.open("Conv3d2output.dat");
+    if (!file.is_open()) {
+        cout << "Conv3d2output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 200704; i++){
         file >> data;
         X_out_data_2[i] = data;
@@ -156,6 +200,10 @@ int main()
     BatchNorm3d(X_out_data_2, X_out_num_2, 0.00001, 1, 0);
 
     file.open("BatchNorm3d2output.dat");
+    if (!file.is_open()) {
+        cout << "BatchNorm3d2output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 200704; i++){
         file >> data;
         output[i] = data;
@@ -168,6 +216,10 @@ int main()
     // ReLU2
     cout << "==> ReLU2\n";
     file.open("BatchNorm3d2output.dat");
+    if (!file.is_open()) {
+        cout << "BatchNorm3d2output.dat not found!" << endl;
+        return 0;
+    }
     for(int i = 0; i < 200704; i++){
         file >> data;
         X_out_data_2[i] = data;
@@ -184,11 +236,15 @@ int main()
 #endif
 
      file.open("ReLU2output.dat");
-     for(int i = 0; i < 200704; i++){
-         file >> data;
-         output[i] = data;
-     }
-     file.close();
+    if (!file.is_open()) {
+        cout << "ReLU2output.dat not found!" << endl;
+        return 0;
+    }
+    for(int i = 0; i < 200704; i++){
+        file >> data;
+        output[i] = data;
+    }
+    file.close();
 
     // calculate errors
     int X_num_2[5] = {1, 64, 1, 56, 56};
@@ -222,7 +278,7 @@ int validate(double* ourOutput, double* golden, int* size)
                 for(int h = 0; h < H; h++)
                     for(int w = 0; w < W; w++){
                         int pos = n*C*D*H*W + c*D*H*W + d*H*W + h*W +w;
-                        if (ourOutput[pos] != golden[pos] && ((ourOutput[pos] - golden[pos]) / golden[pos] >= 0.005 || (ourOutput[pos] - golden[pos]) / golden[pos] <= -0.005)){
+                        if (ourOutput[pos] != golden[pos] && ((ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002)){
                             cout<<"[ERROR]  result["<<n<<"]["<<setw(2)<<c<<"]["<<d<<"]["<<setw(2)<<h<<"]["<<setw(2)<<w<<"]: "<<setw(13)<<ourOutput[pos]<<", gold: "<<setw(10)<<golden[pos]<<", error: "<< 100*(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
                             errors++;
                         }

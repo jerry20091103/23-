@@ -1,11 +1,11 @@
 #include "r2plus1d.h"
 #include<iostream>
-#include <math.h>
+#include <cmath>
 using namespace std;
 
 #define _C 1152
 
-void BatchNorm3d(double* X_data, int* X_num, double e, int r, int b){
+void BatchNorm3d(int* X_data, int* X_num, double* mu_, double* var_, double* r, double* b, double scale, int zeropoint){
 	int N = X_num[0];
 	int C = X_num[1];
 	int D = X_num[2];
@@ -43,7 +43,7 @@ void BatchNorm3d(double* X_data, int* X_num, double e, int r, int b){
 			for(int d = 0; d < D; d++)
 				for(int h = 0; h < H; h++)
 					for(int w = 0; w < W; w++)
-						X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = ((X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] - mu[c]) / sqrt(var[c]+e)) * r + b;
+						X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = round((((X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] - mu[c]) / sqrt(var[c]+0.00001)) * r[c] + b[c])/scale + zeropoint);
 
 	// running mean
 	// int num, sum, sum_2;

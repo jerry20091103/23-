@@ -35,10 +35,10 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     for(int i = 0; i < 200704; i++)
         X_tmp_data[i] = X_data[i];
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_1_data, Kernel_1_2_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
+    BatchNorm3d(X_data, X_num, 1, 0);
     ReLU(X_data, X_num);
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_3_data, Kernel_1_4_data, 1, 1);
-    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
+    BatchNorm3d(X_data, X_num, 1, 0);
     for(int i = 0; i < 200704; i++)
         X_data[i] += X_tmp_data[i];
     ReLU(X_data, X_num);
@@ -46,10 +46,10 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     for(int i = 0; i < 200704; i++)
         X_tmp_data[i] = X_data[i];
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_5_data, Kernel_1_6_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
+    BatchNorm3d(X_data, X_num, 1, 0);
     ReLU(X_data, X_num);
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_7_data, Kernel_1_8_data, 1, 1);
-    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
+    BatchNorm3d(X_data, X_num, 1, 0);
     for(int i = 0; i < 200704; i++)
         X_data[i] += X_tmp_data[i];
     ReLU(X_data, X_num);
@@ -61,13 +61,13 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     // for(int i = 0; i < 200704; i++)
     //     X_tmp_data[i] = X_data[i];
     // Conv2Plus1D(X_data, X_num, X2_data, X2_num, 230, Kernel_2_1_data, Kernel_2_2_data, 2, 1); // 230 = (64 * 128 * 3 * 3) / (64 * 3 + 128)
-    // BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+    // BatchNorm3d(X2_data, X2_num, 1, 0);
     // ReLU(X2_data, X2_num);
     // Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 230, Kernel_2_3_data, Kernel_2_4_data, 1, 1);
-    // BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+    // BatchNorm3d(X2_data, X2_num, 1, 0);
 
     // Conv3d(X_tmp_data, X_num, X2_tmp_data, X2_num, Kernel_2_5_data, Kernel_num, stride, padding);
-    // BatchNorm3d(X2_tmp_data, X2_num, 0.00001, 1, 0);
+    // BatchNorm3d(X2_tmp_data, X2_num, 1, 0);
     // for(int i = 0; i< 100352; i++)
     //     X2_data[i] += X2_tmp_data[i];
     // ReLU(X2_data, X2_num);
@@ -75,10 +75,10 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     // for(int i = 0; i < 100352; i++)
     //     X2_tmp_data[i] = X2_data[i];
     // Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 288, Kernel_2_6_data, Kernel_2_7_data, 1, 1); // 288 = (128 * 128 * 3 * 3) / (128 * 3 + 128)
-    // BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+    // BatchNorm3d(X2_data, X2_num, 1, 0);
     // ReLU(X2_data, X2_num);
     // Conv2Plus1D(X2_data, X2_num, X2_data, X2_num, 288, Kernel_2_8_data, Kernel_2_9_data, 1, 1);
-    // BatchNorm3d(X2_data, X2_num, 0.00001, 1, 0);
+    // BatchNorm3d(X2_data, X2_num, 1, 0);
     // for(int i = 0; i < 100352; i++)
     //     X2_data[i] += X2_tmp_data[i];
     // ReLU(X2_data, X2_num);
@@ -90,13 +90,13 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     // for(int i = 0; i< 100352; i++)
     //     X2_tmp_data[i] = X2_data[i];
     // Conv2Plus1D(X2_data, X2_num, X3_data, X3_num, 460, Kernel_3_1_data, Kernel_3_2_data, 2, 1); // 460 = (128 * 256 * 3 * 3) / (128 * 3 + 256)
-    // BatchNorm3d(X3_data, X3_num, 0.00001, 1, 0);
+    // BatchNorm3d(X3_data, X3_num, 1, 0);
     // ReLU(X3_data, X3_num);
     // Conv2Plus1D(X3_data, X3_num, X3_data, X3_num, 460, Kernel_3_3_data, Kernel_3_4_data, 1, 1);
-    // BatchNorm3d(X3_data, X3_num, 0.00001, 1, 0);
+    // BatchNorm3d(X3_data, X3_num, 1, 0);
 
     // Conv3d(X2_tmp_data, X2_num, X3_tmp_data, X3_num, Kernel_3_5_data, Kernel_num, stride, padding);
-    // BatchNorm3d(X3_tmp_data, X3_num, 0.00001, 1, 0);
+    // BatchNorm3d(X3_tmp_data, X3_num, 1, 0);
     // for(int i = 0; i< 50176; i++)
     //     X3_data[i] += X3_tmp_data[i];
     // ReLU(X3_data, X3_num);
@@ -104,10 +104,10 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     // for(int i = 0; i< 50176; i++)
     //     X3_tmp_data[i] = X3_data[i];
     // Conv2Plus1D(X3_data, X3_num, X3_data, X3_num, 576, Kernel_3_6_data, Kernel_3_7_data, 1, 1);
-    // BatchNorm3d(X3_data, X3_num, 0.00001, 1, 0);
+    // BatchNorm3d(X3_data, X3_num, 1, 0);
     // ReLU(X3_data, X3_num);
     // Conv2Plus1D(X3_data, X3_num, X3_data, X3_num, 576, Kernel_3_8_data, Kernel_3_9_data, 1, 1);
-    // BatchNorm3d(X3_data, X3_num, 0.00001, 1, 0);
+    // BatchNorm3d(X3_data, X3_num, 1, 0);
     // for(int i = 0; i< 50176; i++)
     //     X3_data[i] += X3_tmp_data[i];
     // ReLU(X3_data, X3_num);
@@ -120,13 +120,13 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     // for(int i = 0; i< 50176; i++)
     //     X3_tmp_data[i] = X3_data[i];
     // Conv2Plus1D(X3_data, X3_num, X4_data, X4_num, 921, Kernel_4_1_data, Kernel_4_2_data, 2, 1); // 921 = (256 * 512 * 3 * 3) / (256 * 3 + 512)
-    // BatchNorm3d(X4_data, X4_num, 0.00001, 1, 0);
+    // BatchNorm3d(X4_data, X4_num, 1, 0);
     // ReLU(X4_data, X4_num);
     // Conv2Plus1D(X4_data, X4_num, X4_data, X4_num, 921, Kernel_4_3_data, Kernel_4_4_data, 1, 1);
-    // BatchNorm3d(X4_data, X4_num, 0.00001, 1, 0);
+    // BatchNorm3d(X4_data, X4_num, 1, 0);
 
     // Conv3d(X3_tmp_data, X3_num, X4_tmp_data, X4_num, Kernel_4_5_data, Kernel_num, stride, padding);
-    // BatchNorm3d(X4_tmp_data, X4_num, 0.00001, 1, 0);
+    // BatchNorm3d(X4_tmp_data, X4_num, 1, 0);
     // for(int i = 0; i< 25088; i++)
     //     X4_data[i] += X4_tmp_data[i];
     // ReLU(X4_data, X4_num);
@@ -134,10 +134,10 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     // for(int i = 0; i< 25088; i++)
     //     X4_tmp_data[i] = X4_data[i];
     // Conv2Plus1D(X4_data, X4_num, X4_data, X4_num, 1152, Kernel_4_6_data, Kernel_4_7_data, 1, 1); // 1152 = (512 * 512 * 3 * 3) / (512 * 3 + 512)
-    // BatchNorm3d(X4_data, X4_num, 0.00001, 1, 0);
+    // BatchNorm3d(X4_data, X4_num, 1, 0);
     // ReLU(X4_data, X4_num);
     // Conv2Plus1D(X4_data, X4_num, X4_data, X4_num, 1152, Kernel_4_8_data, Kernel_4_9_data, 1, 1);
-    // BatchNorm3d(X4_data, X4_num, 0.00001, 1, 0);
+    // BatchNorm3d(X4_data, X4_num, 1, 0);
     // for(int i = 0; i< 25088; i++)
     //     X4_data[i] += X4_tmp_data[i];
     // ReLU(X4_data, X4_num);

@@ -110,176 +110,176 @@ int_t main() {
 	}
 
 	//// load layer2 kernel
-	//file.open(kernel_2_dat_name[0]);
-	//for (int_t i = 0; i < 132480; i++) {
-	//	file >> data;
-	//	Kernel_2_1[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[1]);
-	//for (int_t i = 0; i < 88320; i++) {
-	//	file >> data;
-	//	Kernel_2_2[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[2]);
-	//for (int_t i = 0; i < 264960; i++) {
-	//	file >> data;
-	//	Kernel_2_3[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[3]);
-	//for (int_t i = 0; i < 88320; i++) {
-	//	file >> data;
-	//	Kernel_2_4[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[4]);
-	//for (int_t i = 0; i < 8192; i++) {
-	//	file >> data;
-	//	Kernel_2_5[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[5]);
-	//for (int_t i = 0; i < 331776; i++) {
-	//	file >> data;
-	//	Kernel_2_6[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[6]);
-	//for (int_t i = 0; i < 110592; i++) {
-	//	file >> data;
-	//	Kernel_2_7[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[7]);
-	//for (int_t i = 0; i < 331776; i++) {
-	//	file >> data;
-	//	Kernel_2_8[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_2_dat_name[8]);
-	//for (int_t i = 0; i < 110592; i++) {
-	//	file >> data;
-	//	Kernel_2_9[i] = data;
-	//}
-	//file.close();
+	file.open(kernel_2_dat_name[0]);
+	for (int_t i = 0; i < 132480; i++) {
+		file >> data;
+		Kernel_2_1[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[1]);
+	for (int_t i = 0; i < 88320; i++) {
+		file >> data;
+		Kernel_2_2[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[2]);
+	for (int_t i = 0; i < 264960; i++) {
+		file >> data;
+		Kernel_2_3[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[3]);
+	for (int_t i = 0; i < 88320; i++) {
+		file >> data;
+		Kernel_2_4[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[4]);
+	for (int_t i = 0; i < 8192; i++) {
+		file >> data;
+		Kernel_2_5[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[5]);
+	for (int_t i = 0; i < 331776; i++) {
+		file >> data;
+		Kernel_2_6[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[6]);
+	for (int_t i = 0; i < 110592; i++) {
+		file >> data;
+		Kernel_2_7[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[7]);
+	for (int_t i = 0; i < 331776; i++) {
+		file >> data;
+		Kernel_2_8[i] = data;
+	}
+	file.close();
+	file.open(kernel_2_dat_name[8]);
+	for (int_t i = 0; i < 110592; i++) {
+		file >> data;
+		Kernel_2_9[i] = data;
+	}
+	file.close();
 
 	//// load layer3 kernel
-	//file.open(kernel_3_dat_name[0]);
-	//for (int_t i = 0; i < 529920; i++) {
-	//	file >> data;
-	//	Kernel_3_1[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[1]);
-	//for (int_t i = 0; i < 353280; i++) {
-	//	file >> data;
-	//	Kernel_3_2[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[2]);
-	//for (int_t i = 0; i < 1059840; i++) {
-	//	file >> data;
-	//	Kernel_3_3[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[3]);
-	//for (int_t i = 0; i < 353280; i++) {
-	//	file >> data;
-	//	Kernel_3_4[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[4]);
-	//for (int_t i = 0; i < 32768; i++) {
-	//	file >> data;
-	//	Kernel_3_5[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[5]);
-	//for (int_t i = 0; i < 1327104; i++) {
-	//	file >> data;
-	//	Kernel_3_6[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[6]);
-	//for (int_t i = 0; i < 442368; i++) {
-	//	file >> data;
-	//	Kernel_3_7[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[7]);
-	//for (int_t i = 0; i < 1327104; i++) {
-	//	file >> data;
-	//	Kernel_3_8[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_3_dat_name[8]);
-	//for (int_t i = 0; i < 442368; i++) {
-	//	file >> data;
-	//	Kernel_3_9[i] = data;
-	//}
-	//file.close();
+	file.open(kernel_3_dat_name[0]);
+	for (int_t i = 0; i < 529920; i++) {
+		file >> data;
+		Kernel_3_1[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[1]);
+	for (int_t i = 0; i < 353280; i++) {
+		file >> data;
+		Kernel_3_2[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[2]);
+	for (int_t i = 0; i < 1059840; i++) {
+		file >> data;
+		Kernel_3_3[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[3]);
+	for (int_t i = 0; i < 353280; i++) {
+		file >> data;
+		Kernel_3_4[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[4]);
+	for (int_t i = 0; i < 32768; i++) {
+		file >> data;
+		Kernel_3_5[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[5]);
+	for (int_t i = 0; i < 1327104; i++) {
+		file >> data;
+		Kernel_3_6[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[6]);
+	for (int_t i = 0; i < 442368; i++) {
+		file >> data;
+		Kernel_3_7[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[7]);
+	for (int_t i = 0; i < 1327104; i++) {
+		file >> data;
+		Kernel_3_8[i] = data;
+	}
+	file.close();
+	file.open(kernel_3_dat_name[8]);
+	for (int_t i = 0; i < 442368; i++) {
+		file >> data;
+		Kernel_3_9[i] = data;
+	}
+	file.close();
 
 	//// load layer4 kernel
-	//file.open(kernel_4_dat_name[0]);
-	//for (int_t i = 0; i < 2121984; i++) {
-	//	file >> data;
-	//	Kernel_4_1[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[1]);
-	//for (int_t i = 0; i < 1414656; i++) {
-	//	file >> data;
-	//	Kernel_4_2[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[2]);
-	//for (int_t i = 0; i < 4243968; i++) {
-	//	file >> data;
-	//	Kernel_4_3[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[3]);
-	//for (int_t i = 0; i < 1414656; i++) {
-	//	file >> data;
-	//	Kernel_4_4[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[4]);
-	//for (int_t i = 0; i < 131072; i++) {
-	//	file >> data;
-	//	Kernel_4_5[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[5]);
-	//for (int_t i = 0; i < 5308416; i++) {
-	//	file >> data;
-	//	Kernel_4_6[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[6]);
-	//for (int_t i = 0; i < 1769472; i++) {
-	//	file >> data;
-	//	Kernel_4_7[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[7]);
-	//for (int_t i = 0; i < 5308416; i++) {
-	//	file >> data;
-	//	Kernel_4_8[i] = data;
-	//}
-	//file.close();
-	//file.open(kernel_4_dat_name[8]);
-	//for (int_t i = 0; i < 1769472; i++) {
-	//	file >> data;
-	//	Kernel_4_9[i] = data;
-	//}
-	//file.close();
+	file.open(kernel_4_dat_name[0]);
+	for (int_t i = 0; i < 2121984; i++) {
+		file >> data;
+		Kernel_4_1[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[1]);
+	for (int_t i = 0; i < 1414656; i++) {
+		file >> data;
+		Kernel_4_2[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[2]);
+	for (int_t i = 0; i < 4243968; i++) {
+		file >> data;
+		Kernel_4_3[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[3]);
+	for (int_t i = 0; i < 1414656; i++) {
+		file >> data;
+		Kernel_4_4[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[4]);
+	for (int_t i = 0; i < 131072; i++) {
+		file >> data;
+		Kernel_4_5[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[5]);
+	for (int_t i = 0; i < 5308416; i++) {
+		file >> data;
+		Kernel_4_6[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[6]);
+	for (int_t i = 0; i < 1769472; i++) {
+		file >> data;
+		Kernel_4_7[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[7]);
+	for (int_t i = 0; i < 5308416; i++) {
+		file >> data;
+		Kernel_4_8[i] = data;
+	}
+	file.close();
+	file.open(kernel_4_dat_name[8]);
+	for (int_t i = 0; i < 1769472; i++) {
+		file >> data;
+		Kernel_4_9[i] = data;
+	}
+	file.close();
 
 	// load output
-	file.open("output_1.dat");
-	for (int_t i = 0; i < 200704; i++) {
+	file.open("output_4.dat");
+	for (int_t i = 0; i < 25088; i++) {
 		file >> data;
 		output[i] = data;
 	}
@@ -294,8 +294,8 @@ int_t main() {
 
 	// calculate errors
 	dtype errors;
-	int_t X_num[5] = { 1, 64, 1, 56, 56 };
-	errors = 100 * dtype(validate(X_out_data, output, X_num)) / 200704;
+	int_t X_num[5] = { 1, 512, 1, 7, 7 };
+	errors = 100 * dtype(validate(X_out_data, output, X_num)) / 25088;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

@@ -147,6 +147,16 @@ void Sequential(double* X_data, double* Y_data, double* Kernel_1_1_data, double*
     for(int i = 0; i < 200704; i++)  //for test
         Y_data[i] = X_data[i];
     
+#ifndef __SYNTHESIS__
+    free(X_tmp_data);
+    // free(X2_data);
+    // free(X2_tmp_data);
+    // free(X3_data);
+    // free(X3_tmp_data);
+    // free(X4_data);
+    // free(X4_tmp_data);
+#endif
+    
     return;
 }
 

@@ -10,7 +10,12 @@ void Conv2Plus1D(double* X_data, int* X_num, double* X_out_data, int* X_out_num,
     stride[1] = s;  stride[2] = s;
     padding[1] = p; padding[2] = p;
 
+ #ifdef __SYNTHESIS__
     double X_mid_data[451584];
+ #else
+    double* X_mid_data = (double*)malloc(451584*sizeof(double));
+ #endif
+
     int X_mid_num[5];
     X_mid_num[0] = X_num[0];
     X_mid_num[1] = midplanes;
@@ -27,6 +32,11 @@ void Conv2Plus1D(double* X_data, int* X_num, double* X_out_data, int* X_out_num,
     stride[0] = s;  stride[1] = 1;  stride[2] = 1;
     padding[0] = p; padding[1] = 0; padding[2] = 0;
     Conv3d(X_mid_data, X_mid_num, X_out_data, X_out_num, Kernel_2_data, Kernel_2_num, stride, padding);
+
+
+#ifndef __SYNTHESIS__
+    free(X_mid_data);
+#endif
 
     return;
 

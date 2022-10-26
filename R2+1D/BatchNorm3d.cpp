@@ -16,6 +16,7 @@ void BatchNorm3d(double* X_data, int* X_num, double e, int r, int b){
 	double mu[_C];
     for(int c = 0; c < C; c++){
 	    for(int n = 0; n < N; n++){
+			mu[c] = 0;
 			for(int d = 0; d < D; d++)
 				for(int h = 0; h < H; h++)
 					for(int w = 0; w < W; w++)
@@ -28,6 +29,7 @@ void BatchNorm3d(double* X_data, int* X_num, double e, int r, int b){
 	double var[_C];
     for(int c = 0; c < C; c++){
 	    for(int n = 0; n < N; n++){
+			var[c] = 0;
 			for(int d = 0; d < D; d++)
 				for(int h = 0; h < H; h++)
 					for(int w = 0; w < W; w++)

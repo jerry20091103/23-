@@ -6,7 +6,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
             dtype* Kernel_seq_1_1, dtype* Kernel_seq_1_2, dtype* Kernel_seq_1_3, dtype* Kernel_seq_1_4, dtype* Kernel_seq_1_5, dtype* Kernel_seq_1_6, dtype* Kernel_seq_1_7, dtype* Kernel_seq_1_8, 
             dtype* Kernel_seq_2_1, dtype* Kernel_seq_2_2, dtype* Kernel_seq_2_3, dtype* Kernel_seq_2_4, dtype* Kernel_seq_2_5, dtype* Kernel_seq_2_6, dtype* Kernel_seq_2_7, dtype* Kernel_seq_2_8, dtype* Kernel_seq_2_9, 
             dtype* Kernel_seq_3_1, dtype* Kernel_seq_3_2, dtype* Kernel_seq_3_3, dtype* Kernel_seq_3_4, dtype* Kernel_seq_3_5, dtype* Kernel_seq_3_6, dtype* Kernel_seq_3_7, dtype* Kernel_seq_3_8, dtype* Kernel_seq_3_9, 
-            dtype* Kernel_seq_4_1, dtype* Kernel_seq_4_2, dtype* Kernel_seq_4_3, dtype* Kernel_seq_4_4, dtype* Kernel_seq_4_5, dtype* Kernel_seq_4_6, dtype* Kernel_seq_4_7, dtype* Kernel_seq_4_8, dtype* Kernel_seq_4_9)
+            dtype* Kernel_seq_4_1, dtype* Kernel_seq_4_2, dtype* Kernel_seq_4_3, dtype* Kernel_seq_4_4, dtype* Kernel_seq_4_5, dtype* Kernel_seq_4_6, dtype* Kernel_seq_4_7, dtype* Kernel_seq_4_8, dtype* Kernel_seq_4_9,
+            dtype* Kernel_linear)
 {
  #ifdef __SYNTHESIS__
     dtype X_stem_1[141120];
@@ -25,6 +26,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
     dtype* X_seq = (dtype*)malloc(200704*sizeof(dtype)); // value after 1~4 sequential layer
     // AdaptiveAvgPool3d
     dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
+    // Linear
+    dtype* X_linear = (dtype*)malloc(400*sizeof(dtype)); // value after Linear layer
  #endif
 
     // ========================R2Plus1dStem ==================================
@@ -64,21 +67,22 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
     //     Y[i] = X_seq[i]; // assign result to output
     
     // ======================== AdaptiveAvgPool3d ==================================
-    int_t X_stem_2_num[5] = {1, 512, 1, 7, 7};
-    int_t X_adap_num[5] = {1, 512, 1, 1, 1};
-    AdaptiveAvgPool3d(X_stem_2, X_stem_2_num, X_adap, X_adap_num);
+    int_t X_adap_in_num[5] = {1, 512, 1, 7, 7};
+    int_t X_adap_out_num[5] = {1, 512, 1, 1, 1};
+    AdaptiveAvgPool3d(X_stem_2, X_adap_in_num, X_adap, X_adap_out_num);
 
-    // for sequential test
-    for(int_t i = 0; i < 512; i++)
-        Y[i] = X_adap[i]; // assign result to output
+    // // for sequential test
+    // for(int_t i = 0; i < 512; i++)
+    //     Y[i] = X_adap[i]; // assign result to output
 
 
     // ======================== Linear ==================================
-    
-    // Linear(int* psum_range, double* x, int* x_num, double* weights, int* weights_num , int* weightsBias, true, double* x_out)
-    // // for linear test
-    // for(int_t i = 0; i < 400; i++)
-    //     Y[i] = X_seq[i]; // assign result to output
+    int_t X_linear_in_num[2] = {1, 512};
+    int_t X_linear_out_num[2] = {1, 400};
+    Linear(X_adap, X_linear_in_num, X_linear, X_linear_out_num, Kernel_linear);
+    // for linear test
+    for(int_t i = 0; i < 400; i++)
+        Y[i] = X_linear[i]; // assign result to output
 
  
  
@@ -87,6 +91,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
     free(X_stem_2);
     free(X_seq);
     free(X_adap);
+    free(X_linear);
  #endif
 
     return;

@@ -2,21 +2,21 @@
 #include<iostream>
 using namespace std;
 
-void Conv2Plus1D(double* X_data, int* X_num, double* X_out_data, int* X_out_num, int midplanes, double* Kernel_1_data, double* Kernel_2_data, int s, int p){
-    int stride[3] = {1, 1, 1};
-    int padding[3] = {0, 1, 1};
+void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_num, int_t midplanes, dtype* Kernel_1_data, dtype* Kernel_2_data, int_t s, int_t p){
+    int_t stride[3] = {1, 1, 1};
+    int_t padding[3] = {0, 1, 1};
 
-    int Kernel_1_num[3] = {1, 3, 3};
+    int_t Kernel_1_num[3] = {1, 3, 3};
     stride[1] = s;  stride[2] = s;
     padding[1] = p; padding[2] = p;
 
  #ifdef __SYNTHESIS__
-    double X_mid_data[451584];
+    dtype X_mid_data[451584];
  #else
-    double* X_mid_data = (double*)malloc(451584*sizeof(double));
+    dtype* X_mid_data = (dtype*)malloc(451584*sizeof(dtype));
  #endif
 
-    int X_mid_num[5];
+    int_t X_mid_num[5];
     X_mid_num[0] = X_num[0];
     X_mid_num[1] = midplanes;
     X_mid_num[2] = X_num[2]; // (D+2*padding[0]-KD)/stride[0] + 1 // (X_num[2] + 2*0 - 1) / 1 + 1
@@ -28,7 +28,7 @@ void Conv2Plus1D(double* X_data, int* X_num, double* X_out_data, int* X_out_num,
     BatchNorm3d(X_mid_data, X_mid_num, 0.00001, 1, 0);
     ReLU(X_mid_data, X_mid_num);
 
-    int Kernel_2_num[3] = {3, 1, 1};
+    int_t Kernel_2_num[3] = {3, 1, 1};
     stride[0] = s;  stride[1] = 1;  stride[2] = 1;
     padding[0] = p; padding[1] = 0; padding[2] = 0;
     Conv3d(X_mid_data, X_mid_num, X_out_data, X_out_num, Kernel_2_data, Kernel_2_num, stride, padding);

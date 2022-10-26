@@ -2,53 +2,91 @@
 #include<iostream>
 using namespace std;
 
-void r2plus1d(int* X_data, int* Y_data, int* Kernel_1_data, int* Kernel_2_data, double* Batch_mu1, double* Batch_mu2, double* Batch_var1, double* Batch_var2, double* Batch_r1, double* Batch_r2, double* Batch_b1, double* Batch_b2)
+void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2, 
+            dtype* Kernel_seq_1_1, dtype* Kernel_seq_1_2, dtype* Kernel_seq_1_3, dtype* Kernel_seq_1_4, dtype* Kernel_seq_1_5, dtype* Kernel_seq_1_6, dtype* Kernel_seq_1_7, dtype* Kernel_seq_1_8, 
+            dtype* Kernel_seq_2_1, dtype* Kernel_seq_2_2, dtype* Kernel_seq_2_3, dtype* Kernel_seq_2_4, dtype* Kernel_seq_2_5, dtype* Kernel_seq_2_6, dtype* Kernel_seq_2_7, dtype* Kernel_seq_2_8, dtype* Kernel_seq_2_9, 
+            dtype* Kernel_seq_3_1, dtype* Kernel_seq_3_2, dtype* Kernel_seq_3_3, dtype* Kernel_seq_3_4, dtype* Kernel_seq_3_5, dtype* Kernel_seq_3_6, dtype* Kernel_seq_3_7, dtype* Kernel_seq_3_8, dtype* Kernel_seq_3_9, 
+            dtype* Kernel_seq_4_1, dtype* Kernel_seq_4_2, dtype* Kernel_seq_4_3, dtype* Kernel_seq_4_4, dtype* Kernel_seq_4_5, dtype* Kernel_seq_4_6, dtype* Kernel_seq_4_7, dtype* Kernel_seq_4_8, dtype* Kernel_seq_4_9)
 {
  #ifdef __SYNTHESIS__
-    int X_out_data[141120];
-    int Y_tmp_data[200704];
+    dtype X_stem_1[141120];
+    dtype X_stem_2[200704];
 
-    #pragma HLS INTERFACE s_axilite port=return
-	#pragma HLS INTERFACE m_axi port=X_data
-	#pragma HLS INTERFACE m_axi port=Y_data
-    #pragma HLS INTERFACE m_axi port=Kernel_1_data
-	#pragma HLS INTERFACE m_axi port=Kernel_2_data
+    #pragma HLS int_tERFACE s_axilite port=return
+	#pragma HLS int_tERFACE m_axi port=X
+	#pragma HLS int_tERFACE m_axi port=Y
+    #pragma HLS int_tERFACE m_axi port=Kernel_stem_1
+	#pragma HLS int_tERFACE m_axi port=Kernel_stem_2
  #else
-    int* X_out_data = (int*)malloc(141120*sizeof(int)); // value after first Conv-Batch-ReLU layer
-    int* Y_tmp_data = (int*)malloc(200704*sizeof(int)); // value after second Conv-Batch-ReLU layer
+    // R2Plus1dStem
+    dtype* X_stem_1 = (dtype*)malloc(141120*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
+    dtype* X_stem_2 = (dtype*)malloc(200704*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
+    // Sequential 1~4
+    dtype* X_seq = (dtype*)malloc(200704*sizeof(dtype)); // value after 1~4 sequential layer
+    // AdaptiveAvgPool3d
+    dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
  #endif
 
-    // R2Plus1dStem
-	int X_num[5] = {1, 3, 1, 112, 112};
-    int X_out_num[5] = {1, 45, 1, 56, 56};
-    int Kernel_1_num[3] = {1, 7, 7};
-    int stride_1[3] = {1, 2, 2};
-    int padding_1[3] = {0, 3, 3};
+    // ========================R2Plus1dStem ==================================
+	int_t X_num[5] = {1, 3, 1, 111, 111};
+    int_t X_stem_1_num[5] = {1, 45, 1, 56, 56};
+    int_t Kernel_stem_1_num[3] = {1, 7, 7};
+    int_t stride_1[3] = {1, 2, 2};
+    int_t padding_1[3] = {0, 3, 3};
+
+    Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_1, Kernel_stem_1_num, stride_1, padding_1);
+    BatchNorm3d(X_stem_1, X_stem_1_num, 0.00001, 1, 0);
+    ReLU(X_stem_1, X_stem_1_num);
     
-    Conv3d(X_data, X_num, X_out_data, X_out_num, Kernel_1_data, Kernel_1_num, stride_1, padding_1, 0.460907161235809, 60);
-    BatchNorm3d(X_out_data, X_out_num, Batch_mu1, Batch_var1, Batch_r1, Batch_b1, 0.0732352063059806, 55);
-    ReLU(X_out_data, X_out_num);
 
-    int Y_num[5] = {1, 64, 1, 56, 56};
-    int Kernel_2_num[3] = {3, 1, 1};
-    int stride_2[3] = {1, 1, 1};
-    int padding_2[3] = {1, 0, 0};
+    int_t X_stem_2_num[5] = {1, 64, 1, 56, 56};
+    int_t Kernel_stem_2_num[3] = {3, 1, 1};
+    int_t stride_2[3] = {1, 1, 1};
+    int_t padding_2[3] = {1, 0, 0};
 
-    Conv3d(X_out_data, X_out_num, Y_tmp_data, Y_num, Kernel_2_data, Kernel_2_num, stride_2, padding_2, 0.093119129538536, 70);
-    BatchNorm3d(Y_tmp_data, Y_num, Batch_mu2, Batch_var2, Batch_r2, Batch_b2, 0.074236087501049, 65);
-    ReLU(Y_tmp_data, Y_num);
+    Conv3d(X_stem_1, X_stem_1_num, X_stem_2, X_stem_2_num, Kernel_stem_2, Kernel_stem_2_num, stride_2, padding_2);
+    BatchNorm3d(X_stem_2, X_stem_2_num, 0.00001, 1, 0);
+    ReLU(X_stem_2, X_stem_2_num);
     
-    for(int i = 0; i < 200704; i++)
-        Y_data[i] = Y_tmp_data[i]; // assign result to output
     
-    // ==========================================================
+    // // for stem test
+    // for(int_t i = 0; i < 200704; i++)
+    //     Y[i] = X_stem_2[i]; // assign result to output
+    
+    // ========================Sequential 1~4==================================
+    Sequential(X_stem_2, X_seq, Kernel_seq_1_1, Kernel_seq_1_2, Kernel_seq_1_3, Kernel_seq_1_4, Kernel_seq_1_5, Kernel_seq_1_6, Kernel_seq_1_7, Kernel_seq_1_8, 
+            Kernel_seq_2_1, Kernel_seq_2_2, Kernel_seq_2_3, Kernel_seq_2_4, Kernel_seq_2_5, Kernel_seq_2_6, Kernel_seq_2_7, Kernel_seq_2_8, Kernel_seq_2_9, 
+            Kernel_seq_3_1, Kernel_seq_3_2, Kernel_seq_3_3, Kernel_seq_3_4, Kernel_seq_3_5, Kernel_seq_3_6, Kernel_seq_3_7, Kernel_seq_3_8, Kernel_seq_3_9, 
+            Kernel_seq_4_1, Kernel_seq_4_2, Kernel_seq_4_3, Kernel_seq_4_4, Kernel_seq_4_5, Kernel_seq_4_6, Kernel_seq_4_7, Kernel_seq_4_8, Kernel_seq_4_9);
 
-    // Sequential 1~4
+    // // for sequential test
+    // for(int_t i = 0; i < 25088; i++)
+    //     Y[i] = X_seq[i]; // assign result to output
+    
+    // ======================== AdaptiveAvgPool3d ==================================
+    int_t X_stem_2_num[5] = {1, 512, 1, 7, 7};
+    int_t X_adap_num[5] = {1, 512, 1, 1, 1};
+    AdaptiveAvgPool3d(X_stem_2, X_stem_2_num, X_adap, X_adap_num);
 
-    // ==========================================================
+    // for sequential test
+    for(int_t i = 0; i < 512; i++)
+        Y[i] = X_adap[i]; // assign result to output
+
+
+    // ======================== Linear ==================================
+    
+    // Linear(int* psum_range, double* x, int* x_num, double* weights, int* weights_num , int* weightsBias, true, double* x_out)
+    // // for linear test
+    // for(int_t i = 0; i < 400; i++)
+    //     Y[i] = X_seq[i]; // assign result to output
+
+ 
+ 
  #ifndef __SYNTHESIS__
-    free(X_out_data);
-    free(Y_tmp_data);
+    free(X_stem_1);
+    free(X_stem_2);
+    free(X_seq);
+    free(X_adap);
  #endif
 
     return;

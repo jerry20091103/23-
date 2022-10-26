@@ -18,11 +18,13 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
     #pragma HLS int_tERFACE m_axi port=Kernel_stem_1
 	#pragma HLS int_tERFACE m_axi port=Kernel_stem_2
  #else
-     // R2Plus1dStem
-     dtype* X_stem_1 = (dtype*)malloc(141120*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
-     dtype* X_stem_2 = (dtype*)malloc(200704*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
-     // Sequential 1~4
-     dtype* X_seq = (dtype*)malloc(200704*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
+    // R2Plus1dStem
+    dtype* X_stem_1 = (dtype*)malloc(141120*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
+    dtype* X_stem_2 = (dtype*)malloc(200704*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
+    // Sequential 1~4
+    dtype* X_seq = (dtype*)malloc(200704*sizeof(dtype)); // value after 1~4 sequential layer
+    // AdaptiveAvgPool3d
+    dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
  #endif
 
     // ========================R2Plus1dStem ==================================
@@ -57,14 +59,34 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
             Kernel_seq_3_1, Kernel_seq_3_2, Kernel_seq_3_3, Kernel_seq_3_4, Kernel_seq_3_5, Kernel_seq_3_6, Kernel_seq_3_7, Kernel_seq_3_8, Kernel_seq_3_9, 
             Kernel_seq_4_1, Kernel_seq_4_2, Kernel_seq_4_3, Kernel_seq_4_4, Kernel_seq_4_5, Kernel_seq_4_6, Kernel_seq_4_7, Kernel_seq_4_8, Kernel_seq_4_9);
 
-    // for sequential test
-    for(int_t i = 0; i < 25088; i++)
-        Y[i] = X_seq[i]; // assign result to output
+    // // for sequential test
+    // for(int_t i = 0; i < 25088; i++)
+    //     Y[i] = X_seq[i]; // assign result to output
+    
+    // ======================== AdaptiveAvgPool3d ==================================
+    int_t X_stem_2_num[5] = {1, 512, 1, 7, 7};
+    int_t X_adap_num[5] = {1, 512, 1, 1, 1};
+    AdaptiveAvgPool3d(X_stem_2, X_stem_2_num, X_adap, X_adap_num);
 
+    // for sequential test
+    for(int_t i = 0; i < 512; i++)
+        Y[i] = X_adap[i]; // assign result to output
+
+
+    // ======================== Linear ==================================
+    
+    // Linear(int* psum_range, double* x, int* x_num, double* weights, int* weights_num , int* weightsBias, true, double* x_out)
+    // // for linear test
+    // for(int_t i = 0; i < 400; i++)
+    //     Y[i] = X_seq[i]; // assign result to output
+
+ 
+ 
  #ifndef __SYNTHESIS__
     free(X_stem_1);
     free(X_stem_2);
     free(X_seq);
+    free(X_adap);
  #endif
 
     return;

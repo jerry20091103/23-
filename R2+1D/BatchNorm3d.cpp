@@ -1,6 +1,6 @@
 #include "r2plus1d.h"
 #include<iostream>
-#include <cmath>
+#include <math.h>
 using namespace std;
 
 #define _C 1152

@@ -35,7 +35,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
     for(int_t i = 0; i < 200704; i++)
         X_tmp_data[i] = X_data[i];
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_1_data, Kernel_1_2_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    BatchNorm3d(X_data, X_num, 1, 0);
+    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
     ReLU(X_data, X_num);
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_3_data, Kernel_1_4_data, 1, 1);
     BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
@@ -46,7 +46,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
     for(int_t i = 0; i < 200704; i++)
         X_tmp_data[i] = X_data[i];
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_5_data, Kernel_1_6_data, 1, 1); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    BatchNorm3d(X_data, X_num, 1, 0);
+    BatchNorm3d(X_data, X_num, 0.00001, 1, 0);
     ReLU(X_data, X_num);
     Conv2Plus1D(X_data, X_num, X_data, X_num, 144, Kernel_1_7_data, Kernel_1_8_data, 1, 1);
     BatchNorm3d(X_data, X_num, 0.00001, 1, 0);

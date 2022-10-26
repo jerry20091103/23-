@@ -289,3 +289,4 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
         printf("[PASS] Congratulation! All results are correct\n");
     return errors;
 }
+

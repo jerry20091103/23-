@@ -3,8 +3,6 @@
 #include <cmath>
 using namespace std;
 
-#define _C 1152
-
 void BatchNorm3d(dtype* X_data, int_t* X_num, double* _mu, double* _var, double* r, double* b, double scale, int_t zeropoint){
 	int_t N = X_num[0];
 	int_t C = X_num[1];

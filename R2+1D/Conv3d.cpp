@@ -35,17 +35,18 @@ void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Ker
                 	for (int_t yw = 0; yw < YW; yw++){
 						// todo: data type
 						int_t yPos = yn*YC*YD*YH*YW + yc*YD*YH*YW + yd*YH*YW + yh*YW + yw;
-						for(int_t xc = 0; xc < XC; xc++)
-							for(int_t kd = 0; kd < KD; kd++)
-								for(int_t kh = 0; kh < KH; kh++)
-									for(int_t kw = 0; kw < KW; kw++){
-										int_t dPos = yd*stride[0]+kd-padding[0];
-										int_t hPos = yh*stride[1]+kh-padding[1];
-										int_t wPos = yw*stride[2]+kw-padding[2];
+						for(int_t xn = 0; xn < XN; xn++)
+							for(int_t xc = 0; xc < XC; xc++)
+								for(int_t kd = 0; kd < KD; kd++)
+									for(int_t kh = 0; kh < KH; kh++)
+										for(int_t kw = 0; kw < KW; kw++){
+											int_t dPos = yd*stride[0]+kd-padding[0];
+											int_t hPos = yh*stride[1]+kh-padding[1];
+											int_t wPos = yw*stride[2]+kw-padding[2];
 
-										if(dPos >= 0 && hPos >= 0 && wPos >= 0 && dPos < XD && hPos < XH && wPos < XW)
-											Y_data[yPos] += X_data[yn*XC*XD*XH*XW + xc*XD*XH*XW + dPos*XH*XW + hPos*XW + wPos] * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
-									}
+											if(dPos >= 0 && hPos >= 0 && wPos >= 0 && dPos < XD && hPos < XH && wPos < XW)
+												Y_data[yPos] += X_data[xn*XC*XD*XH*XW + xc*XD*XH*XW + dPos*XH*XW + hPos*XW + wPos] * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
+										}
 						Y_data[yPos] = round(Y_data[yPos]/scale + zeropoint);
 					}
 	return;

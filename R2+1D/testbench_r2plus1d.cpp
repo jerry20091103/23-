@@ -19,8 +19,8 @@ string kernel_4_dat_name[9] = { "weight_4_1.dat", "weight_4_2.dat", "weight_4_3.
 int_t main() {
 
 	dtype *input = (dtype*)malloc(36963 * sizeof(dtype));
-	dtype *output = (dtype*)malloc(25088 * sizeof(dtype));
-	dtype *output_golden = (dtype*)malloc(25088 * sizeof(dtype));
+	dtype *output = (dtype*)malloc(512 * sizeof(dtype));
+	dtype *output_golden = (dtype*)malloc(512 * sizeof(dtype));
 
 	dtype *kernel_stem_1 = (dtype*)malloc(6615 * sizeof(dtype));
 	dtype *kernel_stem_2 = (dtype*)malloc(8640 * sizeof(dtype));
@@ -78,6 +78,8 @@ int_t main() {
 	dtype *Kernel_4_9 = (dtype*)malloc(1769472 * sizeof(dtype));
 	// kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
 
+	dtype *Kernel_6 = (dtype*)malloc(204800 * sizeof(dtype));
+	
 	FILE         *fp;
 	std::ifstream file;
 	dtype data = 0;
@@ -307,6 +309,14 @@ int_t main() {
 	}
 	file.close();
 
+	//// load linear kernel
+	file.open("weight_6.dat");
+	for (int_t i = 0; i < 204800; i++) {
+		file >> data;
+		Kernel_6[i] = data;
+	}
+	file.close();
+
 	// load output
 	file.open("output_4.dat");
 	for (int_t i = 0; i < 25088; i++) {
@@ -322,7 +332,8 @@ int_t main() {
 		Kernel_1_1, Kernel_1_2, Kernel_1_3, Kernel_1_4, Kernel_1_5, Kernel_1_6, Kernel_1_7, Kernel_1_8,
 		Kernel_2_1, Kernel_2_2, Kernel_2_3, Kernel_2_4, Kernel_2_5, Kernel_2_6, Kernel_2_7, Kernel_2_8, Kernel_2_9,
 		Kernel_3_1, Kernel_3_2, Kernel_3_3, Kernel_3_4, Kernel_3_5, Kernel_3_6, Kernel_3_7, Kernel_3_8, Kernel_3_9,
-		Kernel_4_1, Kernel_4_2, Kernel_4_3, Kernel_4_4, Kernel_4_5, Kernel_4_6, Kernel_4_7, Kernel_4_8, Kernel_4_9);
+		Kernel_4_1, Kernel_4_2, Kernel_4_3, Kernel_4_4, Kernel_4_5, Kernel_4_6, Kernel_4_7, Kernel_4_8, Kernel_4_9, 
+		Kernel_6);
 
 	// calculate errors
 	float errors;
@@ -376,6 +387,8 @@ int_t main() {
 	free(Kernel_4_8);
 	free(Kernel_4_7);
 	free(Kernel_4_9);
+
+	free(Kernel_6);
 
 	return 0;
 }

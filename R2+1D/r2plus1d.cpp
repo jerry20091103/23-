@@ -48,8 +48,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
  #endif
 
     // ========================R2Plus1dStem ==================================
-	int_t X_num[5] = {1, 3, 1, 112, 112};
-    int_t X_stem_1_num[5] = {1, 45, 1, 56, 56};
+	int_t X_num[5] = {_N, 3, _D, 112, 112};
+    int_t X_stem_1_num[5] = {_N, 45, 1, 56, 56};
     int_t Kernel_stem_1_num[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
@@ -58,7 +58,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
     BatchNorm3d(X_stem_1, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.07323520630598068237, 55);
     ReLU(X_stem_1, X_stem_1_num);
 
-    int_t X_stem_2_num[5] = {1, 64, 1, 56, 56};
+    int_t X_stem_2_num[5] = {_N, 64, 1, 56, 56};
     int_t Kernel_stem_2_num[3] = {3, 1, 1};
     int_t stride_2[3] = {1, 1, 1};
     int_t padding_2[3] = {1, 0, 0};
@@ -99,8 +99,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
     //     Y[i] = X_seq[i]; // assign result to output
     
     // ======================== AdaptiveAvgPool3d ==================================
-    int_t X_seq_num[5] = {1, 512, 1, 7, 7};
-    int_t X_adap_num[5] = {1, 512, 1, 1, 1};
+    int_t X_seq_num[5] = {_N, 512, 1, 7, 7};
+    int_t X_adap_num[5] = {_N, 512, 1, 1, 1};
     AdaptiveAvgPool3d(X_seq, X_seq_num, X_adap, X_adap_num);
 
     // // for sequential test
@@ -108,7 +108,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
     //     Y[i] = X_adap[i]; // assign result to output
 
     // ======================== Linear ==================================
-    int_t X_adap_flat_num[2] = {1, 512};
+    int_t X_adap_flat_num[2] = {_N, 512};
     Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear);
     // // for linear test
     // for(int_t i = 0; i < 400; i++)

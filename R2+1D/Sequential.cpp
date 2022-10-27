@@ -30,7 +30,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
     int_t padding[3] = {0, 0, 0};
 
     // layer 1
-    int_t X_num[5] = {1, 64, 1, 56, 56};
+    int_t X_num[5] = {1, 64, _D, 56, 56};
 
     for(int_t i = 0; i < 200704; i++)
         X_tmp_data[i] = X_data[i];
@@ -56,7 +56,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
 
     // // =============================================================================
     // // layer 2
-    int_t X2_num[5] = {1, 128, 1, 28, 28};
+    int_t X2_num[5] = {1, 128, _D, 28, 28};
 
     for(int_t i = 0; i < 200704; i++)
         X_tmp_data[i] = X_data[i];
@@ -85,7 +85,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
 
     // // =============================================================================
     // // layer 3
-    int_t X3_num[5] = {1, 256, 1, 14, 14};
+    int_t X3_num[5] = {1, 256, _D, 14, 14};
 
     for(int_t i = 0; i< 100352; i++)
         X2_tmp_data[i] = X2_data[i];
@@ -115,7 +115,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
     // // =============================================================================
 
     // // layer 4
-    int_t X4_num[5] = {1, 512, 1, 7, 7};
+    int_t X4_num[5] = {1, 512, _D, 7, 7};
 
     for(int_t i = 0; i< 50176; i++)
         X3_tmp_data[i] = X3_data[i];

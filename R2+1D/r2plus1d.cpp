@@ -108,9 +108,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
 
 
     // // ======================== Linear ==================================
-    int_t X_linear_in_num[2] = {1, 512};
-    int_t X_linear_out_num[2] = {1, 400};
-    Linear(X_adap, X_linear_in_num, X_linear, X_linear_out_num, Kernel_linear);
+    int_t X_adap_flat_num[2] = {1, 512};
+    Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear);
     // // for linear test
     // for(int_t i = 0; i < 400; i++)
     //     Y[i] = X_linear[i]; // assign result to output

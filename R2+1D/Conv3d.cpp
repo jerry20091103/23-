@@ -1,8 +1,9 @@
 #include "r2plus1d.h"
 #include<iostream>
+#include <cmath>
 using namespace std;
 
-void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding)
+void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, double scale, int_t zeropoint)
 {
 	// get X(input) size
 	int_t XN = X_num[0];
@@ -31,18 +32,21 @@ void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Ker
 		for(int_t yc = 0; yc < YC; yc++)
             for (int_t yd = 0; yd < YD; yd++)
                 for (int_t yh = 0; yh < YH; yh++)
-                	for (int_t yw = 0; yw < YW; yw++)
+                	for (int_t yw = 0; yw < YW; yw++){
+						// todo: data type
+						int_t yPos = yn*YC*YD*YH*YW + yc*YD*YH*YW + yd*YH*YW + yh*YW + yw;
 						for(int_t xc = 0; xc < XC; xc++)
 							for(int_t kd = 0; kd < KD; kd++)
 								for(int_t kh = 0; kh < KH; kh++)
 									for(int_t kw = 0; kw < KW; kw++){
-										int_t Dpos = yd*stride[0]+kd-padding[0];
-										int_t Hpos = yh*stride[1]+kh-padding[1];
-										int_t Wpos = yw*stride[2]+kw-padding[2];
+										int_t dPos = yd*stride[0]+kd-padding[0];
+										int_t hPos = yh*stride[1]+kh-padding[1];
+										int_t wPos = yw*stride[2]+kw-padding[2];
 
-										if(Dpos >= 0 && Hpos >= 0 && Wpos >= 0 && Dpos < XD && Hpos < XH && Wpos < XW)
-											Y_data[yn*YC*YD*YH*YW + yc*YD*YH*YW + yd*YH*YW + yh*YW + yw] += X_data[yn*XC*XD*XH*XW + xc*XD*XH*XW + Dpos*XH*XW + Hpos*XW + Wpos] * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
-											// Y_data[yn][yc][yd][yh][yw] += X_data[yn][xc][Dpos][Hpos][Wpos] * Kernel_data[yc][xc][kd][kh][kw];
+										if(dPos >= 0 && hPos >= 0 && wPos >= 0 && dPos < XD && hPos < XH && wPos < XW)
+											Y_data[yPos] += X_data[yn*XC*XD*XH*XW + xc*XD*XH*XW + dPos*XH*XW + hPos*XW + wPos] * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
 									}
+						Y_data[yPos] = round(Y_data[yPos]/scale + zeropoint);
+					}
 	return;
 }

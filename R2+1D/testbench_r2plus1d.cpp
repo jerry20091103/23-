@@ -18,9 +18,9 @@ string kernel_4_dat_name[9] = { "weight_4_1.dat", "weight_4_2.dat", "weight_4_3.
 
 int_t main() {
 
-	dtype *input = (dtype*)malloc(36963 * sizeof(dtype));
-	dtype *output = (dtype*)malloc(512 * sizeof(dtype));
-	dtype *output_golden = (dtype*)malloc(512 * sizeof(dtype));
+	dtype *input = (dtype*)malloc(37632 * sizeof(dtype));
+	dtype *output = (dtype*)malloc(400 * sizeof(dtype));
+	dtype *output_golden = (dtype*)malloc(400 * sizeof(dtype));
 
 	dtype *kernel_stem_1 = (dtype*)malloc(6615 * sizeof(dtype));
 	dtype *kernel_stem_2 = (dtype*)malloc(8640 * sizeof(dtype));
@@ -86,7 +86,7 @@ int_t main() {
 
 	// load input
 	file.open("input.dat");
-	for (int_t i = 0; i < 36963; i++) {
+	for (int_t i = 0; i < 37632; i++) {
 		file >> data;
 		input[i] = data;
 	}
@@ -318,8 +318,8 @@ int_t main() {
 	file.close();
 
 	// load output
-	file.open("output_4.dat");
-	for (int_t i = 0; i < 25088; i++) {
+	file.open("output_fc.dat");
+	for (int_t i = 0; i < 400; i++) {
 		file >> data;
 		output_golden[i] = data;
 	}
@@ -337,8 +337,8 @@ int_t main() {
 
 	// calculate errors
 	float errors;
-	int_t X_num[5] = { 1, 512, 1, 7, 7 };
-	errors = 100 * float(validate(output, output_golden, X_num)) / 25088;
+	int_t X_num[5] = { 1, 400, 1, 1, 1 };
+	errors = 100 * float(validate(output, output_golden, X_num)) / 400;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
@@ -348,6 +348,9 @@ int_t main() {
 	free(input);
 	free(output_golden);
 	free(output);
+
+	free(kernel_stem_1);
+	free(kernel_stem_2);
 
 	free(Kernel_1_1);
 	free(Kernel_1_3);
@@ -407,7 +410,7 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
 				for (int_t h = 0; h < H; h++)
 					for (int_t w = 0; w < W; w++) {
 						int_t pos = n * C*D*H*W + c * D*H*W + d * H*W + h * W + w;
-						if (ourOutput[pos] != golden[pos] && ((ourOutput[pos] - golden[pos]) / golden[pos] >= 0.005 || (ourOutput[pos] - golden[pos]) / golden[pos] <= -0.005)) {
+						if (ourOutput[pos] != golden[pos] && ((ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002)) {
 							cout << "[ERROR]  result[" << n << "][" << setw(2) << c << "][" << d << "][" << setw(2) << h << "][" << setw(2) << w << "]: " << setw(13) << ourOutput[pos] << ", gold: " << setw(10) << golden[pos] << ", error: " << 100 * (ourOutput[pos] - golden[pos]) / golden[pos] << "%" << endl;
 							errors++;
 						}

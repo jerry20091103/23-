@@ -1,6 +1,8 @@
 #ifndef __R2PLUS1D_H__
 #define __R2PLUS1D_H__
 
+#define _D 16
+
 typedef double dtype;
 typedef int int_t;
 

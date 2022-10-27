@@ -4,15 +4,29 @@
 typedef int dtype;
 typedef int int_t;
 
-void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2, 
-                double* Mu_stem_1, double* Mu_stem_2, double* Var_stem_1, double* Var_stem_2, double* Gamma_stem_1, double* Gamma_stem_2, double* Bias_stem_1, double* Bias_stem_2, 
-                double Scale_stem_1, double Scale_stem_2, double Scale_stem_3, double Scale_stem_4, 
-                int_t Zeropoint_stem_1, int_t Zeropoint_stem_2,int_t Zeropoint_stem_3, int_t Zeropoint_stem_4);//,
-            // dtype* Kernel_seq_1_1, dtype* Kernel_seq_1_2, dtype* Kernel_seq_1_3, dtype* Kernel_seq_1_4, dtype* Kernel_seq_1_5, dtype* Kernel_seq_1_6, dtype* Kernel_seq_1_7, dtype* Kernel_seq_1_8, 
-            // dtype* Kernel_seq_2_1, dtype* Kernel_seq_2_2, dtype* Kernel_seq_2_3, dtype* Kernel_seq_2_4, dtype* Kernel_seq_2_5, dtype* Kernel_seq_2_6, dtype* Kernel_seq_2_7, dtype* Kernel_seq_2_8, dtype* Kernel_seq_2_9, 
-            // dtype* Kernel_seq_3_1, dtype* Kernel_seq_3_2, dtype* Kernel_seq_3_3, dtype* Kernel_seq_3_4, dtype* Kernel_seq_3_5, dtype* Kernel_seq_3_6, dtype* Kernel_seq_3_7, dtype* Kernel_seq_3_8, dtype* Kernel_seq_3_9, 
-            // dtype* Kernel_seq_4_1, dtype* Kernel_seq_4_2, dtype* Kernel_seq_4_3, dtype* Kernel_seq_4_4, dtype* Kernel_seq_4_5, dtype* Kernel_seq_4_6, dtype* Kernel_seq_4_7, dtype* Kernel_seq_4_8, dtype* Kernel_seq_4_9,
-            // dtype* Kernel_linear);
+void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
+                double* Mu_stem_1, double* Mu_stem_4, double* Var_stem_1, double* Var_stem_4, double* Gamma_stem_1, double* Gamma_stem_4, double* Bias_stem_1, double* Bias_stem_4,
+            dtype* Kernel_seq1_0_conv1_0_0, dtype* Kernel_seq1_0_conv1_0_3, dtype* Kernel_seq1_0_conv2_0_0, dtype* Kernel_seq1_0_conv2_0_3, dtype* Kernel_seq1_1_conv1_0_0, dtype* Kernel_seq1_1_conv1_0_3, dtype* Kernel_seq1_1_conv2_0_0, dtype* Kernel_seq1_1_conv2_0_3,
+                double* Mu_seq1_0_conv1_0_1, double* Mu_seq1_0_conv1_1, double* Mu_seq1_0_conv2_0_1, double* Mu_seq1_0_conv2_1, double* Mu_seq1_1_conv1_0_1, double* Mu_seq1_1_conv1_1, double* Mu_seq1_1_conv2_0_1, double* Mu_seq1_1_conv2_1,
+                double* Var_seq1_0_conv1_0_1, double* Var_seq1_0_conv1_1, double* Var_seq1_0_conv2_0_1, double* Var_seq1_0_conv2_1, double* Var_seq1_1_conv1_0_1, double* Var_seq1_1_conv1_1, double* Var_seq1_1_conv2_0_1, double* Var_seq1_1_conv2_1,
+                double* Gamma_seq1_0_conv1_0_1, double* Gamma_seq1_0_conv1_1, double* Gamma_seq1_0_conv2_0_1, double* Gamma_seq1_0_conv2_1, double* Gamma_seq1_1_conv1_0_1, double* Gamma_seq1_1_conv1_1, double* Gamma_seq1_1_conv2_0_1, double* Gamma_seq1_1_conv2_1,
+                double* Bias_seq1_0_conv1_0_1, double* Bias_seq1_0_conv1_1, double* Bias_seq1_0_conv2_0_1, double* Bias_seq1_0_conv2_1, double* Bias_seq1_1_conv1_0_1, double* Bias_seq1_1_conv1_1, double* Bias_seq1_1_conv2_0_1, double* Bias_seq1_1_conv2_1,
+            dtype* Kernel_seq2_0_conv1_0_0, dtype* Kernel_seq2_0_conv1_0_3, dtype* Kernel_seq2_0_conv2_0_0, dtype* Kernel_seq2_0_conv2_0_3, dtype* Kernel_seq2_0_downsample_0, dtype* Kernel_seq2_1_conv1_0_0, dtype* Kernel_seq2_1_conv1_0_3, dtype* Kernel_seq2_1_conv2_0_0, dtype* Kernel_seq2_1_conv2_0_3,
+                double* Mu_seq2_0_conv1_0_1, double* Mu_seq2_0_conv1_1, double* Mu_seq2_0_conv2_0_1, double* Mu_seq2_0_conv2_1, double* Mu_seq2_0_downsample_1, double* Mu_seq2_1_conv1_0_1, double* Mu_seq2_1_conv1_1, double* Mu_seq2_1_conv2_0_1, double* Mu_seq2_1_conv2_1,
+                double* Var_seq2_0_conv1_0_1, double* Var_seq2_0_conv1_1, double* Var_seq2_0_conv2_0_1, double* Var_seq2_0_conv2_1, double* Var_seq2_0_downsample_1, double* Var_seq2_1_conv1_0_1, double* Var_seq2_1_conv1_1, double* Var_seq2_1_conv2_0_1, double* Var_seq2_1_conv2_1,
+                double* Gamma_seq2_0_conv1_0_1, double* Gamma_seq2_0_conv1_1, double* Gamma_seq2_0_conv2_0_1, double* Gamma_seq2_0_conv2_1, double* Gamma_seq2_0_downsample_1, double* Gamma_seq2_1_conv1_0_1, double* Gamma_seq2_1_conv1_1, double* Gamma_seq2_1_conv2_0_1, double* Gamma_seq2_1_conv2_1,
+                double* Bais_seq2_0_conv1_0_1, double* Bais_seq2_0_conv1_1, double* Bais_seq2_0_conv2_0_1, double* Bais_seq2_0_conv2_1, double* Bais_seq2_0_downsample_1, double* Bais_seq2_1_conv1_0_1, double* Bais_seq2_1_conv1_1, double* Bais_seq2_1_conv2_0_1, double* Bais_seq2_1_conv2_1,
+            dtype* Kernel_seq3_0_conv1_0_0, dtype* Kernel_seq3_0_conv1_0_3, dtype* Kernel_seq3_0_conv2_0_0, dtype* Kernel_seq3_0_conv2_0_3, dtype* Kernel_seq3_0_downsample_0, dtype* Kernel_seq3_1_conv1_0_0, dtype* Kernel_seq3_1_conv1_0_3, dtype* Kernel_seq3_1_conv2_0_0, dtype* Kernel_seq3_1_conv2_0_3,
+                double* Mu_seq3_0_conv1_0_1, double* Mu_seq3_0_conv1_1, double* Mu_seq3_0_conv2_0_1, double* Mu_seq3_0_conv2_1, double* Mu_seq3_0_downsample_1, double* Mu_seq3_1_conv1_0_1, double* Mu_seq3_1_conv1_1, double* Mu_seq3_1_conv2_0_1, double* Mu_seq3_1_conv2_1,
+                double* Var_seq3_0_conv1_0_1, double* Var_seq3_0_conv1_1, double* Var_seq3_0_conv2_0_1, double* Var_seq3_0_conv2_1, double* Var_seq3_0_downsample_1, double* Var_seq3_1_conv1_0_1, double* Var_seq3_1_conv1_1, double* Var_seq3_1_conv2_0_1, double* Var_seq3_1_conv2_1,
+                double* Gamma_seq3_0_conv1_0_1, double* Gamma_seq3_0_conv1_1, double* Gamma_seq3_0_conv2_0_1, double* Gamma_seq3_0_conv2_1, double* Gamma_seq3_0_downsample_1, double* Gamma_seq3_1_conv1_0_1, double* Gamma_seq3_1_conv1_1, double* Gamma_seq3_1_conv2_0_1, double* Gamma_seq3_1_conv2_1,
+                double* Bais_seq3_0_conv1_0_1, double* Bais_seq3_0_conv1_1, double* Bais_seq3_0_conv2_0_1, double* Bais_seq3_0_conv2_1, double* Bais_seq3_0_downsample_1, double* Bais_seq3_1_conv1_0_1, double* Bais_seq3_1_conv1_1, double* Bais_seq3_1_conv2_0_1, double* Bais_seq3_1_conv2_1,
+            dtype* Kernel_seq4_0_conv1_0_0, dtype* Kernel_seq4_0_conv1_0_3, dtype* Kernel_seq4_0_conv2_0_0, dtype* Kernel_seq4_0_conv2_0_3, dtype* Kernel_seq4_0_downsample_0, dtype* Kernel_seq4_1_conv1_0_0, dtype* Kernel_seq4_1_conv1_0_3, dtype* Kernel_seq4_1_conv2_0_0, dtype* Kernel_seq4_1_conv2_0_3,
+                double* Mu_seq4_0_conv1_0_1, double* Mu_seq4_0_conv1_1, double* Mu_seq4_0_conv2_0_1, double* Mu_seq4_0_conv2_1, double* Mu_seq4_0_downsample_1, double* Mu_seq4_1_conv1_0_1, double* Mu_seq4_1_conv1_1, double* Mu_seq4_1_conv2_0_1, double* Mu_seq4_1_conv2_1,
+                double* Var_seq4_0_conv1_0_1, double* Var_seq4_0_conv1_1, double* Var_seq4_0_conv2_0_1, double* Var_seq4_0_conv2_1, double* Var_seq4_0_downsample_1, double* Var_seq4_1_conv1_0_1, double* Var_seq4_1_conv1_1, double* Var_seq4_1_conv2_0_1, double* Var_seq4_1_conv2_1,
+                double* Gamma_seq4_0_conv1_0_1, double* Gamma_seq4_0_conv1_1, double* Gamma_seq4_0_conv2_0_1, double* Gamma_seq4_0_conv2_1, double* Gamma_seq4_0_downsample_1, double* Gamma_seq4_1_conv1_0_1, double* Gamma_seq4_1_conv1_1, double* Gamma_seq4_1_conv2_0_1, double* Gamma_seq4_1_conv2_1,
+                double* Bais_seq4_0_conv1_0_1, double* Bais_seq4_0_conv1_1, double* Bais_seq4_0_conv2_0_1, double* Bais_seq4_0_conv2_1, double* Bais_seq4_0_downsample_1, double* Bais_seq4_1_conv1_0_1, double* Bais_seq4_1_conv1_1, double* Bais_seq4_1_conv2_0_1, double* Bais_seq4_1_conv2_1,
+            dtype* Kernel_linear);
 void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, double scale, int_t zeropoint);
 void BatchNorm3d(dtype* X_data, int_t* X_num, double* _mu, double* _var, double* r, double* b, double scale, int_t zeropoint);
 void ReLU(dtype* X_data, int_t* X_num);

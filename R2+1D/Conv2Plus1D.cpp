@@ -13,7 +13,7 @@ void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_nu
  #ifdef __SYNTHESIS__
     dtype X_mid_data[451584];
  #else
-    dtype* X_mid_data = (dtype*)malloc(451584*sizeof(dtype));
+    dtype* X_mid_data = (dtype*)malloc(57802752*sizeof(dtype));
  #endif
 
     int_t X_mid_num[5];

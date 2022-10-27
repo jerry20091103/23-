@@ -20,10 +20,10 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
 	#pragma HLS int_tERFACE m_axi port=Kernel_stem_2
  #else
     // R2Plus1dStem
-    dtype* X_stem_1 = (dtype*)malloc(141120*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
-    dtype* X_stem_2 = (dtype*)malloc(200704*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
+    dtype* X_stem_1 = (dtype*)malloc(2257920*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
+    dtype* X_stem_2 = (dtype*)malloc(3211264*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
     // Sequential 1~4
-    dtype* X_seq = (dtype*)malloc(200704*sizeof(dtype)); // value after 1~4 sequential layer
+    dtype* X_seq = (dtype*)malloc(50176*sizeof(dtype)); // value after 1~4 sequential layer
     // AdaptiveAvgPool3d
     dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
     // Linear
@@ -65,8 +65,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
     //     Y[i] = X_seq[i]; // assign result to output
     
     // ======================== AdaptiveAvgPool3d ==================================
-    int_t X_adap_in_num[5] = {1, 512, _D, 7, 7};
-    int_t X_adap_out_num[5] = {1, 512, _D, 1, 1};
+    int_t X_adap_in_num[5] = {1, 512, 2, 7, 7};
+    int_t X_adap_out_num[5] = {1, 512, 1, 1, 1};
     AdaptiveAvgPool3d(X_seq, X_adap_in_num, X_adap, X_adap_out_num);
 
     // // for AdaptiveAvgPool3d test

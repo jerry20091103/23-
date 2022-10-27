@@ -18,7 +18,7 @@ string kernel_4_dat_name[9] = { "weight_4_1.dat", "weight_4_2.dat", "weight_4_3.
 
 int_t main() {
 
-	dtype *input = (dtype*)malloc(37632 * sizeof(dtype));
+	dtype *input = (dtype*)malloc(602112 * sizeof(dtype));
 	dtype *output = (dtype*)malloc(400 * sizeof(dtype));
 	dtype *output_golden = (dtype*)malloc(400 * sizeof(dtype));
 
@@ -86,7 +86,7 @@ int_t main() {
 
 	// load input
 	file.open("input.dat");
-	for (int_t i = 0; i < 37632; i++) {
+	for (int_t i = 0; i < 602112; i++) {
 		file >> data;
 		input[i] = data;
 	}

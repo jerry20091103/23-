@@ -16,13 +16,13 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
     dtype X4_data[25088];
     dtype X4_tmp_data[25088];
  #else
-    dtype* X_tmp_data = (dtype*)malloc(200704*sizeof(dtype));
-    dtype* X2_data = (dtype*)malloc(100352*sizeof(dtype));
-    dtype* X2_tmp_data = (dtype*)malloc(100352*sizeof(dtype));
-    dtype* X3_data = (dtype*)malloc(50176*sizeof(dtype));
-    dtype* X3_tmp_data = (dtype*)malloc(50176*sizeof(dtype));
-    dtype* X4_data = (dtype*)malloc(25088*sizeof(dtype));
-    dtype* X4_tmp_data = (dtype*)malloc(25088*sizeof(dtype));
+    dtype* X_tmp_data = (dtype*)malloc(3211264*sizeof(dtype));
+    dtype* X2_data = (dtype*)malloc(802816*sizeof(dtype));
+    dtype* X2_tmp_data = (dtype*)malloc(802816*sizeof(dtype));
+    dtype* X3_data = (dtype*)malloc(200704*sizeof(dtype));
+    dtype* X3_tmp_data = (dtype*)malloc(200704*sizeof(dtype));
+    dtype* X4_data = (dtype*)malloc(50176*sizeof(dtype));
+    dtype* X4_tmp_data = (dtype*)malloc(50176*sizeof(dtype));
  #endif
 
     int_t Kernel_num[3] = {1, 1, 1};
@@ -56,7 +56,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
 
     // // =============================================================================
     // // layer 2
-    int_t X2_num[5] = {1, 128, _D, 28, 28};
+    int_t X2_num[5] = {1, 128, 8, 28, 28};
 
     for(int_t i = 0; i < 200704; i++)
         X_tmp_data[i] = X_data[i];
@@ -85,7 +85,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
 
     // // =============================================================================
     // // layer 3
-    int_t X3_num[5] = {1, 256, _D, 14, 14};
+    int_t X3_num[5] = {1, 256, 4, 14, 14};
 
     for(int_t i = 0; i< 100352; i++)
         X2_tmp_data[i] = X2_data[i];
@@ -115,7 +115,7 @@ void Sequential(dtype* X_data, dtype* Y_data, dtype* Kernel_1_1_data, dtype* Ker
     // // =============================================================================
 
     // // layer 4
-    int_t X4_num[5] = {1, 512, _D, 7, 7};
+    int_t X4_num[5] = {1, 512, 2, 7, 7};
 
     for(int_t i = 0; i< 50176; i++)
         X3_tmp_data[i] = X3_data[i];

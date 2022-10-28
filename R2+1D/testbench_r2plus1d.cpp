@@ -11,6 +11,29 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
 bool LoadFile(string filename, double* arr, int size);
 bool LoadDouble(string filename, double* arr, int size);
 
+double *Mu_stem_1, *Mu_stem_4, *Var_stem_1, *Var_stem_4, *Gamma_stem_1, *Gamma_stem_4, *Bias_stem_1, *Bias_stem_4;
+
+double *Mu_seq1_0_conv1_0_1, *Mu_seq1_0_conv1_1, *Mu_seq1_0_conv2_0_1, *Mu_seq1_0_conv2_1, *Mu_seq1_1_conv1_0_1, *Mu_seq1_1_conv1_1, *Mu_seq1_1_conv2_0_1, *Mu_seq1_1_conv2_1;
+double *Var_seq1_0_conv1_0_1, *Var_seq1_0_conv1_1, *Var_seq1_0_conv2_0_1, *Var_seq1_0_conv2_1, *Var_seq1_1_conv1_0_1, *Var_seq1_1_conv1_1, *Var_seq1_1_conv2_0_1, *Var_seq1_1_conv2_1;
+double *Gamma_seq1_0_conv1_0_1, *Gamma_seq1_0_conv1_1, *Gamma_seq1_0_conv2_0_1, *Gamma_seq1_0_conv2_1, *Gamma_seq1_1_conv1_0_1, *Gamma_seq1_1_conv1_1, *Gamma_seq1_1_conv2_0_1, *Gamma_seq1_1_conv2_1;
+double *Bias_seq1_0_conv1_0_1, *Bias_seq1_0_conv1_1, *Bias_seq1_0_conv2_0_1, *Bias_seq1_0_conv2_1, *Bias_seq1_1_conv1_0_1, *Bias_seq1_1_conv1_1, *Bias_seq1_1_conv2_0_1, *Bias_seq1_1_conv2_1;
+
+double *Mu_seq2_0_conv1_0_1, *Mu_seq2_0_conv1_1, *Mu_seq2_0_conv2_0_1, *Mu_seq2_0_conv2_1, *Mu_seq2_0_downsample_1, *Mu_seq2_1_conv1_0_1, *Mu_seq2_1_conv1_1, *Mu_seq2_1_conv2_0_1, *Mu_seq2_1_conv2_1;
+double *Var_seq2_0_conv1_0_1, *Var_seq2_0_conv1_1, *Var_seq2_0_conv2_0_1, *Var_seq2_0_conv2_1, *Var_seq2_0_downsample_1, *Var_seq2_1_conv1_0_1, *Var_seq2_1_conv1_1, *Var_seq2_1_conv2_0_1, *Var_seq2_1_conv2_1;
+double *Gamma_seq2_0_conv1_0_1, *Gamma_seq2_0_conv1_1, *Gamma_seq2_0_conv2_0_1, *Gamma_seq2_0_conv2_1, *Gamma_seq2_0_downsample_1, *Gamma_seq2_1_conv1_0_1, *Gamma_seq2_1_conv1_1, *Gamma_seq2_1_conv2_0_1, *Gamma_seq2_1_conv2_1;
+double *Bias_seq2_0_conv1_0_1, *Bias_seq2_0_conv1_1, *Bias_seq2_0_conv2_0_1, *Bias_seq2_0_conv2_1, *Bias_seq2_0_downsample_1, *Bias_seq2_1_conv1_0_1, *Bias_seq2_1_conv1_1, *Bias_seq2_1_conv2_0_1, *Bias_seq2_1_conv2_1;
+
+double *Mu_seq3_0_conv1_0_1, *Mu_seq3_0_conv1_1, *Mu_seq3_0_conv2_0_1, *Mu_seq3_0_conv2_1, *Mu_seq3_0_downsample_1, *Mu_seq3_1_conv1_0_1, *Mu_seq3_1_conv1_1, *Mu_seq3_1_conv2_0_1, *Mu_seq3_1_conv2_1;
+double *Var_seq3_0_conv1_0_1, *Var_seq3_0_conv1_1, *Var_seq3_0_conv2_0_1, *Var_seq3_0_conv2_1, *Var_seq3_0_downsample_1, *Var_seq3_1_conv1_0_1, *Var_seq3_1_conv1_1, *Var_seq3_1_conv2_0_1, *Var_seq3_1_conv2_1;
+double *Gamma_seq3_0_conv1_0_1, *Gamma_seq3_0_conv1_1, *Gamma_seq3_0_conv2_0_1, *Gamma_seq3_0_conv2_1, *Gamma_seq3_0_downsample_1, *Gamma_seq3_1_conv1_0_1, *Gamma_seq3_1_conv1_1, *Gamma_seq3_1_conv2_0_1, *Gamma_seq3_1_conv2_1;
+double *Bias_seq3_0_conv1_0_1, *Bias_seq3_0_conv1_1, *Bias_seq3_0_conv2_0_1, *Bias_seq3_0_conv2_1, *Bias_seq3_0_downsample_1, *Bias_seq3_1_conv1_0_1, *Bias_seq3_1_conv1_1, *Bias_seq3_1_conv2_0_1, *Bias_seq3_1_conv2_1;
+
+double *Mu_seq4_0_conv1_0_1, *Mu_seq4_0_conv1_1, *Mu_seq4_0_conv2_0_1, *Mu_seq4_0_conv2_1, *Mu_seq4_0_downsample_1, *Mu_seq4_1_conv1_0_1, *Mu_seq4_1_conv1_1, *Mu_seq4_1_conv2_0_1, *Mu_seq4_1_conv2_1;
+double *Var_seq4_0_conv1_0_1, *Var_seq4_0_conv1_1, *Var_seq4_0_conv2_0_1, *Var_seq4_0_conv2_1, *Var_seq4_0_downsample_1, *Var_seq4_1_conv1_0_1, *Var_seq4_1_conv1_1, *Var_seq4_1_conv2_0_1, *Var_seq4_1_conv2_1;
+double *Gamma_seq4_0_conv1_0_1, *Gamma_seq4_0_conv1_1, *Gamma_seq4_0_conv2_0_1, *Gamma_seq4_0_conv2_1, *Gamma_seq4_0_downsample_1, *Gamma_seq4_1_conv1_0_1, *Gamma_seq4_1_conv1_1, *Gamma_seq4_1_conv2_0_1, *Gamma_seq4_1_conv2_1;
+double *Bias_seq4_0_conv1_0_1, *Bias_seq4_0_conv1_1, *Bias_seq4_0_conv2_0_1, *Bias_seq4_0_conv2_1, *Bias_seq4_0_downsample_1, *Bias_seq4_1_conv1_0_1, *Bias_seq4_1_conv1_1, *Bias_seq4_1_conv2_0_1, *Bias_seq4_1_conv2_1;
+
+
 string kernel_1_dat_name[8] = {"layer1.0.conv1.0.0.weight.dat", "layer1.0.conv1.0.3.weight.dat", "layer1.0.conv2.0.0.weight.dat", "layer1.0.conv2.0.3.weight.dat", "layer1.1.conv1.0.0.weight.dat", "layer1.1.conv1.0.3.weight.dat", "layer1.1.conv2.0.0.weight.dat", "layer1.1.conv2.0.3.weight.dat"};
 string kernel_2_dat_name[9] = {"layer2.0.conv1.0.0.weight.dat", "layer2.0.conv1.0.3.weight.dat", "layer2.0.conv2.0.0.weight.dat", "layer2.0.conv2.0.3.weight.dat", "layer2.0.downsample.0.weight.dat", "layer2.1.conv1.0.0.weight.dat", "layer2.1.conv1.0.3.weight.dat", "layer2.1.conv2.0.0.weight.dat", "layer2.1.conv2.0.3.weight.dat"};
 string kernel_3_dat_name[9] = {"layer3.0.conv1.0.0.weight.dat", "layer3.0.conv1.0.3.weight.dat", "layer3.0.conv2.0.0.weight.dat", "layer3.0.conv2.0.3.weight.dat", "layer3.0.downsample.0.weight.dat", "layer3.1.conv1.0.0.weight.dat", "layer3.1.conv1.0.3.weight.dat", "layer3.1.conv2.0.0.weight.dat", "layer3.1.conv2.0.3.weight.dat"};
@@ -41,140 +64,305 @@ string layer_3_bias_dat_name[9] = {"layer3.0.conv1.0.1.bias.dat",  "layer3.0.con
 string layer_4_bias_dat_name[9] = {"layer4.0.conv1.0.1.bias.dat",  "layer4.0.conv1.1.bias.dat",  "layer4.0.conv2.0.1.bias.dat",  "layer4.0.conv2.1.bias.dat",  "layer4.0.downsample.1.bias.dat",  "layer4.1.conv1.0.1.bias.dat",  "layer4.1.conv1.1.bias.dat",  "layer4.1.conv2.0.1.bias.dat",  "layer4.1.conv2.1.bias.dat"};
 
 string fc_dat_name[1] = {"fc.1.weight.dat"};
-	
-
-
 
 int_t main() {
-
 	dtype *input = (dtype*)malloc(36963 * sizeof(dtype));
 	dtype *output = (dtype*)malloc(25088 * sizeof(dtype));
 	dtype *output_golden = (dtype*)malloc(25088 * sizeof(dtype));
 
-	dtype *kernel_stem_1 = (dtype*)malloc(6615 * sizeof(dtype));
-	dtype *kernel_stem_2 = (dtype*)malloc(8640 * sizeof(dtype));
+	dtype *Kernel_stem_0 = (dtype*)malloc(6615 * sizeof(dtype));
+	dtype *Kernel_stem_3 = (dtype*)malloc(8640 * sizeof(dtype));
 
-	dtype *Kernel_1_1 = (dtype*)malloc(82944 * sizeof(dtype));
-	dtype *Kernel_1_3 = (dtype*)malloc(82944 * sizeof(dtype));
-	dtype *Kernel_1_5 = (dtype*)malloc(82944 * sizeof(dtype));
-	dtype *Kernel_1_7 = (dtype*)malloc(82944 * sizeof(dtype));
-
-	dtype *Kernel_1_2 = (dtype*)malloc(27648 * sizeof(dtype));
-	dtype *Kernel_1_4 = (dtype*)malloc(27648 * sizeof(dtype));
-	dtype *Kernel_1_6 = (dtype*)malloc(27648 * sizeof(dtype));
-	dtype *Kernel_1_8 = (dtype*)malloc(27648 * sizeof(dtype));
+	dtype *Kernel_seq1_0_conv1_0_0 = (dtype*)malloc(82944 * sizeof(dtype));
+	dtype *Kernel_seq1_0_conv2_0_0 = (dtype*)malloc(82944 * sizeof(dtype));
+	dtype *Kernel_seq1_1_conv1_0_0 = (dtype*)malloc(82944 * sizeof(dtype));
+	dtype *Kernel_seq1_1_conv2_0_0 = (dtype*)malloc(82944 * sizeof(dtype));
+	dtype *Kernel_seq1_0_conv1_0_3 = (dtype*)malloc(27648 * sizeof(dtype));
+	dtype *Kernel_seq1_0_conv2_0_3 = (dtype*)malloc(27648 * sizeof(dtype));
+	dtype *Kernel_seq1_1_conv1_0_3 = (dtype*)malloc(27648 * sizeof(dtype));
+	dtype *Kernel_seq1_1_conv2_0_3 = (dtype*)malloc(27648 * sizeof(dtype));
 	// kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
 
-	dtype *Kernel_2_1 = (dtype*)malloc(132480 * sizeof(dtype));
-	dtype *Kernel_2_2 = (dtype*)malloc(88320 * sizeof(dtype));
+	dtype *Kernel_seq2_0_conv1_0_0 = (dtype*)malloc(132480 * sizeof(dtype));
+	dtype *Kernel_seq2_0_conv1_0_3 = (dtype*)malloc(88320 * sizeof(dtype));
 	// kernel_size=(64, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-	dtype *Kernel_2_3 = (dtype*)malloc(264960 * sizeof(dtype));
-	dtype *Kernel_2_4 = (dtype*)malloc(88320 * sizeof(dtype));
+	dtype *Kernel_seq2_0_conv2_0_0 = (dtype*)malloc(264960 * sizeof(dtype));
+	dtype *Kernel_seq2_0_conv2_0_3 = (dtype*)malloc(88320 * sizeof(dtype));
 	// kernel_size=(128, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-	dtype *Kernel_2_5 = (dtype*)malloc(8192 * sizeof(dtype));
+	dtype *Kernel_seq2_0_downsample_0 = (dtype*)malloc(8192 * sizeof(dtype));
 	// kernel_size=(64, 128, 1, 1, 1)
-	dtype *Kernel_2_6 = (dtype*)malloc(331776 * sizeof(dtype));
-	dtype *Kernel_2_8 = (dtype*)malloc(331776 * sizeof(dtype));
-	dtype *Kernel_2_7 = (dtype*)malloc(110592 * sizeof(dtype));
-	dtype *Kernel_2_9 = (dtype*)malloc(110592 * sizeof(dtype));
+	dtype *Kernel_seq2_1_conv1_0_0 = (dtype*)malloc(331776 * sizeof(dtype));
+	dtype *Kernel_seq2_1_conv1_0_3 = (dtype*)malloc(110592 * sizeof(dtype));
+	dtype *Kernel_seq2_1_conv2_0_0 = (dtype*)malloc(331776 * sizeof(dtype));
+	dtype *Kernel_seq2_1_conv2_0_3 = (dtype*)malloc(110592 * sizeof(dtype));
 	// kernel_size=(128, 288, 1, 3, 3),  kernel_size=(128, 288, 3, 1, 1)
 
-	dtype *Kernel_3_1 = (dtype*)malloc(529920 * sizeof(dtype));
-	dtype *Kernel_3_2 = (dtype*)malloc(353280 * sizeof(dtype));
+	dtype *Kernel_seq3_0_conv1_0_0 = (dtype*)malloc(529920 * sizeof(dtype));
+	dtype *Kernel_seq3_0_conv1_0_3 = (dtype*)malloc(353280 * sizeof(dtype));
 	// kernel_size=(128, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-	dtype *Kernel_3_3 = (dtype*)malloc(1059840 * sizeof(dtype));
-	dtype *Kernel_3_4 = (dtype*)malloc(353280 * sizeof(dtype));
+	dtype *Kernel_seq3_0_conv2_0_0 = (dtype*)malloc(1059840 * sizeof(dtype));
+	dtype *Kernel_seq3_0_conv2_0_3 = (dtype*)malloc(353280 * sizeof(dtype));
 	// kernel_size=(256, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-	dtype *Kernel_3_5 = (dtype*)malloc(32768 * sizeof(dtype));
+	dtype *Kernel_seq3_0_downsample_0 = (dtype*)malloc(32768 * sizeof(dtype));
 	// kernel_size=(128, 256, 1, 1, 1)
-	dtype *Kernel_3_6 = (dtype*)malloc(1327104 * sizeof(dtype));
-	dtype *Kernel_3_8 = (dtype*)malloc(1327104 * sizeof(dtype));
-	dtype *Kernel_3_7 = (dtype*)malloc(442368 * sizeof(dtype));
-	dtype *Kernel_3_9 = (dtype*)malloc(442368 * sizeof(dtype));
+	dtype *Kernel_seq3_1_conv1_0_0 = (dtype*)malloc(1327104 * sizeof(dtype));
+	dtype *Kernel_seq3_1_conv1_0_3 = (dtype*)malloc(442368 * sizeof(dtype));
+	dtype *Kernel_seq3_1_conv2_0_0 = (dtype*)malloc(1327104 * sizeof(dtype));
+	dtype *Kernel_seq3_1_conv2_0_3 = (dtype*)malloc(442368 * sizeof(dtype));
 	// kernel_size=(256, 576, 1, 3, 3),  kernel_size=(256, 576, 3, 1, 1)
 
-	dtype *Kernel_4_1 = (dtype*)malloc(2121984 * sizeof(dtype));
-	dtype *Kernel_4_2 = (dtype*)malloc(1414656 * sizeof(dtype));
+	dtype *Kernel_seq4_0_conv1_0_0 = (dtype*)malloc(2121984 * sizeof(dtype));
+	dtype *Kernel_seq4_0_conv1_0_3 = (dtype*)malloc(1414656 * sizeof(dtype));
 	// kernel_size=(256, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-	dtype *Kernel_4_3 = (dtype*)malloc(4243968 * sizeof(dtype));
-	dtype *Kernel_4_4 = (dtype*)malloc(1414656 * sizeof(dtype));
+	dtype *Kernel_seq4_0_conv2_0_0 = (dtype*)malloc(4243968 * sizeof(dtype));
+	dtype *Kernel_seq4_0_conv2_0_3 = (dtype*)malloc(1414656 * sizeof(dtype));
 	// kernel_size=(512, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-	dtype *Kernel_4_5 = (dtype*)malloc(131072 * sizeof(dtype));
+	dtype *Kernel_seq4_0_downsample_0 = (dtype*)malloc(131072 * sizeof(dtype));
 	// kernel4size=(256, 512, 1, 1, 1)
-	dtype *Kernel_4_6 = (dtype*)malloc(5308416 * sizeof(dtype));
-	dtype *Kernel_4_8 = (dtype*)malloc(5308416 * sizeof(dtype));
-	dtype *Kernel_4_7 = (dtype*)malloc(1769472 * sizeof(dtype));
-	dtype *Kernel_4_9 = (dtype*)malloc(1769472 * sizeof(dtype));
+	dtype *Kernel_seq4_1_conv1_0_0 = (dtype*)malloc(5308416 * sizeof(dtype));
+	dtype *Kernel_seq4_1_conv1_0_3 = (dtype*)malloc(1769472 * sizeof(dtype));
+	dtype *Kernel_seq4_1_conv2_0_0 = (dtype*)malloc(5308416 * sizeof(dtype));
+	dtype *Kernel_seq4_1_conv2_0_3 = (dtype*)malloc(1769472 * sizeof(dtype));
 	// kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
+
+	dtype *Kernel_linear;
 
 	// load input
 	if(!LoadDTYPE("input.dat", input, 602112))
 		return 0;
 
 	// load stem kernel
-	if(!LoadDTYPE("stem.0.weight.dat", kernel_stem_1, 6615)) return 0;
-	if(!LoadDTYPE("stem.3.weight.dat", kernel_stem_2, 8640)) return 0;
+	if(!LoadDTYPE("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
+	if(!LoadDTYPE("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
 
 	// load layer1 kernel
-	if(!LoadDTYPE(kernel_1_dat_name[0], Kernel_1_1, 82944)) return 0;
-	if(!LoadDTYPE(kernel_1_dat_name[2], Kernel_1_3, 82944)) return 0;
-	if(!LoadDTYPE(kernel_1_dat_name[4], Kernel_1_5, 82944)) return 0;
-	if(!LoadDTYPE(kernel_1_dat_name[6], Kernel_1_7, 82944)) return 0;
-
-	if(!LoadDTYPE(kernel_1_dat_name[1], Kernel_1_2, 27648)) return 0;
-	if(!LoadDTYPE(kernel_1_dat_name[3], Kernel_1_4, 27648)) return 0;
-	if(!LoadDTYPE(kernel_1_dat_name[5], Kernel_1_6, 27648)) return 0;
-	if(!LoadDTYPE(kernel_1_dat_name[7], Kernel_1_8, 27648)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[0], Kernel_seq1_0_conv1_0_0, 82944)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[1], Kernel_seq1_0_conv1_0_3, 27648)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[2], Kernel_seq1_0_conv2_0_0, 82944)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[3], Kernel_seq1_0_conv2_0_3, 27648)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[4], Kernel_seq1_1_conv1_0_0, 82944)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[5], Kernel_seq1_1_conv1_0_3, 27648)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[6], Kernel_seq1_1_conv2_0_0, 82944)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[7], Kernel_seq1_1_conv2_0_3, 27648)) return 0;
 
 	// load layer2 kernel
-	if(!LoadDTYPE(kernel_2_dat_name[0], Kernel_2_1, 132480)) return 0;
-	if(!LoadDTYPE(kernel_2_dat_name[1], Kernel_2_2, 88320)) return 0;
-	if(!LoadDTYPE(kernel_2_dat_name[2], Kernel_2_3, 264960)) return 0;
-	if(!LoadDTYPE(kernel_2_dat_name[3], Kernel_2_4, 88320)) return 0;
-	if(!LoadDTYPE(kernel_2_dat_name[4], Kernel_2_5, 8192)) return 0;
-	if(!LoadDTYPE(kernel_2_dat_name[5], Kernel_2_6, 331776)) return 0;
-	if(!LoadDTYPE(kernel_2_dat_name[6], Kernel_2_7, 110592)) return 0;
-	if(!LoadDTYPE(kernel_2_dat_name[7], Kernel_2_8, 331776)) return 0;
-	if(!LoadDTYPE(kernel_2_dat_name[8], Kernel_2_9, 110592)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[0], Kernel_seq2_0_conv1_0_0, 132480)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[1], Kernel_seq2_0_conv1_0_3, 88320)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[2], Kernel_seq2_0_conv2_0_0, 264960)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[3], Kernel_seq2_0_conv2_0_3, 88320)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[4], Kernel_seq2_0_downsample_0, 8192)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[5], Kernel_seq2_1_conv1_0_0, 331776)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[6], Kernel_seq2_1_conv1_0_3, 110592)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[7], Kernel_seq2_1_conv2_0_0, 331776)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[8], Kernel_seq2_1_conv2_0_3, 110592)) return 0;
 
 	// load layer3 kernel
-	if(!LoadDTYPE(kernel_3_dat_name[0], Kernel_3_1, 529920)) return 0;
-	if(!LoadDTYPE(kernel_3_dat_name[1], Kernel_3_2, 353280)) return 0;
-	if(!LoadDTYPE(kernel_3_dat_name[2], Kernel_3_3, 1059840)) return 0;
-	if(!LoadDTYPE(kernel_3_dat_name[3], Kernel_3_4, 353280)) return 0;
-	if(!LoadDTYPE(kernel_3_dat_name[4], Kernel_3_5, 32768)) return 0;
-	if(!LoadDTYPE(kernel_3_dat_name[5], Kernel_3_6, 1327104)) return 0;
-	if(!LoadDTYPE(kernel_3_dat_name[6], Kernel_3_7, 442368)) return 0;
-	if(!LoadDTYPE(kernel_3_dat_name[7], Kernel_3_8, 1327104)) return 0;
-	if(!LoadDTYPE(kernel_3_dat_name[8], Kernel_3_9, 442368)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[0], Kernel_seq3_0_conv1_0_0, 529920)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[1], Kernel_seq3_0_conv1_0_3, 353280)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[2], Kernel_seq3_0_conv2_0_0, 1059840)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[3], Kernel_seq3_0_conv2_0_3, 353280)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[4], Kernel_seq3_0_downsample_0, 32768)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[5], Kernel_seq3_1_conv1_0_0, 1327104)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[6], Kernel_seq3_1_conv1_0_3, 442368)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[7], Kernel_seq3_1_conv2_0_0, 1327104)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[8], Kernel_seq3_1_conv2_0_3, 442368)) return 0;
 
 	// load layer4 kernel
-	if(!LoadDTYPE(kernel_4_dat_name[0], Kernel_4_1, 2121984)) return 0;
-	if(!LoadDTYPE(kernel_4_dat_name[1], Kernel_4_2, 1414656)) return 0;
-	if(!LoadDTYPE(kernel_4_dat_name[2], Kernel_4_3, 4243968)) return 0;
-	if(!LoadDTYPE(kernel_4_dat_name[3], Kernel_4_4, 1414656)) return 0;
-	if(!LoadDTYPE(kernel_4_dat_name[4], Kernel_4_5, 131072)) return 0;
-	if(!LoadDTYPE(kernel_4_dat_name[5], Kernel_4_6, 5308416)) return 0;
-	if(!LoadDTYPE(kernel_4_dat_name[6], Kernel_4_7, 1769472)) return 0;
-	if(!LoadDTYPE(kernel_4_dat_name[7], Kernel_4_8, 5308416)) return 0;
-	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_4_9, 1769472)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[0], Kernel_seq4_0_conv1_0_0, 2121984)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[1], Kernel_seq4_0_conv1_0_3, 1414656)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[2], Kernel_seq4_0_conv2_0_0, 4243968)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[3], Kernel_seq4_0_conv2_0_3, 1414656)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[4], Kernel_seq4_0_downsample_0, 131072)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[5], Kernel_seq4_1_conv1_0_0, 5308416)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[6], Kernel_seq4_1_conv1_0_3, 1769472)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[7], Kernel_seq4_1_conv2_0_0, 5308416)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_seq4_1_conv2_0_3, 1769472)) return 0;
 	
-	// load output
-	file.open("output_4.dat");
-	for (int_t i = 0; i < 25088; i++) {
-		file >> data;
-		output_golden[i] = data;
-	}
-	file.close();
+	// load linear kernel
+	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_linear, 1769472)) return 0;
+
+	// load stem batch
+	if(!LoadDouble(stem_mu_dat_name[0], Mu_stem_1, 45)) return 0;
+	if(!LoadDouble(stem_var_dat_name[0], Var_stem_1, 45)) return 0;
+	if(!LoadDouble(stem_gamma_dat_name[0], Gamma_stem_1, 45)) return 0;
+	if(!LoadDouble(stem_bias_dat_name[0], Bias_stem_1, 45)) return 0;
+
+	if(!LoadDouble(stem_mu_dat_name[1], Mu_stem_4, 64)) return 0;
+	if(!LoadDouble(stem_var_dat_name[1], Var_stem_4, 64)) return 0;
+	if(!LoadDouble(stem_gamma_dat_name[1], Gamma_stem_4, 64)) return 0;
+	if(!LoadDouble(stem_bias_dat_name[1], Bias_stem_4, 64)) return 0;
+	
+	if(!LoadDouble(layer_1_mu_dat_name[0], Mu_seq1_0_conv1_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_mu_dat_name[1], Mu_seq1_0_conv1_1, 64)) return 0;
+	if(!LoadDouble(layer_1_mu_dat_name[2], Mu_seq1_0_conv2_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_mu_dat_name[3], Mu_seq1_0_conv2_1, 64)) return 0;
+	if(!LoadDouble(layer_1_mu_dat_name[4], Mu_seq1_1_conv1_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_mu_dat_name[5], Mu_seq1_1_conv1_1, 64)) return 0;
+	if(!LoadDouble(layer_1_mu_dat_name[6], Mu_seq1_1_conv2_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_mu_dat_name[7], Mu_seq1_1_conv2_1, 64)) return 0;
+	if(!LoadDouble(layer_1_var_dat_name[0], Var_seq1_0_conv1_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_var_dat_name[1], Var_seq1_0_conv1_1, 64)) return 0;
+	if(!LoadDouble(layer_1_var_dat_name[2], Var_seq1_0_conv2_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_var_dat_name[3], Var_seq1_0_conv2_1, 64)) return 0;
+	if(!LoadDouble(layer_1_var_dat_name[4], Var_seq1_1_conv1_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_var_dat_name[5], Var_seq1_1_conv1_1, 64)) return 0;
+	if(!LoadDouble(layer_1_var_dat_name[6], Var_seq1_1_conv2_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_var_dat_name[7], Var_seq1_1_conv2_1, 64)) return 0;
+	if(!LoadDouble(layer_1_gamma_dat_name[0], Gamma_seq1_0_conv1_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_gamma_dat_name[1], Gamma_seq1_0_conv1_1, 64)) return 0;
+	if(!LoadDouble(layer_1_gamma_dat_name[2], Gamma_seq1_0_conv2_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_gamma_dat_name[3], Gamma_seq1_0_conv2_1, 64)) return 0;
+	if(!LoadDouble(layer_1_gamma_dat_name[4], Gamma_seq1_1_conv1_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_gamma_dat_name[5], Gamma_seq1_1_conv1_1, 64)) return 0;
+	if(!LoadDouble(layer_1_gamma_dat_name[6], Gamma_seq1_1_conv2_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_gamma_dat_name[7], Gamma_seq1_1_conv2_1, 64)) return 0;
+	if(!LoadDouble(layer_1_bias_dat_name[0], Bias_seq1_0_conv1_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_bias_dat_name[1], Bias_seq1_0_conv1_1, 64)) return 0;
+	if(!LoadDouble(layer_1_bias_dat_name[2], Bias_seq1_0_conv2_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_bias_dat_name[3], Bias_seq1_0_conv2_1, 64)) return 0;
+	if(!LoadDouble(layer_1_bias_dat_name[4], Bias_seq1_1_conv1_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_bias_dat_name[5], Bias_seq1_1_conv1_1, 64)) return 0;
+	if(!LoadDouble(layer_1_bias_dat_name[6], Bias_seq1_1_conv2_0_1, 144)) return 0;
+	if(!LoadDouble(layer_1_bias_dat_name[7], Bias_seq1_1_conv2_1, 64)) return 0;
+
+	if(!LoadDouble(layer_2_mu_dat_name[0], Mu_seq2_0_conv1_0_1, 230)) return 0;
+	if(!LoadDouble(layer_2_mu_dat_name[1], Mu_seq2_0_conv1_1, 128)) return 0;
+	if(!LoadDouble(layer_2_mu_dat_name[2], Mu_seq2_0_conv2_0_1, 230)) return 0;
+	if(!LoadDouble(layer_2_mu_dat_name[3], Mu_seq2_0_conv2_1, 128)) return 0;
+	if(!LoadDouble(layer_2_mu_dat_name[4], Mu_seq2_0_downsample_1, 128)) return 0;
+	if(!LoadDouble(layer_2_mu_dat_name[5], Mu_seq2_1_conv1_0_1, 288)) return 0;
+	if(!LoadDouble(layer_2_mu_dat_name[6], Mu_seq2_1_conv1_1, 128)) return 0;
+	if(!LoadDouble(layer_2_mu_dat_name[7], Mu_seq2_1_conv2_0_1, 288)) return 0;
+	if(!LoadDouble(layer_2_mu_dat_name[8], Mu_seq2_1_conv2_1, 128)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[0], Var_seq2_0_conv1_0_1, 230)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[1], Var_seq2_0_conv1_1, 128)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[2], Var_seq2_0_conv2_0_1, 230)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[3], Var_seq2_0_conv2_1, 128)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[4], Var_seq2_0_downsample_1, 128)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[5], Var_seq2_1_conv1_0_1, 288)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[6], Var_seq2_1_conv1_1, 128)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[7], Var_seq2_1_conv2_0_1, 288)) return 0;
+	if(!LoadDouble(layer_2_var_dat_name[8], Var_seq2_1_conv2_1, 128)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[0], Gamma_seq2_0_conv1_0_1, 230)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[1], Gamma_seq2_0_conv1_1, 128)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[2], Gamma_seq2_0_conv2_0_1, 230)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[3], Gamma_seq2_0_conv2_1, 128)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[4], Gamma_seq2_0_downsample_1, 128)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[5], Gamma_seq2_1_conv1_0_1, 288)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[6], Gamma_seq2_1_conv1_1, 128)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[7], Gamma_seq2_1_conv2_0_1, 288)) return 0;
+	if(!LoadDouble(layer_2_gamma_dat_name[8], Gamma_seq2_1_conv2_1, 128)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[0], Bias_seq2_0_conv1_0_1, 230)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[1], Bias_seq2_0_conv1_1, 128)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[2], Bias_seq2_0_conv2_0_1, 230)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[3], Bias_seq2_0_conv2_1, 128)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[4], Bias_seq2_0_downsample_1, 128)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[5], Bias_seq2_1_conv1_0_1, 288)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[6], Bias_seq2_1_conv1_1, 128)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[7], Bias_seq2_1_conv2_0_1, 288)) return 0;
+	if(!LoadDouble(layer_2_bias_dat_name[8], Bias_seq2_1_conv2_1, 128)) return 0;
+
+	if(!LoadDouble(layer_3_mu_dat_name[0], Mu_seq3_0_conv1_0_1, 460)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[1], Mu_seq3_0_conv1_1, 256)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[2], Mu_seq3_0_conv2_0_1, 460)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[3], Mu_seq3_0_conv2_1, 256)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[4], Mu_seq3_0_downsample_1, 256)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[5], Mu_seq3_1_conv1_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[6], Mu_seq3_1_conv1_1, 256)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[7], Mu_seq3_1_conv2_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[8], Mu_seq3_1_conv2_1, 256)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[0], Var_seq3_0_conv1_0_1, 460)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[1], Var_seq3_0_conv1_1, 256)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[2], Var_seq3_0_conv2_0_1, 460)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[3], Var_seq3_0_conv2_1, 256)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[4], Var_seq3_0_downsample_1, 256)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[5], Var_seq3_1_conv1_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[6], Var_seq3_1_conv1_1, 256)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[7], Var_seq3_1_conv2_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[8], Var_seq3_1_conv2_1, 256)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[0], Gamma_seq3_0_conv1_0_1, 460)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[1], Gamma_seq3_0_conv1_1, 256)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[2], Gamma_seq3_0_conv2_0_1, 460)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[3], Gamma_seq3_0_conv2_1, 256)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[4], Gamma_seq3_0_downsample_1, 256)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[5], Gamma_seq3_1_conv1_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[6], Gamma_seq3_1_conv1_1, 256)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[7], Gamma_seq3_1_conv2_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[8], Gamma_seq3_1_conv2_1, 256)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[0], Bias_seq3_0_conv1_0_1, 460)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[1], Bias_seq3_0_conv1_1, 256)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[2], Bias_seq3_0_conv2_0_1, 460)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[3], Bias_seq3_0_conv2_1, 256)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[4], Bias_seq3_0_downsample_1, 256)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[5], Bias_seq3_1_conv1_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[6], Bias_seq3_1_conv1_1, 256)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[7], Bias_seq3_1_conv2_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[8], Bias_seq3_1_conv2_1, 256)) return 0;
+
+	if(!LoadDouble(layer_4_mu_dat_name[0], Mu_seq4_0_conv1_0_1, 921)) return 0;
+	if(!LoadDouble(layer_4_mu_dat_name[1], Mu_seq4_0_conv1_1, 512)) return 0;
+	if(!LoadDouble(layer_4_mu_dat_name[2], Mu_seq4_0_conv2_0_1, 921)) return 0;
+	if(!LoadDouble(layer_4_mu_dat_name[3], Mu_seq4_0_conv2_1, 512)) return 0;
+	if(!LoadDouble(layer_4_mu_dat_name[4], Mu_seq4_0_downsample_1, 512)) return 0;
+	if(!LoadDouble(layer_4_mu_dat_name[5], Mu_seq4_1_conv1_0_1, 1152)) return 0;
+	if(!LoadDouble(layer_4_mu_dat_name[6], Mu_seq4_1_conv1_1, 512)) return 0;
+	if(!LoadDouble(layer_4_mu_dat_name[7], Mu_seq4_1_conv2_0_1, 1152)) return 0;
+	if(!LoadDouble(layer_4_mu_dat_name[8], Mu_seq4_1_conv2_1, 512)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[0], Var_seq4_0_conv1_0_1, 921)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[1], Var_seq4_0_conv1_1, 512)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[2], Var_seq4_0_conv2_0_1, 921)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[3], Var_seq4_0_conv2_1, 512)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[4], Var_seq4_0_downsample_1, 512)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[5], Var_seq4_1_conv1_0_1, 1152)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[6], Var_seq4_1_conv1_1, 512)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[7], Var_seq4_1_conv2_0_1, 1152)) return 0;
+	if(!LoadDouble(layer_4_var_dat_name[8], Var_seq4_1_conv2_1, 512)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[0], Gamma_seq4_0_conv1_0_1, 921)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[1], Gamma_seq4_0_conv1_1, 512)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[2], Gamma_seq4_0_conv2_0_1, 921)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[3], Gamma_seq4_0_conv2_1, 512)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[4], Gamma_seq4_0_downsample_1, 512)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[5], Gamma_seq4_1_conv1_0_1, 1152)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[6], Gamma_seq4_1_conv1_1, 512)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[7], Gamma_seq4_1_conv2_0_1, 1152)) return 0;
+	if(!LoadDouble(layer_4_gamma_dat_name[8], Gamma_seq4_1_conv2_1, 512)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[0], Bias_seq4_0_conv1_0_1, 921)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[1], Bias_seq4_0_conv1_1, 512)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[2], Bias_seq4_0_conv2_0_1, 921)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[3], Bias_seq4_0_conv2_1, 512)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[4], Bias_seq4_0_downsample_1, 512)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[5], Bias_seq4_1_conv1_0_1, 1152)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[6], Bias_seq4_1_conv1_1, 512)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[7], Bias_seq4_1_conv2_0_1, 1152)) return 0;
+	if(!LoadDouble(layer_4_bias_dat_name[8], Bias_seq4_1_conv2_1, 512)) return 0;
+
+	LoadDTYPE("output_4.dat", output_golden, 25088);
 
 	// ====================================
 	// Function to test here:
 
-	r2plus1d(input, output, kernel_stem_1, kernel_stem_2,
-		Kernel_1_1, Kernel_1_2, Kernel_1_3, Kernel_1_4, Kernel_1_5, Kernel_1_6, Kernel_1_7, Kernel_1_8,
-		Kernel_2_1, Kernel_2_2, Kernel_2_3, Kernel_2_4, Kernel_2_5, Kernel_2_6, Kernel_2_7, Kernel_2_8, Kernel_2_9,
-		Kernel_3_1, Kernel_3_2, Kernel_3_3, Kernel_3_4, Kernel_3_5, Kernel_3_6, Kernel_3_7, Kernel_3_8, Kernel_3_9,
-		Kernel_4_1, Kernel_4_2, Kernel_4_3, Kernel_4_4, Kernel_4_5, Kernel_4_6, Kernel_4_7, Kernel_4_8, Kernel_4_9);
+	r2plus1d(input, output, Kernel_stem_0, Kernel_stem_3, Mu_stem_1, Mu_stem_4, Var_stem_1, Var_stem_4, Gamma_stem_1, Gamma_stem_4, Bias_stem_1, Bias_stem_4,
+            Kernel_seq1_0_conv1_0_0, Kernel_seq1_0_conv1_0_3, Kernel_seq1_0_conv2_0_0, Kernel_seq1_0_conv2_0_3, Kernel_seq1_1_conv1_0_0, Kernel_seq1_1_conv1_0_3, Kernel_seq1_1_conv2_0_0, Kernel_seq1_1_conv2_0_3,
+                Mu_seq1_0_conv1_0_1, Mu_seq1_0_conv1_1, Mu_seq1_0_conv2_0_1, Mu_seq1_0_conv2_1, Mu_seq1_1_conv1_0_1, Mu_seq1_1_conv1_1, Mu_seq1_1_conv2_0_1, Mu_seq1_1_conv2_1,
+                Var_seq1_0_conv1_0_1, Var_seq1_0_conv1_1, Var_seq1_0_conv2_0_1, Var_seq1_0_conv2_1, Var_seq1_1_conv1_0_1, Var_seq1_1_conv1_1, Var_seq1_1_conv2_0_1, Var_seq1_1_conv2_1,
+                Gamma_seq1_0_conv1_0_1, Gamma_seq1_0_conv1_1, Gamma_seq1_0_conv2_0_1, Gamma_seq1_0_conv2_1, Gamma_seq1_1_conv1_0_1, Gamma_seq1_1_conv1_1, Gamma_seq1_1_conv2_0_1, Gamma_seq1_1_conv2_1,
+                Bias_seq1_0_conv1_0_1, Bias_seq1_0_conv1_1, Bias_seq1_0_conv2_0_1, Bias_seq1_0_conv2_1, Bias_seq1_1_conv1_0_1, Bias_seq1_1_conv1_1, Bias_seq1_1_conv2_0_1, Bias_seq1_1_conv2_1,
+            Kernel_seq2_0_conv1_0_0, Kernel_seq2_0_conv1_0_3, Kernel_seq2_0_conv2_0_0, Kernel_seq2_0_conv2_0_3, Kernel_seq2_0_downsample_0, Kernel_seq2_1_conv1_0_0, Kernel_seq2_1_conv1_0_3, Kernel_seq2_1_conv2_0_0, Kernel_seq2_1_conv2_0_3,
+                Mu_seq2_0_conv1_0_1, Mu_seq2_0_conv1_1, Mu_seq2_0_conv2_0_1, Mu_seq2_0_conv2_1, Mu_seq2_0_downsample_1, Mu_seq2_1_conv1_0_1, Mu_seq2_1_conv1_1, Mu_seq2_1_conv2_0_1, Mu_seq2_1_conv2_1,
+                Var_seq2_0_conv1_0_1, Var_seq2_0_conv1_1, Var_seq2_0_conv2_0_1, Var_seq2_0_conv2_1, Var_seq2_0_downsample_1, Var_seq2_1_conv1_0_1, Var_seq2_1_conv1_1, Var_seq2_1_conv2_0_1, Var_seq2_1_conv2_1,
+                Gamma_seq2_0_conv1_0_1, Gamma_seq2_0_conv1_1, Gamma_seq2_0_conv2_0_1, Gamma_seq2_0_conv2_1, Gamma_seq2_0_downsample_1, Gamma_seq2_1_conv1_0_1, Gamma_seq2_1_conv1_1, Gamma_seq2_1_conv2_0_1, Gamma_seq2_1_conv2_1,
+                Bias_seq2_0_conv1_0_1, Bias_seq2_0_conv1_1, Bias_seq2_0_conv2_0_1, Bias_seq2_0_conv2_1, Bias_seq2_0_downsample_1, Bias_seq2_1_conv1_0_1, Bias_seq2_1_conv1_1, Bias_seq2_1_conv2_0_1, Bias_seq2_1_conv2_1,
+            Kernel_seq3_0_conv1_0_0, Kernel_seq3_0_conv1_0_3, Kernel_seq3_0_conv2_0_0, Kernel_seq3_0_conv2_0_3, Kernel_seq3_0_downsample_0, Kernel_seq3_1_conv1_0_0, Kernel_seq3_1_conv1_0_3, Kernel_seq3_1_conv2_0_0, Kernel_seq3_1_conv2_0_3,
+                Mu_seq3_0_conv1_0_1, Mu_seq3_0_conv1_1, Mu_seq3_0_conv2_0_1, Mu_seq3_0_conv2_1, Mu_seq3_0_downsample_1, Mu_seq3_1_conv1_0_1, Mu_seq3_1_conv1_1, Mu_seq3_1_conv2_0_1, Mu_seq3_1_conv2_1,
+                Var_seq3_0_conv1_0_1, Var_seq3_0_conv1_1, Var_seq3_0_conv2_0_1, Var_seq3_0_conv2_1, Var_seq3_0_downsample_1, Var_seq3_1_conv1_0_1, Var_seq3_1_conv1_1, Var_seq3_1_conv2_0_1, Var_seq3_1_conv2_1,
+                Gamma_seq3_0_conv1_0_1, Gamma_seq3_0_conv1_1, Gamma_seq3_0_conv2_0_1, Gamma_seq3_0_conv2_1, Gamma_seq3_0_downsample_1, Gamma_seq3_1_conv1_0_1, Gamma_seq3_1_conv1_1, Gamma_seq3_1_conv2_0_1, Gamma_seq3_1_conv2_1,
+                Bias_seq3_0_conv1_0_1, Bias_seq3_0_conv1_1, Bias_seq3_0_conv2_0_1, Bias_seq3_0_conv2_1, Bias_seq3_0_downsample_1, Bias_seq3_1_conv1_0_1, Bias_seq3_1_conv1_1, Bias_seq3_1_conv2_0_1, Bias_seq3_1_conv2_1,
+            Kernel_seq4_0_conv1_0_0, Kernel_seq4_0_conv1_0_3, Kernel_seq4_0_conv2_0_0, Kernel_seq4_0_conv2_0_3, Kernel_seq4_0_downsample_0, Kernel_seq4_1_conv1_0_0, Kernel_seq4_1_conv1_0_3, Kernel_seq4_1_conv2_0_0, Kernel_seq4_1_conv2_0_3,
+                Mu_seq4_0_conv1_0_1, Mu_seq4_0_conv1_1, Mu_seq4_0_conv2_0_1, Mu_seq4_0_conv2_1, Mu_seq4_0_downsample_1, Mu_seq4_1_conv1_0_1, Mu_seq4_1_conv1_1, Mu_seq4_1_conv2_0_1, Mu_seq4_1_conv2_1,
+                Var_seq4_0_conv1_0_1, Var_seq4_0_conv1_1, Var_seq4_0_conv2_0_1, Var_seq4_0_conv2_1, Var_seq4_0_downsample_1, Var_seq4_1_conv1_0_1, Var_seq4_1_conv1_1, Var_seq4_1_conv2_0_1, Var_seq4_1_conv2_1,
+                Gamma_seq4_0_conv1_0_1, Gamma_seq4_0_conv1_1, Gamma_seq4_0_conv2_0_1, Gamma_seq4_0_conv2_1, Gamma_seq4_0_downsample_1, Gamma_seq4_1_conv1_0_1, Gamma_seq4_1_conv1_1, Gamma_seq4_1_conv2_0_1, Gamma_seq4_1_conv2_1,
+                Bias_seq4_0_conv1_0_1, Bias_seq4_0_conv1_1, Bias_seq4_0_conv2_0_1, Bias_seq4_0_conv2_1, Bias_seq4_0_downsample_1, Bias_seq4_1_conv1_0_1, Bias_seq4_1_conv1_1, Bias_seq4_1_conv2_0_1, Bias_seq4_1_conv2_1,
+            Kernel_linear);
 
 	// calculate errors
 	float errors;

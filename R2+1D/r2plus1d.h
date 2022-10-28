@@ -1,10 +1,9 @@
 #ifndef __R2PLUS1D_H__
 #define __R2PLUS1D_H__
 
-#define _N 1
-#define _C 1152
 #define _D 16
-typedef int dtype;
+
+typedef double dtype;
 typedef int int_t;
 
 void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,

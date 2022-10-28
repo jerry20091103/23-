@@ -1,5 +1,5 @@
 #include "r2plus1d.h"
-void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num){
+void AdaptiveAvgPool3d(dtype* X_data,int_t* X_num, dtype* Y_data, int_t* Y_num ){
     int_t N = X_num[0];
 	int_t C = X_num[1];
 	int_t D = X_num[2];
@@ -19,11 +19,13 @@ void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num)
     int_t kernel_W = W - (W_out-1) * stride_W;
     int_t padding = 0;
     
+
 	for(int_t n = 0; n < N; n++){
         for(int_t c = 0; c < C; c++){
             for(int_t d = 0; d < D_out; d++){
                 for (int_t h = 0; h < H_out; h++){
                     for (int_t w = 0; w < W_out; w++){
+                        Y_data[n*C*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] = 0;
                         for(int_t kd = 0; kd < kernel_D; kd++){
                             for(int_t kh = 0; kh < kernel_H; kh++){
                                 for(int_t kw = 0; kw < kernel_W; kw++){

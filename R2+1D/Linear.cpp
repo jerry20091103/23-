@@ -10,9 +10,7 @@ using namespace std;
 void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, dtype* Kernel){
     int H = X_num[0];
     int W = X_num[1];
-    
-    for(int i = 0; i < _C*H; i++)
-        Y_data[i] = 0;
+    int C = Y_num[0];
 
     for(int h = 0; h < H; h++)
         for(int c = 0; c < _C; c++)

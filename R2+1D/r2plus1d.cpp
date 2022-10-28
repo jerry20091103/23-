@@ -229,10 +229,10 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
 
  #else
     // R2Plus1dStem
-    dtype* X_stem_1 = (dtype*)malloc(141120*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
-    dtype* X_stem_2 = (dtype*)malloc(200704*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
-    // // Sequential 1~4
-    dtype* X_seq = (dtype*)malloc(200704*sizeof(dtype)); // value after 1~4 sequential layer
+    dtype* X_stem_1 = (dtype*)malloc(2257920*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
+    dtype* X_stem_2 = (dtype*)malloc(3211264*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
+    // Sequential 1~4
+    dtype* X_seq = (dtype*)malloc(50176*sizeof(dtype)); // value after 1~4 sequential layer
     // AdaptiveAvgPool3d
     dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
     // Linear
@@ -240,8 +240,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
  #endif
 
     // ========================R2Plus1dStem ==================================
-	int_t X_num[5] = {_N, 3, _D, 112, 112};
-    int_t X_stem_1_num[5] = {_N, 45, 1, 56, 56};
+	int_t X_num[5] = {1, 3, 1, 111, 111};
+    int_t X_stem_1_num[5] = {1, 45, 1, 56, 56};
     int_t Kernel_stem_1_num[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
@@ -249,8 +249,9 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
     Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, stride_1, padding_1, 0.4609071612358093262, 60);
     BatchNorm3d(X_stem_1, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.07323520630598068237, 55);
     ReLU(X_stem_1, X_stem_1_num);
+    
 
-    int_t X_stem_2_num[5] = {_N, 64, 1, 56, 56};
+    int_t X_stem_2_num[5] = {1, 64, 1, 56, 56};
     int_t Kernel_stem_2_num[3] = {3, 1, 1};
     int_t stride_2[3] = {1, 1, 1};
     int_t padding_2[3] = {1, 0, 0};
@@ -258,6 +259,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
     Conv3d(X_stem_1, X_stem_1_num, X_stem_2, X_stem_2_num, Kernel_stem_3, Kernel_stem_2_num, stride_2, padding_2, 0.09311912953853607178, 70);
     BatchNorm3d(X_stem_2, X_stem_2_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.07423608750104904175, 65);
     ReLU(X_stem_2, X_stem_2_num);
+    
     
     // // for stem test
     // for(int_t i = 0; i < 200704; i++)
@@ -291,11 +293,11 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
     //     Y[i] = X_seq[i]; // assign result to output
     
     // ======================== AdaptiveAvgPool3d ==================================
-    int_t X_seq_num[5] = {_N, 512, 1, 7, 7};
-    int_t X_adap_num[5] = {_N, 512, 1, 1, 1};
-    AdaptiveAvgPool3d(X_seq, X_seq_num, X_adap, X_adap_num);
+    int_t X_adap_in_num[5] = {1, 512, 1, 7, 7};
+    int_t X_adap_out_num[5] = {1, 512, 1, 1, 1};
+    AdaptiveAvgPool3d(X_stem_2, X_adap_in_num, X_adap, X_adap_out_num);
 
-    // // for sequential test
+    // // for AdaptiveAvgPool3d test
     // for(int_t i = 0; i < 512; i++)
     //     Y[i] = X_adap[i]; // assign result to output
 
@@ -306,8 +308,6 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
     // for(int_t i = 0; i < 400; i++)
     //     Y[i] = X_linear[i]; // assign result to output
 
- 
- 
  #ifndef __SYNTHESIS__
     free(X_stem_1);
     free(X_stem_2);
@@ -317,12 +317,12 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
  #endif
 
     return;
-	// └─Conv3d: 2-1                            [1, 45, 1, 56, 56]        6,615
-    // └─BatchNorm3d: 2-2                       [1, 45, 1, 56, 56]        90
-    // └─ReLU: 2-3                              [1, 45, 1, 56, 56]        --
-    // └─Conv3d: 2-4                            [1, 64, 1, 56, 56]        8,640
-    // └─BatchNorm3d: 2-5                       [1, 64, 1, 56, 56]        128
-    // └─ReLU: 2-6 
+	// ??��?Conv3d: 2-1                            [1, 45, 1, 56, 56]        6,615
+    // ??��?BatchNorm3d: 2-2                       [1, 45, 1, 56, 56]        90
+    // ??��?ReLU: 2-3                              [1, 45, 1, 56, 56]        --
+    // ??��?Conv3d: 2-4                            [1, 64, 1, 56, 56]        8,640
+    // ??��?BatchNorm3d: 2-5                       [1, 64, 1, 56, 56]        128
+    // ??��?ReLU: 2-6 
     // =============================================================================
     // nn.Conv3d(3, 45, kernel_size=(1, 7, 7),
     //                   stride=(1, 2, 2), padding=(0, 3, 3),

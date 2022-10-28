@@ -8,13 +8,39 @@
 using namespace std;
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
+bool LoadFile(string filename, double* arr, int size);
+bool LoadDouble(string filename, double* arr, int size);
+
+string kernel_1_dat_name[8] = {"layer1.0.conv1.0.0.weight.dat", "layer1.0.conv1.0.3.weight.dat", "layer1.0.conv2.0.0.weight.dat", "layer1.0.conv2.0.3.weight.dat", "layer1.1.conv1.0.0.weight.dat", "layer1.1.conv1.0.3.weight.dat", "layer1.1.conv2.0.0.weight.dat", "layer1.1.conv2.0.3.weight.dat"};
+string kernel_2_dat_name[9] = {"layer2.0.conv1.0.0.weight.dat", "layer2.0.conv1.0.3.weight.dat", "layer2.0.conv2.0.0.weight.dat", "layer2.0.conv2.0.3.weight.dat", "layer2.0.downsample.0.weight.dat", "layer2.1.conv1.0.0.weight.dat", "layer2.1.conv1.0.3.weight.dat", "layer2.1.conv2.0.0.weight.dat", "layer2.1.conv2.0.3.weight.dat"};
+string kernel_3_dat_name[9] = {"layer3.0.conv1.0.0.weight.dat", "layer3.0.conv1.0.3.weight.dat", "layer3.0.conv2.0.0.weight.dat", "layer3.0.conv2.0.3.weight.dat", "layer3.0.downsample.0.weight.dat", "layer3.1.conv1.0.0.weight.dat", "layer3.1.conv1.0.3.weight.dat", "layer3.1.conv2.0.0.weight.dat", "layer3.1.conv2.0.3.weight.dat"};
+string kernel_4_dat_name[9] = {"layer4.0.conv1.0.0.weight.dat", "layer4.0.conv1.0.3.weight.dat", "layer4.0.conv2.0.0.weight.dat", "layer4.0.conv2.0.3.weight.dat", "layer4.0.downsample.0.weight.dat", "layer4.1.conv1.0.0.weight.dat", "layer4.1.conv1.0.3.weight.dat", "layer4.1.conv2.0.0.weight.dat", "layer4.1.conv2.0.3.weight.dat"};
+
+string layer_1_mu_name[]
+		double* Mu_stem_1, double* Mu_stem_4, double* Var_stem_1, double* Var_stem_4, double* Gamma_stem_1, double* Gamma_stem_4, double* Bias_stem_1, double* Bias_stem_4,
+	
+		double* Mu_seq1_0_conv1_0_1, double* Mu_seq1_0_conv1_1, double* Mu_seq1_0_conv2_0_1, double* Mu_seq1_0_conv2_1, double* Mu_seq1_1_conv1_0_1, double* Mu_seq1_1_conv1_1, double* Mu_seq1_1_conv2_0_1, double* Mu_seq1_1_conv2_1,
+		double* Var_seq1_0_conv1_0_1, double* Var_seq1_0_conv1_1, double* Var_seq1_0_conv2_0_1, double* Var_seq1_0_conv2_1, double* Var_seq1_1_conv1_0_1, double* Var_seq1_1_conv1_1, double* Var_seq1_1_conv2_0_1, double* Var_seq1_1_conv2_1,
+		double* Gamma_seq1_0_conv1_0_1, double* Gamma_seq1_0_conv1_1, double* Gamma_seq1_0_conv2_0_1, double* Gamma_seq1_0_conv2_1, double* Gamma_seq1_1_conv1_0_1, double* Gamma_seq1_1_conv1_1, double* Gamma_seq1_1_conv2_0_1, double* Gamma_seq1_1_conv2_1,
+		double* Bias_seq1_0_conv1_0_1, double* Bias_seq1_0_conv1_1, double* Bias_seq1_0_conv2_0_1, double* Bias_seq1_0_conv2_1, double* Bias_seq1_1_conv1_0_1, double* Bias_seq1_1_conv1_1, double* Bias_seq1_1_conv2_0_1, double* Bias_seq1_1_conv2_1,
+
+		double* Mu_seq2_0_conv1_0_1, double* Mu_seq2_0_conv1_1, double* Mu_seq2_0_conv2_0_1, double* Mu_seq2_0_conv2_1, double* Mu_seq2_0_downsample_1, double* Mu_seq2_1_conv1_0_1, double* Mu_seq2_1_conv1_1, double* Mu_seq2_1_conv2_0_1, double* Mu_seq2_1_conv2_1,
+		double* Var_seq2_0_conv1_0_1, double* Var_seq2_0_conv1_1, double* Var_seq2_0_conv2_0_1, double* Var_seq2_0_conv2_1, double* Var_seq2_0_downsample_1, double* Var_seq2_1_conv1_0_1, double* Var_seq2_1_conv1_1, double* Var_seq2_1_conv2_0_1, double* Var_seq2_1_conv2_1,
+		double* Gamma_seq2_0_conv1_0_1, double* Gamma_seq2_0_conv1_1, double* Gamma_seq2_0_conv2_0_1, double* Gamma_seq2_0_conv2_1, double* Gamma_seq2_0_downsample_1, double* Gamma_seq2_1_conv1_0_1, double* Gamma_seq2_1_conv1_1, double* Gamma_seq2_1_conv2_0_1, double* Gamma_seq2_1_conv2_1,
+		double* Bais_seq2_0_conv1_0_1, double* Bais_seq2_0_conv1_1, double* Bais_seq2_0_conv2_0_1, double* Bais_seq2_0_conv2_1, double* Bais_seq2_0_downsample_1, double* Bais_seq2_1_conv1_0_1, double* Bais_seq2_1_conv1_1, double* Bais_seq2_1_conv2_0_1, double* Bais_seq2_1_conv2_1,
+	
+		double* Mu_seq3_0_conv1_0_1, double* Mu_seq3_0_conv1_1, double* Mu_seq3_0_conv2_0_1, double* Mu_seq3_0_conv2_1, double* Mu_seq3_0_downsample_1, double* Mu_seq3_1_conv1_0_1, double* Mu_seq3_1_conv1_1, double* Mu_seq3_1_conv2_0_1, double* Mu_seq3_1_conv2_1,
+		double* Var_seq3_0_conv1_0_1, double* Var_seq3_0_conv1_1, double* Var_seq3_0_conv2_0_1, double* Var_seq3_0_conv2_1, double* Var_seq3_0_downsample_1, double* Var_seq3_1_conv1_0_1, double* Var_seq3_1_conv1_1, double* Var_seq3_1_conv2_0_1, double* Var_seq3_1_conv2_1,
+		double* Gamma_seq3_0_conv1_0_1, double* Gamma_seq3_0_conv1_1, double* Gamma_seq3_0_conv2_0_1, double* Gamma_seq3_0_conv2_1, double* Gamma_seq3_0_downsample_1, double* Gamma_seq3_1_conv1_0_1, double* Gamma_seq3_1_conv1_1, double* Gamma_seq3_1_conv2_0_1, double* Gamma_seq3_1_conv2_1,
+		double* Bais_seq3_0_conv1_0_1, double* Bais_seq3_0_conv1_1, double* Bais_seq3_0_conv2_0_1, double* Bais_seq3_0_conv2_1, double* Bais_seq3_0_downsample_1, double* Bais_seq3_1_conv1_0_1, double* Bais_seq3_1_conv1_1, double* Bais_seq3_1_conv2_0_1, double* Bais_seq3_1_conv2_1,
+	
+		double* Mu_seq4_0_conv1_0_1, double* Mu_seq4_0_conv1_1, double* Mu_seq4_0_conv2_0_1, double* Mu_seq4_0_conv2_1, double* Mu_seq4_0_downsample_1, double* Mu_seq4_1_conv1_0_1, double* Mu_seq4_1_conv1_1, double* Mu_seq4_1_conv2_0_1, double* Mu_seq4_1_conv2_1,
+		double* Var_seq4_0_conv1_0_1, double* Var_seq4_0_conv1_1, double* Var_seq4_0_conv2_0_1, double* Var_seq4_0_conv2_1, double* Var_seq4_0_downsample_1, double* Var_seq4_1_conv1_0_1, double* Var_seq4_1_conv1_1, double* Var_seq4_1_conv2_0_1, double* Var_seq4_1_conv2_1,
+		double* Gamma_seq4_0_conv1_0_1, double* Gamma_seq4_0_conv1_1, double* Gamma_seq4_0_conv2_0_1, double* Gamma_seq4_0_conv2_1, double* Gamma_seq4_0_downsample_1, double* Gamma_seq4_1_conv1_0_1, double* Gamma_seq4_1_conv1_1, double* Gamma_seq4_1_conv2_0_1, double* Gamma_seq4_1_conv2_1,
+		double* Bais_seq4_0_conv1_0_1, double* Bais_seq4_0_conv1_1, double* Bais_seq4_0_conv2_0_1, double* Bais_seq4_0_conv2_1, double* Bais_seq4_0_downsample_1, double* Bais_seq4_1_conv1_0_1, double* Bais_seq4_1_conv1_1, double* Bais_seq4_1_conv2_0_1, double* Bais_seq4_1_conv2_1,
+	dtype* Kernel_linear);
 
 
-//string kernel_dat_name[12] = {"layer1_1_weight.dat", "layer1_2_weight.dat", "layer1_3_weight.dat","layer1_4_weight.dat","layer1_5_weight.dat", "layer1_6_weight.dat","layer1_7_weight.dat", "layer1_8_weight.dat", "layer1_9_weight.dat", "layer1_10_weight.dat", "layer1_11_weight.dat", "layer1_12_weight.dat"};
-string kernel_1_dat_name[8] = { "weight_1_1.dat", "weight_1_2.dat", "weight_1_3.dat","weight_1_4.dat","weight_1_5.dat", "weight_1_6.dat","weight_1_7.dat", "weight_1_8.dat" };
-string kernel_2_dat_name[9] = { "weight_2_1.dat", "weight_2_2.dat", "weight_2_3.dat","weight_2_4.dat","weight_2_5.dat", "weight_2_6.dat","weight_2_7.dat", "weight_2_8.dat", "weight_2_9.dat" };
-string kernel_3_dat_name[9] = { "weight_3_1.dat", "weight_3_2.dat", "weight_3_3.dat","weight_3_4.dat","weight_3_5.dat", "weight_3_6.dat","weight_3_7.dat", "weight_3_8.dat", "weight_3_9.dat" };
-string kernel_4_dat_name[9] = { "weight_4_1.dat", "weight_4_2.dat", "weight_4_3.dat","weight_4_4.dat","weight_4_5.dat", "weight_4_6.dat","weight_4_7.dat", "weight_4_8.dat", "weight_4_9.dat" };
 
 int_t main() {
 
@@ -78,235 +104,58 @@ int_t main() {
 	dtype *Kernel_4_9 = (dtype*)malloc(1769472 * sizeof(dtype));
 	// kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
 
-	FILE         *fp;
-	std::ifstream file;
-	dtype data = 0;
-
 	// load input
-	file.open("input.dat");
-	for (int_t i = 0; i < 36963; i++) {
-		file >> data;
-		input[i] = data;
-	}
-	file.close();
+	if(!LoadDTYPE("input.dat", input, 602112))
+		return 0;
 
 	// load stem kernel
-	// load kernel_1
-	file.open("weight_0_1.dat");
-	if (!file.is_open()) {
-		cout << "weight_0_1.dat not found!" << endl;
-		return 0;
-	}
-	for (int_t i = 0; i < 6615; i++) {
-		file >> data;
-		kernel_stem_1[i] = data;
-	}
-	file.close();
-
-	// load kernel_2
-	file.open("weight_0_2.dat");
-	if (!file.is_open()) {
-		cout << "weight_0_2.dat not found!" << endl;
-		return 0;
-	}
-	for (int_t i = 0; i < 8640; i++) {
-		file >> data;
-		kernel_stem_2[i] = data;
-	}
-	file.close();
+	if(!LoadDTYPE("stem.0.weight.dat", kernel_stem_1, 6615)) return 0;
+	if(!LoadDTYPE("stem.3.weight.dat", kernel_stem_2, 8640)) return 0;
 
 	// load layer1 kernel
-	for (int_t j = 1; j < 8; j += 2) {
-		file.open(kernel_1_dat_name[j - 1]);
-		for (int_t i = 0; i < 82944; i++) {
-			file >> data;
-			if (j == 1) Kernel_1_1[i] = data;
-			else if (j == 3) Kernel_1_3[i] = data;
-			else if (j == 5) Kernel_1_5[i] = data;
-			else if (j == 7) Kernel_1_7[i] = data;
-		}
-		file.close();
-	}
-	for (int_t j = 2; j <= 8; j += 2) {
-		file.open(kernel_1_dat_name[j - 1]);
-		for (int_t i = 0; i < 27648; i++) {
-			file >> data;
-			if (j == 2) Kernel_1_2[i] = data;
-			else if (j == 4) Kernel_1_4[i] = data;
-			else if (j == 6) Kernel_1_6[i] = data;
-			else if (j == 8) Kernel_1_8[i] = data;
-		}
-		file.close();
-	}
+	if(!LoadDTYPE(kernel_1_dat_name[0], Kernel_1_1, 82944)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[2], Kernel_1_3, 82944)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[4], Kernel_1_5, 82944)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[6], Kernel_1_7, 82944)) return 0;
 
-	//// load layer2 kernel
-	file.open(kernel_2_dat_name[0]);
-	for (int_t i = 0; i < 132480; i++) {
-		file >> data;
-		Kernel_2_1[i] = data;
-	}
-	file.close();
-	file.open(kernel_2_dat_name[1]);
-	for (int_t i = 0; i < 88320; i++) {
-		file >> data;
-		Kernel_2_2[i] = data;
-	}
-	file.close();
-	file.open(kernel_2_dat_name[2]);
-	for (int_t i = 0; i < 264960; i++) {
-		file >> data;
-		Kernel_2_3[i] = data;
-	}
-	file.close();
-	file.open(kernel_2_dat_name[3]);
-	for (int_t i = 0; i < 88320; i++) {
-		file >> data;
-		Kernel_2_4[i] = data;
-	}
-	file.close();
-	file.open(kernel_2_dat_name[4]);
-	for (int_t i = 0; i < 8192; i++) {
-		file >> data;
-		Kernel_2_5[i] = data;
-	}
-	file.close();
-	file.open(kernel_2_dat_name[5]);
-	for (int_t i = 0; i < 331776; i++) {
-		file >> data;
-		Kernel_2_6[i] = data;
-	}
-	file.close();
-	file.open(kernel_2_dat_name[6]);
-	for (int_t i = 0; i < 110592; i++) {
-		file >> data;
-		Kernel_2_7[i] = data;
-	}
-	file.close();
-	file.open(kernel_2_dat_name[7]);
-	for (int_t i = 0; i < 331776; i++) {
-		file >> data;
-		Kernel_2_8[i] = data;
-	}
-	file.close();
-	file.open(kernel_2_dat_name[8]);
-	for (int_t i = 0; i < 110592; i++) {
-		file >> data;
-		Kernel_2_9[i] = data;
-	}
-	file.close();
+	if(!LoadDTYPE(kernel_1_dat_name[1], Kernel_1_2, 27648)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[3], Kernel_1_4, 27648)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[5], Kernel_1_6, 27648)) return 0;
+	if(!LoadDTYPE(kernel_1_dat_name[7], Kernel_1_8, 27648)) return 0;
 
-	//// load layer3 kernel
-	file.open(kernel_3_dat_name[0]);
-	for (int_t i = 0; i < 529920; i++) {
-		file >> data;
-		Kernel_3_1[i] = data;
-	}
-	file.close();
-	file.open(kernel_3_dat_name[1]);
-	for (int_t i = 0; i < 353280; i++) {
-		file >> data;
-		Kernel_3_2[i] = data;
-	}
-	file.close();
-	file.open(kernel_3_dat_name[2]);
-	for (int_t i = 0; i < 1059840; i++) {
-		file >> data;
-		Kernel_3_3[i] = data;
-	}
-	file.close();
-	file.open(kernel_3_dat_name[3]);
-	for (int_t i = 0; i < 353280; i++) {
-		file >> data;
-		Kernel_3_4[i] = data;
-	}
-	file.close();
-	file.open(kernel_3_dat_name[4]);
-	for (int_t i = 0; i < 32768; i++) {
-		file >> data;
-		Kernel_3_5[i] = data;
-	}
-	file.close();
-	file.open(kernel_3_dat_name[5]);
-	for (int_t i = 0; i < 1327104; i++) {
-		file >> data;
-		Kernel_3_6[i] = data;
-	}
-	file.close();
-	file.open(kernel_3_dat_name[6]);
-	for (int_t i = 0; i < 442368; i++) {
-		file >> data;
-		Kernel_3_7[i] = data;
-	}
-	file.close();
-	file.open(kernel_3_dat_name[7]);
-	for (int_t i = 0; i < 1327104; i++) {
-		file >> data;
-		Kernel_3_8[i] = data;
-	}
-	file.close();
-	file.open(kernel_3_dat_name[8]);
-	for (int_t i = 0; i < 442368; i++) {
-		file >> data;
-		Kernel_3_9[i] = data;
-	}
-	file.close();
+	// load layer2 kernel
+	if(!LoadDTYPE(kernel_2_dat_name[0], Kernel_2_1, 132480)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[1], Kernel_2_2, 88320)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[2], Kernel_2_3, 264960)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[3], Kernel_2_4, 88320)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[4], Kernel_2_5, 8192)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[5], Kernel_2_6, 331776)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[6], Kernel_2_7, 110592)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[7], Kernel_2_8, 331776)) return 0;
+	if(!LoadDTYPE(kernel_2_dat_name[8], Kernel_2_9, 110592)) return 0;
 
-	//// load layer4 kernel
-	file.open(kernel_4_dat_name[0]);
-	for (int_t i = 0; i < 2121984; i++) {
-		file >> data;
-		Kernel_4_1[i] = data;
-	}
-	file.close();
-	file.open(kernel_4_dat_name[1]);
-	for (int_t i = 0; i < 1414656; i++) {
-		file >> data;
-		Kernel_4_2[i] = data;
-	}
-	file.close();
-	file.open(kernel_4_dat_name[2]);
-	for (int_t i = 0; i < 4243968; i++) {
-		file >> data;
-		Kernel_4_3[i] = data;
-	}
-	file.close();
-	file.open(kernel_4_dat_name[3]);
-	for (int_t i = 0; i < 1414656; i++) {
-		file >> data;
-		Kernel_4_4[i] = data;
-	}
-	file.close();
-	file.open(kernel_4_dat_name[4]);
-	for (int_t i = 0; i < 131072; i++) {
-		file >> data;
-		Kernel_4_5[i] = data;
-	}
-	file.close();
-	file.open(kernel_4_dat_name[5]);
-	for (int_t i = 0; i < 5308416; i++) {
-		file >> data;
-		Kernel_4_6[i] = data;
-	}
-	file.close();
-	file.open(kernel_4_dat_name[6]);
-	for (int_t i = 0; i < 1769472; i++) {
-		file >> data;
-		Kernel_4_7[i] = data;
-	}
-	file.close();
-	file.open(kernel_4_dat_name[7]);
-	for (int_t i = 0; i < 5308416; i++) {
-		file >> data;
-		Kernel_4_8[i] = data;
-	}
-	file.close();
-	file.open(kernel_4_dat_name[8]);
-	for (int_t i = 0; i < 1769472; i++) {
-		file >> data;
-		Kernel_4_9[i] = data;
-	}
-	file.close();
+	// load layer3 kernel
+	if(!LoadDTYPE(kernel_3_dat_name[0], Kernel_3_1, 529920)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[1], Kernel_3_2, 353280)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[2], Kernel_3_3, 1059840)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[3], Kernel_3_4, 353280)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[4], Kernel_3_5, 32768)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[5], Kernel_3_6, 1327104)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[6], Kernel_3_7, 442368)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[7], Kernel_3_8, 1327104)) return 0;
+	if(!LoadDTYPE(kernel_3_dat_name[8], Kernel_3_9, 442368)) return 0;
 
+	// load layer4 kernel
+	if(!LoadDTYPE(kernel_4_dat_name[0], Kernel_4_1, 2121984)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[1], Kernel_4_2, 1414656)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[2], Kernel_4_3, 4243968)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[3], Kernel_4_4, 1414656)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[4], Kernel_4_5, 131072)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[5], Kernel_4_6, 5308416)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[6], Kernel_4_7, 1769472)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[7], Kernel_4_8, 5308416)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_4_9, 1769472)) return 0;
+	
 	// load output
 	file.open("output_4.dat");
 	for (int_t i = 0; i < 25088; i++) {
@@ -400,4 +249,40 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
 						}
 					}
 	return errors;
+}
+
+bool LoadDTYPE(string filename, dtype* arr, int size){
+	FILE         *fp;
+	std::ifstream file;
+	double data = 0;
+
+	file.open(filename);
+	if (!file.is_open()) {
+		cout << filename << " not found!" << endl;
+		return false;
+	}
+	for (int_t i = 0; i < size; i++) {
+		file >> data;
+		arr[i] = (dtype)data;
+	}
+	file.close();
+	return true;
+}
+
+bool LoadDouble(string filename, double* arr, int size){
+	FILE         *fp;
+	std::ifstream file;
+	double data = 0;
+
+	file.open(filename);
+	if (!file.is_open()) {
+		cout << filename << " not found!" << endl;
+		return false;
+	}
+	for (int_t i = 0; i < size; i++) {
+		file >> data;
+		arr[i] = data;
+	}
+	file.close();
+	return true;
 }

@@ -303,7 +303,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
     int_t X_adap_flat_num[2] = {_N, 512};
     Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear);
     // for linear test
-    for(int_t i = 0; i < 400; i++)
+    for(int_t i = 0; i < 10; i++)
         Y[i] = X_linear[i]; // assign result to output
  
  #ifndef __SYNTHESIS__

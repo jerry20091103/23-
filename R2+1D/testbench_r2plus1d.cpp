@@ -8,7 +8,7 @@
 using namespace std;
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
-bool LoadFile(string filename, double* arr, int size);
+bool LoadDTYPE(string filename, double* arr, int size);
 bool LoadDouble(string filename, double* arr, int size);
 
 double *Mu_stem_1, *Mu_stem_4, *Var_stem_1, *Var_stem_4, *Gamma_stem_1, *Gamma_stem_4, *Bias_stem_1, *Bias_stem_4;
@@ -124,8 +124,8 @@ int_t main() {
 	dtype *Kernel_seq4_1_conv2_0_0 = (dtype*)malloc(5308416 * sizeof(dtype));
 	dtype *Kernel_seq4_1_conv2_0_3 = (dtype*)malloc(1769472 * sizeof(dtype));
 	// kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
-
-	dtype *Kernel_linear;
+	// kernel_size=5120
+	dtype *Kernel_linear = (dtype*)malloc(5120 * sizeof(dtype));
 
 	// load input
 	if(!LoadDTYPE("input.dat", input, 602112))
@@ -378,44 +378,62 @@ int_t main() {
 	free(output_golden);
 	free(output);
 
-	free(Kernel_1_1);
-	free(Kernel_1_3);
-	free(Kernel_1_5);
-	free(Kernel_1_7);
-	free(Kernel_1_2);
-	free(Kernel_1_4);
-	free(Kernel_1_6);
-	free(Kernel_1_8);
+	free(Kernel_stem_0);
+	free(Kernel_stem_3);
 
-	free(Kernel_2_1);
-	free(Kernel_2_2);
-	free(Kernel_2_3);
-	free(Kernel_2_4);
-	free(Kernel_2_5);
-	free(Kernel_2_6);
-	free(Kernel_2_8);
-	free(Kernel_2_7);
-	free(Kernel_2_9);
+	free(Kernel_seq1_0_conv1_0_0);
+	free(Kernel_seq1_0_conv2_0_0);
+	free(Kernel_seq1_1_conv1_0_0);
+	free(Kernel_seq1_1_conv2_0_0);
+	free(Kernel_seq1_0_conv1_0_3);
+	free(Kernel_seq1_0_conv2_0_3);
+	free(Kernel_seq1_1_conv1_0_3);
+	free(Kernel_seq1_1_conv2_0_3);
 
-	free(Kernel_3_1);
-	free(Kernel_3_2);
-	free(Kernel_3_3);
-	free(Kernel_3_4);
-	free(Kernel_3_5);
-	free(Kernel_3_6);
-	free(Kernel_3_8);
-	free(Kernel_3_7);
-	free(Kernel_3_9);
 
-	free(Kernel_4_1);
-	free(Kernel_4_2);
-	free(Kernel_4_3);
-	free(Kernel_4_4);
-	free(Kernel_4_5);
-	free(Kernel_4_6);
-	free(Kernel_4_8);
-	free(Kernel_4_7);
-	free(Kernel_4_9);
+	free(Kernel_seq2_0_conv1_0_0);
+	free(Kernel_seq2_0_conv1_0_3);
+
+	free(Kernel_seq2_0_conv2_0_0);
+	free(Kernel_seq2_0_conv2_0_3);
+
+	free(Kernel_seq2_0_downsample_0);
+
+	free(Kernel_seq2_1_conv1_0_0);
+	free(Kernel_seq2_1_conv1_0_3);
+	free(Kernel_seq2_1_conv2_0_0);
+	free(Kernel_seq2_1_conv2_0_3);
+
+
+	free(Kernel_seq3_0_conv1_0_0);
+	free(Kernel_seq3_0_conv1_0_3);
+
+	free(Kernel_seq3_0_conv2_0_0);
+	free(Kernel_seq3_0_conv2_0_3);
+
+	free(Kernel_seq3_0_downsample_0);
+
+	free(Kernel_seq3_1_conv1_0_0);
+	free(Kernel_seq3_1_conv1_0_3);
+	free(Kernel_seq3_1_conv2_0_0);
+	free(Kernel_seq3_1_conv2_0_3);
+
+
+	free(Kernel_seq4_0_conv1_0_0);
+	free(Kernel_seq4_0_conv1_0_3);
+
+	free(Kernel_seq4_0_conv2_0_0);
+	free(Kernel_seq4_0_conv2_0_3);
+
+	free(Kernel_seq4_0_downsample_0);
+
+	free(Kernel_seq4_1_conv1_0_0);
+	free(Kernel_seq4_1_conv1_0_3);
+	free(Kernel_seq4_1_conv2_0_0);
+	free(Kernel_seq4_1_conv2_0_3);
+
+
+	free(Kernel_linear);
 
 	return 0;
 }

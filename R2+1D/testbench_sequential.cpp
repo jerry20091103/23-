@@ -18,9 +18,9 @@ string kernel_4_dat_name[9] = { "weight_4_1.dat", "weight_4_2.dat", "weight_4_3.
 
 int_t main() {
 
-	dtype *input = (dtype*)malloc(200704*sizeof(dtype));
-	dtype *X_out_data = (dtype*)malloc(200704*sizeof(dtype));
-	dtype *output = (dtype*)malloc(451584*sizeof(dtype));
+	dtype *input = (dtype*)malloc(3211264*sizeof(dtype));
+	dtype *X_out_data = (dtype*)malloc(50176*sizeof(dtype));
+	dtype *output = (dtype*)malloc(50176*sizeof(dtype));
 	
 	dtype *Kernel_1_1 = (dtype*)malloc(82944*sizeof(dtype));
 	dtype *Kernel_1_3 = (dtype*)malloc(82944*sizeof(dtype));
@@ -81,7 +81,7 @@ int_t main() {
 
 	// load input
 	file.open("output_0.dat");
-	for (int_t i = 0; i < 200704; i++) {
+	for (int_t i = 0; i < 3211264; i++) {
 		file >> data;
 		input[i] = data;
 	}
@@ -296,7 +296,7 @@ int_t main() {
 
 	// calculate errors
 	dtype errors;
-	int_t X_num[5] = { 1, 512, 1, 7, 7 };
+	int_t X_num[5] = { 1, 512, 2, 7, 7 };
 	errors = 100 * dtype(validate(X_out_data, output, X_num)) / 25088;
 
 	if (errors != 0)

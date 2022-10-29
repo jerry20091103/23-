@@ -47,7 +47,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
     int_t padding[3] = {0, 0, 0};
 
     // layer 1
-    int_t X_num[5] = {1, 64, _D, 56, 56};
+    int_t X_num[5] = {1, 64, D_, 56, 56};
 
     for(int_t i = 0; i < 3211264; i++)
         X_tmp_data[i] = X_data[i];

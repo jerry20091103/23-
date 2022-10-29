@@ -66,9 +66,9 @@ string layer_4_bias_dat_name[9] = {"layer4.0.conv1.0.1.bias.dat",  "layer4.0.con
 string fc_dat_name[1] = {"fc.1.weight.dat"};
 
 int_t main() {
-	dtype *input = (dtype*)malloc(36963 * sizeof(dtype));
-	dtype *output = (dtype*)malloc(25088 * sizeof(dtype));
-	dtype *output_golden = (dtype*)malloc(25088 * sizeof(dtype));
+	dtype *input = (dtype*)malloc(602112 * sizeof(dtype));
+	dtype *output = (dtype*)malloc(10 * sizeof(dtype));
+	dtype *output_golden = (dtype*)malloc(10 * sizeof(dtype));
 
 	dtype *Kernel_stem_0 = (dtype*)malloc(6615 * sizeof(dtype));
 	dtype *Kernel_stem_3 = (dtype*)malloc(8640 * sizeof(dtype));
@@ -267,36 +267,36 @@ int_t main() {
 	if(!LoadDouble(layer_3_mu_dat_name[2], Mu_seq3_0_conv2_0_1, 460)) return 0;
 	if(!LoadDouble(layer_3_mu_dat_name[3], Mu_seq3_0_conv2_1, 256)) return 0;
 	if(!LoadDouble(layer_3_mu_dat_name[4], Mu_seq3_0_downsample_1, 256)) return 0;
-	if(!LoadDouble(layer_3_mu_dat_name[5], Mu_seq3_1_conv1_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[5], Mu_seq3_1_conv1_0_1, 576)) return 0;
 	if(!LoadDouble(layer_3_mu_dat_name[6], Mu_seq3_1_conv1_1, 256)) return 0;
-	if(!LoadDouble(layer_3_mu_dat_name[7], Mu_seq3_1_conv2_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_mu_dat_name[7], Mu_seq3_1_conv2_0_1, 576)) return 0;
 	if(!LoadDouble(layer_3_mu_dat_name[8], Mu_seq3_1_conv2_1, 256)) return 0;
 	if(!LoadDouble(layer_3_var_dat_name[0], Var_seq3_0_conv1_0_1, 460)) return 0;
 	if(!LoadDouble(layer_3_var_dat_name[1], Var_seq3_0_conv1_1, 256)) return 0;
 	if(!LoadDouble(layer_3_var_dat_name[2], Var_seq3_0_conv2_0_1, 460)) return 0;
 	if(!LoadDouble(layer_3_var_dat_name[3], Var_seq3_0_conv2_1, 256)) return 0;
 	if(!LoadDouble(layer_3_var_dat_name[4], Var_seq3_0_downsample_1, 256)) return 0;
-	if(!LoadDouble(layer_3_var_dat_name[5], Var_seq3_1_conv1_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[5], Var_seq3_1_conv1_0_1, 576)) return 0;
 	if(!LoadDouble(layer_3_var_dat_name[6], Var_seq3_1_conv1_1, 256)) return 0;
-	if(!LoadDouble(layer_3_var_dat_name[7], Var_seq3_1_conv2_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_var_dat_name[7], Var_seq3_1_conv2_0_1, 576)) return 0;
 	if(!LoadDouble(layer_3_var_dat_name[8], Var_seq3_1_conv2_1, 256)) return 0;
 	if(!LoadDouble(layer_3_gamma_dat_name[0], Gamma_seq3_0_conv1_0_1, 460)) return 0;
 	if(!LoadDouble(layer_3_gamma_dat_name[1], Gamma_seq3_0_conv1_1, 256)) return 0;
 	if(!LoadDouble(layer_3_gamma_dat_name[2], Gamma_seq3_0_conv2_0_1, 460)) return 0;
 	if(!LoadDouble(layer_3_gamma_dat_name[3], Gamma_seq3_0_conv2_1, 256)) return 0;
 	if(!LoadDouble(layer_3_gamma_dat_name[4], Gamma_seq3_0_downsample_1, 256)) return 0;
-	if(!LoadDouble(layer_3_gamma_dat_name[5], Gamma_seq3_1_conv1_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[5], Gamma_seq3_1_conv1_0_1, 576)) return 0;
 	if(!LoadDouble(layer_3_gamma_dat_name[6], Gamma_seq3_1_conv1_1, 256)) return 0;
-	if(!LoadDouble(layer_3_gamma_dat_name[7], Gamma_seq3_1_conv2_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_gamma_dat_name[7], Gamma_seq3_1_conv2_0_1, 576)) return 0;
 	if(!LoadDouble(layer_3_gamma_dat_name[8], Gamma_seq3_1_conv2_1, 256)) return 0;
 	if(!LoadDouble(layer_3_bias_dat_name[0], Bias_seq3_0_conv1_0_1, 460)) return 0;
 	if(!LoadDouble(layer_3_bias_dat_name[1], Bias_seq3_0_conv1_1, 256)) return 0;
 	if(!LoadDouble(layer_3_bias_dat_name[2], Bias_seq3_0_conv2_0_1, 460)) return 0;
 	if(!LoadDouble(layer_3_bias_dat_name[3], Bias_seq3_0_conv2_1, 256)) return 0;
 	if(!LoadDouble(layer_3_bias_dat_name[4], Bias_seq3_0_downsample_1, 256)) return 0;
-	if(!LoadDouble(layer_3_bias_dat_name[5], Bias_seq3_1_conv1_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[5], Bias_seq3_1_conv1_0_1, 576)) return 0;
 	if(!LoadDouble(layer_3_bias_dat_name[6], Bias_seq3_1_conv1_1, 256)) return 0;
-	if(!LoadDouble(layer_3_bias_dat_name[7], Bias_seq3_1_conv2_0_1, 578)) return 0;
+	if(!LoadDouble(layer_3_bias_dat_name[7], Bias_seq3_1_conv2_0_1, 576)) return 0;
 	if(!LoadDouble(layer_3_bias_dat_name[8], Bias_seq3_1_conv2_1, 256)) return 0;
 
 	if(!LoadDouble(layer_4_mu_dat_name[0], Mu_seq4_0_conv1_0_1, 921)) return 0;
@@ -336,7 +336,7 @@ int_t main() {
 	if(!LoadDouble(layer_4_bias_dat_name[7], Bias_seq4_1_conv2_0_1, 1152)) return 0;
 	if(!LoadDouble(layer_4_bias_dat_name[8], Bias_seq4_1_conv2_1, 512)) return 0;
 
-	LoadDTYPE("output_4.dat", output_golden, 25088);
+	if(!LoadDTYPE("output.dat", 			 output_golden, 	  10)) return 0;
 
 	// ====================================
 	// Function to test here:
@@ -366,8 +366,8 @@ int_t main() {
 
 	// calculate errors
 	float errors;
-	int_t X_num[5] = { 1, 512, 1, 7, 7 };
-	errors = 100 * float(validate(output, output_golden, X_num)) / 25088;
+	int_t X_num[5] = { 1, 10, 1, 1, 1 };
+	errors = 100 * float(validate(output, output_golden, X_num)) / 10;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

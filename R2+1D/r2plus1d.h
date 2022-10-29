@@ -7,7 +7,7 @@
 typedef int dtype;
 typedef int int_t;
 
-void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
+void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, double* Kernel_stem_0_scale,
                 double* Mu_stem_1, double* Mu_stem_4, double* Var_stem_1, double* Var_stem_4, double* Gamma_stem_1, double* Gamma_stem_4, double* Bias_stem_1, double* Bias_stem_4,
             dtype* Kernel_seq1_0_conv1_0_0, dtype* Kernel_seq1_0_conv1_0_3, dtype* Kernel_seq1_0_conv2_0_0, dtype* Kernel_seq1_0_conv2_0_3, dtype* Kernel_seq1_1_conv1_0_0, dtype* Kernel_seq1_1_conv1_0_3, dtype* Kernel_seq1_1_conv2_0_0, dtype* Kernel_seq1_1_conv2_0_3,
                 double* Mu_seq1_0_conv1_0_1, double* Mu_seq1_0_conv1_1, double* Mu_seq1_0_conv2_0_1, double* Mu_seq1_0_conv2_1, double* Mu_seq1_1_conv1_0_1, double* Mu_seq1_1_conv1_1, double* Mu_seq1_1_conv2_0_1, double* Mu_seq1_1_conv2_1,
@@ -30,7 +30,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3,
                 double* Gamma_seq4_0_conv1_0_1, double* Gamma_seq4_0_conv1_1, double* Gamma_seq4_0_conv2_0_1, double* Gamma_seq4_0_conv2_1, double* Gamma_seq4_0_downsample_1, double* Gamma_seq4_1_conv1_0_1, double* Gamma_seq4_1_conv1_1, double* Gamma_seq4_1_conv2_0_1, double* Gamma_seq4_1_conv2_1,
                 double* Bais_seq4_0_conv1_0_1, double* Bais_seq4_0_conv1_1, double* Bais_seq4_0_conv2_0_1, double* Bais_seq4_0_conv2_1, double* Bais_seq4_0_downsample_1, double* Bais_seq4_1_conv1_0_1, double* Bais_seq4_1_conv1_1, double* Bais_seq4_1_conv2_0_1, double* Bais_seq4_1_conv2_1,
             dtype* Kernel_linear);
-void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, double scale, int_t zeropoint);
+void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, double* kernel_scale, int_t* stride, int_t* padding, double scale_in, int_t zp_in, double scale_out, int_t zp_out);
 void BatchNorm3d(dtype* X_data, int_t* X_num, double* mu_, double* var_, double* r, double* b, double scale, int_t zeropoint);
 void ReLU(dtype* X_data, int_t* X_num);
 void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_num, int_t midplanes, dtype* Kernel_1_data, dtype* Kernel_2_data, int_t s, int_t p, 

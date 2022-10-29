@@ -179,7 +179,7 @@ int_t main() {
 	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_seq4_1_conv2_0_3, 1769472)) return 0;
 	
 	// load linear kernel
-	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_linear, 1769472)) return 0;
+	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_linear, 5120)) return 0;
 
 	// load stem batch
 	if(!LoadDouble(stem_mu_dat_name[0], Mu_stem_1, 45)) return 0;

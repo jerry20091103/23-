@@ -17,6 +17,7 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
 bool LoadDTYPE(string filename, dtype* arr, int size);
 bool LoadDouble(string filename, double* arr, int size);
 
+double Kernel_stem_0_scale[45];
 double Mu_stem_1[45], Var_stem_1[45], Gamma_stem_1[45], Bias_stem_1[45];
 double Mu_stem_4[64], Var_stem_4[64], Gamma_stem_4[64], Bias_stem_4[64];
 
@@ -115,6 +116,7 @@ int_t main()
 		return 0;
 
 	// load stem kernel
+	if(!LoadDTYPE("stem.0.weight.scale.dat", Kernel_stem_0, 45)) return 0;
 	if(!LoadDTYPE("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadDTYPE("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
 
@@ -140,23 +142,24 @@ int_t main()
     int_t Kernel_num_1[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
-    Conv3d(input, X_num, output, X_mid_num, Kernel_stem_0, Kernel_num_1, stride_1, padding_1, 0.4609071612358093262, 60);
+    Conv3d(input, X_num, output, X_mid_num, Kernel_stem_0, Kernel_num_1, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02 ,56 , 0.4609071612358093262, 60);
+
     if(!LoadDTYPE("Conv3d1output.dat", golden, 2257920)) return 0;
-    errors += 100 * double(validate(output, golden, X_mid_num)) / 141120;
+    errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
 
     // BatchNorm3d1
     // cout << "==> BatchNorm3d1\n";
     // if(!LoadDTYPE("Conv3d1output.dat", output, 2257920)) return 0;
     // BatchNorm3d(output, X_mid_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.07323520630598068237, 55);
     // if(!LoadDTYPE("BatchNorm3d1output.dat", golden, 2257920)) return 0;
-    // errors += 100 * double(validate(output, golden, X_mid_num)) / 141120;
+    // errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
 
     // // ReLU1
     // cout << "==> ReLU1\n";
     // if(!LoadDTYPE("BatchNorm3d1output.dat", output, 2257920)) return 0;
     // ReLU(output, X_mid_num);
     // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
-    // errors += 100 * double(validate(output, golden, X_mid_num)) / 141120;
+    // errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
 
     // // ==========================================================
 
@@ -212,18 +215,14 @@ int_t main()
             Kernel_linear);
 #endif
 
-    // calculate errors
-	int_t X_num_cal[5] = {1, 64, D_, 56, 56};
-	errors = 100 * float(validate(output, golden, X_num_cal)) / 3211264;
+    // // calculate errors
+	// int_t X_num_cal[5] = {1, 64, D_, 56, 56};
+	// errors = 100 * float(validate(output, golden, X_num_cal)) / 3211264;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
 	else
 		printf("[PASS] Congratulation! All results are correct\n");
-
-
-
-
 
     free(input);
     free(output);

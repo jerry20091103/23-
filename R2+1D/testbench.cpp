@@ -11,7 +11,7 @@ using namespace std;
 #define separate_test 0
 #define full_test 1
 // modify this:
-#define TEST_MODE full_test
+#define TEST_MODE separate_test
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
 bool LoadDTYPE(string filename, dtype* arr, int size);
@@ -51,7 +51,7 @@ int_t main()
 
     dtype *input = (dtype*)malloc(602112 * sizeof(dtype));
     dtype *output = (dtype*)malloc(3211264 * sizeof(dtype));
-    dtype *output_golden = (dtype*)malloc(3211264 * sizeof(dtype));
+    dtype *golden = (dtype*)malloc(3211264 * sizeof(dtype));
 
     dtype *Kernel_stem_0 = (dtype*)malloc(6615 * sizeof(dtype));
 	dtype *Kernel_stem_3 = (dtype*)malloc(8640 * sizeof(dtype));
@@ -129,154 +129,59 @@ int_t main()
 	if(!LoadDouble(stem_gamma_dat_name[1], Gamma_stem_4, 64)) return 0;
 	if(!LoadDouble(stem_bias_dat_name[1], Bias_stem_4, 64)) return 0;
 
-    if(!LoadDTYPE("output.dat", output_golden, 3211264)) return 0;
+    if(!LoadDTYPE("output.dat", golden, 3211264)) return 0;
 
 #if TEST_MODE == separate_test
     // ==========================================================
     // Conv3d1
     cout << "==> Conv3d1\n";
-    int_t X_num[5] = {1, 3, 1, 111, 111};
-    int_t X_mid_num[5] = {1, 45, 1, 56, 56};
+    int_t X_num[5] = {1, 3, D_, 111, 111};
+    int_t X_mid_num[5] = {1, 45, D_, 56, 56};
     int_t Kernel_num_1[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
-    Conv3d(input, X_num, output, X_mid_num, Kernel_1, Kernel_num_1, stride_1, padding_1);
-
-    file.open("Conv3d1output.dat");
-    if (!file.is_open()) {
-        cout << "Conv3d1output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 141120; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
+    Conv3d(input, X_num, output, X_mid_num, Kernel_stem_0, Kernel_num_1, stride_1, padding_1, 0.4609071612358093262, 60);
+    if(!LoadDTYPE("Conv3d1output.dat", golden, 2257920)) return 0;
     errors += 100 * double(validate(output, golden, X_mid_num)) / 141120;
 
     // BatchNorm3d1
-    cout << "==> BatchNorm3d1\n";
-    file.open("Conv3d1output.dat");
-    if (!file.is_open()) {
-        cout << "Conv3d1output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 141120; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    BatchNorm3d(output, X_mid_num, 0.00001, 1, 0);
+    // cout << "==> BatchNorm3d1\n";
+    // if(!LoadDTYPE("Conv3d1output.dat", output, 2257920)) return 0;
+    // BatchNorm3d(output, X_mid_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.07323520630598068237, 55);
+    // if(!LoadDTYPE("BatchNorm3d1output.dat", golden, 2257920)) return 0;
+    // errors += 100 * double(validate(output, golden, X_mid_num)) / 141120;
+
+    // // ReLU1
+    // cout << "==> ReLU1\n";
+    // if(!LoadDTYPE("BatchNorm3d1output.dat", output, 2257920)) return 0;
+    // ReLU(output, X_mid_num);
+    // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
+    // errors += 100 * double(validate(output, golden, X_mid_num)) / 141120;
+
+    // // ==========================================================
+
+    // // Conv3d2
+    // cout << "==> Conv3d2\n";
+    // int_t X_out_num[5] = {1, 64, D_, 56, 56};
+    // int_t Kernel_num_2[3] = {3, 1, 1};
+    // int_t stride_2[3] = {1, 1, 1};
+    // int_t padding_2[3] = {1, 0, 0};
+    // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
+    // Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, stride_2, padding_2, 0.09311912953853607178, 70);
+    // if(!LoadDTYPE("Conv3d2output.dat", golden, 3211264)) return 0;
+    // errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
+
+    // // BatchNorm3d2
+    // cout << "==> BatchNorm3d2\n";
+    // if(!LoadDTYPE("Conv3d2output.dat", output, 3211264)) return 0;
+    // BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.07423608750104904175, 65);
+    // if(!LoadDTYPE("BatchNorm3d2output.dat", golden, 3211264)) return 0;
+    // errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
     
-    file.open("BatchNorm3d1output.dat");
-    if (!file.is_open()) {
-        cout << "BatchNorm3d1output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 141120; i++){
-        file >> data;
-        golden[i] = data;
-    }
-    file.close();
-    errors += 100 * double(validate(output, golden, X_mid_num)) / 141120;
-
-    // ReLU1
-    cout << "==> ReLU1\n";
-    file.open("BatchNorm3d1output.dat");
-    if (!file.is_open()) {
-        cout << "BatchNorm3d1output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 141120; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    ReLU(output, X_mid_num);
-
-    file.open("ReLU1output.dat");
-    if (!file.is_open()) {
-        cout << "ReLU1output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 141120; i++){
-        file >> data;
-        golden[i] = data;
-    }
-    file.close();
-    errors += 100 * double(validate(output, golden, X_mid_num)) / 141120;
-
-    // ==========================================================
-
-    // Conv3d2
-    cout << "==> Conv3d2\n";
-    int_t X_out_num[5] = {1, 64, 1, 56, 56};
-    int_t Kernel_num_2[3] = {3, 1, 1};
-    int_t stride_2[3] = {1, 1, 1};
-    int_t padding_2[3] = {1, 0, 0};
-    file.open("ReLU1output.dat");
-    if (!file.is_open()) {
-        cout << "ReLU1output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 141120; i++){
-        file >> data;
-        golden[i] = data;
-    }
-    file.close();
-    Conv3d(golden, X_mid_num, output, X_out_num, Kernel_2, Kernel_num_2, stride_2, padding_2);
-
-    file.open("Conv3d2output.dat");
-    if (!file.is_open()) {
-        cout << "Conv3d2output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 200704; i++){
-        file >> data;
-        golden[i] = data;
-    }
-    file.close();
-    errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
-
-    // BatchNorm3d2
-    cout << "==> BatchNorm3d2\n";
-    file.open("Conv3d2output.dat");
-    if (!file.is_open()) {
-        cout << "Conv3d2output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 200704; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    BatchNorm3d(output, X_out_num, 0.00001, 1, 0);
-
-    file.open("BatchNorm3d2output.dat");
-    if (!file.is_open()) {
-        cout << "BatchNorm3d2output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 200704; i++){
-        file >> data;
-        golden[i] = data;
-    }
-    file.close();
-    errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
-    
-    // ReLU2
-    cout << "==> ReLU2\n";
-    file.open("BatchNorm3d2output.dat");
-    if (!file.is_open()) {
-        cout << "BatchNorm3d2output.dat not found!" << endl;
-        return 0;
-    }
-    for(int_t i = 0; i < 200704; i++){
-        file >> data;
-        output[i] = data;
-    }
-    file.close();
-    ReLU(output, X_out_num);
+    // // ReLU2
+    // cout << "==> ReLU2\n";
+    // if(!LoadDTYPE("BatchNorm3d2output.dat", output, 3211264)) return 0;
+    // ReLU(output, X_out_num);
     
     // ==========================================================
 #endif
@@ -308,8 +213,8 @@ int_t main()
 #endif
 
     // calculate errors
-	int_t X_num[5] = {1, 64, 16, 56, 56};
-	errors = 100 * float(validate(output, output_golden, X_num)) / 3211264;
+	int_t X_num_cal[5] = {1, 64, D_, 56, 56};
+	errors = 100 * float(validate(output, golden, X_num_cal)) / 3211264;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
@@ -322,7 +227,7 @@ int_t main()
 
     free(input);
     free(output);
-    free(output_golden);
+    free(golden);
 
     return 0;
 }

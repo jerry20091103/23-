@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-void BatchNorm3d(dtype* X_data, int_t* X_num, double* _mu, double* _var, double* r, double* b, double scale, int_t zeropoint){
+void BatchNorm3d(dtype* X_data, int_t* X_num, double* mu_, double* var_, double* r, double* b, double scale, int_t zeropoint){
 	int_t N = X_num[0];
 	int_t C = X_num[1];
 	int_t D = X_num[2];
@@ -41,5 +41,5 @@ void BatchNorm3d(dtype* X_data, int_t* X_num, double* _mu, double* _var, double*
 			for(int_t d = 0; d < D; d++)
 				for(int_t h = 0; h < H; h++)
 					for(int_t w = 0; w < W; w++)
-						X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = round((((X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] - mu[c]) / sqrt(var[c]+0.00001)) * r[c] + b[c])/scale + zeropoint);
+						X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = round((((X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] - (0.9*mu[c]+0.1*mu_[c])) / sqrt((0.9*var[c]+0.1*var_[c])+0.00001)) * r[c] + b[c])/scale + zeropoint);
 }

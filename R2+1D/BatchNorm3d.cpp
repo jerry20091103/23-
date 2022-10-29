@@ -11,7 +11,7 @@ void BatchNorm3d(dtype* X_data, int_t* X_num, double* _mu, double* _var, double*
 	int_t W = X_num[4];
 
     // find channel mean
-	double mu[_C];
+	double mu[C_];
     for(int_t c = 0; c < C; c++){
 	    for(int_t n = 0; n < N; n++){
 			mu[c] = 0;
@@ -24,7 +24,7 @@ void BatchNorm3d(dtype* X_data, int_t* X_num, double* _mu, double* _var, double*
 	}
 
     // find channel variance
-	double var[_C];
+	double var[C_];
     for(int_t c = 0; c < C; c++){
 	    for(int_t n = 0; n < N; n++){
 			var[c] = 0;

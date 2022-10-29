@@ -8,7 +8,7 @@
 using namespace std;
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
-bool LoadDTYPE(string filename, double* arr, int size);
+bool LoadDTYPE(string filename, dtype* arr, int size);
 bool LoadDouble(string filename, double* arr, int size);
 
 double Mu_stem_1[45], Var_stem_1[45], Gamma_stem_1[45], Bias_stem_1[45];

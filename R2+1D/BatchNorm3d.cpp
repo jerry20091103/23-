@@ -46,5 +46,5 @@ void BatchNorm3d(dtype* X_data, int_t* X_num, double* mu_, double* var_, double*
 			for(int_t d = 0; d < D; d++)
 				for(int_t h = 0; h < H; h++)
 					for(int_t w = 0; w < W; w++)
-						X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = round((((X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w]*scale_in - (0.9*mu[c]*scale_in+0.1*mu_[c])) / sqrt((0.9*var[c]*pow(scale_in, 2)+0.1*var_[c])+0.00001)) * r[c] + b[c])/scale_out + zp_out);
+						X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w] = round((((float(X_data[n*C*D*H*W + c*D*H*W + d*H*W + h*W + w])*scale_in - (0.9*mu[c]*scale_in+0.1*mu_[c])) / sqrt((0.9*var[c]*pow(scale_in, 2)+0.1*var_[c])+0.00001)) * r[c] + b[c])/scale_out + zp_out);
 }

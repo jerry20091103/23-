@@ -133,7 +133,7 @@ int_t main()
 	if(!LoadDouble(stem_gamma_dat_name[1], Gamma_stem_4, 64)) return 0;
 	if(!LoadDouble(stem_bias_dat_name[1], Bias_stem_4, 64)) return 0;
 
-    if(!LoadDTYPE("output.dat", golden, 3211264)) return 0;
+    if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
 
 #if TEST_MODE == separate_test
     // ==========================================================
@@ -153,8 +153,8 @@ int_t main()
     // BatchNorm3d1
     cout << "==> BatchNorm3d1\n";
     if(!LoadDTYPE("Conv3d1output.dat", output, 2257920)) return 0;
-    BatchNorm3d(output, X_mid_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.07323520630598068237, 55);
-    if(!LoadDTYPE("BatchNorm3d1output.dat", golden, 2257920)) return 0;
+    BatchNorm3d(output, X_mid_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);	
+	if(!LoadDTYPE("BatchNorm3d1output.dat", golden, 2257920)) return 0;
     errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
 
     // ReLU1
@@ -180,7 +180,7 @@ int_t main()
     // BatchNorm3d2
     cout << "==> BatchNorm3d2\n";
     if(!LoadDTYPE("Conv3d2output.dat", output, 3211264)) return 0;
-    BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.07423608750104904175, 65);
+    BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 55, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
     if(!LoadDTYPE("BatchNorm3d2output.dat", golden, 3211264)) return 0;
     errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
     

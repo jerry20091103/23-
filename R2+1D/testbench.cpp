@@ -133,7 +133,7 @@ int_t main()
 	if(!LoadDouble(stem_gamma_dat_name[1], Gamma_stem_4, 64)) return 0;
 	if(!LoadDouble(stem_bias_dat_name[1], Bias_stem_4, 64)) return 0;
 
-    if(!LoadDTYPE("output.dat", golden, 3211264)) return 0;
+    if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
 
 #if TEST_MODE == separate_test
     // ==========================================================

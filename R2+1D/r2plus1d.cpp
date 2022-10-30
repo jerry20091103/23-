@@ -31,8 +31,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
  #endif
 
     // ========================R2Plus1dStem ==================================
-	int_t X_num[5] = {1, 3, _D, 112, 112};
-    int_t X_stem_1_num[5] = {1, 45, _D, 56, 56};
+	int_t X_num[5] = {1, 3, D_, 112, 112};
+    int_t X_stem_1_num[5] = {1, 45, D_, 56, 56};
     int_t Kernel_stem_1_num[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
@@ -41,7 +41,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2,
     BatchNorm3d(X_stem_1, X_stem_1_num, 0.00001, 1, 0);
     ReLU(X_stem_1, X_stem_1_num);
 
-    int_t X_stem_2_num[5] = {1, 64, _D, 56, 56};
+    int_t X_stem_2_num[5] = {1, 64, D_, 56, 56};
     int_t Kernel_stem_2_num[3] = {3, 1, 1};
     int_t stride_2[3] = {1, 1, 1};
     int_t padding_2[3] = {1, 0, 0};

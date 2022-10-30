@@ -173,7 +173,7 @@ int_t main()
     int_t stride_2[3] = {1, 1, 1};
     int_t padding_2[3] = {1, 0, 0};
     if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
-    Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, Kernel_stem_3_scale, stride_2, padding_2, 0.4609071612358093262, 60, 0.09311912953853607178, 70);	
+    Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);	
 	if(!LoadDTYPE("Conv3d2output.dat", golden, 3211264)) return 0;
     errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
 

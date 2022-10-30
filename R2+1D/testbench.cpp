@@ -232,6 +232,45 @@ int_t main()
     free(output);
     free(golden);
 
+	free(Kernel_stem_0);
+	free(Kernel_stem_3);
+	free(Kernel_seq1_0_conv1_0_0);
+	free(Kernel_seq1_0_conv2_0_0);
+	free(Kernel_seq1_1_conv1_0_0);
+	free(Kernel_seq1_1_conv2_0_0);
+	free(Kernel_seq1_0_conv1_0_3);
+	free(Kernel_seq1_0_conv2_0_3);
+	free(Kernel_seq1_1_conv1_0_3);
+	free(Kernel_seq1_1_conv2_0_3);
+	free(Kernel_seq2_0_conv1_0_0);
+	free(Kernel_seq2_0_conv1_0_3);
+	free(Kernel_seq2_0_conv2_0_0);
+	free(Kernel_seq2_0_conv2_0_3);
+	free(Kernel_seq2_0_downsample_0);
+	free(Kernel_seq2_1_conv1_0_0);
+	free(Kernel_seq2_1_conv1_0_3);
+	free(Kernel_seq2_1_conv2_0_0);
+	free(Kernel_seq2_1_conv2_0_3);
+	free(Kernel_seq3_0_conv1_0_0);
+	free(Kernel_seq3_0_conv1_0_3);
+	free(Kernel_seq3_0_conv2_0_0);
+	free(Kernel_seq3_0_conv2_0_3);
+	free(Kernel_seq3_0_downsample_0);
+	free(Kernel_seq3_1_conv1_0_0);
+	free(Kernel_seq3_1_conv1_0_3);
+	free(Kernel_seq3_1_conv2_0_0);
+	free(Kernel_seq3_1_conv2_0_3);
+	free(Kernel_seq4_0_conv1_0_0);
+	free(Kernel_seq4_0_conv1_0_3);
+	free(Kernel_seq4_0_conv2_0_0);
+	free(Kernel_seq4_0_conv2_0_3);
+	free(Kernel_seq4_0_downsample_0);
+	free(Kernel_seq4_1_conv1_0_0);
+	free(Kernel_seq4_1_conv1_0_3);
+	free(Kernel_seq4_1_conv2_0_0);
+	free(Kernel_seq4_1_conv2_0_3);
+	free(Kernel_linear);
+
     return 0;
 }
 

@@ -160,7 +160,7 @@ int_t main()
     // ReLU1
     cout << "==> ReLU1\n";
     if(!LoadDTYPE("BatchNorm3d1output.dat", output, 2257920)) return 0;
-    ReLU(output, X_mid_num);
+    ReLU(output, X_mid_num, 55);
     if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
     errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
 
@@ -187,7 +187,7 @@ int_t main()
     // ReLU2
     cout << "==> ReLU2\n";
     if(!LoadDTYPE("BatchNorm3d2output.dat", output, 3211264)) return 0;
-    ReLU(output, X_out_num);
+    ReLU(output, X_out_num, 65);
     
 	if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
     // ==========================================================

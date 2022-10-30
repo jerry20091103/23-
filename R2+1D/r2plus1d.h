@@ -36,7 +36,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
             dtype* Kernel_linear, double* Kernel_linear_scale);
 void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, double* kernel_scale, int_t* stride, int_t* padding, double scale_in, int_t zp_in, double scale_out, int_t zp_out);
 void BatchNorm3d(dtype* X_data, int_t* X_num, double* mu_, double* var_, double* r, double* b, double scale_in, int_t zp_in, double scale_out, int_t zp_out);
-void ReLU(dtype* X_data, int_t* X_num);
+void ReLU(dtype* X_data, int_t* X_num, int_t zp);
 void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_num, int_t midplanes, 
                 dtype* Kernel_1_data, dtype* Kernel_2_data, double* Kernel_1_data_scale, double* Kernel_2_data_scale, int_t s, int_t p, 
                 double X_scale, double Conv3d_1_scale, double Conv3d_2_scale, int_t X_zeropoint, int_t Conv3d_1_zeropoint, int_t Conv3d_2_zeropoint,

@@ -3,7 +3,7 @@
 
 #define _D 16
 
-typedef double dtype;
+typedef float dtype;
 typedef int int_t;
 
 void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_1, dtype* Kernel_stem_2, 

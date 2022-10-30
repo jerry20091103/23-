@@ -116,7 +116,6 @@ int_t main()
 		return 0;
 
 	// load stem kernel
-	if(!LoadDouble("stem.0.weight.scale.dat", Kernel_stem_0_scale, 45)) return 0;
 	if(!LoadDTYPE("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadDTYPE("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
 
@@ -131,13 +130,13 @@ int_t main()
 	if(!LoadDouble(stem_gamma_dat_name[1], Gamma_stem_4, 64)) return 0;
 	if(!LoadDouble(stem_bias_dat_name[1], Bias_stem_4, 64)) return 0;
 
-    if(!LoadDTYPE("output.dat", golden, 3211264)) return 0;
+    // if(!LoadDTYPE("output.dat", golden, 3211264)) return 0;
 
 #if TEST_MODE == separate_test
     // ==========================================================
     // Conv3d1
     cout << "==> Conv3d1\n";
-    int_t X_num[5] = {1, 3, D_, 111, 111};
+    int_t X_num[5] = {1, 3, D_, 112, 112};
     int_t X_mid_num[5] = {1, 45, D_, 56, 56};
     int_t Kernel_num_1[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};

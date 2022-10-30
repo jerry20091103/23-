@@ -37,14 +37,16 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
 void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, double* kernel_scale, int_t* stride, int_t* padding, double scale_in, int_t zp_in, double scale_out, int_t zp_out);
 void BatchNorm3d(dtype* X_data, int_t* X_num, double* mu_, double* var_, double* r, double* b, double scale, int_t zeropoint);
 void ReLU(dtype* X_data, int_t* X_num);
-void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_num, int_t midplanes, dtype* Kernel_1_data, dtype* Kernel_2_data, dtype* Kernel_1_data_scale, dtype* Kernel_2_data_scale, int_t s, int_t p, 
-                double Conv3d_1_scale, double Conv3d_2_scale, int_t Conv3d_1_zeropoint, int_t Conv3d_2_zeropoint,
+void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_num, int_t midplanes, 
+                dtype* Kernel_1_data, dtype* Kernel_2_data, double* Kernel_1_data_scale, double* Kernel_2_data_scale, int_t s, int_t p, 
+                double X_scale, double Conv3d_1_scale, double Conv3d_2_scale, int_t X_zeropoint, int_t Conv3d_1_zeropoint, int_t Conv3d_2_zeropoint,
                 double* _mu, double* _var, double* r, double* b, double BatchNorm3d_scale, int_t BatchNorm3d_zeropoint);
 void Sequential(dtype* X_data, dtype* Y_data, 
                 dtype* Kernel_1_1_data, dtype* Kernel_1_2_data, dtype* Kernel_1_3_data, dtype* Kernel_1_4_data, dtype* Kernel_1_5_data, dtype* Kernel_1_6_data, dtype* Kernel_1_7_data, dtype* Kernel_1_8_data, 
                 dtype* Kernel_2_1_data, dtype* Kernel_2_2_data, dtype* Kernel_2_3_data, dtype* Kernel_2_4_data, dtype* Kernel_2_5_data, dtype* Kernel_2_6_data, dtype* Kernel_2_7_data, dtype* Kernel_2_8_data, dtype* Kernel_2_9_data, 
                 dtype* Kernel_3_1_data, dtype* Kernel_3_2_data, dtype* Kernel_3_3_data, dtype* Kernel_3_4_data, dtype* Kernel_3_5_data, dtype* Kernel_3_6_data, dtype* Kernel_3_7_data, dtype* Kernel_3_8_data, dtype* Kernel_3_9_data, 
                 dtype* Kernel_4_1_data, dtype* Kernel_4_2_data, dtype* Kernel_4_3_data, dtype* Kernel_4_4_data, dtype* Kernel_4_5_data, dtype* Kernel_4_6_data, dtype* Kernel_4_7_data, dtype* Kernel_4_8_data, dtype* Kernel_4_9_data,
+                double X_scale, int_t X_zeropoint,
                 double* Kernel_1_1_data_scale, double* Kernel_1_2_data_scale, double* Kernel_1_3_data_scale, double* Kernel_1_4_data_scale, double* Kernel_1_5_data_scale, double* Kernel_1_6_data_scale, double* Kernel_1_7_data_scale, double* Kernel_1_8_data_scale, 
                 double* Kernel_2_1_data_scale, double* Kernel_2_2_data_scale, double* Kernel_2_3_data_scale, double* Kernel_2_4_data_scale, double* Kernel_2_5_data_scale, double* Kernel_2_6_data_scale, double* Kernel_2_7_data_scale, double* Kernel_2_8_data_scale, double* Kernel_2_9_data_scale, 
                 double* Kernel_3_1_data_scale, double* Kernel_3_2_data_scale, double* Kernel_3_3_data_scale, double* Kernel_3_4_data_scale, double* Kernel_3_5_data_scale, double* Kernel_3_6_data_scale, double* Kernel_3_7_data_scale, double* Kernel_3_8_data_scale, double* Kernel_3_9_data_scale, 

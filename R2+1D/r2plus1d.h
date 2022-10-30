@@ -1,7 +1,7 @@
 #ifndef __R2PLUS1D_H__
 #define __R2PLUS1D_H__
 
-#define _D 16
+#define D_ 16
 
 typedef float dtype;
 typedef int int_t;

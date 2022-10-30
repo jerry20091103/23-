@@ -180,7 +180,7 @@ int_t main()
     // BatchNorm3d2
     cout << "==> BatchNorm3d2\n";
     if(!LoadDTYPE("Conv3d2output.dat", output, 3211264)) return 0;
-    BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 55, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
+    BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
     if(!LoadDTYPE("BatchNorm3d2output.dat", golden, 3211264)) return 0;
     errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
     
@@ -189,6 +189,7 @@ int_t main()
     if(!LoadDTYPE("BatchNorm3d2output.dat", output, 3211264)) return 0;
     ReLU(output, X_out_num);
     
+	if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
     // ==========================================================
 #endif
 

@@ -250,9 +250,9 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
 
-    Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02 ,56 , 0.4609071612358093262, 60);
-    BatchNorm3d(X_stem_1, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.07323520630598068237, 55);
-    ReLU(X_stem_1, X_stem_1_num);
+    Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
+    BatchNorm3d(X_stem_1, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
+    ReLU(X_stem_1, X_stem_1_num, 55);
 
     int_t X_stem_2_num[5] = {N_, 64, D_, 56, 56};
     int_t Kernel_stem_2_num[3] = {3, 1, 1};
@@ -260,8 +260,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     int_t padding_2[3] = {1, 0, 0};
 
     Conv3d(X_stem_1, X_stem_1_num, X_stem_2, X_stem_2_num, Kernel_stem_3, Kernel_stem_2_num, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);
-    BatchNorm3d(X_stem_2, X_stem_2_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.07423608750104904175, 65);
-    ReLU(X_stem_2, X_stem_2_num);
+    BatchNorm3d(X_stem_2, X_stem_2_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
+    ReLU(X_stem_2, X_stem_2_num, 65);
     
     // // for stem test
     // for(int_t i = 0; i < 2257920; i++)

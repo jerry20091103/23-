@@ -133,8 +133,6 @@ int_t main()
 	if(!LoadDouble(stem_gamma_dat_name[1], Gamma_stem_4, 64)) return 0;
 	if(!LoadDouble(stem_bias_dat_name[1], Bias_stem_4, 64)) return 0;
 
-    if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
-
 #if TEST_MODE == separate_test
     // ==========================================================
     // Conv3d1
@@ -175,14 +173,14 @@ int_t main()
     if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
     Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);	
 	if(!LoadDTYPE("Conv3d2output.dat", golden, 3211264)) return 0;
-    errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
+    errors += 100 * double(validate(output, golden, X_out_num)) / 3211264;
 
     // // BatchNorm3d2
     // cout << "==> BatchNorm3d2\n";
     // if(!LoadDTYPE("Conv3d2output.dat", output, 3211264)) return 0;
     // BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
     // if(!LoadDTYPE("BatchNorm3d2output.dat", golden, 3211264)) return 0;
-    // // errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
+    // // errors += 100 * double(validate(output, golden, X_out_num)) / 3211264;
     
     // ReLU2
     cout << "==> ReLU2\n";
@@ -190,6 +188,7 @@ int_t main()
     ReLU(output, X_out_num, 65);
     
 	if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
+	errors += 100 * double(validate(output, golden, X_out_num)) / 3211264;
     // ==========================================================
 #endif
 
@@ -217,11 +216,12 @@ int_t main()
                 Gamma_seq4_0_conv1_0_1, Gamma_seq4_0_conv1_1, Gamma_seq4_0_conv2_0_1, Gamma_seq4_0_conv2_1, Gamma_seq4_0_downsample_1, Gamma_seq4_1_conv1_0_1, Gamma_seq4_1_conv1_1, Gamma_seq4_1_conv2_0_1, Gamma_seq4_1_conv2_1,
                 Bias_seq4_0_conv1_0_1, Bias_seq4_0_conv1_1, Bias_seq4_0_conv2_0_1, Bias_seq4_0_conv2_1, Bias_seq4_0_downsample_1, Bias_seq4_1_conv1_0_1, Bias_seq4_1_conv1_1, Bias_seq4_1_conv2_0_1, Bias_seq4_1_conv2_1,
             Kernel_linear);
+    // calculate errors
+    if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
+	int_t X_num_cal[5] = {1, 64, D_, 56, 56};
+	errors = 100 * float(validate(output, golden, X_num_cal)) / 3211264;
 #endif
 
-    // // calculate errors
-	// int_t X_num_cal[5] = {1, 64, D_, 56, 56};
-	// errors = 100 * float(validate(output, golden, X_num_cal)) / 3211264;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

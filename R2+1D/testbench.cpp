@@ -18,6 +18,7 @@ bool LoadDTYPE(string filename, dtype* arr, int size);
 bool LoadDouble(string filename, double* arr, int size);
 
 double Kernel_stem_0_scale[45];
+double Kernel_stem_3_scale[64];
 double Mu_stem_1[45], Var_stem_1[45], Gamma_stem_1[45], Bias_stem_1[45];
 double Mu_stem_4[64], Var_stem_4[64], Gamma_stem_4[64], Bias_stem_4[64];
 
@@ -117,6 +118,7 @@ int_t main()
 
 	// load stem kernel
 	if(!LoadDouble("stem.0.weight.scale.dat", Kernel_stem_0_scale, 45)) return 0;
+	if(!LoadDouble("stem.3.weight.scale.dat", Kernel_stem_3_scale, 64)) return 0;
 	if(!LoadDTYPE("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadDTYPE("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
 
@@ -143,48 +145,49 @@ int_t main()
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
     Conv3d(input, X_num, output, X_mid_num, Kernel_stem_0, Kernel_num_1, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02 ,56 , 0.4609071612358093262, 60);
+	
 
     if(!LoadDTYPE("Conv3d1output.dat", golden, 2257920)) return 0;
     errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
 
     // BatchNorm3d1
-    // cout << "==> BatchNorm3d1\n";
-    // if(!LoadDTYPE("Conv3d1output.dat", output, 2257920)) return 0;
-    // BatchNorm3d(output, X_mid_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.07323520630598068237, 55);
-    // if(!LoadDTYPE("BatchNorm3d1output.dat", golden, 2257920)) return 0;
-    // errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
+    cout << "==> BatchNorm3d1\n";
+    if(!LoadDTYPE("Conv3d1output.dat", output, 2257920)) return 0;
+    BatchNorm3d(output, X_mid_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.07323520630598068237, 55);
+    if(!LoadDTYPE("BatchNorm3d1output.dat", golden, 2257920)) return 0;
+    errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
 
-    // // ReLU1
-    // cout << "==> ReLU1\n";
-    // if(!LoadDTYPE("BatchNorm3d1output.dat", output, 2257920)) return 0;
-    // ReLU(output, X_mid_num);
-    // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
-    // errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
+    // ReLU1
+    cout << "==> ReLU1\n";
+    if(!LoadDTYPE("BatchNorm3d1output.dat", output, 2257920)) return 0;
+    ReLU(output, X_mid_num);
+    if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
+    errors += 100 * double(validate(output, golden, X_mid_num)) / 2257920;
 
-    // // ==========================================================
+    // ==========================================================
 
-    // // Conv3d2
-    // cout << "==> Conv3d2\n";
-    // int_t X_out_num[5] = {1, 64, D_, 56, 56};
-    // int_t Kernel_num_2[3] = {3, 1, 1};
-    // int_t stride_2[3] = {1, 1, 1};
-    // int_t padding_2[3] = {1, 0, 0};
-    // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
-    // Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, stride_2, padding_2, 0.09311912953853607178, 70);
-    // if(!LoadDTYPE("Conv3d2output.dat", golden, 3211264)) return 0;
-    // errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
+    // Conv3d2
+    cout << "==> Conv3d2\n";
+    int_t X_out_num[5] = {1, 64, D_, 56, 56};
+    int_t Kernel_num_2[3] = {3, 1, 1};
+    int_t stride_2[3] = {1, 1, 1};
+    int_t padding_2[3] = {1, 0, 0};
+    if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
+    Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, Kernel_stem_3_scale, stride_2, padding_2, 0.4609071612358093262, 60, 0.09311912953853607178, 70);	
+	if(!LoadDTYPE("Conv3d2output.dat", golden, 3211264)) return 0;
+    errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
 
-    // // BatchNorm3d2
-    // cout << "==> BatchNorm3d2\n";
-    // if(!LoadDTYPE("Conv3d2output.dat", output, 3211264)) return 0;
-    // BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.07423608750104904175, 65);
-    // if(!LoadDTYPE("BatchNorm3d2output.dat", golden, 3211264)) return 0;
-    // errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
+    // BatchNorm3d2
+    cout << "==> BatchNorm3d2\n";
+    if(!LoadDTYPE("Conv3d2output.dat", output, 3211264)) return 0;
+    BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.07423608750104904175, 65);
+    if(!LoadDTYPE("BatchNorm3d2output.dat", golden, 3211264)) return 0;
+    errors += 100 * double(validate(output, golden, X_out_num)) / 200704;
     
-    // // ReLU2
-    // cout << "==> ReLU2\n";
-    // if(!LoadDTYPE("BatchNorm3d2output.dat", output, 3211264)) return 0;
-    // ReLU(output, X_out_num);
+    // ReLU2
+    cout << "==> ReLU2\n";
+    if(!LoadDTYPE("BatchNorm3d2output.dat", output, 3211264)) return 0;
+    ReLU(output, X_out_num);
     
     // ==========================================================
 #endif

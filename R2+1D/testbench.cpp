@@ -28,59 +28,59 @@ double Mu_stem_4[64], Var_stem_4[64], Gamma_stem_4[64], Bias_stem_4[64];
 
 
 
-double Kernel_seq1_0_conv1_0_0_scale[64];
-double Kernel_seq1_0_conv2_0_0_scale[64];
-double Kernel_seq1_1_conv1_0_0_scale[64];
-double Kernel_seq1_1_conv2_0_0_scale[64];
-double Kernel_seq1_0_conv1_0_3_scale[64];
-double Kernel_seq1_0_conv2_0_3_scale[64];
-double Kernel_seq1_1_conv1_0_3_scale[64];
-double Kernel_seq1_1_conv2_0_3_scale[64];
+ double Kernel_seq1_0_conv1_0_0_scale[144];
+ double Kernel_seq1_0_conv2_0_0_scale[144];
+ double Kernel_seq1_1_conv1_0_0_scale[144];
+ double Kernel_seq1_1_conv2_0_0_scale[144];
+ double Kernel_seq1_0_conv1_0_3_scale[64];
+ double Kernel_seq1_0_conv2_0_3_scale[64];
+ double Kernel_seq1_1_conv1_0_3_scale[64];
+ double Kernel_seq1_1_conv2_0_3_scale[64];
 // kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
 
-double Kernel_seq2_0_conv1_0_0_scale[1152];
-double Kernel_seq2_0_conv1_0_3_scale[1152];
+double Kernel_seq2_0_conv1_0_0_scale[230];
+double Kernel_seq2_0_conv1_0_3_scale[128];
 // kernel_size=(64, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-double Kernel_seq2_0_conv2_0_0_scale[1152];
-double Kernel_seq2_0_conv2_0_3_scale[1152];
+double Kernel_seq2_0_conv2_0_0_scale[230];
+double Kernel_seq2_0_conv2_0_3_scale[128];
 // kernel_size=(128, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-double Kernel_seq2_0_downsample_0_scale[1152];
+double Kernel_seq2_0_downsample_0_scale[128];
 // kernel_size=(64, 128, 1, 1, 1)
-double Kernel_seq2_1_conv1_0_0_scale[1152];
-double Kernel_seq2_1_conv1_0_3_scale[1152];
-double Kernel_seq2_1_conv2_0_0_scale[1152];
-double Kernel_seq2_1_conv2_0_3_scale[1152];
+double Kernel_seq2_1_conv1_0_0_scale[288];
+double Kernel_seq2_1_conv1_0_3_scale[128];
+double Kernel_seq2_1_conv2_0_0_scale[288];
+double Kernel_seq2_1_conv2_0_3_scale[128];
 // kernel_size=(128, 288, 1, 3, 3),  kernel_size=(128, 288, 3, 1, 1)
 
-double Kernel_seq3_0_conv1_0_0_scale[1152];
-double Kernel_seq3_0_conv1_0_3_scale[1152];
+double Kernel_seq3_0_conv1_0_0_scale[460];
+double Kernel_seq3_0_conv1_0_3_scale[256];
 // kernel_size=(128, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-double Kernel_seq3_0_conv2_0_0_scale[1152];
-double Kernel_seq3_0_conv2_0_3_scale[1152];
+double Kernel_seq3_0_conv2_0_0_scale[460];
+double Kernel_seq3_0_conv2_0_3_scale[256];
 // kernel_size=(256, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-double Kernel_seq3_0_downsample_0_scale[1152];
+double Kernel_seq3_0_downsample_0_scale[256];
 // kernel_size=(128, 256, 1, 1, 1)
-double Kernel_seq3_1_conv1_0_0_scale[1152];
-double Kernel_seq3_1_conv1_0_3_scale[1152];
-double Kernel_seq3_1_conv2_0_0_scale[1152];
-double Kernel_seq3_1_conv2_0_3_scale[1152];
+double Kernel_seq3_1_conv1_0_0_scale[576];
+double Kernel_seq3_1_conv1_0_3_scale[256];
+double Kernel_seq3_1_conv2_0_0_scale[576];
+double Kernel_seq3_1_conv2_0_3_scale[256];
 // kernel_size=(256, 576, 1, 3, 3),  kernel_size=(256, 576, 3, 1, 1)
 
-double Kernel_seq4_0_conv1_0_0_scale[1152];
-double Kernel_seq4_0_conv1_0_3_scale[1152];
+double Kernel_seq4_0_conv1_0_0_scale[921];
+double Kernel_seq4_0_conv1_0_3_scale[512];
 // kernel_size=(256, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-double Kernel_seq4_0_conv2_0_0_scale[1152];
-double Kernel_seq4_0_conv2_0_3_scale[1152];
+double Kernel_seq4_0_conv2_0_0_scale[921];
+double Kernel_seq4_0_conv2_0_3_scale[512];
 // kernel_size=(512, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-double Kernel_seq4_0_downsample_0_scale[1152];
+double Kernel_seq4_0_downsample_0_scale[512];
 // kernel4size=(256, 512, 1, 1, 1)
 double Kernel_seq4_1_conv1_0_0_scale[1152];
-double Kernel_seq4_1_conv1_0_3_scale[1152];
+double Kernel_seq4_1_conv1_0_3_scale[512];
 double Kernel_seq4_1_conv2_0_0_scale[1152];
-double Kernel_seq4_1_conv2_0_3_scale[1152];
+double Kernel_seq4_1_conv2_0_3_scale[512];
 // kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
 // kernel_size=5120
-double Kernel_linear_scale[1152];
+double Kernel_linear_scale[];
 
 
 

@@ -38,7 +38,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     // AdaptiveAvgPool3d
     dtype X_adap[512]; // value after AdaptiveAvgPool3d
     // Linear
-    dtype X_linear[400];
+    dtype X_linear[10];
 
     #pragma HLS int_tERFACE s_axilite port=return
 	#pragma HLS int_tERFACE m_axi port=X
@@ -240,7 +240,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     // AdaptiveAvgPool3d
     dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
     // Linear
-    dtype* X_linear = (dtype*)malloc(400*sizeof(dtype)); // value after Linear layer
+    dtype* X_linear = (dtype*)malloc(10*sizeof(dtype)); // value after Linear layer
  #endif
 
     // ========================R2Plus1dStem ==================================
@@ -295,25 +295,25 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
         Bais_seq3_0_conv1_0_1, Bais_seq3_0_conv1_1, Bais_seq3_0_conv2_0_1, Bais_seq3_0_conv2_1, Bais_seq3_0_downsample_1, Bais_seq3_1_conv1_0_1, Bais_seq3_1_conv1_1, Bais_seq3_1_conv2_0_1, Bais_seq3_1_conv2_1,
         Bais_seq4_0_conv1_0_1, Bais_seq4_0_conv1_1, Bais_seq4_0_conv2_0_1, Bais_seq4_0_conv2_1, Bais_seq4_0_downsample_1, Bais_seq4_1_conv1_0_1, Bais_seq4_1_conv1_1, Bais_seq4_1_conv2_0_1, Bais_seq4_1_conv2_1);
 
-    // // for sequential test
-    // for(int_t i = 0; i < 25088; i++)
-    //     Y[i] = X_seq[i]; // assign result to output
+    // for sequential test
+    for(int_t i = 0; i < 50176; i++)
+        Y[i] = X_seq[i]; // assign result to output
     
-    // ======================== AdaptiveAvgPool3d ==================================
-    int_t X_seq_num[5] = {N_, 512, 2, 7, 7};
-    int_t X_adap_num[5] = {N_, 512, 1, 1, 1};
-    AdaptiveAvgPool3d(X_seq, X_seq_num, X_adap, X_adap_num);
+    // // ======================== AdaptiveAvgPool3d ==================================
+    // int_t X_seq_num[5] = {N_, 512, 2, 7, 7};
+    // int_t X_adap_num[5] = {N_, 512, 1, 1, 1};
+    // AdaptiveAvgPool3d(X_seq, X_seq_num, X_adap, X_adap_num);
 
     // // // for sequential test
     // // for(int_t i = 0; i < 512; i++)
     // //     Y[i] = X_adap[i]; // assign result to output
 
-    // ======================== Linear ==================================
-    int_t X_adap_flat_num[2] = {N_, 512};
-    Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear, Kernel_linear_scale);
+    // // ======================== Linear ==================================
+    // int_t X_adap_flat_num[2] = {N_, 512};
+    // Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear, Kernel_linear_scale);
     // for linear test
-    for(int_t i = 0; i < 10; i++)
-        Y[i] = X_linear[i]; // assign result to output
+    // for(int_t i = 0; i < 10; i++)
+    //     Y[i] = X_linear[i]; // assign result to output
  
  #ifndef __SYNTHESIS__
     free(X_stem_1);

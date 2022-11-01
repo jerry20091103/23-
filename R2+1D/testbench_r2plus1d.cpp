@@ -259,7 +259,7 @@ int_t main() {
 	// load linear kernel
 	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_linear, 5120)) return 0;
 	// load linear kernel scale
-	if(!LoadDouble("fc.weight.scale.dat", Kernel_linear_scale, 10)) return 0;
+	if(!LoadDouble("fc.1.weight.scale.dat", Kernel_linear_scale, 10)) return 0;
 
 	// load stem batch
 	if(!LoadDouble(stem_mu_dat_name[0], Mu_stem_1, 45)) return 0;

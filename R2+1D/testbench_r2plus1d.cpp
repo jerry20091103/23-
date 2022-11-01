@@ -106,8 +106,8 @@ string fc_dat_name[1] = {"fc.1.weight.dat"};
 
 int_t main() {
 	dtype *input = (dtype*)malloc(602112 * sizeof(dtype));
-	dtype *output = (dtype*)malloc(10 * sizeof(dtype));
-	dtype *output_golden = (dtype*)malloc(10 * sizeof(dtype));
+	dtype *output = (dtype*)malloc(50176 * sizeof(dtype));
+	dtype *output_golden = (dtype*)malloc(50176 * sizeof(dtype));
 
 	dtype *Kernel_stem_0 = (dtype*)malloc(6615 * sizeof(dtype));
 	dtype *Kernel_stem_3 = (dtype*)malloc(8640 * sizeof(dtype));
@@ -257,7 +257,7 @@ int_t main() {
 	if(!LoadDouble("layer4.1.conv2.0.3.weight.scale.dat", Kernel_seq4_1_conv2_0_3_scale, 512)) return 0;
 	
 	// load linear kernel
-	if(!LoadDTYPE(kernel_4_dat_name[8], Kernel_linear, 5120)) return 0;
+	if(!LoadDTYPE(fc_dat_name[0], Kernel_linear, 5120)) return 0;
 	// load linear kernel scale
 	if(!LoadDouble("fc.1.weight.scale.dat", Kernel_linear_scale, 10)) return 0;
 
@@ -416,7 +416,7 @@ int_t main() {
 	if(!LoadDouble(layer_4_bias_dat_name[7], Bias_seq4_1_conv2_0_1, 1152)) return 0;
 	if(!LoadDouble(layer_4_bias_dat_name[8], Bias_seq4_1_conv2_1, 512)) return 0;
 
-	if(!LoadDTYPE("output.dat", 			 output_golden, 	  10)) return 0;
+	if(!LoadDTYPE("output.dat", 			 output_golden, 	  50176)) return 0;
 
 	// ====================================
 	// Function to test here:
@@ -451,8 +451,8 @@ int_t main() {
 
 	// calculate errors
 	float errors;
-	int_t X_num[5] = { 1, 10, 1, 1, 1 };
-	errors = 100 * float(validate(output, output_golden, X_num)) / 10;
+	int_t X_num[5] = { 1, 512, 2, 7, 7 };
+	errors = 100 * float(validate(output, output_golden, X_num)) / 50176;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

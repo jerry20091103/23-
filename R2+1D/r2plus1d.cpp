@@ -38,7 +38,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     // AdaptiveAvgPool3d
     dtype X_adap[512]; // value after AdaptiveAvgPool3d
     // Linear
-    dtype X_linear[400];
+    dtype X_linear[10];
 
     #pragma HLS int_tERFACE s_axilite port=return
 	#pragma HLS int_tERFACE m_axi port=X
@@ -240,7 +240,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     // AdaptiveAvgPool3d
     dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
     // Linear
-    dtype* X_linear = (dtype*)malloc(400*sizeof(dtype)); // value after Linear layer
+    dtype* X_linear = (dtype*)malloc(10*sizeof(dtype)); // value after Linear layer
  #endif
 
     // ========================R2Plus1dStem ==================================

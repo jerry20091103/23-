@@ -22,95 +22,62 @@ double Kernel_stem_3_scale[64];
 double Mu_stem_1[45], Var_stem_1[45], Gamma_stem_1[45], Bias_stem_1[45];
 double Mu_stem_4[64], Var_stem_4[64], Gamma_stem_4[64], Bias_stem_4[64];
 
-
-
-
-
-
-
- double Kernel_seq1_0_conv1_0_0_scale[144];
- double Kernel_seq1_0_conv2_0_0_scale[144];
- double Kernel_seq1_1_conv1_0_0_scale[144];
- double Kernel_seq1_1_conv2_0_0_scale[144];
- double Kernel_seq1_0_conv1_0_3_scale[64];
- double Kernel_seq1_0_conv2_0_3_scale[64];
- double Kernel_seq1_1_conv1_0_3_scale[64];
- double Kernel_seq1_1_conv2_0_3_scale[64];
-// kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
-
-double Kernel_seq2_0_conv1_0_0_scale[230];
-double Kernel_seq2_0_conv1_0_3_scale[128];
-// kernel_size=(64, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-double Kernel_seq2_0_conv2_0_0_scale[230];
-double Kernel_seq2_0_conv2_0_3_scale[128];
-// kernel_size=(128, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-double Kernel_seq2_0_downsample_0_scale[128];
-// kernel_size=(64, 128, 1, 1, 1)
-double Kernel_seq2_1_conv1_0_0_scale[288];
-double Kernel_seq2_1_conv1_0_3_scale[128];
-double Kernel_seq2_1_conv2_0_0_scale[288];
-double Kernel_seq2_1_conv2_0_3_scale[128];
-// kernel_size=(128, 288, 1, 3, 3),  kernel_size=(128, 288, 3, 1, 1)
-
-double Kernel_seq3_0_conv1_0_0_scale[460];
-double Kernel_seq3_0_conv1_0_3_scale[256];
-// kernel_size=(128, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-double Kernel_seq3_0_conv2_0_0_scale[460];
-double Kernel_seq3_0_conv2_0_3_scale[256];
-// kernel_size=(256, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-double Kernel_seq3_0_downsample_0_scale[256];
-// kernel_size=(128, 256, 1, 1, 1)
-double Kernel_seq3_1_conv1_0_0_scale[576];
-double Kernel_seq3_1_conv1_0_3_scale[256];
-double Kernel_seq3_1_conv2_0_0_scale[576];
-double Kernel_seq3_1_conv2_0_3_scale[256];
-// kernel_size=(256, 576, 1, 3, 3),  kernel_size=(256, 576, 3, 1, 1)
-
-double Kernel_seq4_0_conv1_0_0_scale[921];
-double Kernel_seq4_0_conv1_0_3_scale[512];
-// kernel_size=(256, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-double Kernel_seq4_0_conv2_0_0_scale[921];
-double Kernel_seq4_0_conv2_0_3_scale[512];
-// kernel_size=(512, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-double Kernel_seq4_0_downsample_0_scale[512];
-// kernel4size=(256, 512, 1, 1, 1)
-double Kernel_seq4_1_conv1_0_0_scale[1152];
-double Kernel_seq4_1_conv1_0_3_scale[512];
-double Kernel_seq4_1_conv2_0_0_scale[1152];
-double Kernel_seq4_1_conv2_0_3_scale[512];
-// kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
-// kernel_size=5120
-double Kernel_linear_scale[];
-
-
-
-
-
-
-
-
-
-
-
+double Kernel_seq1_0_conv1_0_0_scale[144];
+double Kernel_seq1_0_conv2_0_0_scale[144];
+double Kernel_seq1_1_conv1_0_0_scale[144];
+double Kernel_seq1_1_conv2_0_0_scale[144];
+double Kernel_seq1_0_conv1_0_3_scale[64];
+double Kernel_seq1_0_conv2_0_3_scale[64];
+double Kernel_seq1_1_conv1_0_3_scale[64];
+double Kernel_seq1_1_conv2_0_3_scale[64];
 double Mu_seq1_0_conv1_0_1[144], Mu_seq1_0_conv1_1[64], Mu_seq1_0_conv2_0_1[144], Mu_seq1_0_conv2_1[64], Mu_seq1_1_conv1_0_1[144], Mu_seq1_1_conv1_1[64], Mu_seq1_1_conv2_0_1[144], Mu_seq1_1_conv2_1[64];
 double Var_seq1_0_conv1_0_1[144], Var_seq1_0_conv1_1[64], Var_seq1_0_conv2_0_1[144], Var_seq1_0_conv2_1[64], Var_seq1_1_conv1_0_1[144], Var_seq1_1_conv1_1[64], Var_seq1_1_conv2_0_1[144], Var_seq1_1_conv2_1[64];
 double Gamma_seq1_0_conv1_0_1[144], Gamma_seq1_0_conv1_1[64], Gamma_seq1_0_conv2_0_1[144], Gamma_seq1_0_conv2_1[64], Gamma_seq1_1_conv1_0_1[144], Gamma_seq1_1_conv1_1[64], Gamma_seq1_1_conv2_0_1[144], Gamma_seq1_1_conv2_1[64];
 double Bias_seq1_0_conv1_0_1[144], Bias_seq1_0_conv1_1[64], Bias_seq1_0_conv2_0_1[144], Bias_seq1_0_conv2_1[64], Bias_seq1_1_conv1_0_1[144], Bias_seq1_1_conv1_1[64], Bias_seq1_1_conv2_0_1[144], Bias_seq1_1_conv2_1[64];
 
+double Kernel_seq2_0_conv1_0_0_scale[230];
+double Kernel_seq2_0_conv1_0_3_scale[128];
+double Kernel_seq2_0_conv2_0_0_scale[230];
+double Kernel_seq2_0_conv2_0_3_scale[128];
+double Kernel_seq2_0_downsample_0_scale[128];
+double Kernel_seq2_1_conv1_0_0_scale[288];
+double Kernel_seq2_1_conv1_0_3_scale[128];
+double Kernel_seq2_1_conv2_0_0_scale[288];
+double Kernel_seq2_1_conv2_0_3_scale[128];
 double Mu_seq2_0_conv1_0_1[230], Mu_seq2_0_conv1_1[128], Mu_seq2_0_conv2_0_1[230], Mu_seq2_0_conv2_1[128], Mu_seq2_0_downsample_1[128], Mu_seq2_1_conv1_0_1[288], Mu_seq2_1_conv1_1[128], Mu_seq2_1_conv2_0_1[288], Mu_seq2_1_conv2_1[128];
 double Var_seq2_0_conv1_0_1[230], Var_seq2_0_conv1_1[128], Var_seq2_0_conv2_0_1[230], Var_seq2_0_conv2_1[128], Var_seq2_0_downsample_1[128], Var_seq2_1_conv1_0_1[288], Var_seq2_1_conv1_1[128], Var_seq2_1_conv2_0_1[288], Var_seq2_1_conv2_1[128];
 double Gamma_seq2_0_conv1_0_1[230], Gamma_seq2_0_conv1_1[128], Gamma_seq2_0_conv2_0_1[230], Gamma_seq2_0_conv2_1[128], Gamma_seq2_0_downsample_1[128], Gamma_seq2_1_conv1_0_1[288], Gamma_seq2_1_conv1_1[128], Gamma_seq2_1_conv2_0_1[288], Gamma_seq2_1_conv2_1[128];
 double Bias_seq2_0_conv1_0_1[230], Bias_seq2_0_conv1_1[128], Bias_seq2_0_conv2_0_1[230], Bias_seq2_0_conv2_1[128], Bias_seq2_0_downsample_1[128], Bias_seq2_1_conv1_0_1[288], Bias_seq2_1_conv1_1[128], Bias_seq2_1_conv2_0_1[288], Bias_seq2_1_conv2_1[128];
 
+double Kernel_seq3_0_conv1_0_0_scale[460];
+double Kernel_seq3_0_conv1_0_3_scale[256];
+double Kernel_seq3_0_conv2_0_0_scale[460];
+double Kernel_seq3_0_conv2_0_3_scale[256];
+double Kernel_seq3_0_downsample_0_scale[256];
+double Kernel_seq3_1_conv1_0_0_scale[576];
+double Kernel_seq3_1_conv1_0_3_scale[256];
+double Kernel_seq3_1_conv2_0_0_scale[576];
+double Kernel_seq3_1_conv2_0_3_scale[256];
 double Mu_seq3_0_conv1_0_1[460], Mu_seq3_0_conv1_1[256], Mu_seq3_0_conv2_0_1[460], Mu_seq3_0_conv2_1[256], Mu_seq3_0_downsample_1[256], Mu_seq3_1_conv1_0_1[576], Mu_seq3_1_conv1_1[256], Mu_seq3_1_conv2_0_1[576], Mu_seq3_1_conv2_1[256];
 double Var_seq3_0_conv1_0_1[460], Var_seq3_0_conv1_1[256], Var_seq3_0_conv2_0_1[460], Var_seq3_0_conv2_1[256], Var_seq3_0_downsample_1[256], Var_seq3_1_conv1_0_1[576], Var_seq3_1_conv1_1[256], Var_seq3_1_conv2_0_1[576], Var_seq3_1_conv2_1[256];
 double Gamma_seq3_0_conv1_0_1[460], Gamma_seq3_0_conv1_1[256], Gamma_seq3_0_conv2_0_1[460], Gamma_seq3_0_conv2_1[256], Gamma_seq3_0_downsample_1[256], Gamma_seq3_1_conv1_0_1[576], Gamma_seq3_1_conv1_1[256], Gamma_seq3_1_conv2_0_1[576], Gamma_seq3_1_conv2_1[256];
 double Bias_seq3_0_conv1_0_1[460], Bias_seq3_0_conv1_1[256], Bias_seq3_0_conv2_0_1[460], Bias_seq3_0_conv2_1[256], Bias_seq3_0_downsample_1[256], Bias_seq3_1_conv1_0_1[576], Bias_seq3_1_conv1_1[256], Bias_seq3_1_conv2_0_1[576], Bias_seq3_1_conv2_1[256];
 
+double Kernel_seq4_0_conv1_0_0_scale[921];
+double Kernel_seq4_0_conv1_0_3_scale[512];
+double Kernel_seq4_0_conv2_0_0_scale[921];
+double Kernel_seq4_0_conv2_0_3_scale[512];
+double Kernel_seq4_0_downsample_0_scale[512];
+double Kernel_seq4_1_conv1_0_0_scale[1152];
+double Kernel_seq4_1_conv1_0_3_scale[512];
+double Kernel_seq4_1_conv2_0_0_scale[1152];
+double Kernel_seq4_1_conv2_0_3_scale[512];
 double Mu_seq4_0_conv1_0_1[921], Mu_seq4_0_conv1_1[512], Mu_seq4_0_conv2_0_1[921], Mu_seq4_0_conv2_1[512], Mu_seq4_0_downsample_1[512], Mu_seq4_1_conv1_0_1[1152], Mu_seq4_1_conv1_1[512], Mu_seq4_1_conv2_0_1[1152], Mu_seq4_1_conv2_1[512];
 double Var_seq4_0_conv1_0_1[921], Var_seq4_0_conv1_1[512], Var_seq4_0_conv2_0_1[921], Var_seq4_0_conv2_1[512], Var_seq4_0_downsample_1[512], Var_seq4_1_conv1_0_1[1152], Var_seq4_1_conv1_1[512], Var_seq4_1_conv2_0_1[1152], Var_seq4_1_conv2_1[512];
 double Gamma_seq4_0_conv1_0_1[921], Gamma_seq4_0_conv1_1[512], Gamma_seq4_0_conv2_0_1[921], Gamma_seq4_0_conv2_1[512], Gamma_seq4_0_downsample_1[512], Gamma_seq4_1_conv1_0_1[1152], Gamma_seq4_1_conv1_1[512], Gamma_seq4_1_conv2_0_1[1152], Gamma_seq4_1_conv2_1[512];
 double Bias_seq4_0_conv1_0_1[921], Bias_seq4_0_conv1_1[512], Bias_seq4_0_conv2_0_1[921], Bias_seq4_0_conv2_1[512], Bias_seq4_0_downsample_1[512], Bias_seq4_1_conv1_0_1[1152], Bias_seq4_1_conv1_1[512], Bias_seq4_1_conv2_0_1[1152], Bias_seq4_1_conv2_1[512];
+
+// double Kernel_linear_scale[];
 
 string stem_mu_dat_name[2] = {"stem.1.running_mean.dat", "stem.4.running_mean.dat"};
 string stem_var_dat_name[2] = {"stem.1.running_var.dat", "stem.4.running_var.dat"};
@@ -287,20 +254,20 @@ int_t main()
                 Mu_seq2_0_conv1_0_1, Mu_seq2_0_conv1_1, Mu_seq2_0_conv2_0_1, Mu_seq2_0_conv2_1, Mu_seq2_0_downsample_1, Mu_seq2_1_conv1_0_1, Mu_seq2_1_conv1_1, Mu_seq2_1_conv2_0_1, Mu_seq2_1_conv2_1,
                 Var_seq2_0_conv1_0_1, Var_seq2_0_conv1_1, Var_seq2_0_conv2_0_1, Var_seq2_0_conv2_1, Var_seq2_0_downsample_1, Var_seq2_1_conv1_0_1, Var_seq2_1_conv1_1, Var_seq2_1_conv2_0_1, Var_seq2_1_conv2_1,
                 Gamma_seq2_0_conv1_0_1, Gamma_seq2_0_conv1_1, Gamma_seq2_0_conv2_0_1, Gamma_seq2_0_conv2_1, Gamma_seq2_0_downsample_1, Gamma_seq2_1_conv1_0_1, Gamma_seq2_1_conv1_1, Gamma_seq2_1_conv2_0_1, Gamma_seq2_1_conv2_1,
-                Bais_seq2_0_conv1_0_1, Bais_seq2_0_conv1_1, Bais_seq2_0_conv2_0_1, Bais_seq2_0_conv2_1, Bais_seq2_0_downsample_1, Bais_seq2_1_conv1_0_1, Bais_seq2_1_conv1_1, Bais_seq2_1_conv2_0_1, Bais_seq2_1_conv2_1,
+                Bias_seq2_0_conv1_0_1, Bias_seq2_0_conv1_1, Bias_seq2_0_conv2_0_1, Bias_seq2_0_conv2_1, Bias_seq2_0_downsample_1, Bias_seq2_1_conv1_0_1, Bias_seq2_1_conv1_1, Bias_seq2_1_conv2_0_1, Bias_seq2_1_conv2_1,
             Kernel_seq3_0_conv1_0_0, Kernel_seq3_0_conv1_0_3, Kernel_seq3_0_conv2_0_0, Kernel_seq3_0_conv2_0_3, Kernel_seq3_0_downsample_0, Kernel_seq3_1_conv1_0_0, Kernel_seq3_1_conv1_0_3, Kernel_seq3_1_conv2_0_0, Kernel_seq3_1_conv2_0_3,
             Kernel_seq3_0_conv1_0_0_scale, Kernel_seq3_0_conv1_0_3_scale, Kernel_seq3_0_conv2_0_0_scale, Kernel_seq3_0_conv2_0_3_scale, Kernel_seq3_0_downsample_0_scale, Kernel_seq3_1_conv1_0_0_scale, Kernel_seq3_1_conv1_0_3_scale, Kernel_seq3_1_conv2_0_0_scale, Kernel_seq3_1_conv2_0_3_scale,
                 Mu_seq3_0_conv1_0_1, Mu_seq3_0_conv1_1, Mu_seq3_0_conv2_0_1, Mu_seq3_0_conv2_1, Mu_seq3_0_downsample_1, Mu_seq3_1_conv1_0_1, Mu_seq3_1_conv1_1, Mu_seq3_1_conv2_0_1, Mu_seq3_1_conv2_1,
                 Var_seq3_0_conv1_0_1, Var_seq3_0_conv1_1, Var_seq3_0_conv2_0_1, Var_seq3_0_conv2_1, Var_seq3_0_downsample_1, Var_seq3_1_conv1_0_1, Var_seq3_1_conv1_1, Var_seq3_1_conv2_0_1, Var_seq3_1_conv2_1,
                 Gamma_seq3_0_conv1_0_1, Gamma_seq3_0_conv1_1, Gamma_seq3_0_conv2_0_1, Gamma_seq3_0_conv2_1, Gamma_seq3_0_downsample_1, Gamma_seq3_1_conv1_0_1, Gamma_seq3_1_conv1_1, Gamma_seq3_1_conv2_0_1, Gamma_seq3_1_conv2_1,
-                Bais_seq3_0_conv1_0_1, Bais_seq3_0_conv1_1, Bais_seq3_0_conv2_0_1, Bais_seq3_0_conv2_1, Bais_seq3_0_downsample_1, Bais_seq3_1_conv1_0_1, Bais_seq3_1_conv1_1, Bais_seq3_1_conv2_0_1, Bais_seq3_1_conv2_1,
+                Bias_seq3_0_conv1_0_1, Bias_seq3_0_conv1_1, Bias_seq3_0_conv2_0_1, Bias_seq3_0_conv2_1, Bias_seq3_0_downsample_1, Bias_seq3_1_conv1_0_1, Bias_seq3_1_conv1_1, Bias_seq3_1_conv2_0_1, Bias_seq3_1_conv2_1,
             Kernel_seq4_0_conv1_0_0, Kernel_seq4_0_conv1_0_3, Kernel_seq4_0_conv2_0_0, Kernel_seq4_0_conv2_0_3, Kernel_seq4_0_downsample_0, Kernel_seq4_1_conv1_0_0, Kernel_seq4_1_conv1_0_3, Kernel_seq4_1_conv2_0_0, Kernel_seq4_1_conv2_0_3,
             Kernel_seq4_0_conv1_0_0_scale, Kernel_seq4_0_conv1_0_3_scale, Kernel_seq4_0_conv2_0_0_scale, Kernel_seq4_0_conv2_0_3_scale, Kernel_seq4_0_downsample_0_scale, Kernel_seq4_1_conv1_0_0_scale, Kernel_seq4_1_conv1_0_3_scale, Kernel_seq4_1_conv2_0_0_scale, Kernel_seq4_1_conv2_0_3_scale,
                 Mu_seq4_0_conv1_0_1, Mu_seq4_0_conv1_1, Mu_seq4_0_conv2_0_1, Mu_seq4_0_conv2_1, Mu_seq4_0_downsample_1, Mu_seq4_1_conv1_0_1, Mu_seq4_1_conv1_1, Mu_seq4_1_conv2_0_1, Mu_seq4_1_conv2_1,
                 Var_seq4_0_conv1_0_1, Var_seq4_0_conv1_1, Var_seq4_0_conv2_0_1, Var_seq4_0_conv2_1, Var_seq4_0_downsample_1, Var_seq4_1_conv1_0_1, Var_seq4_1_conv1_1, Var_seq4_1_conv2_0_1, Var_seq4_1_conv2_1,
                 Gamma_seq4_0_conv1_0_1, Gamma_seq4_0_conv1_1, Gamma_seq4_0_conv2_0_1, Gamma_seq4_0_conv2_1, Gamma_seq4_0_downsample_1, Gamma_seq4_1_conv1_0_1, Gamma_seq4_1_conv1_1, Gamma_seq4_1_conv2_0_1, Gamma_seq4_1_conv2_1,
-                Bais_seq4_0_conv1_0_1, Bais_seq4_0_conv1_1, Bais_seq4_0_conv2_0_1, Bais_seq4_0_conv2_1, Bais_seq4_0_downsample_1, Bais_seq4_1_conv1_0_1, Bais_seq4_1_conv1_1, Bais_seq4_1_conv2_0_1, Bais_seq4_1_conv2_1,
-            Kernel_linear, Kernel_linear_scale);
+                Bias_seq4_0_conv1_0_1, Bias_seq4_0_conv1_1, Bias_seq4_0_conv2_0_1, Bias_seq4_0_conv2_1, Bias_seq4_0_downsample_1, Bias_seq4_1_conv1_0_1, Bias_seq4_1_conv1_1, Bias_seq4_1_conv2_0_1, Bias_seq4_1_conv2_1,
+            Kernel_linear);//, Kernel_linear_scale);
 
     // calculate errors
     if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;

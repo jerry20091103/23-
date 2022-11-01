@@ -264,8 +264,8 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     ReLU(X_stem_2, X_stem_2_num, 65);
     
     // for stem test
-    for(int_t i = 0; i < 2257920; i++)
-        Y[i] = X_stem_1[i]; // assign result to output
+    for(int_t i = 0; i < 3211264; i++)
+        Y[i] = X_stem_2[i]; // assign result to output
     
     // // ========================Sequential 1~4==================================
     // Sequential(X_stem_2, X_seq, 

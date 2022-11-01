@@ -171,6 +171,8 @@ int_t main() {
 		return 0;
 
 	// load stem kernel
+	if(!LoadDouble("stem.0.weight.scale.dat", Kernel_stem_0_scale, 45)) return 0;
+	if(!LoadDouble("stem.3.weight.scale.dat", Kernel_stem_3_scale, 64)) return 0;
 	if(!LoadDTYPE("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadDTYPE("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
 

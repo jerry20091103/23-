@@ -299,21 +299,21 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     // for(int_t i = 0; i < 25088; i++)
     //     Y[i] = X_seq[i]; // assign result to output
     
-    // // ======================== AdaptiveAvgPool3d ==================================
-    // int_t X_seq_num[5] = {N_, 512, 2, 7, 7};
-    // int_t X_adap_num[5] = {N_, 512, 1, 1, 1};
-    // AdaptiveAvgPool3d(X_seq, X_seq_num, X_adap, X_adap_num);
+    // ======================== AdaptiveAvgPool3d ==================================
+    int_t X_seq_num[5] = {N_, 512, 2, 7, 7};
+    int_t X_adap_num[5] = {N_, 512, 1, 1, 1};
+    AdaptiveAvgPool3d(X_seq, X_seq_num, X_adap, X_adap_num);
 
     // // // for sequential test
     // // for(int_t i = 0; i < 512; i++)
     // //     Y[i] = X_adap[i]; // assign result to output
 
-    // // ======================== Linear ==================================
-    // int_t X_adap_flat_num[2] = {N_, 512};
-    // Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear, Kernel_linear_scale);
-    // // for linear test
-    // for(int_t i = 0; i < 10; i++)
-    //     Y[i] = X_linear[i]; // assign result to output
+    // ======================== Linear ==================================
+    int_t X_adap_flat_num[2] = {N_, 512};
+    Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear, Kernel_linear_scale);
+    // for linear test
+    for(int_t i = 0; i < 10; i++)
+        Y[i] = X_linear[i]; // assign result to output
  
  #ifndef __SYNTHESIS__
     free(X_stem_1);

@@ -106,8 +106,8 @@ string fc_dat_name[1] = {"fc.1.weight.dat"};
 
 int_t main() {
 	dtype *input = (dtype*)malloc(602112 * sizeof(dtype));
-	dtype *output = (dtype*)malloc(50176 * sizeof(dtype));
-	dtype *output_golden = (dtype*)malloc(50176 * sizeof(dtype));
+	dtype *output = (dtype*)malloc(3211264 * sizeof(dtype));
+	dtype *output_golden = (dtype*)malloc(3211264 * sizeof(dtype));
 
 	dtype *Kernel_stem_0 = (dtype*)malloc(6615 * sizeof(dtype));
 	dtype *Kernel_stem_3 = (dtype*)malloc(8640 * sizeof(dtype));
@@ -416,7 +416,7 @@ int_t main() {
 	if(!LoadDouble(layer_4_bias_dat_name[7], Bias_seq4_1_conv2_0_1, 1152)) return 0;
 	if(!LoadDouble(layer_4_bias_dat_name[8], Bias_seq4_1_conv2_1, 512)) return 0;
 
-	if(!LoadDTYPE("output.dat", 			 output_golden, 	  50176)) return 0;
+	if(!LoadDTYPE("output.dat", 			 output_golden, 	  3211264)) return 0;
 
 	// ====================================
 	// Function to test here:
@@ -451,8 +451,8 @@ int_t main() {
 
 	// calculate errors
 	float errors;
-	int_t X_num[5] = { 1, 512, 2, 7, 7 };
-	errors = 100 * float(validate(output, output_golden, X_num)) / 50176;
+	int_t X_num[5] = { 1, 64, 16, 56, 56 };
+	errors = 100 * float(validate(output, output_golden, X_num)) / 3211264;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

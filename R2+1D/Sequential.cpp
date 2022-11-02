@@ -192,7 +192,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
     ReLU(X4_data, X4_num, 49);
     Conv2Plus1D(X4_data, X4_num, X4_data, X4_num, 921, 
                 Kernel_4_3_data, Kernel_4_4_data, Kernel_4_3_data_scale, Kernel_4_4_data_scale, 1, 1,
-                3.296769410371780396e-02, 49, 5.654629692435264587e-02, 3.702012076973915100e-02, 61, 56,
+                3.296769410371780396e-02, 5.654629692435264587e-02, 3.702012076973915100e-02, 49, 61, 56,
                 Mu_seq_4_3, Var_seq_4_3, Gamma_seq_4_3, bias_seq_4_3, 2.629663422703742981e-02, 60);
     BatchNorm3d(X4_data, X4_num,  Mu_seq_4_4, Var_seq_4_4, Gamma_seq_4_4, bias_seq_4_4, 3.702012076973915100e-02,56 ,8.961183577775955200e-02, 57);
 

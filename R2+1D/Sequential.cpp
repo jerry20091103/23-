@@ -67,8 +67,8 @@ void Sequential(dtype* X_data, dtype* Y_data,
                 Kernel_1_3_data, Kernel_1_4_data, Kernel_1_3_data_scale, Kernel_1_4_data_scale, 1, 1, 
                 5.436319485306739807e-02,6.804036349058151245e-02, 3.850702568888664246e-02, 74, 60, 66,
                 Mu_seq_1_3,Var_seq_1_3, Gamma_seq_1_3, bias_seq_1_3, 4.303903132677078247e-02, 62); 
-    BatchNorm3d(X_data, X_num, Mu_seq_1_4, Var_seq_1_4, Gamma_seq_1_4, bias_seq_1_4, 6.804036349058151245e-02, 66 ,4.517441987991333008e-02, 68);
-    // layer1.0
+    BatchNorm3d(X_data, X_num, Mu_seq_1_4, Var_seq_1_4, Gamma_seq_1_4, bias_seq_1_4, 3.850702568888664246e-02, 66 ,4.517441987991333008e-02, 68);
+    // // layer1.0
     // Residual(X_data, X_tmp_data, X_num, X_scale, 4.517441987991333008e-02, 7.029289007186889648e-02, X_zeropoint, 68, 46);
     // ReLU(X_data, X_num, 46);
 
@@ -85,10 +85,10 @@ void Sequential(dtype* X_data, dtype* Y_data,
     //             4.148417711257934570e-02, 3.422784805297851562e-02, 2.731916867196559906e-02, 70, 68, 71,
     //             Mu_seq_1_7,Var_seq_1_7, Gamma_seq_1_7, bias_seq_1_7, 2.891838178038597107e-02,  61); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
   
-    BatchNorm3d(X_data, X_num, Mu_seq_1_8, Var_seq_1_8, Gamma_seq_1_8, bias_seq_1_8,2.731916867196559906e-02, 71, 5.917721241712570190e-02, 53);
-    // Todo layer1.1
-    Residual(X_data, X_tmp_data, X_num, 5.917721241712570190e-02, 7.029289007186889648e-02, 7.128605991601943970e-02, 53, 46, 49);
-    ReLU(X_data, X_num, 49);
+    // BatchNorm3d(X_data, X_num, Mu_seq_1_8, Var_seq_1_8, Gamma_seq_1_8, bias_seq_1_8,2.731916867196559906e-02, 71, 5.917721241712570190e-02, 53);
+    // // layer1.1
+    // Residual(X_data, X_tmp_data, X_num, 5.917721241712570190e-02, 7.029289007186889648e-02, 7.128605991601943970e-02, 53, 46, 49);
+    // ReLU(X_data, X_num, 49);
 
 //     // // =============================================================================
 //     // // layer 2

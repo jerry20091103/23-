@@ -18,7 +18,7 @@ int_t main()
 	dtype *golden = (dtype*)malloc(10 * sizeof(dtype));
 
 	dtype *Kernel = (dtype*)malloc(5120 * sizeof(dtype));
-	double *Kernel_linear_scale = (double*)malloc(10 * sizeof(dtype));
+	double *Kernel_linear_scale = (double*)malloc(10 * sizeof(double));
 
 	// ==========================================================
 	// Linear

@@ -67,6 +67,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
                 double* bias_seq_2_1, double* bias_seq_2_2, double* bias_seq_2_3, double* bias_seq_2_4, double* bias_seq_2_5, double* bias_seq_2_6, double* bias_seq_2_7, double* bias_seq_2_8,double* bias_seq_2_9,
                 double* bias_seq_3_1, double* bias_seq_3_2, double* bias_seq_3_3, double* bias_seq_3_4, double* bias_seq_3_5, double* bias_seq_3_6, double* bias_seq_3_7, double* bias_seq_3_8,double* bias_seq_3_9,
                 double* bias_seq_4_1, double* bias_seq_4_2, double* bias_seq_4_3, double* bias_seq_4_4, double* bias_seq_4_5, double* bias_seq_4_6, double* bias_seq_4_7, double* bias_seq_4_8,double* bias_seq_4_9);
+void Residual(dtype* X, dtype* X_tmp, int_t* size, double X_scale, double X_tmp_scale, double out_scale, int_t X_zeropoint, int_t X_tmp_zeropoint, int_t out_zeropoint);
 void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num);
 void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, dtype* Kernel, double* Kernel_scale);
 #endif

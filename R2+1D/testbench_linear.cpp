@@ -14,8 +14,8 @@ bool LoadDouble(string filename, double* arr, int size);
 int_t main()
 {
 	dtype *input = (dtype*)malloc(512 * sizeof(dtype));
-	dtype *output = (dtype*)malloc(400 * sizeof(dtype));
-	dtype *golden = (dtype*)malloc(400 * sizeof(dtype));
+	dtype *output = (dtype*)malloc(10 * sizeof(dtype));
+	dtype *golden = (dtype*)malloc(10 * sizeof(dtype));
 
 	dtype *Kernel = (dtype*)malloc(5120 * sizeof(dtype));
 	double *Kernel_linear_scale = (double*)malloc(10 * sizeof(dtype));
@@ -47,6 +47,8 @@ int_t main()
 	free(output);
 	free(golden);
 	free(Kernel);
+
+	free(Kernel_linear_scale);
 
 	return 0;
 }

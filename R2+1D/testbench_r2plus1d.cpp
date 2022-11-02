@@ -10,8 +10,8 @@ using namespace std;
 // modify these value to test different layers
 // remember to use corresponding input.dat and output.dat in vitis/visual studio project
 #define INPUT_SIZE 602112
-#define OUTPUT_SIZE 3211264
-int_t OUTPUT_STRUCTURE[5] = { 1, 64, 16, 56, 56 };
+#define OUTPUT_SIZE 50176
+int_t OUTPUT_STRUCTURE[5] = { 1, 512, 2, 7, 7 };
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile);
 bool LoadDTYPE(string filename, dtype* arr, int size);

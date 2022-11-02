@@ -287,6 +287,8 @@ int_t main()
 		outfile<<"[PASS] Congratulation! All results are correct\n";
 	}
 
+	outfile.close();
+
     free(input);
     free(output);
     free(golden);

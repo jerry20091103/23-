@@ -429,7 +429,7 @@ int_t main() {
 	if(!LoadDouble(layer_4_bias_dat_name[7], Bias_seq4_1_conv2_0_1, 1152)) return 0;
 	if(!LoadDouble(layer_4_bias_dat_name[8], Bias_seq4_1_conv2_1, 512)) return 0;
 
-	if(!LoadDTYPE("output.dat", 			 output_golden, 	  OUTPUT_SIZE)) return 0;
+	if(!LoadDTYPE("layer1.0.conv2.1.output.dat", 			 output_golden, 	  OUTPUT_SIZE)) return 0;
 
 	// ====================================
 	// Function to test here:

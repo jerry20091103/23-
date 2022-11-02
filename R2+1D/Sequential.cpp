@@ -69,7 +69,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
                 Mu_seq_1_3,Var_seq_1_3, Gamma_seq_1_3, bias_seq_1_3, 4.303903132677078247e-02, 62); 
     BatchNorm3d(X_data, X_num, Mu_seq_1_4, Var_seq_1_4, Gamma_seq_1_4, bias_seq_1_4, 3.850702568888664246e-02, 66 ,4.517441987991333008e-02, 68);
     // layer1.0
-    Residual(X_data, X_tmp_data, X_num, X_scale, 4.517441987991333008e-02, 7.029289007186889648e-02, X_zeropoint, 68, 46);
+    Residual(X_data, X_tmp_data, X_num, 4.517441987991333008e-02, X_scale, 7.029289007186889648e-02, 68, X_zeropoint, 46);
     ReLU(X_data, X_num, 46);
 
     for(int_t i = 0; i < 3211264; i++)

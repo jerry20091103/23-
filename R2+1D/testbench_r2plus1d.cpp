@@ -11,7 +11,7 @@ using namespace std;
 // remember to use corresponding input.dat and output.dat in vitis/visual studio project
 // and r2plus1d.cpp
 #define INPUT_SIZE 3211264
-#define OUTPUT_SIZE 3211264
+#define OUTPUT_SIZE 50176
 int_t OUTPUT_STRUCTURE[5] = { 1, 64, 16, 56, 56 };
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile);

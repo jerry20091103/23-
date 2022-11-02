@@ -236,8 +236,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
     dtype* X_stem_1 = (dtype*)malloc(2257920*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
     dtype* X_stem_2 = (dtype*)malloc(3211264*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
     // // Sequential 1~4
-    // dtype* X_seq = (dtype*)malloc(50176*sizeof(dtype)); // value after 1~4 sequential layer
-    dtype* X_seq = (dtype*)malloc(3211264*sizeof(dtype)); // value after 1~4 sequential layer
+    dtype* X_seq = (dtype*)malloc(50176*sizeof(dtype)); // value after 1~4 sequential layer
     // AdaptiveAvgPool3d
     dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
     // Linear
@@ -297,7 +296,7 @@ void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, do
         Bais_seq4_0_conv1_0_1, Bais_seq4_0_conv1_1, Bais_seq4_0_conv2_0_1, Bais_seq4_0_conv2_1, Bais_seq4_0_downsample_1, Bais_seq4_1_conv1_0_1, Bais_seq4_1_conv1_1, Bais_seq4_1_conv2_0_1, Bais_seq4_1_conv2_1);
 
     // for sequential test
-    for(int_t i = 0; i < 3211264; i++)
+    for(int_t i = 0; i < 50176; i++)
         Y[i] = X_seq[i]; // assign result to output
     
     // // ======================== AdaptiveAvgPool3d ==================================

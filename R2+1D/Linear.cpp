@@ -25,9 +25,13 @@ void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, dtype* Kernel, double* k
         Y_data[i] = 0;
 
     for(int h = 0; h < H; h++)
-        for(int c = 0; c < out_features; c++)
+        for(int c = 0; c < out_features; c++){
+            int yPos = h*out_features+c;
             for(int i = 0; i < W; i++)
-                Y_data[h*out_features+c] += round( (Kernel[c*W+i]*X_data[h*W+i]*scale_in*kernel_scale[c])/scale_out + zp_out);
+                Y_data[yPos] += Kernel[c*W+i]*X_data[h*W+i];
+            Y_data[yPos] = round(Y_data[yPos]*scale_in*kernel_scale[c]/scale_out + zp_out);
+        }
+
     return;
 }
 

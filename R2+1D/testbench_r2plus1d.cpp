@@ -467,11 +467,11 @@ int_t main() {
 	errors = 100 * float(validate(output, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
 	
 	if (errors != 0) {
-		// printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
+		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
 		outfile << "[FAIL] There are some errors QQ, error rate: "<<errors<<"%\n";
 	}
 	else {
-		// printf("[PASS] Congratulation! All results are correct\n");
+		printf("[PASS] Congratulation! All results are correct\n");
 		outfile<<"[PASS] Congratulation! All results are correct\n";
 	}
 

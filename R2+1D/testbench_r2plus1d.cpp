@@ -7,7 +7,7 @@
 #include <iomanip>
 using namespace std;
 
-int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
+int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile);
 bool LoadDTYPE(string filename, dtype* arr, int size);
 bool LoadDouble(string filename, double* arr, int size);
 
@@ -105,6 +105,10 @@ string layer_4_bias_dat_name[9] = {"layer4.0.conv1.0.1.bias.dat",  "layer4.0.con
 string fc_dat_name[1] = {"fc.1.weight.dat"};
 
 int_t main() {
+	// create a output txt file
+	ofstream outfile;
+	outfile.open("result.txt");
+
 	dtype *input = (dtype*)malloc(602112 * sizeof(dtype));
 	dtype *output = (dtype*)malloc(3211264 * sizeof(dtype));
 	dtype *output_golden = (dtype*)malloc(3211264 * sizeof(dtype));
@@ -454,12 +458,18 @@ int_t main() {
 	// calculate errors
 	float errors;
 	int_t X_num[5] = { 1, 64, 16, 56, 56 };
-	errors = 100 * float(validate(output, output_golden, X_num)) / 3211264;
+	errors = 100 * float(validate(output, output_golden, X_num, outfile)) / 3211264;
+	
+	if (errors != 0) {
+		// printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
+		outfile << "[FAIL] There are some errors QQ, error rate: "<<errors<<"%\n";
+	}
+	else {
+		// printf("[PASS] Congratulation! All results are correct\n");
+		outfile<<"[PASS] Congratulation! All results are correct\n";
+	}
 
-	if (errors != 0)
-		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
-	else
-		printf("[PASS] Congratulation! All results are correct\n");
+	outfile.close();
 
 	free(input);
 	free(output_golden);
@@ -525,7 +535,7 @@ int_t main() {
 	return 0;
 }
 
-int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
+int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile)
 {
 	int_t errors = 0;
 	int_t N = size[0];
@@ -540,12 +550,14 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
 					for (int_t w = 0; w < W; w++) {
 						int_t pos = n * C*D*H*W + c * D*H*W + d * H*W + h * W + w;
                         if(golden[pos] == 0 && ourOutput[pos] != golden[pos]){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
-                            errors++;
+                            // cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
+                            outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
+							errors++;
                         }
                         else if(ourOutput[pos] != golden[pos] && (double)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (double)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
-                            errors++;
+                            // cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
+                            outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
+							errors++;
                         }
 					}
 	return errors;

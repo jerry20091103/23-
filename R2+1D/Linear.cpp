@@ -15,7 +15,16 @@ using namespace std;
 void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, dtype* Kernel, double* kernel_scale){
     int H = X_num[0];
     int W = X_num[1];
-    
+    double KernelBias[out_features] = {-2.027071081101894379e-02, 
+                                        -2.052653767168521881e-02,
+                                        7.522165542468428612e-04,
+                                        -1.116470154374837875e-02,
+                                        -7.982283830642700195e-03,
+                                        9.041070006787776947e-03,
+                                        -1.629139482975006104e-02,
+                                        -4.765422269701957703e-02,
+                                        4.082637373358011246e-03,
+                                        5.861985497176647186e-03};
     // dequan X
 	for(int_t i = H*W-1; i >= 0; i--)
 		X_data[i] -= zp_in;
@@ -29,7 +38,7 @@ void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, dtype* Kernel, double* k
             int yPos = h*out_features+c;
             for(int i = 0; i < W; i++)
                 Y_data[yPos] += Kernel[c*W+i]*X_data[h*W+i];
-            Y_data[yPos] = round(Y_data[yPos]*scale_in*kernel_scale[c]/scale_out + zp_out);
+            Y_data[yPos] = round((Y_data[yPos]*scale_in*kernel_scale[c]+KernelBias[c])/scale_out + zp_out);
         }
 
     return;

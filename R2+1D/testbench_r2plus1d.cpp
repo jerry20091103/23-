@@ -9,6 +9,7 @@ using namespace std;
 
 // modify these value to test different layers
 // remember to use corresponding input.dat and output.dat in vitis/visual studio project
+// and r2plus1d.cpp
 #define INPUT_SIZE 602112
 #define OUTPUT_SIZE 50176
 int_t OUTPUT_STRUCTURE[5] = { 1, 512, 2, 7, 7 };

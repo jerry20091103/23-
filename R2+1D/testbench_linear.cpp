@@ -28,7 +28,7 @@ int_t main()
     if(!LoadDTYPE("input.dat", input, 512)) return 0;
 	if(!LoadDTYPE("fc.1.weight.dat", Kernel, 5120)) return 0;
 	if(!LoadDouble("fc.1.weight.scale.dat", Kernel_linear_scale, 10)) return 0;
-	if(!LoadDTYPE("output.dat", golden, 400)) return 0;
+	if(!LoadDTYPE("output.dat", golden, 10)) return 0;
 
 	cout << "==> Linear\n";
     Linear(input, X_linear_in_num, output, Kernel, Kernel_linear_scale);

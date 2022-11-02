@@ -7,6 +7,12 @@
 #include <iomanip>
 using namespace std;
 
+// modify these value to test different layers
+// remember to use corresponding input.dat and output.dat in vitis/visual studio project
+#define INPUT_SIZE 602112
+#define OUTPUT_SIZE 3211264
+int_t OUTPUT_STRUCTURE[5] = { 1, 64, 16, 56, 56 };
+
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile);
 bool LoadDTYPE(string filename, dtype* arr, int size);
 bool LoadDouble(string filename, double* arr, int size);
@@ -109,9 +115,9 @@ int_t main() {
 	ofstream outfile;
 	outfile.open("result.txt");
 
-	dtype *input = (dtype*)malloc(602112 * sizeof(dtype));
-	dtype *output = (dtype*)malloc(3211264 * sizeof(dtype));
-	dtype *output_golden = (dtype*)malloc(3211264 * sizeof(dtype));
+	dtype *input = (dtype*)malloc(INPUT_SIZE * sizeof(dtype));
+	dtype *output = (dtype*)malloc(OUTPUT_SIZE * sizeof(dtype));
+	dtype *output_golden = (dtype*)malloc(OUTPUT_SIZE * sizeof(dtype));
 
 	dtype *Kernel_stem_0 = (dtype*)malloc(6615 * sizeof(dtype));
 	dtype *Kernel_stem_3 = (dtype*)malloc(8640 * sizeof(dtype));
@@ -171,7 +177,7 @@ int_t main() {
 	dtype *Kernel_linear = (dtype*)malloc(5120 * sizeof(dtype));
 
 	// load input
-	if(!LoadDTYPE("input.dat", input, 602112))
+	if(!LoadDTYPE("input.dat", input, INPUT_SIZE))
 		return 0;
 
 	// load stem kernel
@@ -422,7 +428,7 @@ int_t main() {
 	if(!LoadDouble(layer_4_bias_dat_name[7], Bias_seq4_1_conv2_0_1, 1152)) return 0;
 	if(!LoadDouble(layer_4_bias_dat_name[8], Bias_seq4_1_conv2_1, 512)) return 0;
 
-	if(!LoadDTYPE("output.dat", 			 output_golden, 	  3211264)) return 0;
+	if(!LoadDTYPE("output.dat", 			 output_golden, 	  OUTPUT_SIZE)) return 0;
 
 	// ====================================
 	// Function to test here:
@@ -457,8 +463,7 @@ int_t main() {
 
 	// calculate errors
 	float errors;
-	int_t X_num[5] = { 1, 64, 16, 56, 56 };
-	errors = 100 * float(validate(output, output_golden, X_num, outfile)) / 3211264;
+	errors = 100 * float(validate(output, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
 	
 	if (errors != 0) {
 		// printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

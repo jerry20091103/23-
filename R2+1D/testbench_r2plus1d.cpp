@@ -114,7 +114,7 @@ string fc_dat_name[1] = {"fc.1.weight.dat"};
 int_t main() {
 	// create a output txt file
 	ofstream outfile;
-	outfile.open("result.txt");
+	outfile.open("results.txt");
 
 	dtype *input = (dtype*)malloc(INPUT_SIZE * sizeof(dtype));
 	dtype *output = (dtype*)malloc(OUTPUT_SIZE * sizeof(dtype));

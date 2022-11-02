@@ -5,8 +5,8 @@ using namespace std;
 
 #define out_features 10  // Y_num(out_features) = 10
 
-#define scale_in  1.026933342218399048e-01
-#define zp_in 42
+#define scale_in  1.290386915206909180e-01
+#define zp_in 31
 #define scale_out 3.984360396862030029e-02
 #define zp_out 127
 

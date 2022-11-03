@@ -24,6 +24,7 @@ void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num)
             for(int_t d = 0; d < D_out; d++){
                 for (int_t h = 0; h < H_out; h++){
                     for (int_t w = 0; w < W_out; w++){
+                        Y_data[n*C*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] = 0;
                         for(int_t kd = 0; kd < kernel_D; kd++){
                             for(int_t kh = 0; kh < kernel_H; kh++){
                                 for(int_t kw = 0; kw < kernel_W; kw++){

@@ -1,4 +1,5 @@
 #include "r2plus1d.h"
+#include <cmath>
 void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num){
     int_t N = X_num[0];
 	int_t C = X_num[1];
@@ -32,7 +33,8 @@ void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num)
                                 }
                             }
                         }
-                        Y_data[n*C*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] = Y_data[n*C*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w]/(kernel_D*kernel_W*kernel_H);
+                        
+                        Y_data[n*C*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] = round((double)Y_data[n*C*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w]/(kernel_D*kernel_W*kernel_H));
                     }
 						
                 }

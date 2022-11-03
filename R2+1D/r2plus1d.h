@@ -6,10 +6,10 @@
 #define N_ 1
 #define C_ 1152
 #define D_ 16
-typedef uint8_t dtype;
+typedef int dtype;
 typedef int int_t;
-typedef float ftype;
-typedef int8_t ktype;
+typedef double ftype;
+typedef int ktype;
 void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0,ktype* Kernel_stem_3, ftype* Kernel_stem_0_scale, ftype* Kernel_stem_3_scale,
                 ftype* Mu_stem_1, ftype* Mu_stem_4, ftype* Var_stem_1, ftype* Var_stem_4, ftype* Gamma_stem_1, ftype* Gamma_stem_4, ftype* Bias_stem_1, ftype* Bias_stem_4,
             ktype* Kernel_seq1_0_conv1_0_0, ktype* Kernel_seq1_0_conv1_0_3, ktype* Kernel_seq1_0_conv2_0_0, ktype* Kernel_seq1_0_conv2_0_3, ktype* Kernel_seq1_1_conv1_0_0, ktype* Kernel_seq1_1_conv1_0_3, ktype* Kernel_seq1_1_conv2_0_0, ktype* Kernel_seq1_1_conv2_0_3,

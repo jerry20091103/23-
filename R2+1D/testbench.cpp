@@ -1,21 +1,10 @@
-#include <iostream>
-#include <fstream>
-#include <stdio.h>
-#include <stdlib.h>
-#include "r2plus1d.h"
-#include <string>
-#include <iomanip>
-using namespace std;
+#include "test_utility.h"
 
 // !defines: switch between different testing modes.
 #define separate_test 0
 #define full_test 1
 // modify this:
-#define TEST_MODE full_test
-
-int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile);
-bool LoadDTYPE(string filename, dtype* arr, int size);
-bool LoadDouble(string filename, ftype* arr, int size);
+#define TEST_MODE separate_test
 
 ftype Kernel_stem_0_scale[45];
 ftype Kernel_stem_3_scale[64];
@@ -96,146 +85,146 @@ int_t main()
     dtype *output = (dtype*)malloc(3211264 * sizeof(dtype));
     dtype *golden = (dtype*)malloc(3211264 * sizeof(dtype));
 
-    dtype *Kernel_stem_0 = (dtype*)malloc(6615 * sizeof(dtype));
-	dtype *Kernel_stem_3 = (dtype*)malloc(8640 * sizeof(dtype));
+    ktype *Kernel_stem_0 = (ktype*)malloc(6615 * sizeof(ktype));
+	ktype *Kernel_stem_3 = (ktype*)malloc(8640 * sizeof(ktype));
 
-	dtype *Kernel_seq1_0_conv1_0_0 = (dtype*)malloc(82944 * sizeof(dtype));
-	dtype *Kernel_seq1_0_conv2_0_0 = (dtype*)malloc(82944 * sizeof(dtype));
-	dtype *Kernel_seq1_1_conv1_0_0 = (dtype*)malloc(82944 * sizeof(dtype));
-	dtype *Kernel_seq1_1_conv2_0_0 = (dtype*)malloc(82944 * sizeof(dtype));
-	dtype *Kernel_seq1_0_conv1_0_3 = (dtype*)malloc(27648 * sizeof(dtype));
-	dtype *Kernel_seq1_0_conv2_0_3 = (dtype*)malloc(27648 * sizeof(dtype));
-	dtype *Kernel_seq1_1_conv1_0_3 = (dtype*)malloc(27648 * sizeof(dtype));
-	dtype *Kernel_seq1_1_conv2_0_3 = (dtype*)malloc(27648 * sizeof(dtype));
+	ktype *Kernel_seq1_0_conv1_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_0_conv2_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv1_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv2_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_0_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+	ktype *Kernel_seq1_0_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
 	// kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
 
-	dtype *Kernel_seq2_0_conv1_0_0 = (dtype*)malloc(132480 * sizeof(dtype));
-	dtype *Kernel_seq2_0_conv1_0_3 = (dtype*)malloc(88320 * sizeof(dtype));
+	ktype *Kernel_seq2_0_conv1_0_0 = (ktype*)malloc(132480 * sizeof(ktype));
+	ktype *Kernel_seq2_0_conv1_0_3 = (ktype*)malloc(88320 * sizeof(ktype));
 	// kernel_size=(64, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-	dtype *Kernel_seq2_0_conv2_0_0 = (dtype*)malloc(264960 * sizeof(dtype));
-	dtype *Kernel_seq2_0_conv2_0_3 = (dtype*)malloc(88320 * sizeof(dtype));
+	ktype *Kernel_seq2_0_conv2_0_0 = (ktype*)malloc(264960 * sizeof(ktype));
+	ktype *Kernel_seq2_0_conv2_0_3 = (ktype*)malloc(88320 * sizeof(ktype));
 	// kernel_size=(128, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-	dtype *Kernel_seq2_0_downsample_0 = (dtype*)malloc(8192 * sizeof(dtype));
+	ktype *Kernel_seq2_0_downsample_0 = (ktype*)malloc(8192 * sizeof(ktype));
 	// kernel_size=(64, 128, 1, 1, 1)
-	dtype *Kernel_seq2_1_conv1_0_0 = (dtype*)malloc(331776 * sizeof(dtype));
-	dtype *Kernel_seq2_1_conv1_0_3 = (dtype*)malloc(110592 * sizeof(dtype));
-	dtype *Kernel_seq2_1_conv2_0_0 = (dtype*)malloc(331776 * sizeof(dtype));
-	dtype *Kernel_seq2_1_conv2_0_3 = (dtype*)malloc(110592 * sizeof(dtype));
+	ktype *Kernel_seq2_1_conv1_0_0 = (ktype*)malloc(331776 * sizeof(ktype));
+	ktype *Kernel_seq2_1_conv1_0_3 = (ktype*)malloc(110592 * sizeof(ktype));
+	ktype *Kernel_seq2_1_conv2_0_0 = (ktype*)malloc(331776 * sizeof(ktype));
+	ktype *Kernel_seq2_1_conv2_0_3 = (ktype*)malloc(110592 * sizeof(ktype));
 	// kernel_size=(128, 288, 1, 3, 3),  kernel_size=(128, 288, 3, 1, 1)
 
-	dtype *Kernel_seq3_0_conv1_0_0 = (dtype*)malloc(529920 * sizeof(dtype));
-	dtype *Kernel_seq3_0_conv1_0_3 = (dtype*)malloc(353280 * sizeof(dtype));
+	ktype *Kernel_seq3_0_conv1_0_0 = (ktype*)malloc(529920 * sizeof(ktype));
+	ktype *Kernel_seq3_0_conv1_0_3 = (ktype*)malloc(353280 * sizeof(ktype));
 	// kernel_size=(128, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-	dtype *Kernel_seq3_0_conv2_0_0 = (dtype*)malloc(1059840 * sizeof(dtype));
-	dtype *Kernel_seq3_0_conv2_0_3 = (dtype*)malloc(353280 * sizeof(dtype));
+	ktype *Kernel_seq3_0_conv2_0_0 = (ktype*)malloc(1059840 * sizeof(ktype));
+	ktype *Kernel_seq3_0_conv2_0_3 = (ktype*)malloc(353280 * sizeof(ktype));
 	// kernel_size=(256, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-	dtype *Kernel_seq3_0_downsample_0 = (dtype*)malloc(32768 * sizeof(dtype));
+	ktype *Kernel_seq3_0_downsample_0 = (ktype*)malloc(32768 * sizeof(ktype));
 	// kernel_size=(128, 256, 1, 1, 1)
-	dtype *Kernel_seq3_1_conv1_0_0 = (dtype*)malloc(1327104 * sizeof(dtype));
-	dtype *Kernel_seq3_1_conv1_0_3 = (dtype*)malloc(442368 * sizeof(dtype));
-	dtype *Kernel_seq3_1_conv2_0_0 = (dtype*)malloc(1327104 * sizeof(dtype));
-	dtype *Kernel_seq3_1_conv2_0_3 = (dtype*)malloc(442368 * sizeof(dtype));
+	ktype *Kernel_seq3_1_conv1_0_0 = (ktype*)malloc(1327104 * sizeof(ktype));
+	ktype *Kernel_seq3_1_conv1_0_3 = (ktype*)malloc(442368 * sizeof(ktype));
+	ktype *Kernel_seq3_1_conv2_0_0 = (ktype*)malloc(1327104 * sizeof(ktype));
+	ktype *Kernel_seq3_1_conv2_0_3 = (ktype*)malloc(442368 * sizeof(ktype));
 	// kernel_size=(256, 576, 1, 3, 3),  kernel_size=(256, 576, 3, 1, 1)
 
-	dtype *Kernel_seq4_0_conv1_0_0 = (dtype*)malloc(2121984 * sizeof(dtype));
-	dtype *Kernel_seq4_0_conv1_0_3 = (dtype*)malloc(1414656 * sizeof(dtype));
+	ktype *Kernel_seq4_0_conv1_0_0 = (ktype*)malloc(2121984 * sizeof(ktype));
+	ktype *Kernel_seq4_0_conv1_0_3 = (ktype*)malloc(1414656 * sizeof(ktype));
 	// kernel_size=(256, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-	dtype *Kernel_seq4_0_conv2_0_0 = (dtype*)malloc(4243968 * sizeof(dtype));
-	dtype *Kernel_seq4_0_conv2_0_3 = (dtype*)malloc(1414656 * sizeof(dtype));
+	ktype *Kernel_seq4_0_conv2_0_0 = (ktype*)malloc(4243968 * sizeof(ktype));
+	ktype *Kernel_seq4_0_conv2_0_3 = (ktype*)malloc(1414656 * sizeof(ktype));
 	// kernel_size=(512, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-	dtype *Kernel_seq4_0_downsample_0 = (dtype*)malloc(131072 * sizeof(dtype));
+	ktype *Kernel_seq4_0_downsample_0 = (ktype*)malloc(131072 * sizeof(ktype));
 	// kernel4size=(256, 512, 1, 1, 1)
-	dtype *Kernel_seq4_1_conv1_0_0 = (dtype*)malloc(5308416 * sizeof(dtype));
-	dtype *Kernel_seq4_1_conv1_0_3 = (dtype*)malloc(1769472 * sizeof(dtype));
-	dtype *Kernel_seq4_1_conv2_0_0 = (dtype*)malloc(5308416 * sizeof(dtype));
-	dtype *Kernel_seq4_1_conv2_0_3 = (dtype*)malloc(1769472 * sizeof(dtype));
+	ktype *Kernel_seq4_1_conv1_0_0 = (ktype*)malloc(5308416 * sizeof(ktype));
+	ktype *Kernel_seq4_1_conv1_0_3 = (ktype*)malloc(1769472 * sizeof(ktype));
+	ktype *Kernel_seq4_1_conv2_0_0 = (ktype*)malloc(5308416 * sizeof(ktype));
+	ktype *Kernel_seq4_1_conv2_0_3 = (ktype*)malloc(1769472 * sizeof(ktype));
 	// kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
 	// kernel_size=5120
-	dtype *Kernel_linear = (dtype*)malloc(5120 * sizeof(dtype));
+	ktype *Kernel_linear = (ktype*)malloc(5120 * sizeof(ktype));
 
 	// load input
-	if(!LoadDTYPE("input.dat", input, 602112))
+	if(!LoadArr<dtype>("input.dat", input, 602112))
 		return 0;
 
 	// load stem kernel
-	if(!LoadDouble("stem.0.weight.scale.dat", Kernel_stem_0_scale, 45)) return 0;
-	if(!LoadDouble("stem.3.weight.scale.dat", Kernel_stem_3_scale, 64)) return 0;
-	if(!LoadDTYPE("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
-	if(!LoadDTYPE("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
+	if(!LoadArr<ftype>("stem.0.weight.scale.dat", Kernel_stem_0_scale, 45)) return 0;
+	if(!LoadArr<ftype>("stem.3.weight.scale.dat", Kernel_stem_3_scale, 64)) return 0;
+	if(!LoadArr<ktype>("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
+	if(!LoadArr<ktype>("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
 
     // load stem batch
-	if(!LoadDouble(stem_mu_dat_name[0], Mu_stem_1, 45)) return 0;
-	if(!LoadDouble(stem_var_dat_name[0], Var_stem_1, 45)) return 0;
-	if(!LoadDouble(stem_gamma_dat_name[0], Gamma_stem_1, 45)) return 0;
-	if(!LoadDouble(stem_bias_dat_name[0], Bias_stem_1, 45)) return 0;
+	if(!LoadArr<ftype>(stem_mu_dat_name[0], Mu_stem_1, 45)) return 0;
+	if(!LoadArr<ftype>(stem_var_dat_name[0], Var_stem_1, 45)) return 0;
+	if(!LoadArr<ftype>(stem_gamma_dat_name[0], Gamma_stem_1, 45)) return 0;
+	if(!LoadArr<ftype>(stem_bias_dat_name[0], Bias_stem_1, 45)) return 0;
 
-	if(!LoadDouble(stem_mu_dat_name[1], Mu_stem_4, 64)) return 0;
-	if(!LoadDouble(stem_var_dat_name[1], Var_stem_4, 64)) return 0;
-	if(!LoadDouble(stem_gamma_dat_name[1], Gamma_stem_4, 64)) return 0;
-	if(!LoadDouble(stem_bias_dat_name[1], Bias_stem_4, 64)) return 0;
+	if(!LoadArr<ftype>(stem_mu_dat_name[1], Mu_stem_4, 64)) return 0;
+	if(!LoadArr<ftype>(stem_var_dat_name[1], Var_stem_4, 64)) return 0;
+	if(!LoadArr<ftype>(stem_gamma_dat_name[1], Gamma_stem_4, 64)) return 0;
+	if(!LoadArr<ftype>(stem_bias_dat_name[1], Bias_stem_4, 64)) return 0;
 
 #if TEST_MODE == separate_test
     // ==========================================================
-    // // Conv3d1
-    // cout << "==> Conv3d1\n";
-	// outfile << "==> Conv3d1\n";
+    // Conv3d1
+    cout << "==> Conv3d1\n";
+	outfile << "==> Conv3d1\n";
     int_t X_num[5] = {1, 3, D_, 112, 112};
     int_t X_mid_num[5] = {1, 45, D_, 56, 56};
     int_t Kernel_num_1[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
-    // Conv3d(input, X_num, output, X_mid_num, Kernel_stem_0, Kernel_num_1, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02 ,56 , 0.4609071612358093262, 60);
+    Conv3d(input, X_num, output, X_mid_num, Kernel_stem_0, Kernel_num_1, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02 ,56 , 0.4609071612358093262, 60);
 	
 
-    // if(!LoadDTYPE("Conv3d1output.dat", golden, 2257920)) return 0;
-    // errors += 100 * ftype(validate(output, golden, X_mid_num, outfile)) / 2257920;
+    if(!LoadArr<dtype>("Conv3d1output.dat", golden, 2257920)) return 0;
+    errors += 100 * ftype(validate_file(output, golden, X_mid_num, outfile)) / 2257920;
 
     // BatchNorm3d1
     cout << "==> BatchNorm3d1\n";
 	outfile << "==> BatchNorm3d1\n";
-    if(!LoadDTYPE("Conv3d1output.dat", output, 2257920)) return 0;
+    if(!LoadArr<dtype>("Conv3d1output.dat", output, 2257920)) return 0;
     BatchNorm3d(output, X_mid_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);	
-	if(!LoadDTYPE("BatchNorm3d1output.dat", golden, 2257920)) return 0;
-    errors += 100 * ftype(validate(output, golden, X_mid_num, outfile)) / 2257920;
+	if(!LoadArr<dtype>("BatchNorm3d1output.dat", golden, 2257920)) return 0;
+    errors += 100 * ftype(validate_file(output, golden, X_mid_num, outfile)) / 2257920;
 
-    // // ReLU1
-    // cout << "==> ReLU1\n";
-	// outfile << "==> ReLU1\n";
-    // if(!LoadDTYPE("BatchNorm3d1output.dat", output, 2257920)) return 0;
-    // ReLU(output, X_mid_num, 55);
-    // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
-    // errors += 100 * ftype(validate(output, golden, X_mid_num, outfile)) / 2257920;
+    // ReLU1
+    cout << "==> ReLU1\n";
+	outfile << "==> ReLU1\n";
+    if(!LoadArr<dtype>("BatchNorm3d1output.dat", output, 2257920)) return 0;
+    ReLU(output, X_mid_num, 55);
+    if(!LoadArr<dtype>("ReLU1output.dat", golden, 2257920)) return 0;
+    errors += 100 * ftype(validate_file(output, golden, X_mid_num, outfile)) / 2257920;
 
-    // // ==========================================================
+    // ==========================================================
 
-    // // Conv3d2
-    // cout << "==> Conv3d2\n";
-	// outfile << "==> Conv3d2\n";
+    // Conv3d2
+    cout << "==> Conv3d2\n";
+	outfile << "==> Conv3d2\n";
     int_t X_out_num[5] = {1, 64, D_, 56, 56};
     int_t Kernel_num_2[3] = {3, 1, 1};
     int_t stride_2[3] = {1, 1, 1};
     int_t padding_2[3] = {1, 0, 0};
-    // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
-    // Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);	
-	// if(!LoadDTYPE("Conv3d2output.dat", golden, 3211264)) return 0;
-    // errors += 100 * ftype(validate(output, golden, X_out_num, outfile)) / 3211264;
+    if(!LoadArr<dtype>("ReLU1output.dat", golden, 2257920)) return 0;
+    Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);	
+	if(!LoadArr<dtype>("Conv3d2output.dat", golden, 3211264)) return 0;
+    errors += 100 * ftype(validate_file(output, golden, X_out_num, outfile)) / 3211264;
 
     // BatchNorm3d2
     cout << "==> BatchNorm3d2\n";
 	outfile << "==> BatchNorm3d2\n";
-    if(!LoadDTYPE("Conv3d2output.dat", output, 3211264)) return 0;
+    if(!LoadArr<dtype>("Conv3d2output.dat", output, 3211264)) return 0;
     BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
-    if(!LoadDTYPE("BatchNorm3d2output.dat", golden, 3211264)) return 0;
-    errors += 100 * ftype(validate(output, golden, X_out_num, outfile)) / 3211264;
+    if(!LoadArr<dtype>("BatchNorm3d2output.dat", golden, 3211264)) return 0;
+    errors += 100 * ftype(validate_file(output, golden, X_out_num, outfile)) / 3211264;
     
-    // // ReLU2
-    // cout << "==> ReLU2\n";
-	// outfile << "==> ReLU2\n";
-    // if(!LoadDTYPE("BatchNorm3d2output.dat", output, 3211264)) return 0;
-    // ReLU(output, X_out_num, 65);s
+    // ReLU2
+    cout << "==> ReLU2\n";
+	outfile << "==> ReLU2\n";
+    if(!LoadArr<dtype>("BatchNorm3d2output.dat", output, 3211264)) return 0;
+    ReLU(output, X_out_num, 65);
     
-	// if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
-	// errors += 100 * ftype(validate(output, golden, X_out_num, outfile)) / 3211264;
+	if(!LoadArr<dtype>("ReLu2output.dat", golden, 3211264)) return 0;
+	errors += 100 * ftype(validate_file(output, golden, X_out_num, outfile)) / 3211264;
     // ==========================================================
 #endif
 
@@ -270,9 +259,9 @@ int_t main()
             Kernel_linear, Kernel_linear_scale);
 
     // calculate errors
-    if(!LoadDTYPE("output.dat", golden, 3211264)) return 0;
+    if(!LoadArr<dtype>("output.dat", golden, 3211264)) return 0;
 	int_t X_num_cal[5] = {1, 64, D_, 56, 56};
-	errors = 100 * ftype(validate(output, golden, X_num_cal, outfile)) / 3211264;
+	errors = 100 * ftype(validate_file(output, golden, X_num_cal, outfile)) / 3211264;
 #endif
 
 
@@ -334,67 +323,3 @@ int_t main()
 
     return 0;
 }
-
-int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile)
-{
-	int_t errors = 0;
-	int_t N = size[0];
-	int_t C = size[1];
-	int_t D = size[2];
-	int_t H = size[3];
-	int_t W = size[4];
-	for (int_t n = 0; n < N; n++)
-		for (int_t c = 0; c < C; c++)
-			for (int_t d = 0; d < D; d++)
-				for (int_t h = 0; h < H; h++)
-					for (int_t w = 0; w < W; w++) {
-						int_t pos = n * C*D*H*W + c * D*H*W + d * H*W + h * W + w;
-                        if(golden[pos] == 0 && ourOutput[pos] != golden[pos]){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
-                            outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
-							errors++;
-                        }
-                        else if(ourOutput[pos] != golden[pos] && (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
-                            outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
-							errors++;
-                        }
-					}
-	return errors;
-}
-bool LoadDTYPE(string filename, dtype* arr, int size){
-	FILE         *fp;
-	std::ifstream file;
-	ftype data = 0;
-
-	file.open(filename);
-	if (!file.is_open()) {
-		cout << filename << " not found!" << endl;
-		return false;
-	}
-	for (int_t i = 0; i < size; i++) {
-		file >> data;
-		arr[i] = (dtype)data;
-	}
-	file.close();
-	return true;
-}
-
-bool LoadDouble(string filename, ftype* arr, int size){
-	FILE         *fp;
-	std::ifstream file;
-	ftype data = 0;
-
-	file.open(filename);
-	if (!file.is_open()) {
-		cout << filename << " not found!" << endl;
-		return false;
-	}
-	for (int_t i = 0; i < size; i++) {
-		file >> data;
-		arr[i] = data;
-	}
-	file.close();
-	return true;
-}
-

@@ -3,9 +3,9 @@
 using namespace std;
 
 
-void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_num, int_t midplanes, dtype* Kernel_1_data, dtype* Kernel_2_data, double* Kernel_1_data_scale, double* Kernel_2_data_scale, int_t s, int_t p, 
-                double X_scale, double Conv3d_1_scale, double Conv3d_2_scale, int_t X_zeropoint, int_t Conv3d_1_zeropoint, int_t Conv3d_2_zeropoint,
-                double* mu_, double* var_, double* r, double* b, double BatchNorm3d_scale, int_t BatchNorm3d_zeropoint)
+void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_num, int_t midplanes, dtype* Kernel_1_data, dtype* Kernel_2_data, ftype* Kernel_1_data_scale, ftype* Kernel_2_data_scale, int_t s, int_t p, 
+                ftype X_scale, ftype Conv3d_1_scale, ftype Conv3d_2_scale, int_t X_zeropoint, int_t Conv3d_1_zeropoint, int_t Conv3d_2_zeropoint,
+                ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype BatchNorm3d_scale, int_t BatchNorm3d_zeropoint)
 {
     int_t stride[3] = {1, 1, 1};
     int_t padding[3] = {0, 1, 1};

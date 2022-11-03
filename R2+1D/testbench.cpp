@@ -15,69 +15,69 @@ using namespace std;
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile);
 bool LoadDTYPE(string filename, dtype* arr, int size);
-bool LoadDouble(string filename, double* arr, int size);
+bool LoadDouble(string filename, ftype* arr, int size);
 
-double Kernel_stem_0_scale[45];
-double Kernel_stem_3_scale[64];
-double Mu_stem_1[45], Var_stem_1[45], Gamma_stem_1[45], Bias_stem_1[45];
-double Mu_stem_4[64], Var_stem_4[64], Gamma_stem_4[64], Bias_stem_4[64];
+ftype Kernel_stem_0_scale[45];
+ftype Kernel_stem_3_scale[64];
+ftype Mu_stem_1[45], Var_stem_1[45], Gamma_stem_1[45], Bias_stem_1[45];
+ftype Mu_stem_4[64], Var_stem_4[64], Gamma_stem_4[64], Bias_stem_4[64];
 
-double Kernel_seq1_0_conv1_0_0_scale[144];
-double Kernel_seq1_0_conv2_0_0_scale[144];
-double Kernel_seq1_1_conv1_0_0_scale[144];
-double Kernel_seq1_1_conv2_0_0_scale[144];
-double Kernel_seq1_0_conv1_0_3_scale[64];
-double Kernel_seq1_0_conv2_0_3_scale[64];
-double Kernel_seq1_1_conv1_0_3_scale[64];
-double Kernel_seq1_1_conv2_0_3_scale[64];
-double Mu_seq1_0_conv1_0_1[144], Mu_seq1_0_conv1_1[64], Mu_seq1_0_conv2_0_1[144], Mu_seq1_0_conv2_1[64], Mu_seq1_1_conv1_0_1[144], Mu_seq1_1_conv1_1[64], Mu_seq1_1_conv2_0_1[144], Mu_seq1_1_conv2_1[64];
-double Var_seq1_0_conv1_0_1[144], Var_seq1_0_conv1_1[64], Var_seq1_0_conv2_0_1[144], Var_seq1_0_conv2_1[64], Var_seq1_1_conv1_0_1[144], Var_seq1_1_conv1_1[64], Var_seq1_1_conv2_0_1[144], Var_seq1_1_conv2_1[64];
-double Gamma_seq1_0_conv1_0_1[144], Gamma_seq1_0_conv1_1[64], Gamma_seq1_0_conv2_0_1[144], Gamma_seq1_0_conv2_1[64], Gamma_seq1_1_conv1_0_1[144], Gamma_seq1_1_conv1_1[64], Gamma_seq1_1_conv2_0_1[144], Gamma_seq1_1_conv2_1[64];
-double Bias_seq1_0_conv1_0_1[144], Bias_seq1_0_conv1_1[64], Bias_seq1_0_conv2_0_1[144], Bias_seq1_0_conv2_1[64], Bias_seq1_1_conv1_0_1[144], Bias_seq1_1_conv1_1[64], Bias_seq1_1_conv2_0_1[144], Bias_seq1_1_conv2_1[64];
+ftype Kernel_seq1_0_conv1_0_0_scale[144];
+ftype Kernel_seq1_0_conv2_0_0_scale[144];
+ftype Kernel_seq1_1_conv1_0_0_scale[144];
+ftype Kernel_seq1_1_conv2_0_0_scale[144];
+ftype Kernel_seq1_0_conv1_0_3_scale[64];
+ftype Kernel_seq1_0_conv2_0_3_scale[64];
+ftype Kernel_seq1_1_conv1_0_3_scale[64];
+ftype Kernel_seq1_1_conv2_0_3_scale[64];
+ftype Mu_seq1_0_conv1_0_1[144], Mu_seq1_0_conv1_1[64], Mu_seq1_0_conv2_0_1[144], Mu_seq1_0_conv2_1[64], Mu_seq1_1_conv1_0_1[144], Mu_seq1_1_conv1_1[64], Mu_seq1_1_conv2_0_1[144], Mu_seq1_1_conv2_1[64];
+ftype Var_seq1_0_conv1_0_1[144], Var_seq1_0_conv1_1[64], Var_seq1_0_conv2_0_1[144], Var_seq1_0_conv2_1[64], Var_seq1_1_conv1_0_1[144], Var_seq1_1_conv1_1[64], Var_seq1_1_conv2_0_1[144], Var_seq1_1_conv2_1[64];
+ftype Gamma_seq1_0_conv1_0_1[144], Gamma_seq1_0_conv1_1[64], Gamma_seq1_0_conv2_0_1[144], Gamma_seq1_0_conv2_1[64], Gamma_seq1_1_conv1_0_1[144], Gamma_seq1_1_conv1_1[64], Gamma_seq1_1_conv2_0_1[144], Gamma_seq1_1_conv2_1[64];
+ftype Bias_seq1_0_conv1_0_1[144], Bias_seq1_0_conv1_1[64], Bias_seq1_0_conv2_0_1[144], Bias_seq1_0_conv2_1[64], Bias_seq1_1_conv1_0_1[144], Bias_seq1_1_conv1_1[64], Bias_seq1_1_conv2_0_1[144], Bias_seq1_1_conv2_1[64];
 
-double Kernel_seq2_0_conv1_0_0_scale[230];
-double Kernel_seq2_0_conv1_0_3_scale[128];
-double Kernel_seq2_0_conv2_0_0_scale[230];
-double Kernel_seq2_0_conv2_0_3_scale[128];
-double Kernel_seq2_0_downsample_0_scale[128];
-double Kernel_seq2_1_conv1_0_0_scale[288];
-double Kernel_seq2_1_conv1_0_3_scale[128];
-double Kernel_seq2_1_conv2_0_0_scale[288];
-double Kernel_seq2_1_conv2_0_3_scale[128];
-double Mu_seq2_0_conv1_0_1[230], Mu_seq2_0_conv1_1[128], Mu_seq2_0_conv2_0_1[230], Mu_seq2_0_conv2_1[128], Mu_seq2_0_downsample_1[128], Mu_seq2_1_conv1_0_1[288], Mu_seq2_1_conv1_1[128], Mu_seq2_1_conv2_0_1[288], Mu_seq2_1_conv2_1[128];
-double Var_seq2_0_conv1_0_1[230], Var_seq2_0_conv1_1[128], Var_seq2_0_conv2_0_1[230], Var_seq2_0_conv2_1[128], Var_seq2_0_downsample_1[128], Var_seq2_1_conv1_0_1[288], Var_seq2_1_conv1_1[128], Var_seq2_1_conv2_0_1[288], Var_seq2_1_conv2_1[128];
-double Gamma_seq2_0_conv1_0_1[230], Gamma_seq2_0_conv1_1[128], Gamma_seq2_0_conv2_0_1[230], Gamma_seq2_0_conv2_1[128], Gamma_seq2_0_downsample_1[128], Gamma_seq2_1_conv1_0_1[288], Gamma_seq2_1_conv1_1[128], Gamma_seq2_1_conv2_0_1[288], Gamma_seq2_1_conv2_1[128];
-double Bias_seq2_0_conv1_0_1[230], Bias_seq2_0_conv1_1[128], Bias_seq2_0_conv2_0_1[230], Bias_seq2_0_conv2_1[128], Bias_seq2_0_downsample_1[128], Bias_seq2_1_conv1_0_1[288], Bias_seq2_1_conv1_1[128], Bias_seq2_1_conv2_0_1[288], Bias_seq2_1_conv2_1[128];
+ftype Kernel_seq2_0_conv1_0_0_scale[230];
+ftype Kernel_seq2_0_conv1_0_3_scale[128];
+ftype Kernel_seq2_0_conv2_0_0_scale[230];
+ftype Kernel_seq2_0_conv2_0_3_scale[128];
+ftype Kernel_seq2_0_downsample_0_scale[128];
+ftype Kernel_seq2_1_conv1_0_0_scale[288];
+ftype Kernel_seq2_1_conv1_0_3_scale[128];
+ftype Kernel_seq2_1_conv2_0_0_scale[288];
+ftype Kernel_seq2_1_conv2_0_3_scale[128];
+ftype Mu_seq2_0_conv1_0_1[230], Mu_seq2_0_conv1_1[128], Mu_seq2_0_conv2_0_1[230], Mu_seq2_0_conv2_1[128], Mu_seq2_0_downsample_1[128], Mu_seq2_1_conv1_0_1[288], Mu_seq2_1_conv1_1[128], Mu_seq2_1_conv2_0_1[288], Mu_seq2_1_conv2_1[128];
+ftype Var_seq2_0_conv1_0_1[230], Var_seq2_0_conv1_1[128], Var_seq2_0_conv2_0_1[230], Var_seq2_0_conv2_1[128], Var_seq2_0_downsample_1[128], Var_seq2_1_conv1_0_1[288], Var_seq2_1_conv1_1[128], Var_seq2_1_conv2_0_1[288], Var_seq2_1_conv2_1[128];
+ftype Gamma_seq2_0_conv1_0_1[230], Gamma_seq2_0_conv1_1[128], Gamma_seq2_0_conv2_0_1[230], Gamma_seq2_0_conv2_1[128], Gamma_seq2_0_downsample_1[128], Gamma_seq2_1_conv1_0_1[288], Gamma_seq2_1_conv1_1[128], Gamma_seq2_1_conv2_0_1[288], Gamma_seq2_1_conv2_1[128];
+ftype Bias_seq2_0_conv1_0_1[230], Bias_seq2_0_conv1_1[128], Bias_seq2_0_conv2_0_1[230], Bias_seq2_0_conv2_1[128], Bias_seq2_0_downsample_1[128], Bias_seq2_1_conv1_0_1[288], Bias_seq2_1_conv1_1[128], Bias_seq2_1_conv2_0_1[288], Bias_seq2_1_conv2_1[128];
 
-double Kernel_seq3_0_conv1_0_0_scale[460];
-double Kernel_seq3_0_conv1_0_3_scale[256];
-double Kernel_seq3_0_conv2_0_0_scale[460];
-double Kernel_seq3_0_conv2_0_3_scale[256];
-double Kernel_seq3_0_downsample_0_scale[256];
-double Kernel_seq3_1_conv1_0_0_scale[576];
-double Kernel_seq3_1_conv1_0_3_scale[256];
-double Kernel_seq3_1_conv2_0_0_scale[576];
-double Kernel_seq3_1_conv2_0_3_scale[256];
-double Mu_seq3_0_conv1_0_1[460], Mu_seq3_0_conv1_1[256], Mu_seq3_0_conv2_0_1[460], Mu_seq3_0_conv2_1[256], Mu_seq3_0_downsample_1[256], Mu_seq3_1_conv1_0_1[576], Mu_seq3_1_conv1_1[256], Mu_seq3_1_conv2_0_1[576], Mu_seq3_1_conv2_1[256];
-double Var_seq3_0_conv1_0_1[460], Var_seq3_0_conv1_1[256], Var_seq3_0_conv2_0_1[460], Var_seq3_0_conv2_1[256], Var_seq3_0_downsample_1[256], Var_seq3_1_conv1_0_1[576], Var_seq3_1_conv1_1[256], Var_seq3_1_conv2_0_1[576], Var_seq3_1_conv2_1[256];
-double Gamma_seq3_0_conv1_0_1[460], Gamma_seq3_0_conv1_1[256], Gamma_seq3_0_conv2_0_1[460], Gamma_seq3_0_conv2_1[256], Gamma_seq3_0_downsample_1[256], Gamma_seq3_1_conv1_0_1[576], Gamma_seq3_1_conv1_1[256], Gamma_seq3_1_conv2_0_1[576], Gamma_seq3_1_conv2_1[256];
-double Bias_seq3_0_conv1_0_1[460], Bias_seq3_0_conv1_1[256], Bias_seq3_0_conv2_0_1[460], Bias_seq3_0_conv2_1[256], Bias_seq3_0_downsample_1[256], Bias_seq3_1_conv1_0_1[576], Bias_seq3_1_conv1_1[256], Bias_seq3_1_conv2_0_1[576], Bias_seq3_1_conv2_1[256];
+ftype Kernel_seq3_0_conv1_0_0_scale[460];
+ftype Kernel_seq3_0_conv1_0_3_scale[256];
+ftype Kernel_seq3_0_conv2_0_0_scale[460];
+ftype Kernel_seq3_0_conv2_0_3_scale[256];
+ftype Kernel_seq3_0_downsample_0_scale[256];
+ftype Kernel_seq3_1_conv1_0_0_scale[576];
+ftype Kernel_seq3_1_conv1_0_3_scale[256];
+ftype Kernel_seq3_1_conv2_0_0_scale[576];
+ftype Kernel_seq3_1_conv2_0_3_scale[256];
+ftype Mu_seq3_0_conv1_0_1[460], Mu_seq3_0_conv1_1[256], Mu_seq3_0_conv2_0_1[460], Mu_seq3_0_conv2_1[256], Mu_seq3_0_downsample_1[256], Mu_seq3_1_conv1_0_1[576], Mu_seq3_1_conv1_1[256], Mu_seq3_1_conv2_0_1[576], Mu_seq3_1_conv2_1[256];
+ftype Var_seq3_0_conv1_0_1[460], Var_seq3_0_conv1_1[256], Var_seq3_0_conv2_0_1[460], Var_seq3_0_conv2_1[256], Var_seq3_0_downsample_1[256], Var_seq3_1_conv1_0_1[576], Var_seq3_1_conv1_1[256], Var_seq3_1_conv2_0_1[576], Var_seq3_1_conv2_1[256];
+ftype Gamma_seq3_0_conv1_0_1[460], Gamma_seq3_0_conv1_1[256], Gamma_seq3_0_conv2_0_1[460], Gamma_seq3_0_conv2_1[256], Gamma_seq3_0_downsample_1[256], Gamma_seq3_1_conv1_0_1[576], Gamma_seq3_1_conv1_1[256], Gamma_seq3_1_conv2_0_1[576], Gamma_seq3_1_conv2_1[256];
+ftype Bias_seq3_0_conv1_0_1[460], Bias_seq3_0_conv1_1[256], Bias_seq3_0_conv2_0_1[460], Bias_seq3_0_conv2_1[256], Bias_seq3_0_downsample_1[256], Bias_seq3_1_conv1_0_1[576], Bias_seq3_1_conv1_1[256], Bias_seq3_1_conv2_0_1[576], Bias_seq3_1_conv2_1[256];
 
-double Kernel_seq4_0_conv1_0_0_scale[921];
-double Kernel_seq4_0_conv1_0_3_scale[512];
-double Kernel_seq4_0_conv2_0_0_scale[921];
-double Kernel_seq4_0_conv2_0_3_scale[512];
-double Kernel_seq4_0_downsample_0_scale[512];
-double Kernel_seq4_1_conv1_0_0_scale[1152];
-double Kernel_seq4_1_conv1_0_3_scale[512];
-double Kernel_seq4_1_conv2_0_0_scale[1152];
-double Kernel_seq4_1_conv2_0_3_scale[512];
-double Mu_seq4_0_conv1_0_1[921], Mu_seq4_0_conv1_1[512], Mu_seq4_0_conv2_0_1[921], Mu_seq4_0_conv2_1[512], Mu_seq4_0_downsample_1[512], Mu_seq4_1_conv1_0_1[1152], Mu_seq4_1_conv1_1[512], Mu_seq4_1_conv2_0_1[1152], Mu_seq4_1_conv2_1[512];
-double Var_seq4_0_conv1_0_1[921], Var_seq4_0_conv1_1[512], Var_seq4_0_conv2_0_1[921], Var_seq4_0_conv2_1[512], Var_seq4_0_downsample_1[512], Var_seq4_1_conv1_0_1[1152], Var_seq4_1_conv1_1[512], Var_seq4_1_conv2_0_1[1152], Var_seq4_1_conv2_1[512];
-double Gamma_seq4_0_conv1_0_1[921], Gamma_seq4_0_conv1_1[512], Gamma_seq4_0_conv2_0_1[921], Gamma_seq4_0_conv2_1[512], Gamma_seq4_0_downsample_1[512], Gamma_seq4_1_conv1_0_1[1152], Gamma_seq4_1_conv1_1[512], Gamma_seq4_1_conv2_0_1[1152], Gamma_seq4_1_conv2_1[512];
-double Bias_seq4_0_conv1_0_1[921], Bias_seq4_0_conv1_1[512], Bias_seq4_0_conv2_0_1[921], Bias_seq4_0_conv2_1[512], Bias_seq4_0_downsample_1[512], Bias_seq4_1_conv1_0_1[1152], Bias_seq4_1_conv1_1[512], Bias_seq4_1_conv2_0_1[1152], Bias_seq4_1_conv2_1[512];
+ftype Kernel_seq4_0_conv1_0_0_scale[921];
+ftype Kernel_seq4_0_conv1_0_3_scale[512];
+ftype Kernel_seq4_0_conv2_0_0_scale[921];
+ftype Kernel_seq4_0_conv2_0_3_scale[512];
+ftype Kernel_seq4_0_downsample_0_scale[512];
+ftype Kernel_seq4_1_conv1_0_0_scale[1152];
+ftype Kernel_seq4_1_conv1_0_3_scale[512];
+ftype Kernel_seq4_1_conv2_0_0_scale[1152];
+ftype Kernel_seq4_1_conv2_0_3_scale[512];
+ftype Mu_seq4_0_conv1_0_1[921], Mu_seq4_0_conv1_1[512], Mu_seq4_0_conv2_0_1[921], Mu_seq4_0_conv2_1[512], Mu_seq4_0_downsample_1[512], Mu_seq4_1_conv1_0_1[1152], Mu_seq4_1_conv1_1[512], Mu_seq4_1_conv2_0_1[1152], Mu_seq4_1_conv2_1[512];
+ftype Var_seq4_0_conv1_0_1[921], Var_seq4_0_conv1_1[512], Var_seq4_0_conv2_0_1[921], Var_seq4_0_conv2_1[512], Var_seq4_0_downsample_1[512], Var_seq4_1_conv1_0_1[1152], Var_seq4_1_conv1_1[512], Var_seq4_1_conv2_0_1[1152], Var_seq4_1_conv2_1[512];
+ftype Gamma_seq4_0_conv1_0_1[921], Gamma_seq4_0_conv1_1[512], Gamma_seq4_0_conv2_0_1[921], Gamma_seq4_0_conv2_1[512], Gamma_seq4_0_downsample_1[512], Gamma_seq4_1_conv1_0_1[1152], Gamma_seq4_1_conv1_1[512], Gamma_seq4_1_conv2_0_1[1152], Gamma_seq4_1_conv2_1[512];
+ftype Bias_seq4_0_conv1_0_1[921], Bias_seq4_0_conv1_1[512], Bias_seq4_0_conv2_0_1[921], Bias_seq4_0_conv2_1[512], Bias_seq4_0_downsample_1[512], Bias_seq4_1_conv1_0_1[1152], Bias_seq4_1_conv1_1[512], Bias_seq4_1_conv2_0_1[1152], Bias_seq4_1_conv2_1[512];
 
-double Kernel_linear_scale[10];
+ftype Kernel_linear_scale[10];
 
 string stem_mu_dat_name[2] = {"stem.1.running_mean.dat", "stem.4.running_mean.dat"};
 string stem_var_dat_name[2] = {"stem.1.running_var.dat", "stem.4.running_var.dat"};
@@ -90,7 +90,7 @@ int_t main()
 	ofstream outfile;
 	outfile.open("results.txt");
 
-    double errors = 0;
+    ftype errors = 0;
 
     dtype *input = (dtype*)malloc(602112 * sizeof(dtype));
     dtype *output = (dtype*)malloc(3211264 * sizeof(dtype));
@@ -188,7 +188,7 @@ int_t main()
 	
 
     // if(!LoadDTYPE("Conv3d1output.dat", golden, 2257920)) return 0;
-    // errors += 100 * double(validate(output, golden, X_mid_num, outfile)) / 2257920;
+    // errors += 100 * ftype(validate(output, golden, X_mid_num, outfile)) / 2257920;
 
     // BatchNorm3d1
     cout << "==> BatchNorm3d1\n";
@@ -196,7 +196,7 @@ int_t main()
     if(!LoadDTYPE("Conv3d1output.dat", output, 2257920)) return 0;
     BatchNorm3d(output, X_mid_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);	
 	if(!LoadDTYPE("BatchNorm3d1output.dat", golden, 2257920)) return 0;
-    errors += 100 * double(validate(output, golden, X_mid_num, outfile)) / 2257920;
+    errors += 100 * ftype(validate(output, golden, X_mid_num, outfile)) / 2257920;
 
     // // ReLU1
     // cout << "==> ReLU1\n";
@@ -204,7 +204,7 @@ int_t main()
     // if(!LoadDTYPE("BatchNorm3d1output.dat", output, 2257920)) return 0;
     // ReLU(output, X_mid_num, 55);
     // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
-    // errors += 100 * double(validate(output, golden, X_mid_num, outfile)) / 2257920;
+    // errors += 100 * ftype(validate(output, golden, X_mid_num, outfile)) / 2257920;
 
     // // ==========================================================
 
@@ -218,7 +218,7 @@ int_t main()
     // if(!LoadDTYPE("ReLU1output.dat", golden, 2257920)) return 0;
     // Conv3d(golden, X_mid_num, output, X_out_num, Kernel_stem_3, Kernel_num_2, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);	
 	// if(!LoadDTYPE("Conv3d2output.dat", golden, 3211264)) return 0;
-    // errors += 100 * double(validate(output, golden, X_out_num, outfile)) / 3211264;
+    // errors += 100 * ftype(validate(output, golden, X_out_num, outfile)) / 3211264;
 
     // BatchNorm3d2
     cout << "==> BatchNorm3d2\n";
@@ -226,7 +226,7 @@ int_t main()
     if(!LoadDTYPE("Conv3d2output.dat", output, 3211264)) return 0;
     BatchNorm3d(output, X_out_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
     if(!LoadDTYPE("BatchNorm3d2output.dat", golden, 3211264)) return 0;
-    errors += 100 * double(validate(output, golden, X_out_num, outfile)) / 3211264;
+    errors += 100 * ftype(validate(output, golden, X_out_num, outfile)) / 3211264;
     
     // // ReLU2
     // cout << "==> ReLU2\n";
@@ -235,7 +235,7 @@ int_t main()
     // ReLU(output, X_out_num, 65);s
     
 	// if(!LoadDTYPE("ReLu2output.dat", golden, 3211264)) return 0;
-	// errors += 100 * double(validate(output, golden, X_out_num, outfile)) / 3211264;
+	// errors += 100 * ftype(validate(output, golden, X_out_num, outfile)) / 3211264;
     // ==========================================================
 #endif
 
@@ -350,13 +350,13 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile)
 					for (int_t w = 0; w < W; w++) {
 						int_t pos = n * C*D*H*W + c * D*H*W + d * H*W + h * W + w;
                         if(golden[pos] == 0 && ourOutput[pos] != golden[pos]){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
-                            outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
+                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
+                            outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
 							errors++;
                         }
-                        else if(ourOutput[pos] != golden[pos] && (double)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (double)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
-                            outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
+                        else if(ourOutput[pos] != golden[pos] && (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002){
+                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
+                            outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
 							errors++;
                         }
 					}
@@ -365,7 +365,7 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outfile)
 bool LoadDTYPE(string filename, dtype* arr, int size){
 	FILE         *fp;
 	std::ifstream file;
-	double data = 0;
+	ftype data = 0;
 
 	file.open(filename);
 	if (!file.is_open()) {
@@ -380,10 +380,10 @@ bool LoadDTYPE(string filename, dtype* arr, int size){
 	return true;
 }
 
-bool LoadDouble(string filename, double* arr, int size){
+bool LoadDouble(string filename, ftype* arr, int size){
 	FILE         *fp;
 	std::ifstream file;
-	double data = 0;
+	ftype data = 0;
 
 	file.open(filename);
 	if (!file.is_open()) {

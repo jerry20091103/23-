@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, double* kernel_scale, int_t* stride, int_t* padding, double scale_in, int_t zp_in, double scale_out, int_t zp_out)
+void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding, ftype scale_in, int_t zp_in, ftype scale_out, int_t zp_out)
 {
 	// get X(input) size
 	int_t XN = X_num[0];
@@ -48,7 +48,7 @@ void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Ker
 											if(dPos >= 0 && hPos >= 0 && wPos >= 0 && dPos < XD && hPos < XH && wPos < XW)
 												tmp_Y += ((int_t)X_data[xn*XC*XD*XH*XW + xc*XD*XH*XW + dPos*XH*XW + hPos*XW + wPos]- zp_in) * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
 										}
-						Y_data[yPos] = round((double)tmp_Y*(scale_in*kernel_scale[yc]/scale_out) + zp_out);
+						Y_data[yPos] = round((ftype)tmp_Y*(scale_in*kernel_scale[yc]/scale_out) + zp_out);
 					}
 	return;
 }

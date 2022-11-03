@@ -9,7 +9,7 @@ using namespace std;
 
 int_t validate(dtype* ourOutput, dtype* golden, int_t* size);
 bool LoadDTYPE(string filename, dtype* arr, int size);
-bool LoadDouble(string filename, double* arr, int size);
+bool LoadDouble(string filename, ftype* arr, int size);
 
 int_t main()
 {
@@ -18,7 +18,7 @@ int_t main()
 	dtype *golden = (dtype*)malloc(10 * sizeof(dtype));
 
 	dtype *Kernel = (dtype*)malloc(5120 * sizeof(dtype));
-	double *Kernel_linear_scale = (double*)malloc(10 * sizeof(double));
+	ftype *Kernel_linear_scale = (ftype*)malloc(10 * sizeof(ftype));
 
 	// ==========================================================
 	// Linear
@@ -68,11 +68,11 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
 					for (int_t w = 0; w < W; w++) {
 						int_t pos = n * C*D*H*W + c * D*H*W + d * H*W + h * W + w;
                         if(golden[pos] == 0 && ourOutput[pos] != golden[pos]){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
+                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
                             errors++;
                         }
-                        else if(ourOutput[pos] != golden[pos] && (double)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (double)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(double)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
+                        else if(ourOutput[pos] != golden[pos] && (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002){
+                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
                             errors++;
                         }
 					}
@@ -82,7 +82,7 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
 bool LoadDTYPE(string filename, dtype* arr, int size){
 	FILE         *fp;
 	std::ifstream file;
-	double data = 0;
+	ftype data = 0;
 
 	file.open(filename);
 	if (!file.is_open()) {
@@ -97,10 +97,10 @@ bool LoadDTYPE(string filename, dtype* arr, int size){
 	return true;
 }
 
-bool LoadDouble(string filename, double* arr, int size){
+bool LoadDouble(string filename, ftype* arr, int size){
 	FILE         *fp;
 	std::ifstream file;
-	double data = 0;
+	ftype data = 0;
 
 	file.open(filename);
 	if (!file.is_open()) {

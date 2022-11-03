@@ -1,10 +1,12 @@
 #ifndef __R2PLUS1D_H__
 #define __R2PLUS1D_H__
 
+#include <stdint.h>
+
 #define N_ 1
 #define C_ 1152
 #define D_ 16
-typedef unsigned char dtype;
+typedef uint8_t dtype;
 typedef int int_t;
 
 void r2plus1d(dtype* X, dtype* Y, dtype* Kernel_stem_0, dtype* Kernel_stem_3, double* Kernel_stem_0_scale, double* Kernel_stem_3_scale,

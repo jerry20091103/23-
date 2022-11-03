@@ -467,8 +467,8 @@ int_t main() {
             Kernel_linear, Kernel_linear_scale);
 
 	// calculate errors
-	float errors;
-	errors = 100 * float(validate(output, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
+	ftype errors;
+	errors = 100 * ftype(validate(output, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
 	
 	if (errors != 0) {
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

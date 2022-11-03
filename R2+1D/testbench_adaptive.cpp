@@ -27,8 +27,8 @@ int_t main()
 	cout << "==> AdaptiveAvgPool3D\n";
     AdaptiveAvgPool3d(input, X_adaptive_in_num, output, X_adaptive_out_num);
 
-	float errors;
-	errors = 100 * float(validate(output, golden, X_adaptive_out_num)) / 512;
+	ftype errors;
+	errors = 100 * ftype(validate(output, golden, X_adaptive_out_num)) / 512;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

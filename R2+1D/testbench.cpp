@@ -272,7 +272,7 @@ int_t main()
     // calculate errors
     if(!LoadDTYPE("output.dat", golden, 3211264)) return 0;
 	int_t X_num_cal[5] = {1, 64, D_, 56, 56};
-	errors = 100 * float(validate(output, golden, X_num_cal, outfile)) / 3211264;
+	errors = 100 * ftype(validate(output, golden, X_num_cal, outfile)) / 3211264;
 #endif
 
 

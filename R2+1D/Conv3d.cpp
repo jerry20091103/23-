@@ -24,10 +24,6 @@ void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Ker
 	int_t YH = Y_num[3]; // (H+2*padding[1]-KH)/stride[1] + 1
 	int_t YW = Y_num[4]; // (W+2*padding[2]-KW)/stride[2] + 1
 
-	// initial Y
-	for(int_t i = YN*YC*YD*YH*YW - 1; i >= 0; i--)
-		Y_data[i] = 0;
-
 	for(int_t yn = 0; yn < YN; yn++)
 		for(int_t yc = 0; yc < YC; yc++)
             for (int_t yd = 0; yd < YD; yd++)

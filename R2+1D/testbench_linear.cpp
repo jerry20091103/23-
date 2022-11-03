@@ -33,8 +33,8 @@ int_t main()
 	cout << "==> Linear\n";
     Linear(input, X_linear_in_num, output, Kernel, Kernel_linear_scale);
 
-	float errors;
-	errors = 100 * float(validate(output, golden, X_linear_out_num)) / 10;
+	ftype errors;
+	errors = 100 * ftype(validate(output, golden, X_linear_out_num)) / 10;
 
 	if (errors != 0)
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

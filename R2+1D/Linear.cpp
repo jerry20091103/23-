@@ -12,7 +12,7 @@ using namespace std;
 
 
 
-void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, dtype* Kernel, ftype* kernel_scale){
+void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel, ftype* kernel_scale){
     int H = X_num[0];
     int W = X_num[1];
     ftype KernelBias[out_features] = {-2.027071081101894379e-02, 

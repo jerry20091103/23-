@@ -115,6 +115,10 @@ int_t main() {
 	// create a output txt file
 	ofstream outfile;
 	outfile.open("results.txt");
+	if (!outfile.is_open()) {
+		cout << "Error opening file" << endl;
+		return 0;
+	}
 
 	dtype *input = (dtype*)malloc(INPUT_SIZE * sizeof(dtype));
 	dtype *output = (dtype*)malloc(OUTPUT_SIZE * sizeof(dtype));

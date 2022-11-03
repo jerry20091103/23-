@@ -39,10 +39,9 @@ void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, dtype* Kernel, ftype* ke
             int_t tmp_Y = 0;
             for(int i = 0; i < W; i++)
                 tmp_Y += Kernel[c*W+i]*((int_t)X_data[h*W+i]-zp_in);
-            Y_data[yPos] = round((tmp_Y*scale_in*kernel_scale[c]+KernelBias[c])/scale_out + zp_out);
+            tmp_Y = round((tmp_Y*scale_in*kernel_scale[c]+KernelBias[c])/scale_out + zp_out);
             // clamp to 0~255
-            if(Y_data[yPos] > 255) Y_data[yPos] = 255;
-            else if(Y_data[yPos] < 0) Y_data[yPos] = 0;
+            Y_data[yPos] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
         }
 
     return;

@@ -17,7 +17,7 @@ int_t main()
 	dtype *output = (dtype*)malloc(10 * sizeof(dtype));
 	dtype *golden = (dtype*)malloc(10 * sizeof(dtype));
 
-	dtype *Kernel = (dtype*)malloc(5120 * sizeof(dtype));
+	ktype *Kernel = (ktype*)malloc(5120 * sizeof(ktype));
 	ftype *Kernel_linear_scale = (ftype*)malloc(10 * sizeof(ftype));
 
 	// ==========================================================
@@ -68,11 +68,11 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
 					for (int_t w = 0; w < W; w++) {
 						int_t pos = n * C*D*H*W + c * D*H*W + d * H*W + h * W + w;
                         if(golden[pos] == 0 && ourOutput[pos] != golden[pos]){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
+                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<(int)ourOutput[pos]<<", gold: "<<setw(8)<<(int)golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / ourOutput[pos]<<"%"<<endl;
                             errors++;
                         }
                         else if(ourOutput[pos] != golden[pos] && (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002){
-                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<ourOutput[pos]<<", gold: "<<setw(8)<<golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
+                            cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<(int)ourOutput[pos]<<", gold: "<<setw(8)<<(int)golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
                             errors++;
                         }
 					}

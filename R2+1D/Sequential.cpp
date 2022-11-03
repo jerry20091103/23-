@@ -3,10 +3,10 @@
 using namespace std;
 
 void Sequential(dtype* X_data, dtype* Y_data, 
-                dtype* Kernel_1_1_data, dtype* Kernel_1_2_data, dtype* Kernel_1_3_data, dtype* Kernel_1_4_data, dtype* Kernel_1_5_data, dtype* Kernel_1_6_data, dtype* Kernel_1_7_data, dtype* Kernel_1_8_data, 
-                dtype* Kernel_2_1_data, dtype* Kernel_2_2_data, dtype* Kernel_2_3_data, dtype* Kernel_2_4_data, dtype* Kernel_2_5_data, dtype* Kernel_2_6_data, dtype* Kernel_2_7_data, dtype* Kernel_2_8_data, dtype* Kernel_2_9_data, 
-                dtype* Kernel_3_1_data, dtype* Kernel_3_2_data, dtype* Kernel_3_3_data, dtype* Kernel_3_4_data, dtype* Kernel_3_5_data, dtype* Kernel_3_6_data, dtype* Kernel_3_7_data, dtype* Kernel_3_8_data, dtype* Kernel_3_9_data, 
-                dtype* Kernel_4_1_data, dtype* Kernel_4_2_data, dtype* Kernel_4_3_data, dtype* Kernel_4_4_data, dtype* Kernel_4_5_data, dtype* Kernel_4_6_data, dtype* Kernel_4_7_data, dtype* Kernel_4_8_data, dtype* Kernel_4_9_data,
+                ktype* Kernel_1_1_data, ktype* Kernel_1_2_data, ktype* Kernel_1_3_data, ktype* Kernel_1_4_data, ktype* Kernel_1_5_data, ktype* Kernel_1_6_data, ktype* Kernel_1_7_data, ktype* Kernel_1_8_data, 
+                ktype* Kernel_2_1_data, ktype* Kernel_2_2_data, ktype* Kernel_2_3_data, ktype* Kernel_2_4_data, ktype* Kernel_2_5_data, ktype* Kernel_2_6_data, ktype* Kernel_2_7_data, ktype* Kernel_2_8_data, ktype* Kernel_2_9_data, 
+                ktype* Kernel_3_1_data, ktype* Kernel_3_2_data, ktype* Kernel_3_3_data, ktype* Kernel_3_4_data, ktype* Kernel_3_5_data, ktype* Kernel_3_6_data, ktype* Kernel_3_7_data, ktype* Kernel_3_8_data, ktype* Kernel_3_9_data, 
+                ktype* Kernel_4_1_data, ktype* Kernel_4_2_data, ktype* Kernel_4_3_data, ktype* Kernel_4_4_data, ktype* Kernel_4_5_data, ktype* Kernel_4_6_data, ktype* Kernel_4_7_data, ktype* Kernel_4_8_data, ktype* Kernel_4_9_data,
                 ftype X_scale, int_t X_zeropoint,
                 ftype* Kernel_1_1_data_scale, ftype* Kernel_1_2_data_scale, ftype* Kernel_1_3_data_scale, ftype* Kernel_1_4_data_scale, ftype* Kernel_1_5_data_scale, ftype* Kernel_1_6_data_scale, ftype* Kernel_1_7_data_scale, ftype* Kernel_1_8_data_scale, 
                 ftype* Kernel_2_1_data_scale, ftype* Kernel_2_2_data_scale, ftype* Kernel_2_3_data_scale, ftype* Kernel_2_4_data_scale, ftype* Kernel_2_5_data_scale, ftype* Kernel_2_6_data_scale, ftype* Kernel_2_7_data_scale, ftype* Kernel_2_8_data_scale, ftype* Kernel_2_9_data_scale, 

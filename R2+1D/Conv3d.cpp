@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, dtype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding, ftype scale_in, int_t zp_in, ftype scale_out, int_t zp_out)
+void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding, ftype scale_in, int_t zp_in, ftype scale_out, int_t zp_out)
 {
 	// get X(input) size
 	int_t XN = X_num[0];

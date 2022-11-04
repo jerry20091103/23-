@@ -34,7 +34,7 @@ void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num)
                             }
                         }
                         
-                        Y_data[n*C*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] = round((ftype)tmp_Y/(kernel_D*kernel_W*kernel_H));
+                        Y_data[n*C*D_out*H_out*W_out + c*D_out*H_out*W_out + d*H_out*W_out + h*W_out + w] = roundf((ftype)tmp_Y/(kernel_D*kernel_W*kernel_H));
                     }
 						
                 }

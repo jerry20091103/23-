@@ -3,7 +3,8 @@
 using namespace std;
 
 
-void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_num, int_t midplanes, ktype* Kernel_1_data, ktype* Kernel_2_data, ftype* Kernel_1_data_scale, ftype* Kernel_2_data_scale, int_t s, int_t p, 
+void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_mid_data, dtype* X_out_data, int_t* X_out_num, int_t midplanes,
+                ktype* Kernel_1_data, ktype* Kernel_2_data, ftype* Kernel_1_data_scale, ftype* Kernel_2_data_scale, int_t s, int_t p, 
                 ftype X_scale, ftype Conv3d_1_scale, ftype Conv3d_2_scale, int_t X_zeropoint, int_t Conv3d_1_zeropoint, int_t Conv3d_2_zeropoint,
                 ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype BatchNorm3d_scale, int_t BatchNorm3d_zeropoint)
 {
@@ -13,12 +14,6 @@ void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_out_data, int_t* X_out_nu
     int_t Kernel_1_num[3] = {1, 3, 3};
     stride[1] = s;  stride[2] = s;
     padding[1] = p; padding[2] = p;
-
- #ifdef __SYNTHESIS__
-    dtype X_mid_data[7225344];
- #else
-    dtype* X_mid_data = (dtype*)malloc(7225344*sizeof(dtype));
- #endif
 
     int_t X_mid_num[5];
     X_mid_num[0] = X_num[0];

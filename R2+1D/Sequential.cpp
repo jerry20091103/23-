@@ -27,28 +27,30 @@ void Sequential(dtype* X_data, dtype* Y_data,
                 ftype* bias_seq_1_1, ftype* bias_seq_1_2, ftype* bias_seq_1_3, ftype* bias_seq_1_4, ftype* bias_seq_1_5, ftype* bias_seq_1_6, ftype* bias_seq_1_7, ftype* bias_seq_1_8,
                 ftype* bias_seq_2_1, ftype* bias_seq_2_2, ftype* bias_seq_2_3, ftype* bias_seq_2_4, ftype* bias_seq_2_5, ftype* bias_seq_2_6, ftype* bias_seq_2_7, ftype* bias_seq_2_8,ftype* bias_seq_2_9,
                 ftype* bias_seq_3_1, ftype* bias_seq_3_2, ftype* bias_seq_3_3, ftype* bias_seq_3_4, ftype* bias_seq_3_5, ftype* bias_seq_3_6, ftype* bias_seq_3_7, ftype* bias_seq_3_8,ftype* bias_seq_3_9,
-                ftype* bias_seq_4_1, ftype* bias_seq_4_2, ftype* bias_seq_4_3, ftype* bias_seq_4_4, ftype* bias_seq_4_5, ftype* bias_seq_4_6, ftype* bias_seq_4_7, ftype* bias_seq_4_8,ftype* bias_seq_4_9)
+                ftype* bias_seq_4_1, ftype* bias_seq_4_2, ftype* bias_seq_4_3, ftype* bias_seq_4_4, ftype* bias_seq_4_5, ftype* bias_seq_4_6, ftype* bias_seq_4_7, ftype* bias_seq_4_8,ftype* bias_seq_4_9,
+                dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data
+                )
 {
  #ifdef __SYNTHESIS__
-    dtype X_tmp_data[3211264];
-    dtype X2_data[802816];
-    dtype X2_tmp_data[802816];
+    // dtype X_tmp_data[3211264];
+    // dtype X2_data[802816];
+    // dtype X2_tmp_data[802816];
 //    dtype X_data[200704];
 //    dtype X3_tmp_data[200704];
 //    dtype X2_data[50176];
 //    dtype X4_tmp_data[50176];
     // for conv2Plus1D
-    dtype X_mid_data[7225344];
+    // dtype X_mid_data[7225344];
  #else
-    dtype* X_tmp_data = (dtype*)malloc(3211264*sizeof(dtype));
-    dtype* X2_data = (dtype*)malloc(802816*sizeof(dtype));
-    dtype* X2_tmp_data = (dtype*)malloc(802816*sizeof(dtype));
+    // dtype* X_tmp_data = (dtype*)malloc(3211264*sizeof(dtype));
+    // dtype* X2_data = (dtype*)malloc(802816*sizeof(dtype));
+    // dtype* X2_tmp_data = (dtype*)malloc(802816*sizeof(dtype));
 //    dtype* X_data = (dtype*)malloc(200704*sizeof(dtype));
 //    dtype* X3_tmp_data = (dtype*)malloc(200704*sizeof(dtype));
 //    dtype* X2_data = (dtype*)malloc(50176*sizeof(dtype));
 //    dtype* X4_tmp_data = (dtype*)malloc(50176*sizeof(dtype));
     // for conv2Plus1D
-    dtype* X_mid_data = (dtype*)malloc(7225344*sizeof(dtype));
+    // dtype* X_mid_data = (dtype*)malloc(7225344*sizeof(dtype));
  #endif
 
 
@@ -232,12 +234,12 @@ void Sequential(dtype* X_data, dtype* Y_data,
         Y_data[i] = X2_data[i];
     
 #ifndef __SYNTHESIS__
-    free(X_tmp_data);
-    free(X2_data);
-    free(X2_tmp_data);
+    // free(X_tmp_data);
+    // free(X2_data);
+    // free(X2_tmp_data);
     //free(X3_tmp_data);
     //free(X4_tmp_data);
-    free(X_mid_data);
+    // free(X_mid_data);
 #endif
     return;
 }

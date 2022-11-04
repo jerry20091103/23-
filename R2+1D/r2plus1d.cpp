@@ -356,11 +356,11 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
         Y[i] = X_linear[i]; // assign result to output
  
  #ifndef __SYNTHESIS__
-    free(X_stem_1);
-    free(X_stem_2);
-    free(X_seq);
-    free(X_adap);
-    free(X_linear);
+    // free(X_stem_1);
+    // free(X_stem_2);
+    // free(X_seq);
+    // free(X_adap);
+    // free(X_linear);
  #endif
 
     return;

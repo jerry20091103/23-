@@ -235,7 +235,6 @@ void Sequential(dtype* X_data, dtype* Y_data,
     free(X_tmp_data);
     free(X2_data);
     free(X2_tmp_data);
-    free(X_data);
     //free(X3_tmp_data);
     //free(X4_tmp_data);
     free(X_mid_data);

@@ -239,7 +239,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
     free(X3_tmp_data);
     free(X4_data);
     free(X4_tmp_data);
+    free(X_mid_data);
 #endif
-    
     return;
 }

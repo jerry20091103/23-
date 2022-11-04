@@ -31,11 +31,6 @@ void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_mid_data, dtype* X_out_da
     padding[0] = p; padding[1] = 0; padding[2] = 0;
     Conv3d(X_mid_data, X_mid_num, X_out_data, X_out_num, Kernel_2_data, Kernel_2_num, Kernel_2_data_scale, stride, padding, BatchNorm3d_scale, BatchNorm3d_zeropoint, Conv3d_2_scale, Conv3d_2_zeropoint);
 
-
-#ifndef __SYNTHESIS__
-    free(X_mid_data);
-#endif
-
     return;
 
     // nn.Conv3d(in_planes, midplanes, kernel_size=(1, 3, 3),

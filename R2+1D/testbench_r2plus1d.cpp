@@ -170,6 +170,17 @@ int_t main() {
 	// kernel_size=5120
 	ktype *Kernel_linear = (ktype*)malloc(5120 * sizeof(ktype));
 
+	// malloc buffer
+	dtype *X_stem_1 = (dtype*)malloc(2257920 * sizeof(dtype));
+	dtype *X_stem_2 = (dtype*)malloc(3211264 * sizeof(dtype));
+	dtype *X_seq = (dtype*)malloc(50176 * sizeof(dtype));
+	dtype *X_adap = (dtype*)malloc(512 * sizeof(dtype));
+	dtype *X_tmp_data = (dtype*)malloc(3211264 * sizeof(dtype));
+	dtype *X2_data = (dtype*)malloc(802816 * sizeof(dtype));
+	dtype *X2_tmp_data = (dtype*)malloc(802816 * sizeof(dtype));
+	dtype *X_mid_data = (dtype*)malloc(7225344 * sizeof(dtype));
+	dtype *X_batch_data = (dtype*)malloc(7225344 * sizeof(dtype));
+
 	// load input
 	if(!LoadArr<dtype>("input.dat", input, INPUT_SIZE))
 		return 0;
@@ -453,7 +464,8 @@ int_t main() {
                 Var_seq4_0_conv1_0_1, Var_seq4_0_conv1_1, Var_seq4_0_conv2_0_1, Var_seq4_0_conv2_1, Var_seq4_0_downsample_1, Var_seq4_1_conv1_0_1, Var_seq4_1_conv1_1, Var_seq4_1_conv2_0_1, Var_seq4_1_conv2_1,
                 Gamma_seq4_0_conv1_0_1, Gamma_seq4_0_conv1_1, Gamma_seq4_0_conv2_0_1, Gamma_seq4_0_conv2_1, Gamma_seq4_0_downsample_1, Gamma_seq4_1_conv1_0_1, Gamma_seq4_1_conv1_1, Gamma_seq4_1_conv2_0_1, Gamma_seq4_1_conv2_1,
                 Bias_seq4_0_conv1_0_1, Bias_seq4_0_conv1_1, Bias_seq4_0_conv2_0_1, Bias_seq4_0_conv2_1, Bias_seq4_0_downsample_1, Bias_seq4_1_conv1_0_1, Bias_seq4_1_conv1_1, Bias_seq4_1_conv2_0_1, Bias_seq4_1_conv2_1,
-            Kernel_linear, Kernel_linear_scale);
+            Kernel_linear, Kernel_linear_scale,
+			X_stem_1, X_stem_2, X_seq, X_adap, X_tmp_data, X2_data, X2_tmp_data, X_mid_data, X_batch_data);
 
 	// calculate errors
 	ftype errors;
@@ -528,8 +540,16 @@ int_t main() {
 	free(Kernel_seq4_1_conv2_0_0);
 	free(Kernel_seq4_1_conv2_0_3);
 
-
 	free(Kernel_linear);
+	free(X_stem_1);
+	free(X_stem_2);
+	free(X_seq);
+	free(X_adap);
+	free(X_tmp_data);
+	free(X2_data);
+	free(X2_tmp_data);
+	free(X_mid_data);
+	free(X_batch_data);
 
 	return 0;
 }

@@ -36,7 +36,8 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0,ktype* Kernel_stem_3, fty
                 ftype* Var_seq4_0_conv1_0_1, ftype* Var_seq4_0_conv1_1, ftype* Var_seq4_0_conv2_0_1, ftype* Var_seq4_0_conv2_1, ftype* Var_seq4_0_downsample_1, ftype* Var_seq4_1_conv1_0_1, ftype* Var_seq4_1_conv1_1, ftype* Var_seq4_1_conv2_0_1, ftype* Var_seq4_1_conv2_1,
                 ftype* Gamma_seq4_0_conv1_0_1, ftype* Gamma_seq4_0_conv1_1, ftype* Gamma_seq4_0_conv2_0_1, ftype* Gamma_seq4_0_conv2_1, ftype* Gamma_seq4_0_downsample_1, ftype* Gamma_seq4_1_conv1_0_1, ftype* Gamma_seq4_1_conv1_1, ftype* Gamma_seq4_1_conv2_0_1, ftype* Gamma_seq4_1_conv2_1,
                 ftype* Bias_seq4_0_conv1_0_1, ftype* Bias_seq4_0_conv1_1, ftype* Bias_seq4_0_conv2_0_1, ftype* Bias_seq4_0_conv2_1, ftype* Bias_seq4_0_downsample_1, ftype* Bias_seq4_1_conv1_0_1, ftype* Bias_seq4_1_conv1_1, ftype* Bias_seq4_1_conv2_0_1, ftype* Bias_seq4_1_conv2_1,
-            ktype* Kernel_linear, ftype* Kernel_linear_scale);
+            ktype* Kernel_linear, ftype* Kernel_linear_scale,
+            dtype* X_stem_1, dtype* X_stem_2, dtype* X_seq,dtype* X_adap,dtype* X_linear, dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data);
 void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding, ftype scale_in, int_t zp_in, ftype scale_out, int_t zp_out);
 void BatchNorm3d(dtype* X_data, int_t* X_num, ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype scale_in, int_t zp_in, ftype scale_out, int_t zp_out);
 void ReLU(dtype* X_data, int_t* X_num, int_t zp);

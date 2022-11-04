@@ -28,17 +28,18 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
                 ftype* Var_seq4_0_conv1_0_1, ftype* Var_seq4_0_conv1_1, ftype* Var_seq4_0_conv2_0_1, ftype* Var_seq4_0_conv2_1, ftype* Var_seq4_0_downsample_1, ftype* Var_seq4_1_conv1_0_1, ftype* Var_seq4_1_conv1_1, ftype* Var_seq4_1_conv2_0_1, ftype* Var_seq4_1_conv2_1,
                 ftype* Gamma_seq4_0_conv1_0_1, ftype* Gamma_seq4_0_conv1_1, ftype* Gamma_seq4_0_conv2_0_1, ftype* Gamma_seq4_0_conv2_1, ftype* Gamma_seq4_0_downsample_1, ftype* Gamma_seq4_1_conv1_0_1, ftype* Gamma_seq4_1_conv1_1, ftype* Gamma_seq4_1_conv2_0_1, ftype* Gamma_seq4_1_conv2_1,
                 ftype* Bias_seq4_0_conv1_0_1, ftype* Bias_seq4_0_conv1_1, ftype* Bias_seq4_0_conv2_0_1, ftype* Bias_seq4_0_conv2_1, ftype* Bias_seq4_0_downsample_1, ftype* Bias_seq4_1_conv1_0_1, ftype* Bias_seq4_1_conv1_1, ftype* Bias_seq4_1_conv2_0_1, ftype* Bias_seq4_1_conv2_1,
-            ktype* Kernel_linear, ftype* Kernel_linear_scale)
+            ktype* Kernel_linear, ftype* Kernel_linear_scale, 
+            dtype* X_stem_1, dtype* X_stem_2, dtype* X_seq,dtype* X_adap,dtype* X_linear, dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data)
 {
  #ifdef __SYNTHESIS__
-    dtype X_stem_1[2257920];
-    dtype X_stem_2[3211264];
-    // // Sequential 1~4
-    dtype X_seq[50176]; // value after 1~4 sequential layer
-    // AdaptiveAvgPool3d
-    dtype X_adap[512]; // value after AdaptiveAvgPool3d
-    // Linear
-    dtype X_linear[10];
+    // dtype X_stem_1[2257920];
+    // dtype X_stem_2[3211264];
+    // // // Sequential 1~4
+    // dtype X_seq[50176]; // value after 1~4 sequential layer
+    // // AdaptiveAvgPool3d
+    // dtype X_adap[512]; // value after AdaptiveAvgPool3d
+    // // Linear
+    // dtype X_linear[10];
 
     #pragma HLS INTERFACE s_axilite port=return
 	#pragma HLS INTERFACE m_axi port=X
@@ -271,14 +272,14 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
 
  #else
     // R2Plus1dStem
-    dtype* X_stem_1 = (dtype*)malloc(2257920*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
-    dtype* X_stem_2 = (dtype*)malloc(3211264*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
-    // // Sequential 1~4
-    dtype* X_seq = (dtype*)malloc(50176*sizeof(dtype)); // value after 1~4 sequential layer
-    // AdaptiveAvgPool3d
-    dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
-    // Linear
-    dtype* X_linear = (dtype*)malloc(10*sizeof(dtype)); // value after Linear layer
+    // dtype* X_stem_1 = (dtype*)malloc(2257920*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
+    // dtype* X_stem_2 = (dtype*)malloc(3211264*sizeof(dtype)); // value after second Conv-Batch-ReLU layer
+    // // // Sequential 1~4
+    // dtype* X_seq = (dtype*)malloc(50176*sizeof(dtype)); // value after 1~4 sequential layer
+    // // AdaptiveAvgPool3d
+    // dtype* X_adap = (dtype*)malloc(512*sizeof(dtype)); // value after AdaptiveAvgPool3d
+    // // Linear
+    // dtype* X_linear = (dtype*)malloc(10*sizeof(dtype)); // value after Linear layer
  #endif
 
     // ========================R2Plus1dStem ==================================
@@ -331,7 +332,8 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
         Bias_seq1_0_conv1_0_1, Bias_seq1_0_conv1_1, Bias_seq1_0_conv2_0_1, Bias_seq1_0_conv2_1, Bias_seq1_1_conv1_0_1, Bias_seq1_1_conv1_1, Bias_seq1_1_conv2_0_1, Bias_seq1_1_conv2_1,
         Bias_seq2_0_conv1_0_1, Bias_seq2_0_conv1_1, Bias_seq2_0_conv2_0_1, Bias_seq2_0_conv2_1, Bias_seq2_0_downsample_1, Bias_seq2_1_conv1_0_1, Bias_seq2_1_conv1_1, Bias_seq2_1_conv2_0_1, Bias_seq2_1_conv2_1,
         Bias_seq3_0_conv1_0_1, Bias_seq3_0_conv1_1, Bias_seq3_0_conv2_0_1, Bias_seq3_0_conv2_1, Bias_seq3_0_downsample_1, Bias_seq3_1_conv1_0_1, Bias_seq3_1_conv1_1, Bias_seq3_1_conv2_0_1, Bias_seq3_1_conv2_1,
-        Bias_seq4_0_conv1_0_1, Bias_seq4_0_conv1_1, Bias_seq4_0_conv2_0_1, Bias_seq4_0_conv2_1, Bias_seq4_0_downsample_1, Bias_seq4_1_conv1_0_1, Bias_seq4_1_conv1_1, Bias_seq4_1_conv2_0_1, Bias_seq4_1_conv2_1);
+        Bias_seq4_0_conv1_0_1, Bias_seq4_0_conv1_1, Bias_seq4_0_conv2_0_1, Bias_seq4_0_conv2_1, Bias_seq4_0_downsample_1, Bias_seq4_1_conv1_0_1, Bias_seq4_1_conv1_1, Bias_seq4_1_conv2_0_1, Bias_seq4_1_conv2_1,
+        X_tmp_data, X2_data, X2_tmp_data,X_mid_data);
 
     // // for sequential test
     // for(int_t i = 0; i < 50176; i++)

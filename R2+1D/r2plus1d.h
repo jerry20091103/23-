@@ -69,7 +69,8 @@ void Sequential(dtype* X_data, dtype* Y_data,
                 ftype* bias_seq_1_1, ftype* bias_seq_1_2, ftype* bias_seq_1_3, ftype* bias_seq_1_4, ftype* bias_seq_1_5, ftype* bias_seq_1_6, ftype* bias_seq_1_7, ftype* bias_seq_1_8,
                 ftype* bias_seq_2_1, ftype* bias_seq_2_2, ftype* bias_seq_2_3, ftype* bias_seq_2_4, ftype* bias_seq_2_5, ftype* bias_seq_2_6, ftype* bias_seq_2_7, ftype* bias_seq_2_8,ftype* bias_seq_2_9,
                 ftype* bias_seq_3_1, ftype* bias_seq_3_2, ftype* bias_seq_3_3, ftype* bias_seq_3_4, ftype* bias_seq_3_5, ftype* bias_seq_3_6, ftype* bias_seq_3_7, ftype* bias_seq_3_8,ftype* bias_seq_3_9,
-                ftype* bias_seq_4_1, ftype* bias_seq_4_2, ftype* bias_seq_4_3, ftype* bias_seq_4_4, ftype* bias_seq_4_5, ftype* bias_seq_4_6, ftype* bias_seq_4_7, ftype* bias_seq_4_8,ftype* bias_seq_4_9);
+                ftype* bias_seq_4_1, ftype* bias_seq_4_2, ftype* bias_seq_4_3, ftype* bias_seq_4_4, ftype* bias_seq_4_5, ftype* bias_seq_4_6, ftype* bias_seq_4_7, ftype* bias_seq_4_8,ftype* bias_seq_4_9,
+                dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data);
 void Residual(dtype* X, dtype* X_tmp, int_t* size, ftype X_scale, ftype X_tmp_scale, ftype out_scale, int_t X_zeropoint, int_t X_tmp_zeropoint, int_t out_zeropoint);
 void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num);
 void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel, ftype* Kernel_scale);

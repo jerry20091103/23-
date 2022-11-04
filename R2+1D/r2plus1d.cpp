@@ -15,19 +15,19 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
                 ftype* Mu_seq2_0_conv1_0_1, ftype* Mu_seq2_0_conv1_1, ftype* Mu_seq2_0_conv2_0_1, ftype* Mu_seq2_0_conv2_1, ftype* Mu_seq2_0_downsample_1, ftype* Mu_seq2_1_conv1_0_1, ftype* Mu_seq2_1_conv1_1, ftype* Mu_seq2_1_conv2_0_1, ftype* Mu_seq2_1_conv2_1,
                 ftype* Var_seq2_0_conv1_0_1, ftype* Var_seq2_0_conv1_1, ftype* Var_seq2_0_conv2_0_1, ftype* Var_seq2_0_conv2_1, ftype* Var_seq2_0_downsample_1, ftype* Var_seq2_1_conv1_0_1, ftype* Var_seq2_1_conv1_1, ftype* Var_seq2_1_conv2_0_1, ftype* Var_seq2_1_conv2_1,
                 ftype* Gamma_seq2_0_conv1_0_1, ftype* Gamma_seq2_0_conv1_1, ftype* Gamma_seq2_0_conv2_0_1, ftype* Gamma_seq2_0_conv2_1, ftype* Gamma_seq2_0_downsample_1, ftype* Gamma_seq2_1_conv1_0_1, ftype* Gamma_seq2_1_conv1_1, ftype* Gamma_seq2_1_conv2_0_1, ftype* Gamma_seq2_1_conv2_1,
-                ftype* Bais_seq2_0_conv1_0_1, ftype* Bais_seq2_0_conv1_1, ftype* Bais_seq2_0_conv2_0_1, ftype* Bais_seq2_0_conv2_1, ftype* Bais_seq2_0_downsample_1, ftype* Bais_seq2_1_conv1_0_1, ftype* Bais_seq2_1_conv1_1, ftype* Bais_seq2_1_conv2_0_1, ftype* Bais_seq2_1_conv2_1,
+                ftype* Bias_seq2_0_conv1_0_1, ftype* Bias_seq2_0_conv1_1, ftype* Bias_seq2_0_conv2_0_1, ftype* Bias_seq2_0_conv2_1, ftype* Bias_seq2_0_downsample_1, ftype* Bias_seq2_1_conv1_0_1, ftype* Bias_seq2_1_conv1_1, ftype* Bias_seq2_1_conv2_0_1, ftype* Bias_seq2_1_conv2_1,
             ktype* Kernel_seq3_0_conv1_0_0, ktype* Kernel_seq3_0_conv1_0_3, ktype* Kernel_seq3_0_conv2_0_0, ktype* Kernel_seq3_0_conv2_0_3, ktype* Kernel_seq3_0_downsample_0, ktype* Kernel_seq3_1_conv1_0_0, ktype* Kernel_seq3_1_conv1_0_3, ktype* Kernel_seq3_1_conv2_0_0, ktype* Kernel_seq3_1_conv2_0_3,
             ftype* Kernel_seq3_0_conv1_0_0_scale, ftype* Kernel_seq3_0_conv1_0_3_scale, ftype* Kernel_seq3_0_conv2_0_0_scale, ftype* Kernel_seq3_0_conv2_0_3_scale, ftype* Kernel_seq3_0_downsample_0_scale, ftype* Kernel_seq3_1_conv1_0_0_scale, ftype* Kernel_seq3_1_conv1_0_3_scale, ftype* Kernel_seq3_1_conv2_0_0_scale, ftype* Kernel_seq3_1_conv2_0_3_scale,
                 ftype* Mu_seq3_0_conv1_0_1, ftype* Mu_seq3_0_conv1_1, ftype* Mu_seq3_0_conv2_0_1, ftype* Mu_seq3_0_conv2_1, ftype* Mu_seq3_0_downsample_1, ftype* Mu_seq3_1_conv1_0_1, ftype* Mu_seq3_1_conv1_1, ftype* Mu_seq3_1_conv2_0_1, ftype* Mu_seq3_1_conv2_1,
                 ftype* Var_seq3_0_conv1_0_1, ftype* Var_seq3_0_conv1_1, ftype* Var_seq3_0_conv2_0_1, ftype* Var_seq3_0_conv2_1, ftype* Var_seq3_0_downsample_1, ftype* Var_seq3_1_conv1_0_1, ftype* Var_seq3_1_conv1_1, ftype* Var_seq3_1_conv2_0_1, ftype* Var_seq3_1_conv2_1,
                 ftype* Gamma_seq3_0_conv1_0_1, ftype* Gamma_seq3_0_conv1_1, ftype* Gamma_seq3_0_conv2_0_1, ftype* Gamma_seq3_0_conv2_1, ftype* Gamma_seq3_0_downsample_1, ftype* Gamma_seq3_1_conv1_0_1, ftype* Gamma_seq3_1_conv1_1, ftype* Gamma_seq3_1_conv2_0_1, ftype* Gamma_seq3_1_conv2_1,
-                ftype* Bais_seq3_0_conv1_0_1, ftype* Bais_seq3_0_conv1_1, ftype* Bais_seq3_0_conv2_0_1, ftype* Bais_seq3_0_conv2_1, ftype* Bais_seq3_0_downsample_1, ftype* Bais_seq3_1_conv1_0_1, ftype* Bais_seq3_1_conv1_1, ftype* Bais_seq3_1_conv2_0_1, ftype* Bais_seq3_1_conv2_1,
+                ftype* Bias_seq3_0_conv1_0_1, ftype* Bias_seq3_0_conv1_1, ftype* Bias_seq3_0_conv2_0_1, ftype* Bias_seq3_0_conv2_1, ftype* Bias_seq3_0_downsample_1, ftype* Bias_seq3_1_conv1_0_1, ftype* Bias_seq3_1_conv1_1, ftype* Bias_seq3_1_conv2_0_1, ftype* Bias_seq3_1_conv2_1,
             ktype* Kernel_seq4_0_conv1_0_0, ktype* Kernel_seq4_0_conv1_0_3, ktype* Kernel_seq4_0_conv2_0_0, ktype* Kernel_seq4_0_conv2_0_3, ktype* Kernel_seq4_0_downsample_0, ktype* Kernel_seq4_1_conv1_0_0, ktype* Kernel_seq4_1_conv1_0_3, ktype* Kernel_seq4_1_conv2_0_0, ktype* Kernel_seq4_1_conv2_0_3,
             ftype* Kernel_seq4_0_conv1_0_0_scale, ftype* Kernel_seq4_0_conv1_0_3_scale, ftype* Kernel_seq4_0_conv2_0_0_scale, ftype* Kernel_seq4_0_conv2_0_3_scale, ftype* Kernel_seq4_0_downsample_0_scale, ftype* Kernel_seq4_1_conv1_0_0_scale, ftype* Kernel_seq4_1_conv1_0_3_scale, ftype* Kernel_seq4_1_conv2_0_0_scale, ftype* Kernel_seq4_1_conv2_0_3_scale,
                 ftype* Mu_seq4_0_conv1_0_1, ftype* Mu_seq4_0_conv1_1, ftype* Mu_seq4_0_conv2_0_1, ftype* Mu_seq4_0_conv2_1, ftype* Mu_seq4_0_downsample_1, ftype* Mu_seq4_1_conv1_0_1, ftype* Mu_seq4_1_conv1_1, ftype* Mu_seq4_1_conv2_0_1, ftype* Mu_seq4_1_conv2_1,
                 ftype* Var_seq4_0_conv1_0_1, ftype* Var_seq4_0_conv1_1, ftype* Var_seq4_0_conv2_0_1, ftype* Var_seq4_0_conv2_1, ftype* Var_seq4_0_downsample_1, ftype* Var_seq4_1_conv1_0_1, ftype* Var_seq4_1_conv1_1, ftype* Var_seq4_1_conv2_0_1, ftype* Var_seq4_1_conv2_1,
                 ftype* Gamma_seq4_0_conv1_0_1, ftype* Gamma_seq4_0_conv1_1, ftype* Gamma_seq4_0_conv2_0_1, ftype* Gamma_seq4_0_conv2_1, ftype* Gamma_seq4_0_downsample_1, ftype* Gamma_seq4_1_conv1_0_1, ftype* Gamma_seq4_1_conv1_1, ftype* Gamma_seq4_1_conv2_0_1, ftype* Gamma_seq4_1_conv2_1,
-                ftype* Bais_seq4_0_conv1_0_1, ftype* Bais_seq4_0_conv1_1, ftype* Bais_seq4_0_conv2_0_1, ftype* Bais_seq4_0_conv2_1, ftype* Bais_seq4_0_downsample_1, ftype* Bais_seq4_1_conv1_0_1, ftype* Bais_seq4_1_conv1_1, ftype* Bais_seq4_1_conv2_0_1, ftype* Bais_seq4_1_conv2_1,
+                ftype* Bias_seq4_0_conv1_0_1, ftype* Bias_seq4_0_conv1_1, ftype* Bias_seq4_0_conv2_0_1, ftype* Bias_seq4_0_conv2_1, ftype* Bias_seq4_0_downsample_1, ftype* Bias_seq4_1_conv1_0_1, ftype* Bias_seq4_1_conv1_1, ftype* Bias_seq4_1_conv2_0_1, ftype* Bias_seq4_1_conv2_1,
             ktype* Kernel_linear, ftype* Kernel_linear_scale)
 {
  #ifdef __SYNTHESIS__
@@ -148,24 +148,24 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
     #pragma HLS INTERFACE m_axi port=Gamma_seq4_1_conv1_1
     #pragma HLS INTERFACE m_axi port=Gamma_seq4_1_conv2_0_1
     #pragma HLS INTERFACE m_axi port=Gamma_seq4_1_conv2_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_0_conv1_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_0_conv1_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_0_conv2_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_0_conv2_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_0_downsample_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_1_conv1_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_1_conv1_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_1_conv2_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq3_1_conv2_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_0_conv1_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_0_conv1_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_0_conv2_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_0_conv2_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_0_downsample_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_1_conv1_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_1_conv1_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_1_conv2_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq4_1_conv2_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_0_conv1_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_0_conv1_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_0_conv2_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_0_conv2_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_0_downsample_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_1_conv1_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_1_conv1_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_1_conv2_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq3_1_conv2_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_0_conv1_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_0_conv1_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_0_conv2_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_0_conv2_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_0_downsample_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_1_conv1_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_1_conv1_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_1_conv2_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq4_1_conv2_1
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_0_conv1_0_0
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_0_conv1_0_3
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_0_conv2_0_0
@@ -201,15 +201,15 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
     #pragma HLS INTERFACE m_axi port=Bias_seq1_1_conv1_1
     #pragma HLS INTERFACE m_axi port=Bias_seq1_1_conv2_0_1
     #pragma HLS INTERFACE m_axi port=Bias_seq1_1_conv2_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_0_conv1_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_0_conv1_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_0_conv2_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_0_conv2_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_0_downsample_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_1_conv1_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_1_conv1_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_1_conv2_0_1
-    #pragma HLS INTERFACE m_axi port=Bais_seq2_1_conv2_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_0_conv1_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_0_conv1_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_0_conv2_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_0_conv2_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_0_downsample_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_1_conv1_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_1_conv1_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_1_conv2_0_1
+    #pragma HLS INTERFACE m_axi port=Bias_seq2_1_conv2_1
     #pragma HLS INTERFACE m_axi port=Var_seq2_0_conv1_0_1
     #pragma HLS INTERFACE m_axi port=Var_seq2_0_conv1_1
     #pragma HLS INTERFACE m_axi port=Var_seq2_0_conv2_0_1
@@ -291,9 +291,9 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
         Gamma_seq3_0_conv1_0_1, Gamma_seq3_0_conv1_1, Gamma_seq3_0_conv2_0_1, Gamma_seq3_0_conv2_1, Gamma_seq3_0_downsample_1, Gamma_seq3_1_conv1_0_1, Gamma_seq3_1_conv1_1, Gamma_seq3_1_conv2_0_1, Gamma_seq3_1_conv2_1,
         Gamma_seq4_0_conv1_0_1, Gamma_seq4_0_conv1_1, Gamma_seq4_0_conv2_0_1, Gamma_seq4_0_conv2_1, Gamma_seq4_0_downsample_1, Gamma_seq4_1_conv1_0_1, Gamma_seq4_1_conv1_1, Gamma_seq4_1_conv2_0_1, Gamma_seq4_1_conv2_1,
         Bias_seq1_0_conv1_0_1, Bias_seq1_0_conv1_1, Bias_seq1_0_conv2_0_1, Bias_seq1_0_conv2_1, Bias_seq1_1_conv1_0_1, Bias_seq1_1_conv1_1, Bias_seq1_1_conv2_0_1, Bias_seq1_1_conv2_1,
-        Bais_seq2_0_conv1_0_1, Bais_seq2_0_conv1_1, Bais_seq2_0_conv2_0_1, Bais_seq2_0_conv2_1, Bais_seq2_0_downsample_1, Bais_seq2_1_conv1_0_1, Bais_seq2_1_conv1_1, Bais_seq2_1_conv2_0_1, Bais_seq2_1_conv2_1,
-        Bais_seq3_0_conv1_0_1, Bais_seq3_0_conv1_1, Bais_seq3_0_conv2_0_1, Bais_seq3_0_conv2_1, Bais_seq3_0_downsample_1, Bais_seq3_1_conv1_0_1, Bais_seq3_1_conv1_1, Bais_seq3_1_conv2_0_1, Bais_seq3_1_conv2_1,
-        Bais_seq4_0_conv1_0_1, Bais_seq4_0_conv1_1, Bais_seq4_0_conv2_0_1, Bais_seq4_0_conv2_1, Bais_seq4_0_downsample_1, Bais_seq4_1_conv1_0_1, Bais_seq4_1_conv1_1, Bais_seq4_1_conv2_0_1, Bais_seq4_1_conv2_1);
+        Bias_seq2_0_conv1_0_1, Bias_seq2_0_conv1_1, Bias_seq2_0_conv2_0_1, Bias_seq2_0_conv2_1, Bias_seq2_0_downsample_1, Bias_seq2_1_conv1_0_1, Bias_seq2_1_conv1_1, Bias_seq2_1_conv2_0_1, Bias_seq2_1_conv2_1,
+        Bias_seq3_0_conv1_0_1, Bias_seq3_0_conv1_1, Bias_seq3_0_conv2_0_1, Bias_seq3_0_conv2_1, Bias_seq3_0_downsample_1, Bias_seq3_1_conv1_0_1, Bias_seq3_1_conv1_1, Bias_seq3_1_conv2_0_1, Bias_seq3_1_conv2_1,
+        Bias_seq4_0_conv1_0_1, Bias_seq4_0_conv1_1, Bias_seq4_0_conv2_0_1, Bias_seq4_0_conv2_1, Bias_seq4_0_downsample_1, Bias_seq4_1_conv1_0_1, Bias_seq4_1_conv1_1, Bias_seq4_1_conv2_0_1, Bias_seq4_1_conv2_1);
 
     // // for sequential test
     // for(int_t i = 0; i < 50176; i++)

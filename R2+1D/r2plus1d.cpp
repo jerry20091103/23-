@@ -45,6 +45,8 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
 	#pragma HLS INTERFACE m_axi port=Y
     #pragma HLS INTERFACE m_axi port=Kernel_stem_0
 	#pragma HLS INTERFACE m_axi port=Kernel_stem_3
+    #pragma HLS INTERFACE m_axi port=Kernel_stem_0_scale
+	#pragma HLS INTERFACE m_axi port=Kernel_stem_3_scale
     #pragma HLS INTERFACE m_axi port=Mu_stem_1
     #pragma HLS INTERFACE m_axi port=Mu_stem_4
     #pragma HLS INTERFACE m_axi port=Var_stem_1
@@ -79,6 +81,32 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
     #pragma HLS INTERFACE m_axi port=Kernel_seq4_1_conv1_0_3
     #pragma HLS INTERFACE m_axi port=Kernel_seq4_1_conv2_0_0
     #pragma HLS INTERFACE m_axi port=Kernel_seq4_1_conv2_0_3
+    #pragma HLS INTERFACE m_axi port=Kernel_seq1_0_conv1_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq1_0_conv1_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq1_0_conv2_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq1_0_conv2_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq1_1_conv1_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq1_1_conv1_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq1_1_conv2_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq1_1_conv2_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_0_conv1_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_0_conv1_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_0_conv2_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_0_conv2_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_0_downsample_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_1_conv1_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_1_conv1_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_1_conv2_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq3_1_conv2_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_0_conv1_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_0_conv1_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_0_conv2_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_0_conv2_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_0_downsample_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_1_conv1_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_1_conv1_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_1_conv2_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq4_1_conv2_0_3_scale
     #pragma HLS INTERFACE m_axi port=Mu_seq1_0_conv1_0_1
     #pragma HLS INTERFACE m_axi port=Mu_seq1_0_conv1_1
     #pragma HLS INTERFACE m_axi port=Mu_seq1_0_conv2_0_1
@@ -175,6 +203,15 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv1_0_3
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv2_0_0
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv2_0_3
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_0_conv1_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_0_conv1_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_0_conv2_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_0_conv2_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_0_downsample_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv1_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv1_0_3_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv2_0_0_scale
+    #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv2_0_3_scale
     #pragma HLS INTERFACE m_axi port=Mu_seq2_0_conv1_0_1
     #pragma HLS INTERFACE m_axi port=Mu_seq2_0_conv1_1
     #pragma HLS INTERFACE m_axi port=Mu_seq2_0_conv2_0_1
@@ -229,6 +266,7 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, ft
     #pragma HLS INTERFACE m_axi port=Gamma_seq2_1_conv2_0_1
     #pragma HLS INTERFACE m_axi port=Gamma_seq2_1_conv2_1
     #pragma HLS INTERFACE m_axi port=Kernel_linear
+    #pragma HLS INTERFACE m_axi port=Kernel_linear_scale
 
 
  #else

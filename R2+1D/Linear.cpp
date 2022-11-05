@@ -5,14 +5,14 @@ using namespace std;
 
 #define out_features 10  // Y_num(out_features) = 10
 
-#define scale_in  1.290386915206909180e-01f
+#define scale_in  1.290386915206909180e-01
 #define zp_in 31
-#define scale_out 3.984360396862030029e-02f
+#define scale_out 3.984360396862030029e-02
 #define zp_out 127
 
 
 
-void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel, ftype* kernel_scale){
+void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel){
     int H = X_num[0];
     int W = X_num[1];
     ftype KernelBias[out_features] = {-2.027071081101894379e-02, 
@@ -39,7 +39,7 @@ void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel, ftype* ke
             int_t tmp_Y = 0;
             for(int i = 0; i < W; i++)
                 tmp_Y += Kernel[c*W+i]*((int_t)X_data[h*W+i]-zp_in);
-            tmp_Y = (int_t)roundf((tmp_Y*scale_in*kernel_scale[c]+KernelBias[c])/scale_out) + zp_out;
+            tmp_Y = (int_t)roundf((tmp_Y*scale_in*Kernel_linear_scale[c]+KernelBias[c])/scale_out) + zp_out;
             // clamp to 0~255
             Y_data[yPos] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
         }

@@ -11,12 +11,12 @@ typedef int int_t;
 typedef float ftype;
 typedef int8_t ktype;
 #include "inner_data.h"
-void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3, 
+void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0,ktype* Kernel_stem_3, 
             ktype* Kernel_seq1_0_conv1_0_0, ktype* Kernel_seq1_0_conv1_0_3, ktype* Kernel_seq1_0_conv2_0_0, ktype* Kernel_seq1_0_conv2_0_3, ktype* Kernel_seq1_1_conv1_0_0, ktype* Kernel_seq1_1_conv1_0_3, ktype* Kernel_seq1_1_conv2_0_0, ktype* Kernel_seq1_1_conv2_0_3,
             ktype* Kernel_seq2_0_conv1_0_0, ktype* Kernel_seq2_0_conv1_0_3, ktype* Kernel_seq2_0_conv2_0_0, ktype* Kernel_seq2_0_conv2_0_3, ktype* Kernel_seq2_0_downsample_0, ktype* Kernel_seq2_1_conv1_0_0, ktype* Kernel_seq2_1_conv1_0_3, ktype* Kernel_seq2_1_conv2_0_0, ktype* Kernel_seq2_1_conv2_0_3,
             ktype* Kernel_seq3_0_conv1_0_0, ktype* Kernel_seq3_0_conv1_0_3, ktype* Kernel_seq3_0_conv2_0_0, ktype* Kernel_seq3_0_conv2_0_3, ktype* Kernel_seq3_0_downsample_0, ktype* Kernel_seq3_1_conv1_0_0, ktype* Kernel_seq3_1_conv1_0_3, ktype* Kernel_seq3_1_conv2_0_0, ktype* Kernel_seq3_1_conv2_0_3,
             ktype* Kernel_seq4_0_conv1_0_0, ktype* Kernel_seq4_0_conv1_0_3, ktype* Kernel_seq4_0_conv2_0_0, ktype* Kernel_seq4_0_conv2_0_3, ktype* Kernel_seq4_0_downsample_0, ktype* Kernel_seq4_1_conv1_0_0, ktype* Kernel_seq4_1_conv1_0_3, ktype* Kernel_seq4_1_conv2_0_0, ktype* Kernel_seq4_1_conv2_0_3,
-            ktype* Kernel_linear,
+            ktype* Kernel_linear, 
             dtype* X_stem_1, dtype* X_stem_2, dtype* X_seq,dtype* X_adap, dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data, dtype* X_batch_data);
 void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding, ftype scale_in, int_t zp_in, ftype scale_out, int_t zp_out);
 void BatchNorm3d(dtype* X_data, dtype* Y_data, int_t* X_num, ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype scale_in, int_t zp_in, ftype scale_out, int_t zp_out);
@@ -25,6 +25,7 @@ void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_mid_data, dtype* X_batch_
                 ktype* Kernel_1_data, ktype* Kernel_2_data, ftype* Kernel_1_data_scale, ftype* Kernel_2_data_scale, int_t s, int_t p, 
                 ftype X_scale, ftype Conv3d_1_scale, ftype Conv3d_2_scale, int_t X_zeropoint, int_t Conv3d_1_zeropoint, int_t Conv3d_2_zeropoint,
                 ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype BatchNorm3d_scale, int_t BatchNorm3d_zeropoint);
+
 void Sequential(dtype* X_data, dtype* Y_data, 
                 ktype* Kernel_1_1_data, ktype* Kernel_1_2_data, ktype* Kernel_1_3_data, ktype* Kernel_1_4_data, ktype* Kernel_1_5_data, ktype* Kernel_1_6_data, ktype* Kernel_1_7_data, ktype* Kernel_1_8_data, 
                 ktype* Kernel_2_1_data, ktype* Kernel_2_2_data, ktype* Kernel_2_3_data, ktype* Kernel_2_4_data, ktype* Kernel_2_5_data, ktype* Kernel_2_6_data, ktype* Kernel_2_7_data, ktype* Kernel_2_8_data, ktype* Kernel_2_9_data, 
@@ -33,7 +34,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
                 ftype X_scale, int_t X_zeropoint,
                 dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data, dtype* X_batch_data);
 void Residual(dtype* X, dtype* X_tmp, int_t* size, ftype X_scale, ftype X_tmp_scale, ftype out_scale, int_t X_zeropoint, int_t X_tmp_zeropoint, int_t out_zeropoint);
-void AdaptiveAvgPool3d(dtype* X_data, dtype* Y_data);
-void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel, ftype* Kernel_scale);
+void AdaptiveAvgPool3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num);
+void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel);
 #endif
 

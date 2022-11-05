@@ -31,12 +31,12 @@ int_t main() {
 	ktype *Kernel_stem_3 = (ktype*)malloc(8640 * sizeof(ktype));
 
 	ktype *Kernel_seq1_0_conv1_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
-	ktype *Kernel_seq1_0_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
 	ktype *Kernel_seq1_0_conv2_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
-	ktype *Kernel_seq1_0_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
 	ktype *Kernel_seq1_1_conv1_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
-	ktype *Kernel_seq1_1_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
 	ktype *Kernel_seq1_1_conv2_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_0_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+	ktype *Kernel_seq1_0_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
 	ktype *Kernel_seq1_1_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
 	// kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
 
@@ -96,11 +96,13 @@ int_t main() {
 	dtype *X_batch_data = (dtype*)malloc(7225344 * sizeof(dtype));
 
 	// load input
-	if(!LoadArr<dtype>("input.dat", input, INPUT_SIZE)) return 0;
+	if(!LoadArr<dtype>("input.dat", input, INPUT_SIZE))
+		return 0;
 
 	// load stem kernel
 	if(!LoadArr<ktype>("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadArr<ktype>("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
+
 	// load layer1 kernel
 	if(!LoadArr<ktype>(kernel_1_dat_name[0], Kernel_seq1_0_conv1_0_0, 82944)) return 0;
 	if(!LoadArr<ktype>(kernel_1_dat_name[1], Kernel_seq1_0_conv1_0_3, 27648)) return 0;
@@ -110,6 +112,7 @@ int_t main() {
 	if(!LoadArr<ktype>(kernel_1_dat_name[5], Kernel_seq1_1_conv1_0_3, 27648)) return 0;
 	if(!LoadArr<ktype>(kernel_1_dat_name[6], Kernel_seq1_1_conv2_0_0, 82944)) return 0;
 	if(!LoadArr<ktype>(kernel_1_dat_name[7], Kernel_seq1_1_conv2_0_3, 27648)) return 0;
+
 	// load layer2 kernel
 	if(!LoadArr<ktype>(kernel_2_dat_name[0], Kernel_seq2_0_conv1_0_0, 132480)) return 0;
 	if(!LoadArr<ktype>(kernel_2_dat_name[1], Kernel_seq2_0_conv1_0_3, 88320)) return 0;
@@ -120,6 +123,7 @@ int_t main() {
 	if(!LoadArr<ktype>(kernel_2_dat_name[6], Kernel_seq2_1_conv1_0_3, 110592)) return 0;
 	if(!LoadArr<ktype>(kernel_2_dat_name[7], Kernel_seq2_1_conv2_0_0, 331776)) return 0;
 	if(!LoadArr<ktype>(kernel_2_dat_name[8], Kernel_seq2_1_conv2_0_3, 110592)) return 0;
+
 	// load layer3 kernel
 	if(!LoadArr<ktype>(kernel_3_dat_name[0], Kernel_seq3_0_conv1_0_0, 529920)) return 0;
 	if(!LoadArr<ktype>(kernel_3_dat_name[1], Kernel_seq3_0_conv1_0_3, 353280)) return 0;
@@ -130,6 +134,7 @@ int_t main() {
 	if(!LoadArr<ktype>(kernel_3_dat_name[6], Kernel_seq3_1_conv1_0_3, 442368)) return 0;
 	if(!LoadArr<ktype>(kernel_3_dat_name[7], Kernel_seq3_1_conv2_0_0, 1327104)) return 0;
 	if(!LoadArr<ktype>(kernel_3_dat_name[8], Kernel_seq3_1_conv2_0_3, 442368)) return 0;
+
 	// load layer4 kernel
 	if(!LoadArr<ktype>(kernel_4_dat_name[0], Kernel_seq4_0_conv1_0_0, 2121984)) return 0;
 	if(!LoadArr<ktype>(kernel_4_dat_name[1], Kernel_seq4_0_conv1_0_3, 1414656)) return 0;
@@ -139,7 +144,8 @@ int_t main() {
 	if(!LoadArr<ktype>(kernel_4_dat_name[5], Kernel_seq4_1_conv1_0_0, 5308416)) return 0;
 	if(!LoadArr<ktype>(kernel_4_dat_name[6], Kernel_seq4_1_conv1_0_3, 1769472)) return 0;
 	if(!LoadArr<ktype>(kernel_4_dat_name[7], Kernel_seq4_1_conv2_0_0, 5308416)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[8], Kernel_seq4_1_conv2_0_3, 1769472)) return 0;	
+	if(!LoadArr<ktype>(kernel_4_dat_name[8], Kernel_seq4_1_conv2_0_3, 1769472)) return 0;
+	
 	// load linear kernel
 	if(!LoadArr<ktype>(fc_dat_name[0], Kernel_linear, 5120)) return 0;
 
@@ -148,12 +154,12 @@ int_t main() {
 	// ====================================
 	// Function to test here:
 
-	r2plus1d(input, output, Kernel_stem_0, Kernel_stem_3,
+	r2plus1d(input, output, Kernel_stem_0, Kernel_stem_3, 
             Kernel_seq1_0_conv1_0_0, Kernel_seq1_0_conv1_0_3, Kernel_seq1_0_conv2_0_0, Kernel_seq1_0_conv2_0_3, Kernel_seq1_1_conv1_0_0, Kernel_seq1_1_conv1_0_3, Kernel_seq1_1_conv2_0_0, Kernel_seq1_1_conv2_0_3,
             Kernel_seq2_0_conv1_0_0, Kernel_seq2_0_conv1_0_3, Kernel_seq2_0_conv2_0_0, Kernel_seq2_0_conv2_0_3, Kernel_seq2_0_downsample_0, Kernel_seq2_1_conv1_0_0, Kernel_seq2_1_conv1_0_3, Kernel_seq2_1_conv2_0_0, Kernel_seq2_1_conv2_0_3,
             Kernel_seq3_0_conv1_0_0, Kernel_seq3_0_conv1_0_3, Kernel_seq3_0_conv2_0_0, Kernel_seq3_0_conv2_0_3, Kernel_seq3_0_downsample_0, Kernel_seq3_1_conv1_0_0, Kernel_seq3_1_conv1_0_3, Kernel_seq3_1_conv2_0_0, Kernel_seq3_1_conv2_0_3,
             Kernel_seq4_0_conv1_0_0, Kernel_seq4_0_conv1_0_3, Kernel_seq4_0_conv2_0_0, Kernel_seq4_0_conv2_0_3, Kernel_seq4_0_downsample_0, Kernel_seq4_1_conv1_0_0, Kernel_seq4_1_conv1_0_3, Kernel_seq4_1_conv2_0_0, Kernel_seq4_1_conv2_0_3,
-            Kernel_linear,
+            Kernel_linear, 
 			X_stem_1, X_stem_2, X_seq, X_adap, X_tmp_data, X2_data, X2_tmp_data, X_mid_data, X_batch_data);
 
 	// calculate errors
@@ -187,7 +193,6 @@ int_t main() {
 	free(Kernel_seq1_1_conv1_0_3);
 	free(Kernel_seq1_1_conv2_0_3);
 
-
 	free(Kernel_seq2_0_conv1_0_0);
 	free(Kernel_seq2_0_conv1_0_3);
 	free(Kernel_seq2_0_conv2_0_0);
@@ -219,7 +224,6 @@ int_t main() {
 	free(Kernel_seq4_1_conv2_0_3);
 
 	free(Kernel_linear);
-
 	free(X_stem_1);
 	free(X_stem_2);
 	free(X_seq);

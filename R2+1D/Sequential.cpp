@@ -8,27 +8,31 @@ void Sequential(dtype* X_data, dtype* Y_data,
                 ktype* Kernel_3_1_data, ktype* Kernel_3_2_data, ktype* Kernel_3_3_data, ktype* Kernel_3_4_data, ktype* Kernel_3_5_data, ktype* Kernel_3_6_data, ktype* Kernel_3_7_data, ktype* Kernel_3_8_data, ktype* Kernel_3_9_data, 
                 ktype* Kernel_4_1_data, ktype* Kernel_4_2_data, ktype* Kernel_4_3_data, ktype* Kernel_4_4_data, ktype* Kernel_4_5_data, ktype* Kernel_4_6_data, ktype* Kernel_4_7_data, ktype* Kernel_4_8_data, ktype* Kernel_4_9_data,
                 ftype X_scale, int_t X_zeropoint,
-                dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data, dtype* X_batch_data)
+                dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data, dtype* X_batch_data
+                )
 {
  #ifdef __SYNTHESIS__
     // dtype X_tmp_data[3211264];
     // dtype X2_data[802816];
     // dtype X2_tmp_data[802816];
-    // dtype X3_data[200704];
-    // dtype X3_tmp_data[200704];
-    // dtype X4_data[50176];
-    // dtype X4_tmp_data[50176];
+//    dtype X_data[200704];
+//    dtype X3_tmp_data[200704];
+//    dtype X2_data[50176];
+//    dtype X4_tmp_data[50176];
+    // for conv2Plus1D
     // dtype X_mid_data[7225344];
  #else
     // dtype* X_tmp_data = (dtype*)malloc(3211264*sizeof(dtype));
     // dtype* X2_data = (dtype*)malloc(802816*sizeof(dtype));
     // dtype* X2_tmp_data = (dtype*)malloc(802816*sizeof(dtype));
-    // dtype* X3_data = (dtype*)malloc(200704*sizeof(dtype));
-    // dtype* X3_tmp_data = (dtype*)malloc(200704*sizeof(dtype));
-    // dtype* X4_data = (dtype*)malloc(50176*sizeof(dtype));
-    // dtype* X4_tmp_data = (dtype*)malloc(50176*sizeof(dtype));
+//    dtype* X_data = (dtype*)malloc(200704*sizeof(dtype));
+//    dtype* X3_tmp_data = (dtype*)malloc(200704*sizeof(dtype));
+//    dtype* X2_data = (dtype*)malloc(50176*sizeof(dtype));
+//    dtype* X4_tmp_data = (dtype*)malloc(50176*sizeof(dtype));
+    // for conv2Plus1D
     // dtype* X_mid_data = (dtype*)malloc(7225344*sizeof(dtype));
  #endif
+
     int_t Kernel_num[3] = {1, 1, 1};
     int_t stride[3] = {2, 2, 2};
     int_t padding[3] = {0, 0, 0};
@@ -82,7 +86,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
     Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data, X2_data, X2_num, 230, 
                 Kernel_2_1_data, Kernel_2_2_data, Kernel_seq2_0_conv1_0_0_scale, Kernel_seq2_0_conv1_0_3_scale, 2, 1,
                 7.128605991601943970e-02, 1.296460330486297607e-01, 3.311596438288688660e-02, 49, 76, 64,
-                Mu_seq2_0_conv1_0_1, Var_seq2_0_conv1_0_1, Gamma_seq2_0_conv1_0_1, Bias_seq2_0_conv1_0_1, 3.834486752748489380e-02, 66); // 230 = (64 * 128 * 3 * 3) / (64 * 3 + 128)
+                Mu_seq2_0_conv1_0_1,Var_seq2_0_conv1_0_1, Gamma_seq2_0_conv1_0_1, Bias_seq2_0_conv1_0_1, 3.834486752748489380e-02, 66); // 230 = (64 * 128 * 3 * 3) / (64 * 3 + 128)
 
     BatchNorm3d(X2_data, X_batch_data,X2_num, Mu_seq2_0_conv1_1, Var_seq2_0_conv1_1, Gamma_seq2_0_conv1_1, Bias_seq2_0_conv1_1, 3.311596438288688660e-02, 64,3.730613738298416138e-02, 52);
     
@@ -90,7 +94,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
     Conv2Plus1D(X2_data, X2_num, X_mid_data, X_batch_data, X2_data, X2_num, 230, 
                 Kernel_2_3_data, Kernel_2_4_data, Kernel_seq2_0_conv2_0_0_scale, Kernel_seq2_0_conv2_0_3_scale, 1, 1,
                 3.730613738298416138e-02,  6.581791490316390991e-02, 3.792280331254005432e-02, 52, 68, 70,
-                Mu_seq2_0_conv2_0_1, Var_seq2_0_conv2_0_1, Gamma_seq2_0_conv2_0_1, Bias_seq2_0_conv2_0_1, 3.696846589446067810e-02, 75); // 230 = (64 * 128 * 3 * 3) / (64 * 3 + 128)
+                Mu_seq2_0_conv2_0_1,Var_seq2_0_conv2_0_1, Gamma_seq2_0_conv2_0_1, Bias_seq2_0_conv2_0_1, 3.696846589446067810e-02, 75); // 230 = (64 * 128 * 3 * 3) / (64 * 3 + 128)
     BatchNorm3d(X2_data, X_batch_data, X2_num, Mu_seq2_0_conv2_1, Var_seq2_0_conv2_1, Gamma_seq2_0_conv2_1, Bias_seq2_0_conv2_1, 3.792280331254005432e-02, 70, 5.221061781048774719e-02, 61);
     
     Conv3d(X_tmp_data, X_num, X2_tmp_data, X2_num, Kernel_2_5_data, Kernel_num, Kernel_seq2_0_downsample_0_scale, stride, padding, 7.128605991601943970e-02, 49, 5.711162462830543518e-02, 68);
@@ -173,7 +177,7 @@ void Sequential(dtype* X_data, dtype* Y_data,
     BatchNorm3d(X2_data, X_batch_data, X4_num, Mu_seq4_0_conv1_1, Var_seq4_0_conv1_1, Gamma_seq4_0_conv1_1, Bias_seq4_0_conv1_1, 4.174583032727241516e-02, 60,3.296769410371780396e-02, 49);
     ReLU(X_batch_data, X2_data, X4_num, 49);
     Conv2Plus1D(X2_data, X4_num, X_mid_data, X_batch_data, X2_data, X4_num, 921, 
-                Kernel_4_3_data, Kernel_4_4_data, Kernel_seq4_0_conv2_0_0_scale, Kernel_seq4_0_conv2_0_0_scale, 1, 1,
+                Kernel_4_3_data, Kernel_4_4_data, Kernel_seq4_0_conv2_0_0_scale, Kernel_seq4_0_conv2_0_3_scale, 1, 1,
                 3.296769410371780396e-02, 5.654629692435264587e-02, 3.702012076973915100e-02, 49, 61, 56,
                 Mu_seq4_0_conv2_0_1, Var_seq4_0_conv2_0_1, Gamma_seq4_0_conv2_0_1, Bias_seq4_0_conv2_0_1, 2.629663422703742981e-02, 60);
     BatchNorm3d(X2_data, X_batch_data, X4_num,  Mu_seq4_0_conv2_1, Var_seq4_0_conv2_1, Gamma_seq4_0_conv2_1, Bias_seq4_0_conv2_1, 3.702012076973915100e-02,56 ,8.961183577775955200e-02, 57);
@@ -210,10 +214,8 @@ void Sequential(dtype* X_data, dtype* Y_data,
     // free(X_tmp_data);
     // free(X2_data);
     // free(X2_tmp_data);
-    // free(X3_data);
-    // free(X3_tmp_data);
-    // free(X4_data);
-    // free(X4_tmp_data);
+    //free(X3_tmp_data);
+    //free(X4_tmp_data);
     // free(X_mid_data);
 #endif
     return;

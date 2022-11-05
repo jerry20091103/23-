@@ -2,6 +2,7 @@
 #define __R2PLUS1D_H__
 
 #include <stdint.h>
+#include "inner_data.h"
 // It works!
 #define N_ 1
 #define C_ 1152

@@ -60,6 +60,15 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv2_0_0
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv2_0_3
     #pragma HLS INTERFACE m_axi port=Kernel_linear
+    #pragma HLS INTERFACE m_axi port=X_stem_1
+    #pragma HLS INTERFACE m_axi port=X_stem_2
+    #pragma HLS INTERFACE m_axi port=X_seq
+    #pragma HLS INTERFACE m_axi port=X_adap
+    #pragma HLS INTERFACE m_axi port=X_tmp_data
+    #pragma HLS INTERFACE m_axi port=X2_data
+    #pragma HLS INTERFACE m_axi port=X2_tmp_data
+    #pragma HLS INTERFACE m_axi port=X_mid_data
+    #pragma HLS INTERFACE m_axi port=X_batch_data
 
 
  #else

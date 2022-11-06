@@ -11,7 +11,7 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             dtype* X_stem_1, dtype* X_stem_2, dtype* X_seq,dtype* X_adap, dtype* X_tmp_data, dtype* X2_data, dtype* X2_tmp_data, dtype* X_mid_data, dtype* X_batch_data)
 {
     #pragma HLS INTERFACE s_axilite port=return
-	#pragma HLS INTERFACE m_axi depth=602112 port=X
+    #pragma HLS INTERFACE m_axi depth=602112 bundle=gmem0 port=X
 	#pragma HLS INTERFACE m_axi depth=10 port=Y
     #pragma HLS INTERFACE m_axi depth=6615 port=Kernel_stem_0
 	#pragma HLS INTERFACE m_axi depth=8640 port=Kernel_stem_3
@@ -50,20 +50,20 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS INTERFACE m_axi depth=1769472 port=Kernel_seq4_1_conv1_0_3
     #pragma HLS INTERFACE m_axi depth=5308416 port=Kernel_seq4_1_conv2_0_0
     #pragma HLS INTERFACE m_axi depth=1769472 port=Kernel_seq4_1_conv2_0_3
-    #pragma HLS INTERFACE m_axi depth=5120 port=Kernel_linear
-    #pragma HLS INTERFACE m_axi depth=2257920 port=X_stem_1
-    #pragma HLS INTERFACE m_axi depth=3211264 port=X_stem_2
-    #pragma HLS INTERFACE m_axi depth=50176 port=X_seq
-    #pragma HLS INTERFACE m_axi depth=512 port=X_adap
-    #pragma HLS INTERFACE m_axi depth=3211264 port=X_tmp_data
-    #pragma HLS INTERFACE m_axi depth=802816 port=X2_data
-    #pragma HLS INTERFACE m_axi depth=802816 port=X2_tmp_data
-    #pragma HLS INTERFACE m_axi depth=7225344 port=X_mid_data
+    #pragma HLS INTERFACE m_axi depth=5120 bundle=gmem1 port=Kernel_linear
+    #pragma HLS INTERFACE m_axi depth=2257920 bundle=gmem1 port=X_stem_1
+    #pragma HLS INTERFACE m_axi depth=3211264 bundle=gmem0 port=X_stem_2
+    #pragma HLS INTERFACE m_axi depth=50176 bundle=gmem1 port=X_seq
+    #pragma HLS INTERFACE m_axi depth=512 bundle=gmem0 port=X_adap
+    #pragma HLS INTERFACE m_axi depth=3211264 bundle=gmem0 port=X_tmp_data
+    #pragma HLS INTERFACE m_axi depth=802816 bundle=gmem0 port=X2_data
+    #pragma HLS INTERFACE m_axi depth=802816 bundle=gmem1 port=X2_tmp_data
+    #pragma HLS INTERFACE m_axi depth=7225344 bundle=gmem1 port=X_mid_data
     #pragma HLS INTERFACE m_axi depth=7225344 port=X_batch_data
  #ifdef __SYNTHESIS__
     // dtype X_stem_1[2257920];
     // dtype X_stem_2[3211264];
-    // // // Sequential 1~4
+    // // Sequential 1~4
     // dtype X_seq[50176]; // value after 1~4 sequential layer
     // // AdaptiveAvgPool3d
     // dtype X_adap[512]; // value after AdaptiveAvgPool3d
@@ -131,6 +131,7 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     // ======================== Linear ==================================
     int_t X_adap_flat_num[2] = {N_, 512};
     Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear);
+    
     // for linear test
     for(int_t i = 0; i < 10; i++)
         Y[i] = X_linear[i]; // assign result to output

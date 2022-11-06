@@ -1,0 +1,2 @@
+main function是r2plus1d.cpp，在輸入進去的參數中X是input，Y是output，kernel開頭的都是weight，最後的九個參數都是buffer，會放在dram。inner data.h裡面是所有的batchnorm需要的參數和kernel scale。
+input是16張3x112x112的圖片，output現在是十個手勢，之後會在python上做softmax。

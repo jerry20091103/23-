@@ -13,14 +13,12 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
  #ifdef __SYNTHESIS__
     // dtype X_stem_1[2257920];
     // dtype X_stem_2[3211264];
-    // // // Sequential 1~4
+    // // Sequential 1~4
     // dtype X_seq[50176]; // value after 1~4 sequential layer
     // // AdaptiveAvgPool3d
     // dtype X_adap[512]; // value after AdaptiveAvgPool3d
-    // // Linear
-
     #pragma HLS INTERFACE s_axilite port=return
-	#pragma HLS INTERFACE m_axi port=X
+	#pragma HLS INTERFACE m_axi bundle=gmem0 port=X
 	#pragma HLS INTERFACE m_axi port=Y
     #pragma HLS INTERFACE m_axi port=Kernel_stem_0
 	#pragma HLS INTERFACE m_axi port=Kernel_stem_3
@@ -59,18 +57,16 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv1_0_3
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv2_0_0
     #pragma HLS INTERFACE m_axi port=Kernel_seq2_1_conv2_0_3
-    #pragma HLS INTERFACE m_axi port=Kernel_linear
-    #pragma HLS INTERFACE m_axi port=X_stem_1
-    #pragma HLS INTERFACE m_axi port=X_stem_2
-    #pragma HLS INTERFACE m_axi port=X_seq
-    #pragma HLS INTERFACE m_axi port=X_adap
-    #pragma HLS INTERFACE m_axi port=X_tmp_data
-    #pragma HLS INTERFACE m_axi port=X2_data
-    #pragma HLS INTERFACE m_axi port=X2_tmp_data
-    #pragma HLS INTERFACE m_axi port=X_mid_data
+    #pragma HLS INTERFACE m_axi bundle=gmem1 port=Kernel_linear
+    #pragma HLS INTERFACE m_axi bundle=gmem1 port=X_stem_1
+    #pragma HLS INTERFACE m_axi bundle=gmem0 port=X_stem_2
+    #pragma HLS INTERFACE m_axi bundle=gmem1 port=X_seq
+    #pragma HLS INTERFACE m_axi bundle=gmem0 port=X_adap
+    #pragma HLS INTERFACE m_axi bundle=gmem0 port=X_tmp_data
+    #pragma HLS INTERFACE m_axi bundle=gmem0 port=X2_data
+    #pragma HLS INTERFACE m_axi bundle=gmem1 port=X2_tmp_data
+    #pragma HLS INTERFACE m_axi bundle=gmem1 port=X_mid_data
     #pragma HLS INTERFACE m_axi port=X_batch_data
-
-
  #else
     // R2Plus1dStem
     // dtype* X_stem_1 = (dtype*)malloc(2257920*sizeof(dtype)); // value after first Conv-Batch-ReLU layer
@@ -131,6 +127,7 @@ void r2plus1d(dtype* X, dtype* Y, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     // ======================== Linear ==================================
     int_t X_adap_flat_num[2] = {N_, 512};
     Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear);
+    
     // for linear test
     for(int_t i = 0; i < 10; i++)
         Y[i] = X_linear[i]; // assign result to output

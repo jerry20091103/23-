@@ -11,7 +11,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             dtype* X_stem_1, dtype* X_stem_2, dtype* X2_data, dtype* X3_data, dtype* X_seq, dtype* X_adap, dtype* X_linear, 
             dtype* X_tmp_data, dtype* X2_tmp_data, dtype* X3_tmp_data, dtype* X4_tmp_data,
             dtype* X_batch_data, dtype* X2_batch_data, dtype* X3_batch_data, dtype* X4_batch_data,
-            dtype* X_mid_data)
+            dtype* X_mid_data, dtype* X2_mid_data, dtype* X3_mid_data, dtype* X4_mid_data)
 {
     #pragma HLS INTERFACE s_axilite port=return
     #pragma HLS INTERFACE m_axi depth=602112 bundle=gmem0 port=X
@@ -22,15 +22,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS INTERFACE m_axi depth=50176 bundle=gmem1 port=X_seq
     #pragma HLS INTERFACE m_axi depth=512 bundle=gmem0 port=X_adap
 	#pragma HLS INTERFACE m_axi depth=10 bundle=gmem1 port=X_linear
-    #pragma HLS INTERFACE m_axi depth=3211264 bundle=gmem0 port=X_tmp_data
-    #pragma HLS INTERFACE m_axi depth=802816 bundle=gmem1 port=X2_tmp_data
-    #pragma HLS INTERFACE m_axi depth=200704 bundle=gmem0 port=X3_tmp_data
-    #pragma HLS INTERFACE m_axi depth=50176 bundle=gmem1 port=X4_tmp_data
-    #pragma HLS INTERFACE m_axi depth=7225344 bundle=gmem1 port=X_batch_data
-    #pragma HLS INTERFACE m_axi depth=2885120 bundle=gmem0 port=X2_batch_data
-    #pragma HLS INTERFACE m_axi depth=721280 bundle=gmem1 port=X3_batch_data
-    #pragma HLS INTERFACE m_axi depth=180516 bundle=gmem0 port=X4_batch_data
+    #pragma HLS INTERFACE m_axi depth=3211264 bundle=gmem1 port=X_tmp_data
+    #pragma HLS INTERFACE m_axi depth=802816 bundle=gmem0 port=X2_tmp_data
+    #pragma HLS INTERFACE m_axi depth=200704 bundle=gmem1 port=X3_tmp_data
+    #pragma HLS INTERFACE m_axi depth=50176 bundle=gmem0 port=X4_tmp_data
+    #pragma HLS INTERFACE m_axi depth=7225344 bundle=gmem2 port=X_batch_data
+    #pragma HLS INTERFACE m_axi depth=2885120 bundle=gmem2 port=X2_batch_data
+    #pragma HLS INTERFACE m_axi depth=721280 bundle=gmem2 port=X3_batch_data
+    #pragma HLS INTERFACE m_axi depth=180516 bundle=gmem2 port=X4_batch_data
     #pragma HLS INTERFACE m_axi depth=7225344 bundle=gmem1 port=X_mid_data
+    #pragma HLS INTERFACE m_axi depth=2885120 bundle=gmem0 port=X2_mid_data
+    #pragma HLS INTERFACE m_axi depth=721280 bundle=gmem1 port=X3_mid_data
+    #pragma HLS INTERFACE m_axi depth=180516 bundle=gmem0 port=X4_mid_data
 
     #pragma HLS INTERFACE m_axi depth=6615 port=Kernel_stem_0
 	#pragma HLS INTERFACE m_axi depth=8640 port=Kernel_stem_3
@@ -99,7 +102,8 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     Sequential(X_stem_2, X2_data, X3_data, X_seq,
         X_tmp_data, X2_tmp_data, X3_tmp_data, X4_tmp_data,
         X_batch_data, X2_batch_data, X3_batch_data, X4_batch_data, 
-        X_mid_data, 0.07423608750104904175, 65,
+        X_mid_data, X2_mid_data, X3_mid_data, X4_mid_data,
+        0.07423608750104904175, 65,
         Kernel_seq1_0_conv1_0_0, Kernel_seq1_0_conv1_0_3, Kernel_seq1_0_conv2_0_0, Kernel_seq1_0_conv2_0_3, Kernel_seq1_1_conv1_0_0, Kernel_seq1_1_conv1_0_3, Kernel_seq1_1_conv2_0_0, Kernel_seq1_1_conv2_0_3, 
         Kernel_seq2_0_conv1_0_0, Kernel_seq2_0_conv1_0_3, Kernel_seq2_0_conv2_0_0, Kernel_seq2_0_conv2_0_3, Kernel_seq2_0_downsample_0, Kernel_seq2_1_conv1_0_0, Kernel_seq2_1_conv1_0_3, Kernel_seq2_1_conv2_0_0, Kernel_seq2_1_conv2_0_3,
         Kernel_seq3_0_conv1_0_0, Kernel_seq3_0_conv1_0_3, Kernel_seq3_0_conv2_0_0, Kernel_seq3_0_conv2_0_3, Kernel_seq3_0_downsample_0, Kernel_seq3_1_conv1_0_0, Kernel_seq3_1_conv1_0_3, Kernel_seq3_1_conv2_0_0, Kernel_seq3_1_conv2_0_3,

@@ -99,6 +99,9 @@ int_t main() {
 	dtype *X3_batch_data = (dtype*)malloc(721280 * sizeof(dtype));
 	dtype *X4_batch_data = (dtype*)malloc(180516 * sizeof(dtype));
 	dtype *X_mid_data = (dtype*)malloc(7225344 * sizeof(dtype));
+	dtype *X2_mid_data = (dtype*)malloc(2885120 * sizeof(dtype));
+	dtype *X3_mid_data = (dtype*)malloc(721280 * sizeof(dtype));
+	dtype *X4_mid_data = (dtype*)malloc(180516 * sizeof(dtype));
 
 	// load input
 	if(!LoadArr<dtype>("input.dat", input, INPUT_SIZE))
@@ -168,7 +171,7 @@ int_t main() {
 			X_stem_1, X_stem_2, X2_data, X3_data, X_seq, X_adap, output,
 			X_tmp_data, X2_tmp_data, X3_tmp_data, X4_tmp_data, 
 			X_batch_data, X2_batch_data, X3_batch_data, X4_batch_data,
-			X_mid_data);
+			X_mid_data, X2_mid_data, X3_mid_data, X4_mid_data);
 
 	// calculate errors
 	ftype errors;

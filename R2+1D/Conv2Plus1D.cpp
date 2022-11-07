@@ -5,8 +5,8 @@ using namespace std;
 
 void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_mid_data, dtype* X_batch_data, dtype* X_out_data, int_t* X_out_num, int_t midplanes,
                 ktype* Kernel_1_data, ktype* Kernel_2_data, ftype* Kernel_1_data_scale, ftype* Kernel_2_data_scale, int_t s, int_t p, 
-                ftype X_scale, ftype Conv3d_1_scale, ftype Conv3d_2_scale, int_t X_zeropoint, int_t Conv3d_1_zeropoint, int_t Conv3d_2_zeropoint,
-                ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype BatchNorm3d_scale, int_t BatchNorm3d_zeropoint)
+                ftype X_scale, ftype Conv3d_1_scale, ftype Conv3d_2_scale, dtype X_zeropoint, dtype Conv3d_1_zeropoint, dtype Conv3d_2_zeropoint,
+                ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype BatchNorm3d_scale, dtype BatchNorm3d_zeropoint)
 {
     int_t stride[3] = {1, 1, 1};
     int_t padding[3] = {0, 1, 1};
@@ -33,13 +33,4 @@ void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_mid_data, dtype* X_batch_
     Conv3d(X_mid_data, X_mid_num, X_out_data, X_out_num, Kernel_2_data, Kernel_2_num, Kernel_2_data_scale, stride, padding, BatchNorm3d_scale, BatchNorm3d_zeropoint, Conv3d_2_scale, Conv3d_2_zeropoint);
 
     return;
-
-    // nn.Conv3d(in_planes, midplanes, kernel_size=(1, 3, 3),
-    //             stride=(1, stride, stride),padding=(0, padding, padding),
-    //             bias=False),
-    // nn.BatchNorm3d(midplanes),
-    // nn.ReLU(inplace=True),
-    // nn.Conv3d(midplanes, out_planes, kernel_size=(3, 1, 1), 
-    //             stride=(stride, 1, 1), padding=(padding, 0, 0),
-    //             bias=False)
 }

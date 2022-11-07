@@ -17,23 +17,23 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS INTERFACE m_axi depth=602112 bundle=gmem0 port=X
     #pragma HLS INTERFACE m_axi depth=2257920 bundle=gmem1 port=X_stem_1
     #pragma HLS INTERFACE m_axi depth=3211264 bundle=gmem0 port=X_stem_2
-    #pragma HLS INTERFACE m_axi depth=802816 bundle=gmem1 port=X2_data
+    #pragma HLS INTERFACE m_axi depth=802816 bundle=gmem0 port=X2_data
     #pragma HLS INTERFACE m_axi depth=200704 bundle=gmem0 port=X3_data
-    #pragma HLS INTERFACE m_axi depth=50176 bundle=gmem1 port=X_seq
-    #pragma HLS INTERFACE m_axi depth=512 bundle=gmem0 port=X_adap
-	#pragma HLS INTERFACE m_axi depth=10 bundle=gmem1 port=X_linear
+    #pragma HLS INTERFACE m_axi depth=50176 bundle=gmem0 port=X_seq
+    #pragma HLS INTERFACE m_axi depth=512 bundle=gmem1 port=X_adap
+	#pragma HLS INTERFACE m_axi depth=10 bundle=gmem0 port=X_linear
     #pragma HLS INTERFACE m_axi depth=3211264 bundle=gmem1 port=X_tmp_data
-    #pragma HLS INTERFACE m_axi depth=802816 bundle=gmem0 port=X2_tmp_data
+    #pragma HLS INTERFACE m_axi depth=802816 bundle=gmem1 port=X2_tmp_data
     #pragma HLS INTERFACE m_axi depth=200704 bundle=gmem1 port=X3_tmp_data
-    #pragma HLS INTERFACE m_axi depth=50176 bundle=gmem0 port=X4_tmp_data
+    #pragma HLS INTERFACE m_axi depth=50176 bundle=gmem1 port=X4_tmp_data
     #pragma HLS INTERFACE m_axi depth=7225344 bundle=gmem2 port=X_batch_data
     #pragma HLS INTERFACE m_axi depth=2885120 bundle=gmem2 port=X2_batch_data
     #pragma HLS INTERFACE m_axi depth=721280 bundle=gmem2 port=X3_batch_data
     #pragma HLS INTERFACE m_axi depth=180516 bundle=gmem2 port=X4_batch_data
     #pragma HLS INTERFACE m_axi depth=7225344 bundle=gmem1 port=X_mid_data
-    #pragma HLS INTERFACE m_axi depth=2885120 bundle=gmem0 port=X2_mid_data
+    #pragma HLS INTERFACE m_axi depth=2885120 bundle=gmem1 port=X2_mid_data
     #pragma HLS INTERFACE m_axi depth=721280 bundle=gmem1 port=X3_mid_data
-    #pragma HLS INTERFACE m_axi depth=180516 bundle=gmem0 port=X4_mid_data
+    #pragma HLS INTERFACE m_axi depth=180516 bundle=gmem1 port=X4_mid_data
 
     #pragma HLS INTERFACE m_axi depth=6615 port=Kernel_stem_0
 	#pragma HLS INTERFACE m_axi depth=8640 port=Kernel_stem_3

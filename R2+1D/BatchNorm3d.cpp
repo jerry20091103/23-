@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void BatchNorm3d(dtype* X_data, dtype* Y_data, int_t* X_num, ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype scale_in, int_t zp_in, ftype scale_out, int_t zp_out){
+void BatchNorm3d(dtype* X_data, dtype* Y_data, int_t* X_num, ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype scale_in, dtype zp_in, ftype scale_out, dtype zp_out){
 	int_t N = X_num[0];
 	int_t C = X_num[1];
 	int_t D = X_num[2];

@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding, ftype scale_in, dtype zp_in, ftype scale_out, dtype zp_out)
+void Conv3d(dtype* X_data, int_t* X_num, int_t xc, dtype* Y_data, int_t* Y_num, int_t yc, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding, ftype scale_in, dtype zp_in, ftype scale_out, dtype zp_out)
 {
 	// get X(input) size
 	int_t XN = X_num[0];
@@ -25,7 +25,7 @@ void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, ktype* Ker
 	int_t YW = Y_num[4]; // (W+2*padding[2]-KW)/stride[2] + 1
 
 	for(int_t yn = 0; yn < YN; yn++)
-		for(int_t yc = 0; yc < YC; yc++)
+		// for(int_t yc = 0; yc < YC; yc++)
             for (int_t yd = 0; yd < YD; yd++)
                 for (int_t yh = 0; yh < YH; yh++)
                 	for (int_t yw = 0; yw < YW; yw++){
@@ -33,7 +33,7 @@ void Conv3d(dtype* X_data, int_t* X_num, dtype* Y_data, int_t* Y_num, ktype* Ker
 						int_t yPos = yn*YC*YD*YH*YW + yc*YD*YH*YW + yd*YH*YW + yh*YW + yw;
 						int_t tmp_Y = 0;
 						for(int_t xn = 0; xn < XN; xn++)
-							for(int_t xc = 0; xc < XC; xc++)
+							// for(int_t xc = 0; xc < XC; xc++)
 								for(int_t kd = 0; kd < KD; kd++)
 									for(int_t kh = 0; kh < KH; kh++)
 										for(int_t kw = 0; kw < KW; kw++){

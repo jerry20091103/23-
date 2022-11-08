@@ -80,49 +80,67 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     int_t Kernel_stem_1_num[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
-
-    Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
-    BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
-    ReLU(X_batch_data, X_stem_1, X_stem_1_num, 55);
-
-    int_t X_stem_2_num[5] = {N_, 64, D_, 56, 56};
-    int_t Kernel_stem_2_num[3] = {3, 1, 1};
-    int_t stride_2[3] = {1, 1, 1};
-    int_t padding_2[3] = {1, 0, 0};
-
-    Conv3d(X_stem_1, X_stem_1_num, X_stem_2, X_stem_2_num, Kernel_stem_3, Kernel_stem_2_num, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);
-    BatchNorm3d(X_stem_2, X_batch_data, X_stem_2_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
-    ReLU(X_batch_data, X_stem_2, X_stem_2_num, 65);
+    int_t X_bram_num[5] = {N_, 1, D_, 112, 112};
+    int_t Y_bram_num[5] = {N_, 5, D_, 56, 56};
     
-    // // for stem test
-    // for(int_t i = 0; i < 3211264; i++)
-    //     Y[i] = X_stem_2[i]; // assign result to output
+    for(int i=0;i < Kernel_stem_1_num[0]*Kernel_stem_1_num[1]*Kernel_stem_1_num[2]*X_stem_1_num[1]*X_num[1]; i++){
+        Kernel_bram[i] = Kernel_stem_0[i];
+    }
+
+    for(int i = 0; i<X_num[1]; i++){
+        for(int j=0; j<9; j++){
+            for(int k=0; k< X_num[2]*X_num[3]*X_num[4]; k++){
+                X_bram[k] = X[i*X_num[2]*X_num[3]*X_num[4]+k]; 
+            }
+            Conv3d(X_bram, X_bram_num, Y_bram, Y_bram_num, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
+            for(int k=0; k< X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
+                X_stem_1[k] = Y_bram[i*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+k]; 
+            }
+        }
+        
+    }
+
+    // BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
+    // ReLU(X_batch_data, X_stem_1, X_stem_1_num, 55);
+
+    // int_t X_stem_2_num[5] = {N_, 64, D_, 56, 56};
+    // int_t Kernel_stem_2_num[3] = {3, 1, 1};
+    // int_t stride_2[3] = {1, 1, 1};
+    // int_t padding_2[3] = {1, 0, 0};
+
+    // Conv3d(X_stem_1, X_stem_1_num, X_stem_2, X_stem_2_num, Kernel_stem_3, Kernel_stem_2_num, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);
+    // BatchNorm3d(X_stem_2, X_batch_data, X_stem_2_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
+    // ReLU(X_batch_data, X_stem_2, X_stem_2_num, 65);
     
-    // ========================Sequential 1~4==================================
-    Sequential(X_stem_2, X2_data, X3_data, X_seq,
-        X_tmp_data, X2_tmp_data, X3_tmp_data, X4_tmp_data,
-        X_batch_data, X2_batch_data, X3_batch_data, X4_batch_data, 
-        X_mid_data, X2_mid_data, X3_mid_data, X4_mid_data,
-        0.07423608750104904175, 65,
-        Kernel_seq1_0_conv1_0_0, Kernel_seq1_0_conv1_0_3, Kernel_seq1_0_conv2_0_0, Kernel_seq1_0_conv2_0_3, Kernel_seq1_1_conv1_0_0, Kernel_seq1_1_conv1_0_3, Kernel_seq1_1_conv2_0_0, Kernel_seq1_1_conv2_0_3, 
-        Kernel_seq2_0_conv1_0_0, Kernel_seq2_0_conv1_0_3, Kernel_seq2_0_conv2_0_0, Kernel_seq2_0_conv2_0_3, Kernel_seq2_0_downsample_0, Kernel_seq2_1_conv1_0_0, Kernel_seq2_1_conv1_0_3, Kernel_seq2_1_conv2_0_0, Kernel_seq2_1_conv2_0_3,
-        Kernel_seq3_0_conv1_0_0, Kernel_seq3_0_conv1_0_3, Kernel_seq3_0_conv2_0_0, Kernel_seq3_0_conv2_0_3, Kernel_seq3_0_downsample_0, Kernel_seq3_1_conv1_0_0, Kernel_seq3_1_conv1_0_3, Kernel_seq3_1_conv2_0_0, Kernel_seq3_1_conv2_0_3,
-        Kernel_seq4_0_conv1_0_0, Kernel_seq4_0_conv1_0_3, Kernel_seq4_0_conv2_0_0, Kernel_seq4_0_conv2_0_3, Kernel_seq4_0_downsample_0, Kernel_seq4_1_conv1_0_0, Kernel_seq4_1_conv1_0_3, Kernel_seq4_1_conv2_0_0, Kernel_seq4_1_conv2_0_3);
-
-    // // for sequential test
-    // for(int_t i = 0; i < 50176; i++)
-    //     Y[i] = X_seq[i]; // assign result to output
+    // // // for stem test
+    // // for(int_t i = 0; i < 3211264; i++)
+    // //     Y[i] = X_stem_2[i]; // assign result to output
     
-    // ======================== AdaptiveAvgPool3d ==================================
-    AdaptiveAvgPool3d(X_seq, X_adap);
+    // // ========================Sequential 1~4==================================
+    // Sequential(X_stem_2, X2_data, X3_data, X_seq,
+    //     X_tmp_data, X2_tmp_data, X3_tmp_data, X4_tmp_data,
+    //     X_batch_data, X2_batch_data, X3_batch_data, X4_batch_data, 
+    //     X_mid_data, X2_mid_data, X3_mid_data, X4_mid_data,
+    //     0.07423608750104904175, 65,
+    //     Kernel_seq1_0_conv1_0_0, Kernel_seq1_0_conv1_0_3, Kernel_seq1_0_conv2_0_0, Kernel_seq1_0_conv2_0_3, Kernel_seq1_1_conv1_0_0, Kernel_seq1_1_conv1_0_3, Kernel_seq1_1_conv2_0_0, Kernel_seq1_1_conv2_0_3, 
+    //     Kernel_seq2_0_conv1_0_0, Kernel_seq2_0_conv1_0_3, Kernel_seq2_0_conv2_0_0, Kernel_seq2_0_conv2_0_3, Kernel_seq2_0_downsample_0, Kernel_seq2_1_conv1_0_0, Kernel_seq2_1_conv1_0_3, Kernel_seq2_1_conv2_0_0, Kernel_seq2_1_conv2_0_3,
+    //     Kernel_seq3_0_conv1_0_0, Kernel_seq3_0_conv1_0_3, Kernel_seq3_0_conv2_0_0, Kernel_seq3_0_conv2_0_3, Kernel_seq3_0_downsample_0, Kernel_seq3_1_conv1_0_0, Kernel_seq3_1_conv1_0_3, Kernel_seq3_1_conv2_0_0, Kernel_seq3_1_conv2_0_3,
+    //     Kernel_seq4_0_conv1_0_0, Kernel_seq4_0_conv1_0_3, Kernel_seq4_0_conv2_0_0, Kernel_seq4_0_conv2_0_3, Kernel_seq4_0_downsample_0, Kernel_seq4_1_conv1_0_0, Kernel_seq4_1_conv1_0_3, Kernel_seq4_1_conv2_0_0, Kernel_seq4_1_conv2_0_3);
 
-    // // for sequential test
-    // for(int_t i = 0; i < 512; i++)
-    //     Y[i] = X_adap[i]; // assign result to output
+    // // // for sequential test
+    // // for(int_t i = 0; i < 50176; i++)
+    // //     Y[i] = X_seq[i]; // assign result to output
+    
+    // // ======================== AdaptiveAvgPool3d ==================================
+    // AdaptiveAvgPool3d(X_seq, X_adap);
 
-    // ======================== Linear ==================================
-    int_t X_adap_flat_num[2] = {N_, 512};
-    Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear);
+    // // // for sequential test
+    // // for(int_t i = 0; i < 512; i++)
+    // //     Y[i] = X_adap[i]; // assign result to output
+
+    // // ======================== Linear ==================================
+    // int_t X_adap_flat_num[2] = {N_, 512};
+    // Linear(X_adap, X_adap_flat_num, X_linear, Kernel_linear);
     
     return;
 }

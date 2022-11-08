@@ -44,8 +44,8 @@ void Conv3d(dtype* X_data, int_t* X_num, int_t xc, dtype* Y_data, int_t* Y_num, 
 											if(dPos >= 0 && hPos >= 0 && wPos >= 0 && dPos < XD && hPos < XH && wPos < XW)
 												tmp_Y += ((int_t)X_data[/*xn*XC*XD*XH*XW + xc*XD*XH*XW + */dPos*XH*XW + hPos*XW + wPos]- zp_in) * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
 										}
-						tmp_Y = (int_t)roundf((ftype)tmp_Y*(scale_in*kernel_scale[yc]/scale_out));// + zp_out;
-            			Y_data[yPos] += (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
+						tmp_Y = (int_t)roundf((ftype)tmp_Y*(scale_in*kernel_scale[yc]/scale_out));
+            			Y_data[yPos] += tmp_Y;//(tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
 					}
 	return;
 }

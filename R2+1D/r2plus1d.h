@@ -6,7 +6,8 @@
 #define N_ 1
 #define C_ 1152
 #define D_ 16
-typedef uint8_t dtype;
+typedef int dtype;
+// typedef uint8_t dtype;
 typedef int int_t;
 typedef float ftype;
 typedef int8_t ktype;

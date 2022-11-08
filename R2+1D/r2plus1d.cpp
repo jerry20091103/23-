@@ -1,5 +1,6 @@
 #include "r2plus1d.h"
 #include<iostream>
+#include <cmath>
 using namespace std;
 
 void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
@@ -83,14 +84,11 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     int_t X_bram_num[5] = {N_, 1, D_, 112, 112};
     int_t Y_bram_num[5] = {N_, 5, D_, 56, 56};
     
-    for(int i=0;i < Kernel_stem_1_num[0]*Kernel_stem_1_num[1]*Kernel_stem_1_num[2]*X_stem_1_num[1]*X_num[1]; i++){
+    for(int i=0;i < Kernel_stem_1_num[0]*Kernel_stem_1_num[1]*Kernel_stem_1_num[2]*X_stem_1_num[1]*X_num[1]; i++)
         Kernel_bram[i] = Kernel_stem_0[i];
-    }
-
-    
 
     for(int yi=0; yi<9; yi++){
-        for(int k=0; k< X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
+        for(int k=0; k< 5*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
             Y_bram[k] = 0; 
         }
         for(int xi = 0; xi<X_num[1]; xi++){
@@ -99,8 +97,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
             Conv3d(X_bram, X_num, xi, Y_bram, X_stem_1_num, yi, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
         }
-        for(int k=0; k< X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
-            X_stem_1[yi*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+k] = Y_bram[k]+60; 
+        for(int c=0; c<5; c++){
+            for(int k=0; k < X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
+                int Ypos = c*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4] + k;
+                Y_bram[Ypos] = (Y_bram[Ypos]+60 > 255) ? 255 : (Y_bram[Ypos]+60 < 0) ? 0 : (dtype)Y_bram[Ypos]+60;
+            
+                int_t tmp_X = (int_t)roundf((((ftype((int_t)Y_bram[k]-60)*0.4609071612358093262 - Mu_stem_1[yi*5+c]) / sqrtf(Var_stem_1[yi*9+c]+0.00001)) * Gamma_stem_1[yi*9+c] + Bias_stem_1[yi*9+c])/0.07323520630598068237) + 55;
+                Y_bram[Ypos] = (tmp_X > 255) ? 255 : (tmp_X < 55) ? 55 : (dtype)tmp_X;
+                X_stem_1[yi*5*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+Ypos] = Y_bram[Ypos];
+            }
+
         }
     }
 

@@ -87,20 +87,21 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         Kernel_bram[i] = Kernel_stem_0[i];
     }
 
-    for(int i = 0; i<X_num[1]; i++){
-        for(int k=0; k< X_num[2]*X_num[3]*X_num[4]; k++){
-            X_bram[k] = X[i*X_num[2]*X_num[3]*X_num[4]+k]; 
-        }
+    
+
+    for(int yi=0; yi<9; yi++){
         for(int k=0; k< X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
             Y_bram[k] = 0; 
         }
-        for(int j=0; j<9; j++){
-            Conv3d(X_bram, X_bram_num, 0, Y_bram, Y_bram_num, 0, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
-            for(int k=0; k< X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
-                X_stem_1[j*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+k] = Y_bram[j*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+k]; 
+        for(int xi = 0; xi<X_num[1]; xi++){
+            for(int k=0; k< X_num[2]*X_num[3]*X_num[4]; k++){
+                X_bram[k] = X[xi*X_num[2]*X_num[3]*X_num[4]+k]; 
             }
+            Conv3d(X_bram, X_bram_num, xi, Y_bram, Y_bram_num, yi, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
         }
-        
+        for(int k=0; k< X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
+            X_stem_1[yi*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+k] = Y_bram[k]; 
+        }
     }
 
     // BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);

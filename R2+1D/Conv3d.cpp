@@ -30,7 +30,7 @@ void Conv3d(dtype* X_data, int_t* X_num, int_t xc, dtype* Y_data, int_t* Y_num, 
                 for (int_t yh = 0; yh < YH; yh++)
                 	for (int_t yw = 0; yw < YW; yw++){
 						// todo: data type
-						int_t yPos = yn*YC*YD*YH*YW + yc*YD*YH*YW + yd*YH*YW + yh*YW + yw;
+						int_t yPos = /*yn*YC*YD*YH*YW + yc*YD*YH*YW +*/ yd*YH*YW + yh*YW + yw;
 						int_t tmp_Y = 0;
 						for(int_t xn = 0; xn < XN; xn++)
 							// for(int_t xc = 0; xc < XC; xc++)
@@ -42,9 +42,9 @@ void Conv3d(dtype* X_data, int_t* X_num, int_t xc, dtype* Y_data, int_t* Y_num, 
 											int_t wPos = yw*stride[2]+kw-padding[2];
 
 											if(dPos >= 0 && hPos >= 0 && wPos >= 0 && dPos < XD && hPos < XH && wPos < XW)
-												tmp_Y += ((int_t)X_data[xn*XC*XD*XH*XW + xc*XD*XH*XW + dPos*XH*XW + hPos*XW + wPos]- zp_in) * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
+												tmp_Y += ((int_t)X_data[/*xn*XC*XD*XH*XW + xc*XD*XH*XW + */dPos*XH*XW + hPos*XW + wPos]- zp_in) * Kernel_data[yc*XC*KD*KH*KW + xc*KD*KH*KW + kd*KH*KW + kh*KW + kw];
 										}
-						tmp_Y = (int_t)roundf((ftype)tmp_Y*(scale_in*kernel_scale[yc]/scale_out)) + zp_out;
+						tmp_Y = (int_t)roundf((ftype)tmp_Y*(scale_in*kernel_scale[yc]/scale_out));// + zp_out;
             			Y_data[yPos] += (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
 					}
 	return;

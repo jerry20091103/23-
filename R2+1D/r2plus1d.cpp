@@ -97,7 +97,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int k=0; k< X_num[2]*X_num[3]*X_num[4]; k++){
                 X_bram[k] = X[xi*X_num[2]*X_num[3]*X_num[4]+k]; 
             }
-            Conv3d(X_bram, X_bram_num, xi, Y_bram, Y_bram_num, yi, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
+            Conv3d(X_bram, X_num, xi, Y_bram, X_stem_1_num, yi, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
         }
         for(int k=0; k< X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
             X_stem_1[yi*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+k] = Y_bram[k]+60; 

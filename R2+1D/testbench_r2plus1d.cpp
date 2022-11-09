@@ -3,7 +3,7 @@
 // modify these value to test different layers
 // remember to use corresponding input.dat and output.dat in vitis/visual studio project
 // and r2plus1d.cpp
-#define INPUT_SIZE 3211264
+#define INPUT_SIZE 7225344
 #define OUTPUT_SIZE 3211264
 int_t OUTPUT_STRUCTURE[5] = {1, 64, 16, 56, 56};
 
@@ -96,7 +96,7 @@ int_t main() {
 	dtype *X_mid_data = (dtype*)malloc(7225344 * sizeof(dtype));
 
 	// load input
-	if(!LoadArr<dtype>("input.dat", X_data, INPUT_SIZE))
+	if(!LoadArr<dtype>("input.dat", X_mid_data, INPUT_SIZE))
 		return 0;
 
 	// load stem kernel

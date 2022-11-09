@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, dtype* Y_data, int_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding, ftype scale_in, dtype zp_in)//, ftype scale_out, dtype zp_out)
+void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, dtype* Y_data, int_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, dtype zp_in)
 {
 	// get X(input) size
 	int_t KC = X_num[1];
@@ -38,8 +38,7 @@ void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, dtype* Y_data, int_
 									if(dPos >= 0 && hPos >= 0 && wPos >= 0 && dPos < XD && hPos < XH && wPos < XW)
 										tmp_Y += ((int_t)X_data[xc*XD*XH*XW + dPos*XH*XW + hPos*XW + wPos]- zp_in) * Kernel_data[(yi*YC + yc)*KC*KD*KH*KW + (xi*XC + xc)*KD*KH*KW + kd*KH*KW + kh*KW + kw];
 								}
-					// tmp_Y = (int_t)roundf((ftype)tmp_Y*scale_in*kernel_scale[yi*YC+yc] / scale_out);
-					Y_data[yPos] += tmp_Y;//(tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
+					Y_data[yPos] += tmp_Y;
 				}
 	return;
 }

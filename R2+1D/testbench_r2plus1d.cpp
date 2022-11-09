@@ -4,8 +4,8 @@
 // remember to use corresponding input.dat and output.dat in vitis/visual studio project
 // and r2plus1d.cpp
 #define INPUT_SIZE 602112
-#define OUTPUT_SIZE 2257920
-int_t OUTPUT_STRUCTURE[5] = { 1, 45, 16, 56, 56 };
+#define OUTPUT_SIZE 3211264
+int_t OUTPUT_STRUCTURE[5] = {1, 64, 16, 56, 56};
 
 string kernel_1_dat_name[8] = {"layer1.0.conv1.0.0.weight.dat", "layer1.0.conv1.0.3.weight.dat", "layer1.0.conv2.0.0.weight.dat", "layer1.0.conv2.0.3.weight.dat", "layer1.1.conv1.0.0.weight.dat", "layer1.1.conv1.0.3.weight.dat", "layer1.1.conv2.0.0.weight.dat", "layer1.1.conv2.0.3.weight.dat"};
 string kernel_2_dat_name[9] = {"layer2.0.conv1.0.0.weight.dat", "layer2.0.conv1.0.3.weight.dat", "layer2.0.conv2.0.0.weight.dat", "layer2.0.conv2.0.3.weight.dat", "layer2.0.downsample.0.weight.dat", "layer2.1.conv1.0.0.weight.dat", "layer2.1.conv1.0.3.weight.dat", "layer2.1.conv2.0.0.weight.dat", "layer2.1.conv2.0.3.weight.dat"};
@@ -175,7 +175,7 @@ int_t main() {
 
 	// calculate errors
 	ftype errors;
-	errors = 100 * ftype(validate_file(X_stem_1, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
+	errors = 100 * ftype(validate_file(X_stem_2, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
 	
 	if (errors != 0) {
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

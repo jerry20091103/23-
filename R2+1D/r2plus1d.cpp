@@ -93,7 +93,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < X_num[2]*X_num[3]*X_num[4]; k++)
                 X_bram[k] = X[xi*X_num[2]*X_num[3]*X_num[4]+k];
 
-            Conv3d(X_bram, X_num, xi, 1, Y_bram, X_stem_1_num, yi, 5, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56);//, 0.4609071612358093262, 60);
+            Conv3d(X_bram, X_num, xi, 1, Y_bram, X_stem_1_num, yi, 5, Kernel_bram, Kernel_stem_1_num, stride_1, padding_1, 56);
         }
         
         for(int_t c = 0; c < 5; c++){
@@ -110,18 +110,39 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     // BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
     // ReLU(X_batch_data, X_stem_1, X_stem_1_num, 55);
 
-    // int_t X_stem_2_num[5] = {1, 64, 16, 56, 56};
-    // int_t Kernel_stem_2_num[3] = {3, 1, 1};
-    // int_t stride_2[3] = {1, 1, 1};
-    // int_t padding_2[3] = {1, 0, 0};
+    int_t X_stem_2_num[5] = {1, 64, 16, 56, 56};
+    int_t Kernel_stem_2_num[3] = {3, 1, 1};
+    int_t stride_2[3] = {1, 1, 1};
+    int_t padding_2[3] = {1, 0, 0};
+
+      
+    for(int_t i = 0; i < X_stem_2_num[1]*X_stem_1_num[1]*Kernel_stem_2_num[0]*Kernel_stem_2_num[1]*Kernel_stem_2_num[2]; i++)
+        Kernel_bram[i] = Kernel_stem_3[i];
+
+    for(int_t yi = 0; yi < 8; yi++){
+        for(int_t k = 0; k < 8*X_stem_2_num[2]*X_stem_2_num[3]*X_stem_2_num[4]; k++)
+            Y_bram[k] = 0; 
+        
+        for(int_t xi = 0; xi < 9; xi++){
+            for(int_t k = 0; k < 5*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++)
+                X_bram[k] = X_stem_1[xi*5*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+k];
+
+            Conv3d(X_bram, X_stem_1_num, xi, 5, Y_bram, X_stem_2_num, yi, 8, Kernel_bram, Kernel_stem_2_num, stride_2, padding_2, 55);
+        }
+        
+        for(int_t c = 0; c < 8; c++){
+            int_t offset = c*X_stem_2_num[2]*X_stem_2_num[3]*X_stem_2_num[4];
+            for(int_t k = 0; k < X_stem_2_num[2]*X_stem_2_num[3]*X_stem_2_num[4]; k++){
+                int_t tmp = (int_t)roundf((((Y_bram[offset+k]*0.07323520630598068237*Kernel_stem_3_scale[yi*8+c] - Mu_stem_4[yi*8+c]) / sqrtf(Var_stem_4[yi*8+c]+0.00001)) * Gamma_stem_4[yi*8+c] + Bias_stem_4[yi*8+c])/0.07423608750104904175);
+                Y_bram[offset+k] = (tmp+65 > 255) ? 255 : (tmp < 0) ? 65 : tmp+65;
+                X_stem_2[yi*8*X_stem_2_num[2]*X_stem_2_num[3]*X_stem_2_num[4]+offset+k] = Y_bram[offset+k];
+            }
+        }
+    }
 
     // Conv3d(X_stem_1, X_stem_1_num, X_stem_2, X_stem_2_num, Kernel_stem_3, Kernel_stem_2_num, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);
     // BatchNorm3d(X_stem_2, X_batch_data, X_stem_2_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
     // ReLU(X_batch_data, X_stem_2, X_stem_2_num, 65);
-    
-    // // // for stem test
-    // // for(int_t i = 0; i < 3211264; i++)
-    // //     Y[i] = X_stem_2[i]; // assign result to output
     
     // // ========================Sequential 1~4==================================
     // Sequential(X_stem_2, X2_data, X3_data, X_seq,

@@ -2,20 +2,56 @@
 #include<iostream>
 using namespace std;
 
-void Sequential(dtype* X_data, dtype* X2_data, dtype* X3_data, dtype* X4_data, 
-                dtype* X_tmp_data, dtype* X2_tmp_data, dtype* X3_tmp_data, dtype* X4_tmp_data,
-                dtype* X_batch_data, dtype* X2_batch_data, dtype* X3_batch_data, dtype* X4_batch_data,
-                dtype* X_mid_data, dtype* X2_mid_data, dtype* X3_mid_data, dtype* X4_mid_data, 
+void Sequential(dtype* X_data, dtype* Y_data, int_t* X_num, int_t* Y_num,
+                dtype* X_mid_data, dtype* X_batch_data, dtype* X_tmp_data, 
                 ftype X_scale, dtype X_zeropoint,
-                ktype* Kernel_1_1_data, ktype* Kernel_1_2_data, ktype* Kernel_1_3_data, ktype* Kernel_1_4_data, ktype* Kernel_1_5_data, ktype* Kernel_1_6_data, ktype* Kernel_1_7_data, ktype* Kernel_1_8_data, 
-                ktype* Kernel_2_1_data, ktype* Kernel_2_2_data, ktype* Kernel_2_3_data, ktype* Kernel_2_4_data, ktype* Kernel_2_5_data, ktype* Kernel_2_6_data, ktype* Kernel_2_7_data, ktype* Kernel_2_8_data, ktype* Kernel_2_9_data, 
-                ktype* Kernel_3_1_data, ktype* Kernel_3_2_data, ktype* Kernel_3_3_data, ktype* Kernel_3_4_data, ktype* Kernel_3_5_data, ktype* Kernel_3_6_data, ktype* Kernel_3_7_data, ktype* Kernel_3_8_data, ktype* Kernel_3_9_data, 
-                ktype* Kernel_4_1_data, ktype* Kernel_4_2_data, ktype* Kernel_4_3_data, ktype* Kernel_4_4_data, ktype* Kernel_4_5_data, ktype* Kernel_4_6_data, ktype* Kernel_4_7_data, ktype* Kernel_4_8_data, ktype* Kernel_4_9_data
-                )
+                ktype* Kernel_seq_0_conv1_0_0, ktype* Kernel_seq_0_conv1_0_3, ktype* Kernel_seq_0_conv2_0_0, ktype* Kernel_seq_0_conv2_0_3,
+                ktype* Kernel_seq_0_downsample_0, 
+                ktype* Kernel_seq_1_conv1_0_0, ktype* Kernel_seq_1_conv1_0_3, ktype* Kernel_seq_1_conv2_0_0, ktype* Kernel_seq_1_conv2_0_3)
 {
+    int_t Kernel_num[3] = {1, 1, 1};
+    int_t stride[3] = {2, 2, 2};
+    int_t padding[3] = {0, 0, 0};
 
-
+    for(int_t i = 0; i < 3211264; i++)
+        X_tmp_data[i] = X_data[i];
+    Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data, X2_data, X2_num, 230, 
+                Kernel_seq_0_conv1_0_0, Kernel_seq_0_conv1_0_3, Kernel_seq2_0_conv1_0_0_scale, Kernel_seq2_0_conv1_0_3_scale, 2, 1,
+                7.128605991601943970e-02, 1.296460330486297607e-01, 3.311596438288688660e-02, 49, 76, 64,
+                Mu_seq2_0_conv1_0_1,Var_seq2_0_conv1_0_1, Gamma_seq2_0_conv1_0_1, Bias_seq2_0_conv1_0_1, 3.834486752748489380e-02, 66);
+    BatchNorm3d(X2_data, X_batch_data, X2_num, Mu_seq2_0_conv1_1, Var_seq2_0_conv1_1, Gamma_seq2_0_conv1_1, Bias_seq2_0_conv1_1, 3.311596438288688660e-02, 64,3.730613738298416138e-02, 52);
+    ReLU(X_batch_data, X2_data, X2_num, 52);
+    Conv2Plus1D(X2_data, X2_num, X_mid_data, X_batch_data, X2_data, X2_num, 230, 
+                Kernel_seq_0_conv2_0_0, Kernel_seq_0_conv2_0_3, Kernel_seq2_0_conv2_0_0_scale, Kernel_seq2_0_conv2_0_3_scale, 1, 1,
+                3.730613738298416138e-02,  6.581791490316390991e-02, 3.792280331254005432e-02, 52, 68, 70,
+                Mu_seq2_0_conv2_0_1,Var_seq2_0_conv2_0_1, Gamma_seq2_0_conv2_0_1, Bias_seq2_0_conv2_0_1, 3.696846589446067810e-02, 75);
+    BatchNorm3d(X2_data, X_batch_data, X2_num, Mu_seq2_0_conv2_1, Var_seq2_0_conv2_1, Gamma_seq2_0_conv2_1, Bias_seq2_0_conv2_1, 3.792280331254005432e-02, 70, 5.221061781048774719e-02, 61);
     
+    Conv3d(X_in_tmp_data, X_num, X2_tmp_data, X2_num, Kernel_seq_0_downsample_0, Kernel_num, Kernel_seq2_0_downsample_0_scale, stride, padding, 7.128605991601943970e-02, 49, 5.711162462830543518e-02, 68);
+    BatchNorm3d(X2_tmp_data, X2_tmp_data, X2_num, Mu_seq2_0_downsample_1, Var_seq2_0_downsample_1, Gamma_seq2_0_downsample_1, Bias_seq2_0_downsample_1, 5.711162462830543518e-02, 68, 5.571814253926277161e-02, 53);
+
+    Residual(X_batch_data, X2_tmp_data, X2_num, 5.221061781048774719e-02, 5.571814253926277161e-02, 5.941560864448547363e-02, 61, 53, 59);
+    ReLU(X_batch_data, X2_data, X2_num, 59);
+    
+    for(int_t i = 0; i < 802816; i++)
+        X2_tmp_data[i] = X2_data[i];
+    Conv2Plus1D(X2_data, X2_num, X2_mid_data, X_batch_data, X2_data, X2_num, 288, 
+                Kernel_seq_1_conv1_0_0, Kernel_seq_1_conv1_0_3, Kernel_seq2_1_conv1_0_0_scale, Kernel_seq2_1_conv1_0_3_scale, 1, 1,
+                5.941560864448547363e-02, 1.044261455535888672e-01, 2.876071259379386902e-02, 59, 64, 63,
+                Mu_seq2_1_conv1_0_1,Var_seq2_1_conv1_0_1, Gamma_seq2_1_conv1_0_1, Bias_seq2_1_conv1_0_1, 2.571923658251762390e-02, 74); // 288 = (128 * 128 * 3 * 3) / (128 * 3 + 128)
+    BatchNorm3d(X2_data, X_batch_data, X2_num, Mu_seq2_1_conv1_1, Var_seq2_1_conv1_1, Gamma_seq2_1_conv1_1, Bias_seq2_1_conv1_1,  2.876071259379386902e-02, 63, 4.108780622482299805e-02, 69);
+    
+    ReLU(X_batch_data, X2_data, X2_num, 69);
+    Conv2Plus1D(X2_data, X2_num, X2_mid_data, X_batch_data, X2_data, X2_num, 288, 
+                Kernel_seq_1_conv2_0_0, Kernel_seq_1_conv2_0_3, Kernel_seq2_1_conv2_0_0_scale, Kernel_seq2_1_conv2_0_3_scale, 1, 1,
+                4.108780622482299805e-02, 4.689884185791015625e-02, 2.438377402722835541e-02, 69, 55, 66,
+                Mu_seq2_1_conv2_0_1,Var_seq2_1_conv2_0_1, Gamma_seq2_1_conv2_0_1, Bias_seq2_1_conv2_0_1, 3.150121122598648071e-02, 69);
+    BatchNorm3d(X2_data, X_batch_data, X2_num, Mu_seq2_1_conv2_1, Var_seq2_1_conv2_1, Gamma_seq2_1_conv2_1, Bias_seq2_1_conv2_1, 2.438377402722835541e-02, 66, 6.300298124551773071e-02, 70);
+
+    Residual(X_batch_data, X2_tmp_data, X2_num, 6.300298124551773071e-02, 5.941560864448547363e-02, 7.469348609447479248e-02, 70, 59, 58);
+    ReLU(X_batch_data, X2_data, X2_num, 58);
+
+
     // int_t Kernel_num[3] = {1, 1, 1};
     // int_t stride[3] = {2, 2, 2};
     // int_t padding[3] = {0, 0, 0};
@@ -146,9 +182,9 @@ void Sequential(dtype* X_data, dtype* X2_data, dtype* X3_data, dtype* X4_data,
     // Residual(X3_batch_data, X3_tmp_data, X3_num, 3.744378685951232910e-02, 4.819526150822639465e-02, 4.908789321780204773e-02, 78, 56, 58);
     // ReLU(X3_batch_data, X3_data, X3_num, 58);
 
-    // // // =============================================================================
+    // // =============================================================================
 
-    // // // layer 4
+    // // layer 4
     // int_t X4_num[5] = {1, 512, 2, 7, 7};
 
     // for(int_t i = 0; i< 200704; i++)

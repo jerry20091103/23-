@@ -86,22 +86,14 @@ int_t main() {
 	// malloc buffer
 	dtype *X_stem_1 = (dtype*)malloc(2257920 * sizeof(dtype));
 	dtype *X_stem_2 = (dtype*)malloc(3211264 * sizeof(dtype));
+	dtype *X_data = (dtype*)malloc(3211264 * sizeof(dtype));
 	dtype *X2_data = (dtype*)malloc(802816 * sizeof(dtype));
 	dtype *X3_data = (dtype*)malloc(200704 * sizeof(dtype));
 	dtype *X_seq = (dtype*)malloc(50176 * sizeof(dtype));
 	dtype *X_adap = (dtype*)malloc(512 * sizeof(dtype));
 	dtype *X_tmp_data = (dtype*)malloc(3211264 * sizeof(dtype));
-	dtype *X2_tmp_data = (dtype*)malloc(802816 * sizeof(dtype));
-	dtype *X3_tmp_data = (dtype*)malloc(200704 * sizeof(dtype));
-	dtype *X4_tmp_data = (dtype*)malloc(50176 * sizeof(dtype));
 	dtype *X_batch_data = (dtype*)malloc(7225344 * sizeof(dtype));
-	dtype *X2_batch_data = (dtype*)malloc(2885120 * sizeof(dtype));
-	dtype *X3_batch_data = (dtype*)malloc(721280 * sizeof(dtype));
-	dtype *X4_batch_data = (dtype*)malloc(180516 * sizeof(dtype));
 	dtype *X_mid_data = (dtype*)malloc(7225344 * sizeof(dtype));
-	dtype *X2_mid_data = (dtype*)malloc(2885120 * sizeof(dtype));
-	dtype *X3_mid_data = (dtype*)malloc(721280 * sizeof(dtype));
-	dtype *X4_mid_data = (dtype*)malloc(180516 * sizeof(dtype));
 
 	// load input
 	if(!LoadArr<dtype>("input.dat", input, INPUT_SIZE))
@@ -168,14 +160,12 @@ int_t main() {
             Kernel_seq3_0_conv1_0_0, Kernel_seq3_0_conv1_0_3, Kernel_seq3_0_conv2_0_0, Kernel_seq3_0_conv2_0_3, Kernel_seq3_0_downsample_0, Kernel_seq3_1_conv1_0_0, Kernel_seq3_1_conv1_0_3, Kernel_seq3_1_conv2_0_0, Kernel_seq3_1_conv2_0_3,
             Kernel_seq4_0_conv1_0_0, Kernel_seq4_0_conv1_0_3, Kernel_seq4_0_conv2_0_0, Kernel_seq4_0_conv2_0_3, Kernel_seq4_0_downsample_0, Kernel_seq4_1_conv1_0_0, Kernel_seq4_1_conv1_0_3, Kernel_seq4_1_conv2_0_0, Kernel_seq4_1_conv2_0_3,
             Kernel_linear, 
-			X_stem_1, X_stem_2, X2_data, X3_data, X_seq, X_adap, output,
-			X_tmp_data, X2_tmp_data, X3_tmp_data, X4_tmp_data, 
-			X_batch_data, X2_batch_data, X3_batch_data, X4_batch_data,
-			X_mid_data, X2_mid_data, X3_mid_data, X4_mid_data);
+			X_stem_1, X_stem_2, X_data, X2_data, X3_data, X_seq, X_adap, output,
+			X_tmp_data, X_batch_data, X_mid_data);
 
 	// calculate errors
 	ftype errors;
-	errors = 100 * ftype(validate_file(X_stem_2, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
+	errors = 100 * ftype(validate_file(X_data, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
 	
 	if (errors != 0) {
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
@@ -238,18 +228,13 @@ int_t main() {
 
 	free(X_stem_1);
 	free(X_stem_2);
+	free(X_data);
 	free(X2_data);
 	free(X3_data);
 	free(X_seq);
 	free(X_adap);
 	free(X_tmp_data);
-	free(X2_tmp_data);
-	free(X3_tmp_data);
-	free(X4_tmp_data);
 	free(X_batch_data);
-	free(X2_batch_data);
-	free(X3_batch_data);
-	free(X4_batch_data);
 	free(X_mid_data);
 
 	return 0;

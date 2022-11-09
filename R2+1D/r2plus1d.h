@@ -15,10 +15,8 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             ktype* Kernel_seq3_0_conv1_0_0, ktype* Kernel_seq3_0_conv1_0_3, ktype* Kernel_seq3_0_conv2_0_0, ktype* Kernel_seq3_0_conv2_0_3, ktype* Kernel_seq3_0_downsample_0, ktype* Kernel_seq3_1_conv1_0_0, ktype* Kernel_seq3_1_conv1_0_3, ktype* Kernel_seq3_1_conv2_0_0, ktype* Kernel_seq3_1_conv2_0_3,
             ktype* Kernel_seq4_0_conv1_0_0, ktype* Kernel_seq4_0_conv1_0_3, ktype* Kernel_seq4_0_conv2_0_0, ktype* Kernel_seq4_0_conv2_0_3, ktype* Kernel_seq4_0_downsample_0, ktype* Kernel_seq4_1_conv1_0_0, ktype* Kernel_seq4_1_conv1_0_3, ktype* Kernel_seq4_1_conv2_0_0, ktype* Kernel_seq4_1_conv2_0_3,
             ktype* Kernel_linear,
-            dtype* X_stem_1, dtype* X_stem_2, dtype* X2_data, dtype* X3_data, dtype* X_seq, dtype* X_adap, dtype* X_linear, 
-            dtype* X_tmp_data, dtype* X2_tmp_data, dtype* X3_tmp_data, dtype* X4_tmp_data,
-            dtype* X_batch_data, dtype* X2_batch_data, dtype* X3_batch_data, dtype* X4_batch_data,
-            dtype* X_mid_data, dtype* X2_mid_data, dtype* X3_mid_data, dtype* X4_mid_data);
+            dtype* X_stem_1, dtype* X_stem_2, dtype* X_data,dtype* X2_data, dtype* X3_data, dtype* X_seq, dtype* X_adap, dtype* X_linear, 
+            dtype* X_tmp_data, dtype* X_batch_data, dtype* X_mid_data);
 void Conv3d(dtype* X_data, int_t* X_num, int_t XI, int_t XC, dtype* Y_data, int_t* Y_num, int_t YI, int_t YC, ktype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, dtype zp_in);
 void BatchNorm3d(dtype* X_data, dtype* Y_data, int_t* X_num, ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype scale_in, dtype zp_in, ftype scale_out, dtype zp_out);
 void ReLU(dtype* X_data, dtype* Y_data, int_t* X_num, dtype zp);

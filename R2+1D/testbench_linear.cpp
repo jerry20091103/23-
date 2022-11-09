@@ -15,7 +15,7 @@ int_t main()
 
 	// ==========================================================
 	// Linear
-	int_t X_linear_in_num[2] = { N_, 512 };
+	int_t X_linear_in_num[2] = { 1, 512 };
 	int_t X_linear_out_num[5] = { 1, 10, 1, 1, 1 };
 
     if(!LoadArr<dtype>("input.dat", input, 512)) return 0;

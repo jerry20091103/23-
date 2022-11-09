@@ -168,8 +168,8 @@ int_t main()
     // Conv3d1
     cout << "==> Conv3d1\n";
 	outfile << "==> Conv3d1\n";
-    int_t X_num[5] = {1, 3, D_, 112, 112};
-    int_t X_mid_num[5] = {1, 45, D_, 56, 56};
+    int_t X_num[5] = {1, 3, 16, 112, 112};
+    int_t X_mid_num[5] = {1, 45, 16, 56, 56};
     int_t Kernel_num_1[3] = {1, 7, 7};
     int_t stride_1[3] = {1, 2, 2};
     int_t padding_1[3] = {0, 3, 3};
@@ -200,7 +200,7 @@ int_t main()
     // Conv3d2
     cout << "==> Conv3d2\n";
 	outfile << "==> Conv3d2\n";
-    int_t X_out_num[5] = {1, 64, D_, 56, 56};
+    int_t X_out_num[5] = {1, 64, 16, 56, 56};
     int_t Kernel_num_2[3] = {3, 1, 1};
     int_t stride_2[3] = {1, 1, 1};
     int_t padding_2[3] = {1, 0, 0};
@@ -260,7 +260,7 @@ int_t main()
 
     // calculate errors
     if(!LoadArr<dtype>("output.dat", golden, 3211264)) return 0;
-	int_t X_num_cal[5] = {1, 64, D_, 56, 56};
+	int_t X_num_cal[5] = {1, 64, 16, 56, 56};
 	errors = 100 * ftype(validate_file(output, golden, X_num_cal, outfile)) / 3211264;
 #endif
 

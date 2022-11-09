@@ -16,7 +16,7 @@ string fc_dat_name[1] = {"fc.1.weight.dat"};
 int_t main() {
 	// create a output txt file
 	ofstream outfile;
-	outfile.open("results.txt");
+	outfile.open("results.dat");
 	if (!outfile.is_open()) {
 		cout << "Error opening file" << endl;
 		return 0;

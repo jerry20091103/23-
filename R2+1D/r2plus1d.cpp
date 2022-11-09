@@ -93,22 +93,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < X_num[2]*X_num[3]*X_num[4]; k++)
                 X_bram[k] = X[xi*X_num[2]*X_num[3]*X_num[4]+k];
 
-            Conv3d(X_bram, X_num, xi, 1, Y_bram, X_stem_1_num, yi, 5, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
+            Conv3d(X_bram, X_num, xi, 1, Y_bram, X_stem_1_num, yi, 5, Kernel_bram, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56);//, 0.4609071612358093262, 60);
         }
-        // for(int_t c = 0; c < 5; c++){
-        //     for(int_t k = 0; k < X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
-        //         int_t Ypos = c*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4] + k;
-        //         Y_bram[Ypos] = (Y_bram[Ypos]+60 > 255) ? 255 : (Y_bram[Ypos]+60 < 0) ? 0 : (dtype)Y_bram[Ypos]+60;
-            
-        //         int_t tmp_X = (int_t)roundf((((ftype((int_t)Y_bram[k]-60)*0.4609071612358093262 - Mu_stem_1[yi*5+c]) / sqrtf(Var_stem_1[yi*9+c]+0.00001)) * Gamma_stem_1[yi*9+c] + Bias_stem_1[yi*9+c])/0.07323520630598068237) + 55;
-        //         Y_bram[Ypos] = (tmp_X > 255) ? 255 : (tmp_X < 55) ? 55 : (dtype)tmp_X;
-        //         X_stem_1[yi*5*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+Ypos] = Y_bram[Ypos];
-        //     }
-
-        // }
-        for(int_t k = 0; k < 5*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
-            Y_bram[k] = (Y_bram[k]+60 > 255) ? 255 : (Y_bram[k]+60 < 0) ? 0 : Y_bram[k]+60;
-            X_stem_1[yi*5*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4] + k] = Y_bram[k];
+        
+        for(int_t c = 0; c < 5; c++){
+            int_t offset = c*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4];
+            for(int_t k = 0; k < X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]; k++){
+                int_t tmp = (int_t)roundf((((Y_bram[offset+k]*3.756307810544967651e-02*Kernel_stem_0_scale[yi*5+c] - Mu_stem_1[yi*5+c]) / sqrtf(Var_stem_1[yi*5+c]+0.00001)) * Gamma_stem_1[yi*5+c] + Bias_stem_1[yi*5+c])/0.07323520630598068237);
+                Y_bram[offset+k] = (tmp+55 > 255) ? 255 : (tmp < 0) ? 55 : tmp+55;
+                X_stem_1[yi*5*X_stem_1_num[2]*X_stem_1_num[3]*X_stem_1_num[4]+offset+k] = Y_bram[offset+k];
+            }
         }
     }
 

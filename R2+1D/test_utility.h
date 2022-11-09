@@ -5,6 +5,7 @@
 #include "r2plus1d.h"
 #include <string>
 #include <iomanip>
+#include <cmath>
 using namespace std;
 
 // template load function
@@ -41,7 +42,7 @@ int_t validate(dtype* ourOutput, dtype* golden, int_t* size)
 				for (int_t h = 0; h < H; h++)
 					for (int_t w = 0; w < W; w++) {
 						int_t pos = n * C*D*H*W + c * D*H*W + d * H*W + h * W + w;
-                        if( ourOutput[pos] != golden[pos] /* && ( (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002 )*/ ) {
+                        if( ourOutput[pos] != golden[pos]  && abs(ourOutput[pos] - golden[pos]) > 2 ) {
                             cout<<"[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<(float)ourOutput[pos]<<", gold: "<<setw(8)<<(float)golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
 							errors++;
                         }
@@ -64,7 +65,7 @@ int_t validate_file(dtype* ourOutput, dtype* golden, int_t* size, ofstream &outf
 				for (int_t h = 0; h < H; h++)
 					for (int_t w = 0; w < W; w++) {
 						int_t pos = n * C*D*H*W + c * D*H*W + d * H*W + h * W + w;
-                        if( ourOutput[pos] != golden[pos] /* && ( (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] >= 0.002 || (ftype)(ourOutput[pos] - golden[pos]) / golden[pos] <= -0.002 )*/ ) {
+                        if( ourOutput[pos] != golden[pos]/* && abs(ourOutput[pos] - golden[pos]) > 2 */) {
                             outfile << "[ERROR]  result["<<n+1<<"]["<<setw(2)<<c+1<<"]["<<setw(2)<<d+1<<"]["<<setw(2)<<h+1<<"]["<<setw(2)<<w+1<<"]: "<<setw(8)<<(int)ourOutput[pos]<<", gold: "<<setw(8)<<(int)golden[pos]<<", error: "<< 100*(ftype)(ourOutput[pos] - golden[pos]) / golden[pos]<<"%"<<endl;
 							errors++;
                         }

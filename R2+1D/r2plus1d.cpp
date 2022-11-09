@@ -106,10 +106,11 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
     }
 
+    // Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
     // BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
     // ReLU(X_batch_data, X_stem_1, X_stem_1_num, 55);
 
-    // int_t X_stem_2_num[5] = {1, 64, D_, 56, 56};
+    // int_t X_stem_2_num[5] = {1, 64, 16, 56, 56};
     // int_t Kernel_stem_2_num[3] = {3, 1, 1};
     // int_t stride_2[3] = {1, 1, 1};
     // int_t padding_2[3] = {1, 0, 0};

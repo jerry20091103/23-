@@ -21,7 +21,7 @@ void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, dtype* Y_data, int_
 	int_t YH = Y_num[3]; // (H+2*padding[1]-KH)/stride[1] + 1
 	int_t YW = Y_num[4]; // (W+2*padding[2]-KW)/stride[2] + 1
 	
-	for(int_t yc = 0; yc < YC; yc++)
+	for(int_t yc = 0; yc < YC/* && yi*YC+yc < Y_num[1]*/; yc++)
 		for (int_t yd = 0; yd < YD; yd++)
 			for (int_t yh = 0; yh < YH; yh++)
 				for (int_t yw = 0; yw < YW; yw++){

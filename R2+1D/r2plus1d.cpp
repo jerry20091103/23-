@@ -95,10 +95,10 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //         }
     //     }
     // }
-
     // // Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
     // // BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
     // // ReLU(X_batch_data, X_stem_1, X_stem_1_num, 55);
+
     // X_num[0] = 1; X_num[1] = 45; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
     // Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
     // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
@@ -128,7 +128,6 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //         }
     //     }
     // }
-
     // // Conv3d(X_stem_1, X_stem_1_num, X_stem_2, X_stem_2_num, Kernel_stem_3, Kernel_stem_2_num, Kernel_stem_3_scale, stride_2, padding_2, 0.07323520630598068237, 55, 0.09311912953853607178, 70);
     // // BatchNorm3d(X_stem_2, X_batch_data, X_stem_2_num, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4, 0.09311912953853607178, 70, 0.07423608750104904175, 65);
     // // ReLU(X_batch_data, X_stem_2, X_stem_2_num, 65);
@@ -225,6 +224,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
     
+    // todo: fix residual
     X_num[0] = 1; X_num[1] = 144; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
     Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
     Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
@@ -248,13 +248,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         for(int_t c = 0; c < 8; c++){
             int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
             for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-                int_t tmp = (int_t)roundf((((Y_bram[offset+k]*4.303903132677078247e-02*Kernel_seq1_0_conv2_0_3_scale[yi*8+c] - Mu_seq1_0_conv2_1[yi*8+c]) / sqrtf(Var_seq1_0_conv2_1[yi*8+c]+0.00001)) * Gamma_seq1_0_conv2_1[yi*8+c] + Bias_seq1_0_conv2_1[yi*8+c])/ 7.029289007186889648e-02);
-                tmp += (dtype)roundf((ftype)((X_stem_2[offset+k])-65) * 0.07423608750104904175 / 7.029289007186889648e-02);
+                ftype ftmp = (((ftype)(Y_bram[offset+k]*4.303903132677078247e-02*Kernel_seq1_0_conv2_0_3_scale[yi*8+c]) - Mu_seq1_0_conv2_1[yi*8+c]) / sqrtf(Var_seq1_0_conv2_1[yi*8+c]+0.00001)) * Gamma_seq1_0_conv2_1[yi*8+c] + Bias_seq1_0_conv2_1[yi*8+c];
+                int_t tmp = (ftmp + (ftype)((X_stem_2[yi*8*Y_num[2]*Y_num[3]*Y_num[4]+offset+k]-65)*0.07423608750104904175)) / 7.029289007186889648e-02;
                 Y_bram[offset+k] = (tmp+46 > 255) ? 255 : (tmp < 0) ? 46 : tmp+46;
                 X_data[yi*8*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
+
             }
         }
     }
+    // // for(int_t i = 0; i < 3211264; i++)
+    // // X_data[i] = (ftype)((X_stem_2[i]-65)*0.07423608750104904175 + (X_data[i]-68)*4.517441987991333008e-02) / 7.029289007186889648e-02 + 46;
 
     // //                      ====basicblock 1=================================
     // X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
@@ -348,6 +351,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
+    // // todo: fix residual
     // X_num[0] = 1; X_num[1] = 144; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
     // Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
     // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;

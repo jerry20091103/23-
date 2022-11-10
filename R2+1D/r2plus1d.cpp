@@ -249,11 +249,9 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
             for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
                 int_t tmp = (int_t)roundf((((Y_bram[offset+k]*4.303903132677078247e-02*Kernel_seq1_0_conv2_0_3_scale[yi*8+c] - Mu_seq1_0_conv2_1[yi*8+c]) / sqrtf(Var_seq1_0_conv2_1[yi*8+c]+0.00001)) * Gamma_seq1_0_conv2_1[yi*8+c] + Bias_seq1_0_conv2_1[yi*8+c])/ 7.029289007186889648e-02);
-                tmp += (dtype)roundf((ftype)((X_stem_2[yi*8*Y_num[2]*Y_num[3]*Y_num[4]+offset+k])-65) * 0.07423608750104904175 / 7.029289007186889648e-02);
+                tmp += (dtype)roundf((ftype)((X_stem_2[offset+k])-65) * 0.07423608750104904175 / 7.029289007186889648e-02);
                 Y_bram[offset+k] = (tmp+46 > 255) ? 255 : (tmp < 0) ? 46 : tmp+46;
                 X_data[yi*8*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
-
-                
             }
         }
     }

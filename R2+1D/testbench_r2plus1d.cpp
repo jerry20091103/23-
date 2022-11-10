@@ -176,7 +176,7 @@ int_t main() {
 	// calculate errors
 	ftype errors;
 	errors = 100 * ftype(validate_file(output, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
-	
+
 	if (errors != 0) {
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);
 		outfile << "[FAIL] There are some errors QQ, error rate: "<<errors<<"%\n";
@@ -186,7 +186,105 @@ int_t main() {
 		outfile<<"[PASS] Congratulation! All results are correct\n";
 	}
 
+	dtype *X_batch_data_golden = (dtype*)malloc(7225344 * sizeof(dtype));
+	LoadArr("X_batch_data_golden.dat", X_batch_data_golden, 3211264);
+	int X_batch_data_structure[5] = { 1, 64, 16, 56, 56 };
+	outfile << "X_batch_data: " << endl;
+	outfile << "error rate: " << validate_file(X_batch_data, X_batch_data_golden, X_batch_data_structure, outfile) / 3211264.0f * 100 << endl;
+	outfile << "X_batch_data end" << endl << endl;
+
+	dtype *X2_mid_data_golden = (dtype*)malloc(1806336 * sizeof(dtype));
+	LoadArr("X2_mid_data_golden.dat", X2_mid_data_golden, 1806336);
+	int X2_mid_data_structure[5] = { 1, 1, 1, 1, 1806336 };
+	outfile << "X2_mid_data: " << endl;
+	outfile << "error rate: " << validate_file(X2_mid_data, X2_mid_data_golden, X2_mid_data_structure, outfile) / 1806336.0f * 100 << endl;
+	outfile << "X2_mid_data end" << endl << endl;
+
+	dtype *X2_batch_data_golden = (dtype*)malloc(2885120 * sizeof(dtype));
+	LoadArr("X2_batch_data_golden.dat", X2_batch_data_golden, 802816);
+	int X2_batch_data_structure[5] = { 1, 128, 8, 28, 28 };
+	outfile << "X2_batch_data: " << endl;
+	outfile << "error rate: " << validate_file(X2_batch_data, X2_batch_data_golden, X2_batch_data_structure, outfile) / 802816.0f * 100 << endl;
+	outfile << "X2_batch_data end" << endl << endl;
+
+	dtype *X2_data_golden = (dtype*)malloc(802816 * sizeof(dtype));
+	LoadArr("X2_data_golden.dat", X2_data_golden, 802816);
+	int X2_data_structure[5] = { 1, 128, 8, 28, 28 };
+	outfile << "X2_data: " << endl;
+	outfile << "error rate: " << validate_file(X2_data, X2_data_golden, X2_data_structure, outfile) / 802816.0f * 100 << endl;
+	outfile << "X2_data end" << endl << endl;
+
+	dtype *X3_mid_data_golden = (dtype*)malloc(451584 * sizeof(dtype));
+	LoadArr("X3_mid_data_golden.dat", X3_mid_data_golden, 451584);
+	int X3_mid_data_structure[5] = { 1, 1, 1, 1, 451584 };
+	outfile << "X3_mid_data: " << endl;
+	outfile << "error rate: " << validate_file(X3_mid_data, X3_mid_data_golden, X3_mid_data_structure, outfile) / 451584.0f * 100 << endl;
+	outfile << "X3_mid_data end" << endl << endl;
+
+	dtype *X3_batch_data_golden = (dtype*)malloc(721280 * sizeof(dtype));
+	LoadArr("X3_batch_data_golden.dat", X3_batch_data_golden, 200704);
+	int X3_batch_data_structure[5] = { 1, 256, 4, 14, 14 };
+	outfile << "X3_batch_data: " << endl;
+	outfile << "error rate: " << validate_file(X3_batch_data, X3_batch_data_golden, X3_batch_data_structure, outfile) / 200704.0f * 100 << endl;
+	outfile << "X3_batch_data end" << endl << endl;
+
+	dtype *X3_data_golden = (dtype*)malloc(200704 * sizeof(dtype));
+	LoadArr("X3_data_golden.dat", X3_data_golden, 200704);
+	int X3_data_structure[5] = { 1, 256, 4, 14, 14 };
+	outfile << "X3_data: " << endl;
+	outfile << "error rate: " << validate_file(X3_data, X3_data_golden, X3_data_structure, outfile) / 200704.0f * 100 << endl;
+	outfile << "X3_data end" << endl << endl;
+
+	dtype *X4_tmp_data_golden = (dtype*)malloc(50176 * sizeof(dtype));
+	LoadArr("X4_tmp_data_golden.dat", X4_tmp_data_golden, 50176);
+	int X4_tmp_data_structure[5] = { 1, 512, 2, 2, 7 };
+	outfile << "X4_tmp_data: " << endl;
+	outfile << "error rate: " << validate_file(X4_tmp_data, X4_tmp_data_golden, X4_tmp_data_structure, outfile) / 50176.0f * 100 << endl;
+	outfile << "X4_tmp_data end" << endl << endl;
+
+	dtype *X4_mid_data_golden = (dtype*)malloc(112896 * sizeof(dtype));
+	LoadArr("X4_mid_data_golden.dat", X4_mid_data_golden, 112896);
+	int X4_mid_data_structure[5] = { 1, 1, 1, 1, 112896 };
+	outfile << "X4_mid_data: " << endl;
+	outfile << "error rate: " << validate_file(X4_mid_data, X4_mid_data_golden, X4_mid_data_structure, outfile) / 112896.0f * 100 << endl;
+	outfile << "X4_mid_data end" << endl << endl;
+
+	dtype *X4_batch_data_golden = (dtype*)malloc(180480 * sizeof(dtype));
+	LoadArr("X4_batch_data_golden.dat", X4_batch_data_golden, 50176);
+	int X4_batch_data_structure[5] = { 1, 512, 2, 7, 7 };
+	outfile << "X4_batch_data: " << endl;
+	outfile << "error rate: " << validate_file(X4_batch_data, X4_batch_data_golden, X4_batch_data_structure, outfile) / 50176.0f * 100 << endl;
+	outfile << "X4_batch_data end" << endl << endl;
+
+	dtype *X_seq_golden = (dtype*)malloc(50176 * sizeof(dtype));
+	LoadArr("X_seq_golden.dat", X_seq_golden, 50176);
+	int X_seq_structure[5] = { 1, 512, 2, 7, 7 };
+	outfile << "X_seq: " << endl;
+	outfile << "error rate: " << validate_file(X_seq, X_seq_golden, X_seq_structure, outfile) / 50176.0f * 100 << endl;
+	outfile << "X_seq end" << endl << endl;
+
+	dtype *X_adap_golden = (dtype*)malloc(512 * sizeof(dtype));
+	LoadArr("X_adap_golden.dat", X_adap_golden, 512);
+	int X_adap_structure[5] = { 1, 512, 1, 1, 1 };
+	outfile << "X_adap: " << endl;
+	outfile << "error rate: " << validate_file(X_adap, X_adap_golden, X_adap_structure, outfile) / 512.0f * 100 << endl;
+	outfile << "X_adap end" << endl << endl;
+
+
 	outfile.close();
+
+	free(X_batch_data_golden);
+	free(X2_mid_data_golden);
+	free(X2_batch_data_golden);
+	free(X2_data_golden);
+	free(X3_mid_data_golden);
+	free(X3_batch_data_golden);
+	free(X3_data_golden);
+	free(X4_tmp_data_golden);
+	free(X4_mid_data_golden);
+	free(X4_batch_data_golden);
+	free(X_seq_golden);
+	free(X_adap_golden);
 
 	free(input);
 	free(output_golden);
@@ -251,6 +349,9 @@ int_t main() {
 	free(X3_batch_data);
 	free(X4_batch_data);
 	free(X_mid_data);
+	free(X2_mid_data);
+	free(X3_mid_data);
+	free(X4_mid_data);
 
 	return 0;
 }

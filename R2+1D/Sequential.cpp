@@ -80,18 +80,26 @@ void Sequential(dtype* X_data, dtype* Y_data, int_t* X_num, int_t* Y_num, int_t 
     stride[0] = 1; stride[1] = 1; stride[2] = 1;
     padding[0] = 0; padding[1] = 1; padding[2] = 1;
     
-    for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-        Kernel_bram[i] = Kernel_seq2_0_conv2_0_0[i];
+    // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
+    //     Kernel_bram[i] = Kernel_seq2_0_conv2_0_0[i];
 
     for(int_t yi = 0; yi < 3; yi++){
         for(int_t k = 0; k < 64*Y_num[2]*Y_num[3]*Y_num[4]; k++)
             Y_bram[k] = 0;
         
+	
+    
+                    
         for(int_t xi = 0; xi < 2; xi++){
+            int_t i = 0;
+            for(int_t yc = 0; yc < YC; yc++)
+                for(int_t xc = 0; xc < XC; xc++)
+                    for(int_t j = 0; j < KD*KH*KW; j++)
+                        Kernel_bram[i++] =  Kernel_data[(yi*YC + yc)*YC*KC*KD*KH*KW + (xi*XC + xc)*KD*KH*KW + j];
             for(int_t k = 0; k < 64*X_num[2]*X_num[3]*X_num[4]; k++)
                 X_bram[k] = X2_data[xi*64*X_num[2]*X_num[3]*X_num[4]+k];
-
-            Conv3d(X_bram, X_num, xi, 64, Y_bram, Y_num, yi, 64, Kernel_bram, Kernel_num, stride, padding, 52);
+            
+            Conv3d_k(X_bram, X_num, xi, 64, Y_bram, Y_num, yi, 64, Kernel_bram, Kernel_num, stride, padding, 52);
         }
         
         for(int_t c = 0; c < 64; c++){

@@ -1,6 +1,6 @@
 #include "inner_data.h"
 
-ktype Kernel_bram[508032];
+ktype Kernel_bram[254016];
 dtype X_bram[401408];
 dtype Y_bram[401408];
 // scales

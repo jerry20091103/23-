@@ -2,7 +2,7 @@
 #define INNER_DATA_H
 #include "r2plus1d.h"
 
-extern ktype Kernel_bram[508032];
+extern ktype Kernel_bram[254016];
 extern dtype X_bram[401408];
 extern dtype Y_bram[401408];
 extern ftype Kernel_linear_scale[10];

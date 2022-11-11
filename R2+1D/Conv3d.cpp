@@ -27,6 +27,7 @@ void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, dtype* Y_data, int_
 				for (int_t yw = 0; yw < YW; yw++){
 					int_t yPos = yc*YD*YH*YW + yd*YH*YW + yh*YW + yw;
 					int_t tmp_Y = 0;
+					
 					for(int_t xc = 0; xc < XC; xc++)
 						for(int_t kd = 0; kd < KD; kd++)
 							for(int_t kh = 0; kh < KH; kh++)

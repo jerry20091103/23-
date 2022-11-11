@@ -69,8 +69,8 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS BIND_STORAGE variable=Kernel_bram type=RAM_2P impl=URAM
     #pragma HLS ARRAY_RESHAPE variable= Kernel_bram factor=9 type=cyclic
 
-    // #pragma HLS BIND_STORAGE variable=X_bram type=RAM_2P impl=URAM
-    // #pragma HLS ARRAY_RESHAPE variable= X_bram factor=9 type=cyclic
+    #pragma HLS BIND_STORAGE variable=X_bram type=RAM_2P impl=URAM
+    #pragma HLS ARRAY_RESHAPE variable= X_bram factor=9 type=cyclic
     // ========================R2Plus1dStem ==================================
 	int_t X_num[5] = {1, 3, 16, 112, 112};
     int_t Y_num[5] = {1, 45, 16, 56, 56};

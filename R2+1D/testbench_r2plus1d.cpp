@@ -115,39 +115,39 @@ int_t main() {
 
 	// load layer2 kernel
 	if(!LoadArr<ktype>(kernel_2_dat_name[0], Kernel_seq2_0_conv1_0_0, 132480)) return 0;
-	if(!LoadArr<ktype>(kernel_2_dat_name[1], Kernel_seq2_0_conv1_0_3, 88320)) return 0;
-	if(!LoadArr<ktype>(kernel_2_dat_name[2], Kernel_seq2_0_conv2_0_0, 264960)) return 0;
-	if(!LoadArr<ktype>(kernel_2_dat_name[3], Kernel_seq2_0_conv2_0_3, 88320)) return 0;
-	if(!LoadArr<ktype>(kernel_2_dat_name[4], Kernel_seq2_0_downsample_0, 8192)) return 0;
-	if(!LoadArr<ktype>(kernel_2_dat_name[5], Kernel_seq2_1_conv1_0_0, 331776)) return 0;
-	if(!LoadArr<ktype>(kernel_2_dat_name[6], Kernel_seq2_1_conv1_0_3, 110592)) return 0;
-	if(!LoadArr<ktype>(kernel_2_dat_name[7], Kernel_seq2_1_conv2_0_0, 331776)) return 0;
-	if(!LoadArr<ktype>(kernel_2_dat_name[8], Kernel_seq2_1_conv2_0_3, 110592)) return 0;
-
-	// load layer3 kernel
-	if(!LoadArr<ktype>(kernel_3_dat_name[0], Kernel_seq3_0_conv1_0_0, 529920)) return 0;
-	if(!LoadArr<ktype>(kernel_3_dat_name[1], Kernel_seq3_0_conv1_0_3, 353280)) return 0;
-	if(!LoadArr<ktype>(kernel_3_dat_name[2], Kernel_seq3_0_conv2_0_0, 1059840)) return 0;
-	if(!LoadArr<ktype>(kernel_3_dat_name[3], Kernel_seq3_0_conv2_0_3, 353280)) return 0;
-	if(!LoadArr<ktype>(kernel_3_dat_name[4], Kernel_seq3_0_downsample_0, 32768)) return 0;
-	if(!LoadArr<ktype>(kernel_3_dat_name[5], Kernel_seq3_1_conv1_0_0, 1327104)) return 0;
-	if(!LoadArr<ktype>(kernel_3_dat_name[6], Kernel_seq3_1_conv1_0_3, 442368)) return 0;
-	if(!LoadArr<ktype>(kernel_3_dat_name[7], Kernel_seq3_1_conv2_0_0, 1327104)) return 0;
-	if(!LoadArr<ktype>(kernel_3_dat_name[8], Kernel_seq3_1_conv2_0_3, 442368)) return 0;
-
-	// load layer4 kernel
-	if(!LoadArr<ktype>(kernel_4_dat_name[0], Kernel_seq4_0_conv1_0_0, 2121984)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[1], Kernel_seq4_0_conv1_0_3, 1414656)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[2], Kernel_seq4_0_conv2_0_0, 4243968)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[3], Kernel_seq4_0_conv2_0_3, 1414656)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[4], Kernel_seq4_0_downsample_0, 131072)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[5], Kernel_seq4_1_conv1_0_0, 5308416)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[6], Kernel_seq4_1_conv1_0_3, 1769472)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[7], Kernel_seq4_1_conv2_0_0, 5308416)) return 0;
-	if(!LoadArr<ktype>(kernel_4_dat_name[8], Kernel_seq4_1_conv2_0_3, 1769472)) return 0;
-	
-	// load linear kernel
-	if(!LoadArr<ktype>(fc_dat_name[0], Kernel_linear, 5120)) return 0;
+//	if(!LoadArr<ktype>(kernel_2_dat_name[1], Kernel_seq2_0_conv1_0_3, 88320)) return 0;
+//	if(!LoadArr<ktype>(kernel_2_dat_name[2], Kernel_seq2_0_conv2_0_0, 264960)) return 0;
+//	if(!LoadArr<ktype>(kernel_2_dat_name[3], Kernel_seq2_0_conv2_0_3, 88320)) return 0;
+//	if(!LoadArr<ktype>(kernel_2_dat_name[4], Kernel_seq2_0_downsample_0, 8192)) return 0;
+//	if(!LoadArr<ktype>(kernel_2_dat_name[5], Kernel_seq2_1_conv1_0_0, 331776)) return 0;
+//	if(!LoadArr<ktype>(kernel_2_dat_name[6], Kernel_seq2_1_conv1_0_3, 110592)) return 0;
+//	if(!LoadArr<ktype>(kernel_2_dat_name[7], Kernel_seq2_1_conv2_0_0, 331776)) return 0;
+//	if(!LoadArr<ktype>(kernel_2_dat_name[8], Kernel_seq2_1_conv2_0_3, 110592)) return 0;
+//
+//	// load layer3 kernel
+//	if(!LoadArr<ktype>(kernel_3_dat_name[0], Kernel_seq3_0_conv1_0_0, 529920)) return 0;
+//	if(!LoadArr<ktype>(kernel_3_dat_name[1], Kernel_seq3_0_conv1_0_3, 353280)) return 0;
+//	if(!LoadArr<ktype>(kernel_3_dat_name[2], Kernel_seq3_0_conv2_0_0, 1059840)) return 0;
+//	if(!LoadArr<ktype>(kernel_3_dat_name[3], Kernel_seq3_0_conv2_0_3, 353280)) return 0;
+//	if(!LoadArr<ktype>(kernel_3_dat_name[4], Kernel_seq3_0_downsample_0, 32768)) return 0;
+//	if(!LoadArr<ktype>(kernel_3_dat_name[5], Kernel_seq3_1_conv1_0_0, 1327104)) return 0;
+//	if(!LoadArr<ktype>(kernel_3_dat_name[6], Kernel_seq3_1_conv1_0_3, 442368)) return 0;
+//	if(!LoadArr<ktype>(kernel_3_dat_name[7], Kernel_seq3_1_conv2_0_0, 1327104)) return 0;
+//	if(!LoadArr<ktype>(kernel_3_dat_name[8], Kernel_seq3_1_conv2_0_3, 442368)) return 0;
+//
+//	// load layer4 kernel
+//	if(!LoadArr<ktype>(kernel_4_dat_name[0], Kernel_seq4_0_conv1_0_0, 2121984)) return 0;
+//	if(!LoadArr<ktype>(kernel_4_dat_name[1], Kernel_seq4_0_conv1_0_3, 1414656)) return 0;
+//	if(!LoadArr<ktype>(kernel_4_dat_name[2], Kernel_seq4_0_conv2_0_0, 4243968)) return 0;
+//	if(!LoadArr<ktype>(kernel_4_dat_name[3], Kernel_seq4_0_conv2_0_3, 1414656)) return 0;
+//	if(!LoadArr<ktype>(kernel_4_dat_name[4], Kernel_seq4_0_downsample_0, 131072)) return 0;
+//	if(!LoadArr<ktype>(kernel_4_dat_name[5], Kernel_seq4_1_conv1_0_0, 5308416)) return 0;
+//	if(!LoadArr<ktype>(kernel_4_dat_name[6], Kernel_seq4_1_conv1_0_3, 1769472)) return 0;
+//	if(!LoadArr<ktype>(kernel_4_dat_name[7], Kernel_seq4_1_conv2_0_0, 5308416)) return 0;
+//	if(!LoadArr<ktype>(kernel_4_dat_name[8], Kernel_seq4_1_conv2_0_3, 1769472)) return 0;
+//
+//	// load linear kernel
+//	if(!LoadArr<ktype>(fc_dat_name[0], Kernel_linear, 5120)) return 0;
 
 	if(!LoadArr<dtype>("output.dat", 			 output_golden, 	  OUTPUT_SIZE)) return 0;
 

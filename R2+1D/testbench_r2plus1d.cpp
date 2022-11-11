@@ -103,18 +103,18 @@ int_t main() {
 	if(!LoadArr<ktype>("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadArr<ktype>("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
 
-	// load layer1 kernel
-	if(!LoadArr<ktype>(kernel_1_dat_name[0], Kernel_seq1_0_conv1_0_0, 82944)) return 0;
-	if(!LoadArr<ktype>(kernel_1_dat_name[1], Kernel_seq1_0_conv1_0_3, 27648)) return 0;
-	if(!LoadArr<ktype>(kernel_1_dat_name[2], Kernel_seq1_0_conv2_0_0, 82944)) return 0;
-	if(!LoadArr<ktype>(kernel_1_dat_name[3], Kernel_seq1_0_conv2_0_3, 27648)) return 0;
-	if(!LoadArr<ktype>(kernel_1_dat_name[4], Kernel_seq1_1_conv1_0_0, 82944)) return 0;
-	if(!LoadArr<ktype>(kernel_1_dat_name[5], Kernel_seq1_1_conv1_0_3, 27648)) return 0;
-	if(!LoadArr<ktype>(kernel_1_dat_name[6], Kernel_seq1_1_conv2_0_0, 82944)) return 0;
-	if(!LoadArr<ktype>(kernel_1_dat_name[7], Kernel_seq1_1_conv2_0_3, 27648)) return 0;
+	// // load layer1 kernel
+	// if(!LoadArr<ktype>(kernel_1_dat_name[0], Kernel_seq1_0_conv1_0_0, 82944)) return 0;
+	// if(!LoadArr<ktype>(kernel_1_dat_name[1], Kernel_seq1_0_conv1_0_3, 27648)) return 0;
+	// if(!LoadArr<ktype>(kernel_1_dat_name[2], Kernel_seq1_0_conv2_0_0, 82944)) return 0;
+	// if(!LoadArr<ktype>(kernel_1_dat_name[3], Kernel_seq1_0_conv2_0_3, 27648)) return 0;
+	// if(!LoadArr<ktype>(kernel_1_dat_name[4], Kernel_seq1_1_conv1_0_0, 82944)) return 0;
+	// if(!LoadArr<ktype>(kernel_1_dat_name[5], Kernel_seq1_1_conv1_0_3, 27648)) return 0;
+	// if(!LoadArr<ktype>(kernel_1_dat_name[6], Kernel_seq1_1_conv2_0_0, 82944)) return 0;
+	// if(!LoadArr<ktype>(kernel_1_dat_name[7], Kernel_seq1_1_conv2_0_3, 27648)) return 0;
 
-	// load layer2 kernel
-	if(!LoadArr<ktype>(kernel_2_dat_name[0], Kernel_seq2_0_conv1_0_0, 132480)) return 0;
+	// // load layer2 kernel
+	// if(!LoadArr<ktype>(kernel_2_dat_name[0], Kernel_seq2_0_conv1_0_0, 132480)) return 0;
 //	if(!LoadArr<ktype>(kernel_2_dat_name[1], Kernel_seq2_0_conv1_0_3, 88320)) return 0;
 //	if(!LoadArr<ktype>(kernel_2_dat_name[2], Kernel_seq2_0_conv2_0_0, 264960)) return 0;
 //	if(!LoadArr<ktype>(kernel_2_dat_name[3], Kernel_seq2_0_conv2_0_3, 88320)) return 0;

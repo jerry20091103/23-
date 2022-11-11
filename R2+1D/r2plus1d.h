@@ -17,9 +17,9 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             ktype* Kernel_linear,
             dtype* X_stem_1, dtype* X_stem_2, dtype* X_data,dtype* X2_data, dtype* X3_data, dtype* X_seq, dtype* X_adap, dtype* X_linear, 
             dtype* X_tmp_data, dtype* X_batch_data, dtype* X_mid_data);
-void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, int16_t* Y_data, int_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding,  ftype scale_in, dtype zp_in, ftype scale_out);
+// void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, int16_t* Y_data, int_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding,  ftype scale_in, dtype zp_in, ftype scale_out);
 
-// void Conv3d(dtype* X_data, int_t* X_num, int_t XI, int_t XC, dtype* Y_data, int_t* Y_num, int_t YI, int_t YC, ktype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, dtype zp_in);
+void Conv3d(dtype* X_data, int_t* X_num, int_t XI, int_t XC, int16_t* Y_data, int_t* Y_num, int_t YI, int_t YC, ktype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, dtype zp_in);
 void BatchNorm3d(dtype* X_data, dtype* Y_data, int_t* X_num, ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype scale_in, dtype zp_in, ftype scale_out, dtype zp_out);
 void ReLU(dtype* X_data, dtype* Y_data, int_t* X_num, dtype zp);
 void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_mid_data, dtype* X_batch_data, dtype* X_out_data, int_t* X_out_num, int_t midplanes,

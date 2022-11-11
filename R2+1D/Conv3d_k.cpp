@@ -36,7 +36,7 @@ void Conv3d_k(dtype* X_data, int_t* X_num, int_t xi, int_t XC, dtype* Y_data, in
 									int_t wPos = yw*stride[2]+kw-padding[2];
 
 									if(dPos >= 0 && hPos >= 0 && wPos >= 0 && dPos < XD && hPos < XH && wPos < XW)
-										tmp_Y += ((int_t)X_data[xc*XD*XH*XW + dPos*XH*XW + hPos*XW + wPos]- zp_in) * Kernel_data[i++];
+										tmp_Y += ((int_t)X_data[xc*XD*XH*XW + dPos*XH*XW + hPos*XW + wPos]- zp_in) * Kernel_data[(yc)*XC*KD*KH*KW + (xc)*KD*KH*KW + kd*KH*KW + kh*KW + kw];
 								}
 					Y_data[yPos] += tmp_Y;
 				}

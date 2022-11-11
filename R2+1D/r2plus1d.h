@@ -37,5 +37,10 @@ void Residual(dtype* X, dtype* X_tmp, int_t* size, ftype X_scale, ftype X_tmp_sc
 void AdaptiveAvgPool3d(dtype* X_data, dtype* Y_data);
 void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel);
 void Conv3d_k(dtype* X_data, int_t* X_num, int_t xi, int_t XC, dtype* Y_data, int_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, dtype zp_in);
+void CBR(dtype* X_data, int_t* X_num, int_t XC, 
+		dtype* Y_data, int_t* Y_num, int_t YC, 
+		ktype* Kernel_data, int_t* Kernel_num, 
+		int_t* stride, int_t* padding, 
+		dtype conv_zp, ftype conv_scale, dtype batch_zp, ftype batch_scale, int_t flag);
 #endif
 

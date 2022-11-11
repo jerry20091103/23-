@@ -86,12 +86,12 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             
             // // ==============  Conv3d_k prepare Kernel_bram =============
             // int_t i = 0;
-            // for(int_t yc = 0; yc < 5; yc++)
-            //     for(int_t xc = 0; xc < 1; xc++)
+            // for(int_t yc = 0; yc < YC; yc++)
+            //     for(int_t xc = 0; xc < XC; xc++)
             //         for(int_t j = 0; j < Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; j++){
-            //             Kernel_bram[i++] =  Kernel_stem_0[(yi*5 + yc)*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + (xi*1 + xc)*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + j];
+            //             Kernel_bram[i++] =  Kernel_stem_0[(yi*YC + yc)*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + (xi*XC + xc)*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + j];
             //         }
-            // Conv3d_k(X_bram, X_num, xi, 1, Y_bram, Y_num, yi, 5, Kernel_bram, Kernel_num, stride, padding, 56);
+            // Conv3d_k(X_bram, X_num, xi, XC, Y_bram, Y_num, yi, YC, Kernel_bram, Kernel_num, stride, padding, 56);
             // // ==============  finish Conv3d_k  ============= 
         }
         
@@ -450,7 +450,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // // seq2.0.conv2
+    // // seq2.0.conv2    !!!!
     // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
     // Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
     // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;

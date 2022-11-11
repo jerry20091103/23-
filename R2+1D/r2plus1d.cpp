@@ -93,7 +93,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             //         }
             // Conv3d_k(X_bram, X_num, xi, XC, Y_bram, Y_num, yi, YC, Kernel_bram, Kernel_num, stride, padding, 56);
             // // ==============  finish Conv3d_k  ============= 
-        }
+        // }
         
     //     for(int_t c = 0; c < 5; c++){
     //         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
@@ -450,7 +450,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // // seq2.0.conv2    !!!!
+    // // seq2.0.conv2
     // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
     // Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
     // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
@@ -544,7 +544,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // //                      ====basicblock 1=================================
+    // //                      ====basicblock 1=================================   need to clip kernel
     // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
     // Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
     // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
@@ -666,7 +666,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //         }
     //     }
     // }
-    // ================================!!!!===================
+    // ================================ end ===================
     
     // Sequential(X_stem_2, X2_data, X3_data, X_seq,
     //     X_tmp_data, X_batch_data, X_mid_data, 

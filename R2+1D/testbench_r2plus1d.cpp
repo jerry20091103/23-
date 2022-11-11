@@ -3,7 +3,7 @@
 // modify these value to test different layers
 // remember to use corresponding input.dat and output.dat in vitis/visual studio project
 // and r2plus1d.cpp
-#define INPUT_SIZE 3211264
+#define INPUT_SIZE 2885120
 #define OUTPUT_SIZE 2885120
 int_t OUTPUT_STRUCTURE[5] = {1, 230, 16, 28, 28};
 
@@ -145,7 +145,7 @@ int_t main() {
 	// load linear kernel
 	if(!LoadArr<ktype>(fc_dat_name[0], Kernel_linear, 5120)) return 0;
 
-	if(!LoadArr<dtype>("input.dat", 					X_data, 		INPUT_SIZE)) return 0;
+	if(!LoadArr<dtype>("input.dat", 					X_mid_data, 		INPUT_SIZE)) return 0;
 	if(!LoadArr<dtype>("output.dat", 			 output_golden, 	  OUTPUT_SIZE)) return 0;
 	// if(!LoadArr<dtype>("tmp.dat", 			 X_tmp_data, 	  OUTPUT_SIZE)) return 0;
 

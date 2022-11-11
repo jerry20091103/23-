@@ -72,41 +72,41 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     int_t stride[3] = {1, 2, 2};
     int_t padding[3] = {0, 3, 3};
     
-    for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-        Kernel_bram[i] = Kernel_stem_0[i];
+    // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
+    //     Kernel_bram[i] = Kernel_stem_0[i];
 
-    for(int_t yi = 0; yi < 9; yi++){
-        for(int_t k = 0; k < 5*Y_num[2]*Y_num[3]*Y_num[4]; k++)
-            Y_bram[k] = 0; 
+    // for(int_t yi = 0; yi < 9; yi++){
+    //     for(int_t k = 0; k < 5*Y_num[2]*Y_num[3]*Y_num[4]; k++)
+    //         Y_bram[k] = 0; 
         
-        for(int_t xi = 0; xi < 3; xi++){
-            for(int_t k = 0; k < X_num[2]*X_num[3]*X_num[4]; k++)
-                X_bram[k] = X[xi*X_num[2]*X_num[3]*X_num[4]+k];
-            Conv3d(X_bram, X_num, xi, 1, Y_bram, Y_num, yi, 5, Kernel_bram, Kernel_num, stride, padding, 56);
+    //     for(int_t xi = 0; xi < 3; xi++){
+    //         for(int_t k = 0; k < X_num[2]*X_num[3]*X_num[4]; k++)
+    //             X_bram[k] = X[xi*X_num[2]*X_num[3]*X_num[4]+k];
+    //         Conv3d(X_bram, X_num, xi, 1, Y_bram, Y_num, yi, 5, Kernel_bram, Kernel_num, stride, padding, 56);
             
-            // // ==============  Conv3d_k prepare Kernel_bram =============
-            // int_t i = 0;
-            // for(int_t yc = 0; yc < 5; yc++)
-            //     for(int_t xc = 0; xc < 1; xc++)
-            //         for(int_t j = 0; j < Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; j++){
-            //             Kernel_bram[i++] =  Kernel_stem_0[(yi*5 + yc)*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + (xi*1 + xc)*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + j];
-            //         }
-            // Conv3d_k(X_bram, X_num, xi, 1, Y_bram, Y_num, yi, 5, Kernel_bram, Kernel_num, stride, padding, 56);
-            // // ==============  finish Conv3d_k  ============= 
-        }
+    //         // // ==============  Conv3d_k prepare Kernel_bram =============
+    //         // int_t i = 0;
+    //         // for(int_t yc = 0; yc < 5; yc++)
+    //         //     for(int_t xc = 0; xc < 1; xc++)
+    //         //         for(int_t j = 0; j < Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; j++){
+    //         //             Kernel_bram[i++] =  Kernel_stem_0[(yi*5 + yc)*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + (xi*1 + xc)*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + j];
+    //         //         }
+    //         // Conv3d_k(X_bram, X_num, xi, 1, Y_bram, Y_num, yi, 5, Kernel_bram, Kernel_num, stride, padding, 56);
+    //         // // ==============  finish Conv3d_k  ============= 
+    //     }
         
-        for(int_t c = 0; c < 5; c++){
-            int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
-            for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-                int_t tmp = (int_t)roundf((((Y_bram[offset+k]*3.756307810544967651e-02*Kernel_stem_0_scale[yi*5+c] - Mu_stem_1[yi*5+c]) / sqrtf(Var_stem_1[yi*5+c]+0.00001)) * Gamma_stem_1[yi*5+c] + Bias_stem_1[yi*5+c])/0.07323520630598068237);
-                Y_bram[offset+k] = (tmp+55 > 255) ? 255 : (tmp < 0) ? 55 : tmp+55;
-                X_stem_1[yi*5*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
-            }
-        }
-    }
-    // // Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
-    // // BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
-    // // ReLU(X_batch_data, X_stem_1, X_stem_1_num, 55);
+    //     for(int_t c = 0; c < 5; c++){
+    //         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
+    //         for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
+    //             int_t tmp = (int_t)roundf((((Y_bram[offset+k]*3.756307810544967651e-02*Kernel_stem_0_scale[yi*5+c] - Mu_stem_1[yi*5+c]) / sqrtf(Var_stem_1[yi*5+c]+0.00001)) * Gamma_stem_1[yi*5+c] + Bias_stem_1[yi*5+c])/0.07323520630598068237);
+    //             Y_bram[offset+k] = (tmp+55 > 255) ? 255 : (tmp < 0) ? 55 : tmp+55;
+    //             X_stem_1[yi*5*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
+    //         }
+    //     }
+    // }
+    // Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
+    // BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
+    // ReLU(X_batch_data, X_stem_1, X_stem_1_num, 55);
 
     // X_num[0] = 1; X_num[1] = 45; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
     // Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
@@ -387,39 +387,39 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //         }
     //     }
     // }
-// =======================================CSIM PASS========================================================
     // // ========================Sequential 2==================================
     // //                      ====basicblock 0=================================
-    X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 16; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 2; stride[2] = 2;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
+    // X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
+    // Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 16; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
+    // stride[0] = 1; stride[1] = 2; stride[2] = 2;
+    // padding[0] = 0; padding[1] = 1; padding[2] = 1;
     
-    for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-        Kernel_bram[i] = Kernel_seq2_0_conv1_0_0[i];
+    // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
+    //     Kernel_bram[i] = Kernel_seq2_0_conv1_0_0[i];
 
-    for(int_t yi = 0; yi < 8; yi++){
-        for(int_t k = 0; k < 32*Y_num[2]*Y_num[3]*Y_num[4]; k++)
-            Y_bram[k] = 0;
+    // for(int_t yi = 0; yi < 8; yi++){
+    //     for(int_t k = 0; k < 32*Y_num[2]*Y_num[3]*Y_num[4]; k++)
+    //         Y_bram[k] = 0;
         
-        for(int_t xi = 0; xi < 8; xi++){
-            for(int_t k = 0; k < 8*X_num[2]*X_num[3]*X_num[4]; k++)
-                X_bram[k] = X_data[xi*8*X_num[2]*X_num[3]*X_num[4]+k];
+    //     for(int_t xi = 0; xi < 8; xi++){
+    //         for(int_t k = 0; k < 8*X_num[2]*X_num[3]*X_num[4]; k++)
+    //             X_bram[k] = X_data[xi*8*X_num[2]*X_num[3]*X_num[4]+k];
 
-            Conv3d(X_bram, X_num, xi, 8, Y_bram, Y_num, yi, 32, Kernel_bram, Kernel_num, stride, padding, 49);
-        }
+    //         Conv3d(X_bram, X_num, xi, 8, Y_bram, Y_num, yi, 32, Kernel_bram, Kernel_num, stride, padding, 49);
+    //     }
         
-        for(int_t c = 0; c < 32; c++){
-            int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
-            for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-                int_t tmp = (int_t)roundf((((Y_bram[offset+k]*7.128605991601943970e-02*Kernel_seq2_0_conv1_0_0_scale[yi*32+c] - Mu_seq2_0_conv1_0_1[yi*32+c]) / sqrtf(Var_seq2_0_conv1_0_1[yi*32+c]+0.00001)) * Gamma_seq2_0_conv1_0_1[yi*32+c] + Bias_seq2_0_conv1_0_1[yi*8+c])/3.834486752748489380e-02);
-                Y_bram[offset+k] = (tmp+66 > 255) ? 255 : (tmp < 0) ? 66 : tmp+66;
-                X_mid_data[yi*32*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
-            }
-        }
-    }
+    //     for(int_t c = 0; c < 32 && yi*32+c < Y_num[1]; c++){
+    //         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
+    //         for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
+    //             int_t tmp = (int_t)roundf((((Y_bram[offset+k]*7.128605991601943970e-02*Kernel_seq2_0_conv1_0_0_scale[yi*32+c] - Mu_seq2_0_conv1_0_1[yi*32+c]) / sqrtf(Var_seq2_0_conv1_0_1[yi*32+c]+0.00001)) * Gamma_seq2_0_conv1_0_1[yi*32+c] + Bias_seq2_0_conv1_0_1[yi*32+c])/3.834486752748489380e-02);
+    //             Y_bram[offset+k] = (tmp+66 > 255) ? 255 : (tmp < 0) ? 66 : tmp+66;
+    //             X_mid_data[yi*32*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
+    //         }
+    //     }
+    // }
     
+// =======================================CSIM PASS========================================================
     // X_num[0] = 1; X_num[1] = 230; X_num[2] = 16; X_num[3] = 28; X_num[4] = 28;
     // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
     // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;

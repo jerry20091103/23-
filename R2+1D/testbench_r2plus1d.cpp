@@ -3,9 +3,9 @@
 // modify these value to test different layers
 // remember to use corresponding input.dat and output.dat in vitis/visual studio project
 // and r2plus1d.cpp
-#define INPUT_SIZE 3211264
-#define OUTPUT_SIZE 2885120
-int_t OUTPUT_STRUCTURE[5] = {1, 230, 16, 28, 28};
+#define INPUT_SIZE 602112
+#define OUTPUT_SIZE 2257920
+int_t OUTPUT_STRUCTURE[5] = {1, 45, 16, 56, 56};
 
 string kernel_1_dat_name[8] = {"layer1.0.conv1.0.0.weight.dat", "layer1.0.conv1.0.3.weight.dat", "layer1.0.conv2.0.0.weight.dat", "layer1.0.conv2.0.3.weight.dat", "layer1.1.conv1.0.0.weight.dat", "layer1.1.conv1.0.3.weight.dat", "layer1.1.conv2.0.0.weight.dat", "layer1.1.conv2.0.3.weight.dat"};
 string kernel_2_dat_name[9] = {"layer2.0.conv1.0.0.weight.dat", "layer2.0.conv1.0.3.weight.dat", "layer2.0.conv2.0.0.weight.dat", "layer2.0.conv2.0.3.weight.dat", "layer2.0.downsample.0.weight.dat", "layer2.1.conv1.0.0.weight.dat", "layer2.1.conv1.0.3.weight.dat", "layer2.1.conv2.0.0.weight.dat", "layer2.1.conv2.0.3.weight.dat"};
@@ -95,6 +95,10 @@ int_t main() {
 	dtype *X_batch_data = (dtype*)malloc(7225344 * sizeof(dtype));
 	dtype *X_mid_data = (dtype*)malloc(7225344 * sizeof(dtype));
 
+	// load input
+	if(!LoadArr<dtype>("input.dat", input, INPUT_SIZE))
+		return 0;
+
 	// load stem kernel
 	if(!LoadArr<ktype>("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadArr<ktype>("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
@@ -145,9 +149,7 @@ int_t main() {
 	// load linear kernel
 	if(!LoadArr<ktype>(fc_dat_name[0], Kernel_linear, 5120)) return 0;
 
-	if(!LoadArr<dtype>("input.dat", 					X_data, 		INPUT_SIZE)) return 0;
 	if(!LoadArr<dtype>("output.dat", 			 output_golden, 	  OUTPUT_SIZE)) return 0;
-	// if(!LoadArr<dtype>("tmp.dat", 			 X_tmp_data, 	  OUTPUT_SIZE)) return 0;
 
 	// ====================================
 	// Function to test here:
@@ -163,7 +165,7 @@ int_t main() {
 
 	// calculate errors
 	ftype errors;
-	errors = 100 * ftype(validate_file(X_mid_data, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
+	errors = 100 * ftype(validate_file(X_stem_1, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
 	
 	if (errors != 0) {
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

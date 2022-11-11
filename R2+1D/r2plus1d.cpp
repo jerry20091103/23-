@@ -78,17 +78,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     int_t stride[3] = {1, 2, 2};
     int_t padding[3] = {0, 3, 3};
     
-    // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-    //     Kernel_bram[i] = Kernel_stem_0[i];
+    for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
+        Kernel_bram[i] = Kernel_stem_0[i];
 
-    // for(int_t yi = 0; yi < 9; yi++){
-    //     for(int_t k = 0; k < 5*Y_num[2]*Y_num[3]*Y_num[4]; k++)
-    //         Y_bram[k] = 0; 
+    for(int_t yi = 0; yi < 9; yi++){
+        for(int_t k = 0; k < 5*Y_num[2]*Y_num[3]*Y_num[4]; k++)
+            Y_bram[k] = 60; 
         
-    //     for(int_t xi = 0; xi < 3; xi++){
-    //         for(int_t k = 0; k < X_num[2]*X_num[3]*X_num[4]; k++)
-    //             X_bram[k] = X[xi*X_num[2]*X_num[3]*X_num[4]+k];
-    //         Conv3d(X_bram, X_num, xi, 1, Y_bram, Y_num, yi, 5, Kernel_bram, Kernel_num, stride, padding, 56);
+        for(int_t xi = 0; xi < 3; xi++){
+            for(int_t k = 0; k < X_num[2]*X_num[3]*X_num[4]; k++)
+                X_bram[k] = X[xi*X_num[2]*X_num[3]*X_num[4]+k];
+
+            Conv3d(X_bram, X_num, xi, 1, Y_bram, Y_num, yi, 5, Kernel_bram, Kernel_num, Kernel_stem_0_scale, stride, padding, 3.756307810544967651e-02, 56, 0.4609071612358093262);
             
             // // ==============  Conv3d_k prepare Kernel_bram =============
             // int_t i = 0;
@@ -99,17 +100,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             //         }
             // Conv3d_k(X_bram, X_num, xi, XC, Y_bram, Y_num, yi, YC, Kernel_bram, Kernel_num, stride, padding, 56);
             // // ==============  finish Conv3d_k  ============= 
-        // }
+        }
         
-    //     for(int_t c = 0; c < 5; c++){
-    //         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
-    //         for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-    //             int_t tmp = (int_t)roundf((((Y_bram[offset+k]*3.756307810544967651e-02*Kernel_stem_0_scale[yi*5+c] - Mu_stem_1[yi*5+c]) / sqrtf(Var_stem_1[yi*5+c]+0.00001)) * Gamma_stem_1[yi*5+c] + Bias_stem_1[yi*5+c])/0.07323520630598068237);
-    //             Y_bram[offset+k] = (tmp+55 > 255) ? 255 : (tmp < 0) ? 55 : tmp+55;
-    //             X_stem_1[yi*5*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
-    //         }
-    //     }
-    // }
+        for(int_t c = 0; c < 5; c++){
+            int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
+            for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
+                // int_t tmp = (int_t)roundf(((((Y_bram[offset+k] - 60)*0.4609071612358093262 - Mu_stem_1[yi*5+c]) / sqrtf(Var_stem_1[yi*5+c]+0.00001)) * Gamma_stem_1[yi*5+c] + Bias_stem_1[yi*5+c])/0.07323520630598068237);
+                // Y_bram[offset+k] = (tmp+55 > 255) ? 255 : (tmp < 0) ? 55 : tmp+55;
+                X_stem_1[yi*5*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
+            }
+        }
+    }
     // Conv3d(X, X_num, X_stem_1, X_stem_1_num, Kernel_stem_0, Kernel_stem_1_num, Kernel_stem_0_scale, stride_1, padding_1, 3.756307810544967651e-02, 56, 0.4609071612358093262, 60);
     // BatchNorm3d(X_stem_1, X_batch_data, X_stem_1_num, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1, 0.4609071612358093262, 60, 0.07323520630598068237, 55);
     // ReLU(X_batch_data, X_stem_1, X_stem_1_num, 55);

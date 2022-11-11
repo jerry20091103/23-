@@ -2,10 +2,11 @@
 #define __R2PLUS1D_H__
 
 #include <stdint.h>
+#include <ap_int.h>
 // It works!
 // typedef int8_t dtype;
 typedef uint8_t dtype;
-typedef int16_t ytype;
+typedef ap_int<24> ytype;
 typedef int int_t;
 typedef float ftype;
 typedef int8_t ktype;

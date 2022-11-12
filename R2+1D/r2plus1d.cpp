@@ -549,7 +549,6 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 	// 	55, 3.207130357623100281e-02, 64, 3.513325005769729614e-02, 59, 3.827788308262825012e-02,
     //     Kernel_seq3_0_conv1_0_3_scale, Mu_seq3_0_conv1_1, Var_seq3_0_conv1_1, Gamma_seq3_0_conv1_1, Bias_seq3_0_conv1_1);
 
-<<<<<<< HEAD
     // seq3.0.conv2
     X_num[0] = 1; X_num[1] = 256; X_num[2] = 4; X_num[3] = 14; X_num[4] = 14;
     Y_num[0] = 1; Y_num[1] = 460; Y_num[2] = 4; Y_num[3] = 14; Y_num[4] = 14;
@@ -562,20 +561,6 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 		stride, padding, 
 		59, 3.827788308262825012e-02, 74, 7.229902595281600952e-02, 61, 2.794230915606021881e-02, 
         Kernel_seq3_0_conv2_0_0_scale, Mu_seq3_0_conv2_0_1, Var_seq3_0_conv2_0_1, Gamma_seq3_0_conv2_0_1, Bias_seq3_0_conv2_0_1);
-=======
-    // // seq3.0.conv2
-    // X_num[0] = 1; X_num[1] = 256; X_num[2] = 4; X_num[3] = 14; X_num[4] = 14;
-    // Y_num[0] = 1; Y_num[1] = 460; Y_num[2] = 4; Y_num[3] = 6; Y_num[4] = 6;
-    // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    // padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    // CBR(X3_data, X_num, 256, 
-	// 	X_mid_data, Y_num, 460, 
-	// 	Kernel_seq3_0_conv2_0_0, Kernel_num, 
-	// 	stride, padding, 
-	// 	59, 3.827788308262825012e-02, 74, 7.229902595281600952e-02, 61, 2.794230915606021881e-02, 
-    //     Kernel_seq3_0_conv2_0_0_scale, Mu_seq3_0_conv2_0_1, Var_seq3_0_conv2_0_1, Gamma_seq3_0_conv2_0_1, Bias_seq3_0_conv2_0_1);
->>>>>>> ba2eb792a044737965b7a96de4600420b0ab5c1f
     
     // // seq3.0.downsample
     // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;

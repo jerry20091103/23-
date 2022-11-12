@@ -4,7 +4,7 @@
             "name": "Win32_vitis",
             "includePath": [
                 "${workspaceFolder}/**",
-                "D:/Xilinx/Vitis_HLS/2021.2/include"
+                "D:/Xilinx_/Vitis_HLS/2021.1/include"
             ],
             "defines": [
                 "_DEBUG",

@@ -10,11 +10,13 @@ void CBR_k(dtype* X_data, int_t* X_num, int_t XC,
 		dtype conv_zp, ftype conv_scale, dtype batch_zp, ftype batch_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias)
 {
-    for(int_t yi = 0; yi < (Y_num[1]/YC); yi++){
+    int_t YI = (Y_num[1]%YC) ? (Y_num[1]/YC+1) : (Y_num[1]/YC);
+	int_t XI = (X_num[1]%XC) ? (X_num[1]/XC+1) : (X_num[1]/XC);
+    for(int_t yi = 0; yi < YI; yi++){
         for(int_t k = 0; k < YC*Y_num[2]*Y_num[3]*Y_num[4]; k++)
             Y_bram[k] = 0; 
         
-        for(int_t xi = 0; xi < (X_num[1]/XC); xi++){
+        for(int_t xi = 0; xi < XI; xi++){
             for(int_t k = 0; k < XC*X_num[2]*X_num[3]*X_num[4]; k++)
                 X_bram[k] = X_data[xi*XC*X_num[2]*X_num[3]*X_num[4]+k];
             int_t i = 0;

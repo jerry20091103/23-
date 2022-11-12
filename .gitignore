@@ -7,3 +7,4 @@ r2plus1d_vitis/
 imageIO_RAM_vitis/
 imageIO_RAM_vivado/
 .vscode/c_cpp_properties.json
+R2+1D/.vscode/c_cpp_properties.json

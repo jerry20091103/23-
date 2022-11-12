@@ -219,7 +219,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
     stride[0] = 1; stride[1] = 1; stride[2] = 1;
     padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBRR(X_mid_data, X_stem_2, X_num, 8, 
+    CBRR(X_mid_data, X_tmp_data, X_num, 8, 
 		X_data, X_tmp_data, Y_num, 8, 
 		Kernel_seq1_1_conv2_0_3, Kernel_num,
 		stride, padding, 
@@ -365,9 +365,14 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     Kernel_num[0] = 1; Kernel_num[1] = 1; Kernel_num[2] = 1;
     stride[0] = 2; stride[1] = 2; stride[2] = 2;
     padding[0] = 0; padding[1] = 0; padding[2] = 0;
-    
+    CBR(X_data, X_num, 8, 
+		X_tmp_data, Y_num, 64, 
+		Kernel_seq2_0_downsample_0, Kernel_num, 
+		stride, padding, 
+		49, 7.128605991601943970e-02, 53, 5.571814253926277161e-02, 
+        Kernel_seq2_0_downsample_0_scale, Mu_seq2_0_downsample_1, Var_seq2_0_downsample_1, Gamma_seq2_0_downsample_1, Bias_seq2_0_downsample_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-    //     Kernel_bram[i] = Kernel_seq2_0_downsample_0_scale[i];
+    //     Kernel_bram[i] = Kernel_seq2_0_downsample_0[i];
 
     // for(int_t yi = 0; yi < 2; yi++){
     //     for(int_t k = 0; k < 64*Y_num[2]*Y_num[3]*Y_num[4]; k++)

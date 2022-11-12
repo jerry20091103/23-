@@ -7,7 +7,7 @@ void CBR_k(dtype* X_data, int_t* X_num, int_t XC,
 		dtype* Y_data, int_t* Y_num, int_t YC, 
 		ktype* Kernel_data, int_t* Kernel_num,
 		int_t* stride, int_t* padding, 
-		dtype conv_zp, ftype conv_scale, dtype batch_zp, ftype batch_scale, 
+		dtype conv_in_zp, ftype conv_in_scale, dtype conv_out_zp, ftype conv_out_scale, dtype batch_zp, ftype batch_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias)
 {
     int_t YI = (Y_num[1]%YC) ? (Y_num[1]/YC+1) : (Y_num[1]/YC);
@@ -31,9 +31,10 @@ void CBR_k(dtype* X_data, int_t* X_num, int_t XC,
         for(int_t c = 0; c < YC; c++){
             int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
             for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-                int_t tmp = (int_t)roundf((((Y_bram[offset+k]*conv_scale*Kernel_scale[yi*YC+c] - Mu[yi*YC+c]) / sqrtf(Var[yi*YC+c]+0.00001)) * Gamma[yi*YC+c] + Bias[yi*YC+c])/batch_scale);
-                Y_bram[offset+k] = (tmp+batch_zp > 255) ? 255 : (tmp < 0) ? batch_zp : tmp+batch_zp;
-                Y_data[yi*YC*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
+                int_t tmp = (int_t)roundf(Y_bram[offset+k]*conv_in_scale*Kernel_scale[yi*YC+c] / conv_out_scale) + conv_out_zp;
+                tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
+                tmp = (int_t)roundf(((((tmp-conv_out_zp)*conv_out_scale - Mu[yi*YC+c]) / sqrtf(Var[yi*YC+c]+0.00001f)) * Gamma[yi*YC+c] + Bias[yi*YC+c]) / batch_scale);
+                Y_data[yi*YC*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = (tmp+batch_zp > 255) ? 255 : (tmp < 0) ? batch_zp : tmp+batch_zp;
             }
         }
     }

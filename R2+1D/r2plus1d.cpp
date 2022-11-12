@@ -84,116 +84,116 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 		56, 3.756307810544967651e-02, 60, 0.4609071612358093262, 55, 0.07323520630598068237, 
         Kernel_stem_0_scale, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1);
     
-    X_num[0] = 1; X_num[1] = 45; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBR(X_stem_1, X_num, 5, 
-		X_stem_2, Y_num, 8, 
-		Kernel_stem_3, Kernel_num, 
-		stride, padding, 
+    int_t X_num2[5] = {1, 45, 16, 56, 56};
+    int_t Y_num2[5] = {1, 64, 16, 56, 56};
+    int_t Kernel_num2[3] = {3, 1, 1};
+    int_t stride2[3] = {1, 1, 1};
+    int_t padding2[3] = {1, 0, 0};
+    CBR(X_stem_1, X_num2, 5, 
+		X_stem_2, Y_num2, 8, 
+		Kernel_stem_3, Kernel_num2, 
+		stride2, padding2, 
 		55, 0.07323520630598068237, 70, 0.09311912953853607178, 65, 0.07423608750104904175, 
         Kernel_stem_3_scale, Mu_stem_4, Var_stem_4, Gamma_stem_4, Bias_stem_4);
 
     // ========================Sequential 1==================================
     //                      ====basicblock 0=================================
-    X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 144; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR(X_stem_2, X_num, 8, 
-		X_mid_data, Y_num, 8, 
-		Kernel_seq1_0_conv1_0_0, Kernel_num, 
-		stride, padding, 
+    int_t X_num3[5] = {1, 64, 16, 56, 56};
+    int_t Y_num3[5] = {1, 144, 16, 56, 56};
+    int_t Kernel_num3[3] = {1, 3, 3};
+    int_t stride3[3] = {1, 1, 1};
+    int_t padding3[3] = {0, 1, 1};
+    CBR(X_stem_2, X_num3, 8, 
+		X_mid_data, Y_num3, 8, 
+		Kernel_seq1_0_conv1_0_0, Kernel_num3, 
+		stride3, padding3, 
 		65, 0.07423608750104904175, 64, 8.706942945718765259e-02, 60, 4.489336907863616943e-02, 
         Kernel_seq1_0_conv1_0_0_scale, Mu_seq1_0_conv1_0_1, Var_seq1_0_conv1_0_1, Gamma_seq1_0_conv1_0_1, Bias_seq1_0_conv1_0_1);
     
-    X_num[0] = 1; X_num[1] = 144; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBR(X_mid_data, X_num, 8, 
-		X_data, Y_num, 8, 
-		Kernel_seq1_0_conv1_0_3, Kernel_num, 
-		stride, padding, 
+    int_t X_num4[5] = {1, 144, 16, 56, 56};
+    int_t Y_num4[5] = {1, 64, 16, 56, 56};
+    int_t Kernel_num4[3] = {3, 1, 1};
+    int_t stride4[3] = {1, 1, 1};
+    int_t padding4[3] = {1, 0, 0};
+    CBR(X_mid_data, X_num4, 8, 
+		X_data, Y_num4, 8, 
+		Kernel_seq1_0_conv1_0_3, Kernel_num4, 
+		stride4, padding4, 
 		60, 4.489336907863616943e-02, 71, 4.961582273244857788e-02, 74, 5.436319485306739807e-02,
         Kernel_seq1_0_conv1_0_3_scale, Mu_seq1_0_conv1_1, Var_seq1_0_conv1_1, Gamma_seq1_0_conv1_1, Bias_seq1_0_conv1_1);
     
     // seq1.0.conv2
-    X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 144; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR(X_data, X_num, 8, 
-		X_mid_data, Y_num, 8, 
-		Kernel_seq1_0_conv2_0_0, Kernel_num, 
-		stride, padding, 
+    int_t X_num5[5] = {1, 64, 16, 56, 56};
+    int_t Y_num5[5] = {1, 144, 16, 56, 56};
+    int_t Kernel_num5[3] = {1, 3, 3};
+    int_t stride5[3] = {1, 1, 1};
+    int_t padding5[3] = {0, 1, 1};
+    CBR(X_data, X_num5, 8, 
+		X_mid_data, Y_num5, 8, 
+		Kernel_seq1_0_conv2_0_0, Kernel_num5, 
+		stride5, padding5, 
 		74, 5.436319485306739807e-02, 60, 6.804036349058151245e-02, 62, 4.303903132677078247e-02,
         Kernel_seq1_0_conv2_0_0_scale, Mu_seq1_0_conv2_0_1, Var_seq1_0_conv2_0_1, Gamma_seq1_0_conv2_0_1, Bias_seq1_0_conv2_0_1);
     
-    X_num[0] = 1; X_num[1] = 144; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBRR(X_mid_data, X_stem_2, X_num, 8, 
-		X_data, X_tmp_data, Y_num, 8, 
-		Kernel_seq1_0_conv2_0_3, Kernel_num,
-		stride, padding, 
+    int_t X_num6[5] = {1, 144, 16, 56, 56};
+    int_t Y_num6[5] = {1, 64, 16, 56, 56};
+    int_t Kernel_num6[3] = {3, 1, 1};
+    int_t stride6[3] = {1, 1, 1};
+    int_t padding6[3] = {1, 0, 0};
+    CBRR(X_mid_data, X_stem_2, X_num6, 8, 
+		X_data, X_tmp_data, Y_num6, 8, 
+		Kernel_seq1_0_conv2_0_3, Kernel_num6,
+		stride6, padding6, 
 		62, 4.303903132677078247e-02, 66, 3.850702568888664246e-02, 65, 0.07423608750104904175, 68, 4.517441987991333008e-02, 46, 7.029289007186889648e-02, 
 		Kernel_seq1_0_conv2_0_3_scale, Mu_seq1_0_conv2_1, Var_seq1_0_conv2_1, Gamma_seq1_0_conv2_1, Bias_seq1_0_conv2_1);
     
     //                      ====basicblock 1=================================
-    X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 144; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR(X_data, X_num, 8, 
-		X_mid_data, Y_num, 8, 
-		Kernel_seq1_1_conv1_0_0, Kernel_num, 
-		stride, padding, 
+    int_t X_num7[5] = {1, 64, 16, 56, 56};
+    int_t Y_num7[5] = {1, 144, 16, 56, 56};
+    int_t Kernel_num7[3] = {1, 3, 3};
+    int_t stride7[3] = {1, 1, 1};
+    int_t padding7[3] = {0, 1, 1};
+    CBR(X_data, X_num7, 8, 
+		X_mid_data, Y_num7, 8, 
+		Kernel_seq1_1_conv1_0_0, Kernel_num7, 
+		stride7, padding7, 
 		46, 7.029289007186889648e-02, 72, 9.410868585109710693e-02, 76, 3.406318649649620056e-02,
         Kernel_seq1_1_conv1_0_0_scale, Mu_seq1_1_conv1_0_1, Var_seq1_1_conv1_0_1, Gamma_seq1_1_conv1_0_1, Bias_seq1_1_conv1_0_1);
 
-    X_num[0] = 1; X_num[1] = 144; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBR(X_mid_data, X_num, 8, 
-		X_data, Y_num, 8, 
-		Kernel_seq1_1_conv1_0_3, Kernel_num, 
-		stride, padding, 
+    int_t X_num8[5] = {1, 144, 16, 56, 56};
+    int_t Y_num8[5] = {1, 64, 16, 56, 56};
+    int_t Kernel_num8[3] = {3, 1, 1};
+    int_t stride8[3] = {1, 1, 1};
+    int_t padding8[3] = {1, 0, 0};
+    CBR(X_mid_data, X_num8, 8, 
+		X_data, Y_num8, 8, 
+		Kernel_seq1_1_conv1_0_3, Kernel_num8, 
+		stride8, padding8, 
 		76, 3.406318649649620056e-02, 67, 3.386811539530754089e-02, 70, 4.148417711257934570e-02,
         Kernel_seq1_1_conv1_0_3_scale, Mu_seq1_1_conv1_1, Var_seq1_1_conv1_1, Gamma_seq1_1_conv1_1, Bias_seq1_1_conv1_1);
     
     // seq1.1.conv2
-    X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 144; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR(X_data, X_num, 8, 
-		X_mid_data, Y_num, 8, 
-		Kernel_seq1_1_conv2_0_0, Kernel_num, 
-		stride, padding, 
+    int_t X_num9[5] = {1, 64, 16, 56, 56};
+    int_t Y_num9[5] = {1, 144, 16, 56, 56};
+    int_t Kernel_num9[3] = {1, 3, 3};
+    int_t stride9[3] = {1, 1, 1};
+    int_t padding9[3] = {0, 1, 1};
+    CBR(X_data, X_num9, 8, 
+		X_mid_data, Y_num9, 8, 
+		Kernel_seq1_1_conv2_0_0, Kernel_num9, 
+		stride9, padding9, 
 		70, 4.148417711257934570e-02, 68, 3.422784805297851562e-02, 61, 2.891838178038597107e-02, 
         Kernel_seq1_1_conv2_0_0_scale, Mu_seq1_1_conv2_0_1, Var_seq1_1_conv2_0_1, Gamma_seq1_1_conv2_0_1, Bias_seq1_1_conv2_0_1);
 
-    X_num[0] = 1; X_num[1] = 144; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBRR(X_mid_data, X_tmp_data, X_num, 8, 
-		X_data, X_tmp_data, Y_num, 8, 
-		Kernel_seq1_1_conv2_0_3, Kernel_num,
-		stride, padding, 
+    int_t X_num10[5] = {1, 114, 16, 56, 56};
+    int_t Y_num10[5] = {1, 64, 16, 56, 56};
+    int_t Kernel_num10[3] = {3, 1, 1};
+    int_t stride10[3] = {1, 1, 1};
+    int_t padding10[3] = {1, 0, 0};
+    CBRR(X_mid_data, X_tmp_data, X_num10, 8, 
+		X_data, X_tmp_data, Y_num10, 8, 
+		Kernel_seq1_1_conv2_0_3, Kernel_num10,
+		stride10, padding10, 
 		61, 2.891838178038597107e-02, 71, 2.731916867196559906e-02, 46, 7.029289007186889648e-02, 53, 5.917721241712570190e-02, 49, 7.128605991601943970e-02, 
 		Kernel_seq1_1_conv2_0_3_scale, Mu_seq1_1_conv2_1, Var_seq1_1_conv2_1, Gamma_seq1_1_conv2_1, Bias_seq1_1_conv2_1);
     

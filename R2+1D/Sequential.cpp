@@ -11,50 +11,50 @@ void Sequential(dtype* X_data, dtype* Y_data, int_t* X_num, int_t* Y_num, int_t 
                 ktype* Kernel_seq_1_conv1_0_0, ktype* Kernel_seq_1_conv1_0_3, ktype* Kernel_seq_1_conv2_0_0, ktype* Kernel_seq_1_conv2_0_3,
                 )
 {
-    // // ========================================================================================
-    // int_t Kernel_num[3] = {1, 1, 1};
-    // int_t stride[3] = {2, 2, 2};
-    // int_t padding[3] = {0, 0, 0};
+    // ========================================================================================
+    int_t Kernel_num[3] = {1, 1, 1};
+    int_t stride[3] = {2, 2, 2};
+    int_t padding[3] = {0, 0, 0};
 
-    // // layer 1
-    // int_t X_num[5] = {1, 64, 16, 56, 56};
+    // layer 1
+    int_t X_num[5] = {1, 64, 16, 56, 56};
 
-    // for(int_t i = 0; i < 3211264; i++)
-    //     X_tmp_data[i] = X_data[i];
+    for(int_t i = 0; i < 3211264; i++)
+        X_tmp_data[i] = X_data[i];
 
-    // Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data, X_data, X_num, 144, 
-    //             Kernel_1_1_data, Kernel_1_2_data, Kernel_seq1_0_conv1_0_0_scale, Kernel_seq1_0_conv1_0_3_scale, 1, 1, 
-    //             X_scale, 8.706942945718765259e-02, 4.961582273244857788e-02 ,X_zeropoint, 64, 71,
-    //             Mu_seq1_0_conv1_0_1, Var_seq1_0_conv1_0_1, Gamma_seq1_0_conv1_0_1, Bias_seq1_0_conv1_0_1, 4.489336907863616943e-02, 60); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    // BatchNorm3d(X_data, X_batch_data ,X_num, Mu_seq1_0_conv1_1, Var_seq1_0_conv1_1, Gamma_seq1_0_conv1_1, Bias_seq1_0_conv1_1,4.961582273244857788e-02 ,71, 5.436319485306739807e-02, 74);
-    // ReLU(X_batch_data, X_data, X_num, 74);
-    // Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data,X_data, X_num, 144, 
-    //             Kernel_1_3_data, Kernel_1_4_data, Kernel_seq1_0_conv2_0_0_scale, Kernel_seq1_0_conv2_0_3_scale, 1, 1, 
-    //             5.436319485306739807e-02,6.804036349058151245e-02, 3.850702568888664246e-02, 74, 60, 66,
-    //             Mu_seq1_0_conv2_0_1,Var_seq1_0_conv2_0_1, Gamma_seq1_0_conv2_0_1, Bias_seq1_0_conv2_0_1, 4.303903132677078247e-02, 62); 
-    // BatchNorm3d(X_data, X_batch_data,X_num, Mu_seq1_0_conv2_1, Var_seq1_0_conv2_1, Gamma_seq1_0_conv2_1, Bias_seq1_0_conv2_1, 3.850702568888664246e-02, 66 ,4.517441987991333008e-02, 68);
-    // // layer1.0
-    // Residual(X_batch_data, X_tmp_data, X_num, 4.517441987991333008e-02, X_scale, 7.029289007186889648e-02, 68, X_zeropoint, 46);
-    // ReLU(X_batch_data, X_data, X_num, 46);
+    Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data, X_data, X_num, 144, 
+                Kernel_1_1_data, Kernel_1_2_data, Kernel_seq1_0_conv1_0_0_scale, Kernel_seq1_0_conv1_0_3_scale, 1, 1, 
+                X_scale, 8.706942945718765259e-02, 4.961582273244857788e-02 ,X_zeropoint, 64, 71,
+                Mu_seq1_0_conv1_0_1, Var_seq1_0_conv1_0_1, Gamma_seq1_0_conv1_0_1, Bias_seq1_0_conv1_0_1, 4.489336907863616943e-02, 60); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
+    BatchNorm3d(X_data, X_batch_data ,X_num, Mu_seq1_0_conv1_1, Var_seq1_0_conv1_1, Gamma_seq1_0_conv1_1, Bias_seq1_0_conv1_1,4.961582273244857788e-02 ,71, 5.436319485306739807e-02, 74);
+    ReLU(X_batch_data, X_data, X_num, 74);
+    Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data,X_data, X_num, 144, 
+                Kernel_1_3_data, Kernel_1_4_data, Kernel_seq1_0_conv2_0_0_scale, Kernel_seq1_0_conv2_0_3_scale, 1, 1, 
+                5.436319485306739807e-02,6.804036349058151245e-02, 3.850702568888664246e-02, 74, 60, 66,
+                Mu_seq1_0_conv2_0_1,Var_seq1_0_conv2_0_1, Gamma_seq1_0_conv2_0_1, Bias_seq1_0_conv2_0_1, 4.303903132677078247e-02, 62); 
+    BatchNorm3d(X_data, X_batch_data,X_num, Mu_seq1_0_conv2_1, Var_seq1_0_conv2_1, Gamma_seq1_0_conv2_1, Bias_seq1_0_conv2_1, 3.850702568888664246e-02, 66 ,4.517441987991333008e-02, 68);
+    // layer1.0
+    Residual(X_batch_data, X_tmp_data, X_num, 4.517441987991333008e-02, X_scale, 7.029289007186889648e-02, 68, X_zeropoint, 46);
+    ReLU(X_batch_data, X_data, X_num, 46);
 
-    // for(int_t i = 0; i < 3211264; i++)
-    //     X_tmp_data[i] = X_data[i];
-    // Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data, X_data, X_num, 144, 
-    //             Kernel_1_5_data, Kernel_1_6_data, Kernel_seq1_1_conv1_0_0_scale, Kernel_seq1_1_conv1_0_3_scale, 1, 1, 
-    //             7.029289007186889648e-02, 9.410868585109710693e-02, 3.386811539530754089e-02, 46, 72, 67,
-    //             Mu_seq1_1_conv1_0_1,Var_seq1_1_conv1_0_1, Gamma_seq1_1_conv1_0_1, Bias_seq1_1_conv1_0_1, 3.406318649649620056e-02, 76); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    // BatchNorm3d(X_data, X_batch_data,X_num, Mu_seq1_1_conv1_1, Var_seq1_1_conv1_1, Gamma_seq1_1_conv1_1, Bias_seq1_1_conv1_1,3.386811539530754089e-02,67,4.148417711257934570e-02, 70);
-    // ReLU(X_batch_data, X_data, X_num, 70);
-    // Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data, X_data, X_num, 144, 
-    //             Kernel_1_7_data, Kernel_1_8_data, Kernel_seq1_1_conv2_0_0_scale, Kernel_seq1_1_conv2_0_3_scale, 1, 1, 
-    //             4.148417711257934570e-02, 3.422784805297851562e-02, 2.731916867196559906e-02, 70, 68, 71,
-    //             Mu_seq1_1_conv2_0_1,Var_seq1_1_conv2_0_1, Gamma_seq1_1_conv2_0_1, Bias_seq1_1_conv2_0_1, 2.891838178038597107e-02,  61); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
-    // BatchNorm3d(X_data, X_batch_data, X_num, Mu_seq1_1_conv2_1, Var_seq1_1_conv2_1, Gamma_seq1_1_conv2_1, Bias_seq1_1_conv2_1,2.731916867196559906e-02, 71, 5.917721241712570190e-02, 53);
-    // // layer1.1
-    // Residual(X_batch_data, X_tmp_data, X_num, 5.917721241712570190e-02, 7.029289007186889648e-02, 7.128605991601943970e-02, 53, 46, 49);
-    // ReLU(X_batch_data, X_data, X_num, 49);
+    for(int_t i = 0; i < 3211264; i++)
+        X_tmp_data[i] = X_data[i];
+    Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data, X_data, X_num, 144, 
+                Kernel_1_5_data, Kernel_1_6_data, Kernel_seq1_1_conv1_0_0_scale, Kernel_seq1_1_conv1_0_3_scale, 1, 1, 
+                7.029289007186889648e-02, 9.410868585109710693e-02, 3.386811539530754089e-02, 46, 72, 67,
+                Mu_seq1_1_conv1_0_1,Var_seq1_1_conv1_0_1, Gamma_seq1_1_conv1_0_1, Bias_seq1_1_conv1_0_1, 3.406318649649620056e-02, 76); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
+    BatchNorm3d(X_data, X_batch_data,X_num, Mu_seq1_1_conv1_1, Var_seq1_1_conv1_1, Gamma_seq1_1_conv1_1, Bias_seq1_1_conv1_1,3.386811539530754089e-02,67,4.148417711257934570e-02, 70);
+    ReLU(X_batch_data, X_data, X_num, 70);
+    Conv2Plus1D(X_data, X_num, X_mid_data, X_batch_data, X_data, X_num, 144, 
+                Kernel_1_7_data, Kernel_1_8_data, Kernel_seq1_1_conv2_0_0_scale, Kernel_seq1_1_conv2_0_3_scale, 1, 1, 
+                4.148417711257934570e-02, 3.422784805297851562e-02, 2.731916867196559906e-02, 70, 68, 71,
+                Mu_seq1_1_conv2_0_1,Var_seq1_1_conv2_0_1, Gamma_seq1_1_conv2_0_1, Bias_seq1_1_conv2_0_1, 2.891838178038597107e-02,  61); // 144 = (inplanes * planes * 3 * 3) / (inplanes * 3 + planes)
+    BatchNorm3d(X_data, X_batch_data, X_num, Mu_seq1_1_conv2_1, Var_seq1_1_conv2_1, Gamma_seq1_1_conv2_1, Bias_seq1_1_conv2_1,2.731916867196559906e-02, 71, 5.917721241712570190e-02, 53);
+    // layer1.1
+    Residual(X_batch_data, X_tmp_data, X_num, 5.917721241712570190e-02, 7.029289007186889648e-02, 7.128605991601943970e-02, 53, 46, 49);
+    ReLU(X_batch_data, X_data, X_num, 49);
 
-    // // =============================================================================
+    // =============================================================================
     // layer 2
     int_t X2_num[5] = {1, 128, 8, 28, 28};
 

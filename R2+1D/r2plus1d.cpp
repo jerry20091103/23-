@@ -167,13 +167,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
     stride[0] = 1; stride[1] = 1; stride[2] = 1;
     padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBR(X_data, X_num, 8, 
-		X_mid_data, Y_num, 8, 
-		Kernel_seq1_0_conv2_0_0, Kernel_num, 
+    CBRR(X_mid_data, X_stem_2, X_num, 8, 
+		X_data, X_tmp_data, Y_num, 8, 
+		Kernel_seq1_0_conv2_0_3, Kernel_num,
 		stride, padding, 
-		62, 4.303903132677078247e-02,
-        Kernel_seq1_0_conv2_0_0_scale, Mu_seq1_0_conv2_0_1, Var_seq1_0_conv2_0_1, Gamma_seq1_0_conv2_0_1, Bias_seq1_0_conv2_0_1);
-
+		62, 4.303903132677078247e-02, 65, 0.07423608750104904175, 46, 7.029289007186889648e-02, 
+		Kernel_seq1_0_conv2_0_3_scale, Mu_seq1_0_conv2_1, Var_seq1_0_conv2_1, Gamma_seq1_0_conv2_1, Bias_seq1_0_conv2_1);
+    
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq1_0_conv2_0_3[i];
 

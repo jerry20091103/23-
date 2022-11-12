@@ -95,10 +95,6 @@ int_t main() {
 	dtype *X_batch_data = (dtype*)malloc(7225344 * sizeof(dtype));
 	dtype *X_mid_data = (dtype*)malloc(7225344 * sizeof(dtype));
 
-	// load input
-	if(!LoadArr<dtype>("input.dat", input, INPUT_SIZE))
-		return 0;
-
 	// load stem kernel
 	if(!LoadArr<ktype>("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadArr<ktype>("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
@@ -115,14 +111,14 @@ int_t main() {
 
 	// // load layer2 kernel
 	// if(!LoadArr<ktype>(kernel_2_dat_name[0], Kernel_seq2_0_conv1_0_0, 132480)) return 0;
-//	if(!LoadArr<ktype>(kernel_2_dat_name[1], Kernel_seq2_0_conv1_0_3, 88320)) return 0;
-//	if(!LoadArr<ktype>(kernel_2_dat_name[2], Kernel_seq2_0_conv2_0_0, 264960)) return 0;
-//	if(!LoadArr<ktype>(kernel_2_dat_name[3], Kernel_seq2_0_conv2_0_3, 88320)) return 0;
-//	if(!LoadArr<ktype>(kernel_2_dat_name[4], Kernel_seq2_0_downsample_0, 8192)) return 0;
-//	if(!LoadArr<ktype>(kernel_2_dat_name[5], Kernel_seq2_1_conv1_0_0, 331776)) return 0;
-//	if(!LoadArr<ktype>(kernel_2_dat_name[6], Kernel_seq2_1_conv1_0_3, 110592)) return 0;
-//	if(!LoadArr<ktype>(kernel_2_dat_name[7], Kernel_seq2_1_conv2_0_0, 331776)) return 0;
-//	if(!LoadArr<ktype>(kernel_2_dat_name[8], Kernel_seq2_1_conv2_0_3, 110592)) return 0;
+	// if(!LoadArr<ktype>(kernel_2_dat_name[1], Kernel_seq2_0_conv1_0_3, 88320)) return 0;
+	// if(!LoadArr<ktype>(kernel_2_dat_name[2], Kernel_seq2_0_conv2_0_0, 264960)) return 0;
+	// if(!LoadArr<ktype>(kernel_2_dat_name[3], Kernel_seq2_0_conv2_0_3, 88320)) return 0;
+	// if(!LoadArr<ktype>(kernel_2_dat_name[4], Kernel_seq2_0_downsample_0, 8192)) return 0;
+	// if(!LoadArr<ktype>(kernel_2_dat_name[5], Kernel_seq2_1_conv1_0_0, 331776)) return 0;
+	// if(!LoadArr<ktype>(kernel_2_dat_name[6], Kernel_seq2_1_conv1_0_3, 110592)) return 0;
+	// if(!LoadArr<ktype>(kernel_2_dat_name[7], Kernel_seq2_1_conv2_0_0, 331776)) return 0;
+	// if(!LoadArr<ktype>(kernel_2_dat_name[8], Kernel_seq2_1_conv2_0_3, 110592)) return 0;
 //
 //	// load layer3 kernel
 //	if(!LoadArr<ktype>(kernel_3_dat_name[0], Kernel_seq3_0_conv1_0_0, 529920)) return 0;
@@ -149,7 +145,10 @@ int_t main() {
 //	// load linear kernel
 //	if(!LoadArr<ktype>(fc_dat_name[0], Kernel_linear, 5120)) return 0;
 
+	// load input / output
+	if(!LoadArr<dtype>("input.dat", 					input, 			INPUT_SIZE)) return 0;
 	if(!LoadArr<dtype>("output.dat", 			 output_golden, 	  OUTPUT_SIZE)) return 0;
+	// if(!LoadArr<dtype>("tmp.dat", 			 		X_stem_2, 	  OUTPUT_SIZE)) return 0;
 
 	// ====================================
 	// Function to test here:

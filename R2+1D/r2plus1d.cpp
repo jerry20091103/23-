@@ -77,12 +77,12 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     int_t Kernel_num[3] = {1, 7, 7};
     int_t stride[3] = {1, 2, 2};
     int_t padding[3] = {0, 3, 3};
-    // CBR(X, X_num, 1, 
-	// 	X_stem_1, Y_num, 5, 
-	// 	Kernel_stem_0, Kernel_num, 
-	// 	stride, padding, 
-	// 	56, 3.756307810544967651e-02, 55, 0.07323520630598068237, 
-    //     Kernel_stem_0_scale, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1);
+    CBR(X, X_num, 1, 
+		X_stem_1, Y_num, 5, 
+		Kernel_stem_0, Kernel_num, 
+		stride, padding, 
+		56, 3.756307810544967651e-02, 60, 0.4609071612358093262, 55, 0.07323520630598068237, 
+        Kernel_stem_0_scale, Mu_stem_1, Var_stem_1, Gamma_stem_1, Bias_stem_1);
     
     // X_num[0] = 1; X_num[1] = 45; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
     // Y_num[0] = 1; Y_num[1] = 64; Y_num[2] = 16; Y_num[3] = 56; Y_num[4] = 56;
@@ -197,21 +197,21 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 	// 	61, 2.891838178038597107e-02, 46, 7.029289007186889648e-02, 49, 7.128605991601943970e-02, 
 	// 	Kernel_seq1_1_conv2_0_3_scale, Mu_seq1_1_conv2_1, Var_seq1_1_conv2_1, Gamma_seq1_1_conv2_1, Bias_seq1_1_conv2_1);
     
-    // // ======= CSIM PASS =====
+    // ======= CSIM PASS =====
     
-    // ========================Sequential 2==================================
-    //                      ====basicblock 0=================================
-    X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 16; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 2; stride[2] = 2;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR(X_data, X_num, 8, 
-		X_mid_data, Y_num, 32, 
-		Kernel_seq2_0_conv1_0_0, Kernel_num, 
-		stride, padding, 
-		49, 7.128605991601943970e-02, 66, 3.834486752748489380e-02, 
-        Kernel_seq2_0_conv1_0_0_scale, Mu_seq2_0_conv1_0_1, Var_seq2_0_conv1_0_1, Gamma_seq2_0_conv1_0_1, Bias_seq2_0_conv1_0_1);
+    // // ========================Sequential 2==================================
+    // //                      ====basicblock 0=================================
+    // X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
+    // Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 16; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
+    // stride[0] = 1; stride[1] = 2; stride[2] = 2;
+    // padding[0] = 0; padding[1] = 1; padding[2] = 1;
+    // CBR(X_data, X_num, 8, 
+	// 	X_mid_data, Y_num, 32, 
+	// 	Kernel_seq2_0_conv1_0_0, Kernel_num, 
+	// 	stride, padding, 
+	// 	49, 7.128605991601943970e-02, 66, 3.834486752748489380e-02, 
+    //     Kernel_seq2_0_conv1_0_0_scale, Mu_seq2_0_conv1_0_1, Var_seq2_0_conv1_0_1, Gamma_seq2_0_conv1_0_1, Bias_seq2_0_conv1_0_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_0_conv1_0_0[i];
 
@@ -236,17 +236,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
     
-    X_num[0] = 1; X_num[1] = 230; X_num[2] = 16; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBR(X_mid_data, X_num, 32, 
-		X2_data, Y_num, 64, 
-		Kernel_seq2_0_conv1_0_3, Kernel_num, 
-		stride, padding, 
-		66, 3.834486752748489380e-02, 52, 3.730613738298416138e-02,
-        Kernel_seq2_0_conv1_0_3_scale, Mu_seq2_0_conv1_1, Var_seq2_0_conv1_1, Gamma_seq2_0_conv1_1, Bias_seq2_0_conv1_1);
+    // X_num[0] = 1; X_num[1] = 230; X_num[2] = 16; X_num[3] = 28; X_num[4] = 28;
+    // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
+    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    // padding[0] = 1; padding[1] = 0; padding[2] = 0;
+    // CBR(X_mid_data, X_num, 32, 
+	// 	X2_data, Y_num, 64, 
+	// 	Kernel_seq2_0_conv1_0_3, Kernel_num, 
+	// 	stride, padding, 
+	// 	66, 3.834486752748489380e-02, 52, 3.730613738298416138e-02,
+    //     Kernel_seq2_0_conv1_0_3_scale, Mu_seq2_0_conv1_1, Var_seq2_0_conv1_1, Gamma_seq2_0_conv1_1, Bias_seq2_0_conv1_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_0_conv1_0_3[i];
 
@@ -271,18 +271,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // seq2.0.conv2
-    X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR(X2_data, X_num, 64, 
-		X_mid_data, Y_num, 64, 
-		Kernel_seq2_0_conv2_0_0, Kernel_num, 
-		stride, padding, 
-		52, 3.730613738298416138e-02, 75, 3.696846589446067810e-02, 
-        Kernel_seq2_0_conv2_0_0_scale, Mu_seq2_0_conv2_0_1, Var_seq2_0_conv2_0_1, Gamma_seq2_0_conv2_0_1, Bias_seq2_0_conv2_0_1);
+    // // seq2.0.conv2
+    // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    // Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
+    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    // padding[0] = 0; padding[1] = 1; padding[2] = 1;
+    // CBR(X2_data, X_num, 64, 
+	// 	X_mid_data, Y_num, 64, 
+	// 	Kernel_seq2_0_conv2_0_0, Kernel_num, 
+	// 	stride, padding, 
+	// 	52, 3.730613738298416138e-02, 75, 3.696846589446067810e-02, 
+    //     Kernel_seq2_0_conv2_0_0_scale, Mu_seq2_0_conv2_0_1, Var_seq2_0_conv2_0_1, Gamma_seq2_0_conv2_0_1, Bias_seq2_0_conv2_0_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_0_conv2_0_0[i];
 
@@ -307,18 +307,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // seq2.0.downsample
-    X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 1; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 2; stride[1] = 2; stride[2] = 2;
-    padding[0] = 0; padding[1] = 0; padding[2] = 0;
-    CBR(X_data, X_num, 8, 
-		X_tmp_data, Y_num, 64, 
-		Kernel_seq2_0_downsample_0, Kernel_num, 
-		stride, padding, 
-		49, 7.128605991601943970e-02, 53, 5.571814253926277161e-02, 
-        Kernel_seq2_0_downsample_0_scale, Mu_seq2_0_downsample_1, Var_seq2_0_downsample_1, Gamma_seq2_0_downsample_1, Bias_seq2_0_downsample_1);
+    // // seq2.0.downsample
+    // X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
+    // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 1; Kernel_num[1] = 1; Kernel_num[2] = 1;
+    // stride[0] = 2; stride[1] = 2; stride[2] = 2;
+    // padding[0] = 0; padding[1] = 0; padding[2] = 0;
+    // CBR(X_data, X_num, 8, 
+	// 	X_tmp_data, Y_num, 64, 
+	// 	Kernel_seq2_0_downsample_0, Kernel_num, 
+	// 	stride, padding, 
+	// 	49, 7.128605991601943970e-02, 53, 5.571814253926277161e-02, 
+    //     Kernel_seq2_0_downsample_0_scale, Mu_seq2_0_downsample_1, Var_seq2_0_downsample_1, Gamma_seq2_0_downsample_1, Bias_seq2_0_downsample_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_0_downsample_0[i];
 
@@ -343,17 +343,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    X_num[0] = 1; X_num[1] = 230; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBRR(X_mid_data, X_tmp_data, X_num, 64, 
-		X2_data, X_tmp_data, Y_num, 64, 
-		Kernel_seq2_0_conv2_0_3, Kernel_num,
-		stride, padding, 
-		75, 3.696846589446067810e-02, 53, 5.571814253926277161e-02, 59, 5.941560864448547363e-02, 
-		Kernel_seq2_0_conv2_0_3_scale, Mu_seq2_0_conv2_1, Var_seq2_0_conv2_1, Gamma_seq2_0_conv2_1, Bias_seq2_0_conv2_1);
+    // X_num[0] = 1; X_num[1] = 230; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
+    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    // padding[0] = 1; padding[1] = 0; padding[2] = 0;
+    // CBRR(X_mid_data, X_tmp_data, X_num, 64, 
+	// 	X2_data, X_tmp_data, Y_num, 64, 
+	// 	Kernel_seq2_0_conv2_0_3, Kernel_num,
+	// 	stride, padding, 
+	// 	75, 3.696846589446067810e-02, 53, 5.571814253926277161e-02, 59, 5.941560864448547363e-02, 
+	// 	Kernel_seq2_0_conv2_0_3_scale, Mu_seq2_0_conv2_1, Var_seq2_0_conv2_1, Gamma_seq2_0_conv2_1, Bias_seq2_0_conv2_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_0_conv2_0_3[i];
 
@@ -380,18 +380,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    //                      ====basicblock 1=================================   need to clip kernel
-    X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR_k(X2_data, X_num, 64, 
-		X_mid_data, Y_num, 64, 
-		Kernel_seq2_1_conv1_0_0,  Kernel_num,
-		stride, padding, 
-		59, 5.941560864448547363e-02, 74, 2.571923658251762390e-02, 
-		Kernel_seq2_1_conv1_0_0_scale, Mu_seq2_1_conv1_0_1, Var_seq2_1_conv1_0_1, Gamma_seq2_1_conv1_0_1, Bias_seq2_1_conv1_0_1);
+    // //                      ====basicblock 1=================================   need to clip kernel
+    // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    // Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
+    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    // padding[0] = 0; padding[1] = 1; padding[2] = 1;
+    // CBR_k(X2_data, X_num, 64, 
+	// 	X_mid_data, Y_num, 64, 
+	// 	Kernel_seq2_1_conv1_0_0,  Kernel_num,
+	// 	stride, padding, 
+	// 	59, 5.941560864448547363e-02, 74, 2.571923658251762390e-02, 
+	// 	Kernel_seq2_1_conv1_0_0_scale, Mu_seq2_1_conv1_0_1, Var_seq2_1_conv1_0_1, Gamma_seq2_1_conv1_0_1, Bias_seq2_1_conv1_0_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_1_conv1_0_0[i];
 
@@ -416,17 +416,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBR_k(X_mid_data, X_num, 64, 
-		X2_data, Y_num, 64, 
-		Kernel_seq2_1_conv1_0_3,  Kernel_num,
-		stride, padding, 
-		74, 2.571923658251762390e-02, 69, 4.108780622482299805e-02, 
-		Kernel_seq2_1_conv1_0_3_scale, Mu_seq2_1_conv1_1, Var_seq2_1_conv1_1, Gamma_seq2_1_conv1_1, Bias_seq2_1_conv1_1);
+    // X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
+    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    // padding[0] = 1; padding[1] = 0; padding[2] = 0;
+    // CBR_k(X_mid_data, X_num, 64, 
+	// 	X2_data, Y_num, 64, 
+	// 	Kernel_seq2_1_conv1_0_3,  Kernel_num,
+	// 	stride, padding, 
+	// 	74, 2.571923658251762390e-02, 69, 4.108780622482299805e-02, 
+	// 	Kernel_seq2_1_conv1_0_3_scale, Mu_seq2_1_conv1_1, Var_seq2_1_conv1_1, Gamma_seq2_1_conv1_1, Bias_seq2_1_conv1_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_1_conv1_0_3[i];
 
@@ -451,18 +451,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // seq2.1.conv2
-    X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR_k(X2_data, X_num, 64, 
-		X_mid_data, Y_num, 64, 
-		Kernel_seq2_1_conv2_0_0,  Kernel_num,
-		stride, padding, 
-		69, 4.108780622482299805e-02, 69, 3.150121122598648071e-02, 
-		Kernel_seq2_1_conv2_0_0_scale, Mu_seq2_1_conv2_0_1, Var_seq2_1_conv2_0_1, Gamma_seq2_1_conv2_0_1, Bias_seq2_1_conv2_0_1);
+    // // seq2.1.conv2
+    // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    // Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
+    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    // padding[0] = 0; padding[1] = 1; padding[2] = 1;
+    // CBR_k(X2_data, X_num, 64, 
+	// 	X_mid_data, Y_num, 64, 
+	// 	Kernel_seq2_1_conv2_0_0,  Kernel_num,
+	// 	stride, padding, 
+	// 	69, 4.108780622482299805e-02, 69, 3.150121122598648071e-02, 
+	// 	Kernel_seq2_1_conv2_0_0_scale, Mu_seq2_1_conv2_0_1, Var_seq2_1_conv2_0_1, Gamma_seq2_1_conv2_0_1, Bias_seq2_1_conv2_0_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_1_conv2_0_0[i];
 
@@ -487,17 +487,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBRR_k(X_mid_data, X_tmp_data, X_num, 64, 
-		X2_data, X_tmp_data, Y_num, 64, 
-		Kernel_seq1_1_conv2_0_3, Kernel_num,
-		stride, padding, 
-		69, 3.150121122598648071e-02, 59, 5.941560864448547363e-02, 58, 7.469348609447479248e-02, 
-		Kernel_seq1_1_conv2_0_3_scale, Mu_seq1_1_conv2_1, Var_seq1_1_conv2_1, Gamma_seq1_1_conv2_1, Bias_seq1_1_conv2_1);
+    // X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
+    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    // padding[0] = 1; padding[1] = 0; padding[2] = 0;
+    // CBRR_k(X_mid_data, X_tmp_data, X_num, 64, 
+	// 	X2_data, X_tmp_data, Y_num, 64, 
+	// 	Kernel_seq1_1_conv2_0_3, Kernel_num,
+	// 	stride, padding, 
+	// 	69, 3.150121122598648071e-02, 59, 5.941560864448547363e-02, 58, 7.469348609447479248e-02, 
+	// 	Kernel_seq1_1_conv2_0_3_scale, Mu_seq1_1_conv2_1, Var_seq1_1_conv2_1, Gamma_seq1_1_conv2_1, Bias_seq1_1_conv2_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq1_1_conv2_0_3[i];
 

@@ -59,6 +59,12 @@ void CBRR(dtype* X_data, dtype* X_tmp_data, int_t* X_num, int_t XC,
 		int_t* stride, int_t* padding, 
 		dtype conv_zp, ftype conv_scale, dtype X_tmp_zp, ftype X_tmp_scale, dtype batch_zp, ftype batch_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias);
+void CBRR_k(dtype* X_data, dtype* X_tmp_data, int_t* X_num, int_t XC, 
+		dtype* Y_data, dtype* Y_tmp_data, int_t* Y_num, int_t YC, 
+		ktype* Kernel_data, int_t* Kernel_num,
+		int_t* stride, int_t* padding, 
+		dtype conv_zp, ftype conv_scale, dtype X_tmp_zp, ftype X_tmp_scale, dtype batch_zp, ftype batch_scale, 
+		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias);
 
 #endif
 

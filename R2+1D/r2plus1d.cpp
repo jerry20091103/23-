@@ -433,17 +433,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     // }
 
     //                      ====basicblock 1=================================   need to clip kernel
-    // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    // Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    // padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    // CBR_k(X_data, X_num,  XC, 
-	// 	Y_data, Y_num,  YC, 
-	// 	Kernel_data,  Kernel_num,
-	// 	stride, padding, 
-	// 	conv_zp, conv_scale, batch_zp, batch_scale, 
-	// 	Kernel_scale, Mu, Var, Gamma, Bias)
+    X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
+    stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    padding[0] = 0; padding[1] = 1; padding[2] = 1;
+    CBR_k(X2_data, X_num, 64, 
+		X_mid_data, Y_num, 64, 
+		Kernel_seq2_1_conv1_0_0,  Kernel_num,
+		stride, padding, 
+		59, 5.941560864448547363e-02, 74, 2.571923658251762390e-02, 
+		Kernel_seq2_1_conv1_0_0_scale, Mu_seq2_1_conv1_0_1, Var_seq2_1_conv1_0_1, Gamma_seq2_1_conv1_0_1, Bias_seq2_1_conv1_0_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_1_conv1_0_0[i];
 
@@ -468,12 +468,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    // padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    
+    X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
+    stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    padding[0] = 1; padding[1] = 0; padding[2] = 0;
+    CBR_k(X_mid_data, X_num, 64, 
+		X2_data, Y_num, 64, 
+		Kernel_seq2_1_conv1_0_3,  Kernel_num,
+		stride, padding, 
+		74, 2.571923658251762390e-02, 69, 4.108780622482299805e-02, 
+		Kernel_seq2_1_conv1_0_3_scale, Mu_seq2_1_conv1_1, Var_seq2_1_conv1_1, Gamma_seq2_1_conv1_1, Bias_seq2_1_conv1_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_1_conv1_0_3[i];
 
@@ -498,13 +503,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // // seq2.1.conv2
-    // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    // Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    // Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    // padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    
+    // seq2.1.conv2
+    X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    Y_num[0] = 1; Y_num[1] = 288; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
+    stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    padding[0] = 0; padding[1] = 1; padding[2] = 1;
+    CBR_k(X2_data, X_num, 64, 
+		X_mid_data, Y_num, 64, 
+		Kernel_seq2_1_conv2_0_0,  Kernel_num,
+		stride, padding, 
+		69, 4.108780622482299805e-02, 69, 3.150121122598648071e-02, 
+		Kernel_seq2_1_conv2_0_0_scale, Mu_seq2_1_conv2_0_1, Var_seq2_1_conv2_0_1, Gamma_seq2_1_conv2_0_1, Bias_seq2_1_conv2_0_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq2_1_conv2_0_0[i];
 
@@ -529,12 +539,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //     }
     // }
 
-    // X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    // Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    // stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    // padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    
+    X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
+    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
+    stride[0] = 1; stride[1] = 1; stride[2] = 1;
+    padding[0] = 1; padding[1] = 0; padding[2] = 0;
+    CBRR_k(X_mid_data, X_tmp_data, X_num, 64, 
+		X2_data, X_tmp_data, Y_num, 64, 
+		Kernel_seq1_1_conv2_0_3, Kernel_num,
+		stride, padding, 
+		69, 3.150121122598648071e-02, 59, 5.941560864448547363e-02, 58, 7.469348609447479248e-02, 
+		Kernel_seq1_1_conv2_0_3_scale, Mu_seq1_1_conv2_1, Var_seq1_1_conv2_1, Gamma_seq1_1_conv2_1, Bias_seq1_1_conv2_1);
     // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
     //     Kernel_bram[i] = Kernel_seq1_1_conv2_0_3[i];
 

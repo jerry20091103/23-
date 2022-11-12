@@ -112,14 +112,14 @@ void Sequential(dtype* X_data, dtype* Y_data, int_t* X_num, int_t* Y_num, int_t 
     //             Mu_seq3_0_conv1_0_1, Var_seq3_0_conv1_0_1, Gamma_seq3_0_conv1_0_1, Bias_seq3_0_conv1_0_1, 3.207130357623100281e-02, 55); // 460 = (128 * 256 * 3 * 3) / (128 * 3 + 256)
     // BatchNorm3d(X3_data, X3_batch_data, X3_num, Mu_seq3_0_conv1_1, Var_seq3_0_conv1_1, Gamma_seq3_0_conv1_1, Bias_seq3_0_conv1_1, 3.513325005769729614e-02, 64, 3.827788308262825012e-02, 59);
     // ReLU(X3_batch_data, X3_data, X3_num, 59);
-    // Conv2Plus1D(X3_data, X3_num, X3_mid_data, X3_batch_data, X3_data, X3_num, 460, 
-    //             Kernel_3_3_data, Kernel_3_4_data, Kernel_seq3_0_conv2_0_0_scale, Kernel_seq3_0_conv2_0_3_scale, 1, 1,
-    //             3.827788308262825012e-02, 7.229902595281600952e-02, 3.355694189667701721e-02, 59, 74, 57,
-    //             Mu_seq3_0_conv2_0_1, Var_seq3_0_conv2_0_1, Gamma_seq3_0_conv2_0_1, Bias_seq3_0_conv2_0_1, 2.794230915606021881e-02, 61);
-    // BatchNorm3d(X3_data, X3_batch_data, X3_num, Mu_seq3_0_conv2_1, Var_seq3_0_conv2_1, Gamma_seq3_0_conv2_1, Bias_seq3_0_conv2_1, 3.355694189667701721e-02, 57, 3.775262087583541870e-02, 63);
+    Conv2Plus1D(X3_data, X3_num, X3_mid_data, X3_batch_data, X3_data, X3_num, 460, 
+                Kernel_3_3_data, Kernel_3_4_data, Kernel_seq3_0_conv2_0_0_scale, Kernel_seq3_0_conv2_0_3_scale, 1, 1,
+                3.827788308262825012e-02, 7.229902595281600952e-02, 3.355694189667701721e-02, 59, 74, 57,
+                Mu_seq3_0_conv2_0_1, Var_seq3_0_conv2_0_1, Gamma_seq3_0_conv2_0_1, Bias_seq3_0_conv2_0_1, 2.794230915606021881e-02, 61);
+    BatchNorm3d(X3_data, X3_batch_data, X3_num, Mu_seq3_0_conv2_1, Var_seq3_0_conv2_1, Gamma_seq3_0_conv2_1, Bias_seq3_0_conv2_1, 3.355694189667701721e-02, 57, 3.775262087583541870e-02, 63);
 
-    // Conv3d(X2_tmp_data, X2_num, X3_tmp_data, X3_num, Kernel_3_5_data, Kernel_num, Kernel_seq3_0_downsample_0_scale, stride, padding, 7.469348609447479248e-02, 58, 3.776641562581062317e-02, 72);
-    // BatchNorm3d(X3_tmp_data, X3_tmp_data, X3_num, Mu_seq3_0_downsample_1, Var_seq3_0_downsample_1, Gamma_seq3_0_downsample_1, Bias_seq3_0_downsample_1, 3.776641562581062317e-02, 72, 4.242179170250892639e-02, 52);
+    Conv3d(X2_tmp_data, X2_num, X3_tmp_data, X3_num, Kernel_3_5_data, Kernel_num, Kernel_seq3_0_downsample_0_scale, stride, padding, 7.469348609447479248e-02, 58, 3.776641562581062317e-02, 72);
+    BatchNorm3d(X3_tmp_data, X3_tmp_data, X3_num, Mu_seq3_0_downsample_1, Var_seq3_0_downsample_1, Gamma_seq3_0_downsample_1, Bias_seq3_0_downsample_1, 3.776641562581062317e-02, 72, 4.242179170250892639e-02, 52);
     
     // // layer3.0
     // Residual(X3_batch_data, X3_tmp_data, X3_num, 3.775262087583541870e-02, 4.242179170250892639e-02, 4.819526150822639465e-02, 63, 52, 56);

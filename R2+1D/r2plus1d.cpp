@@ -534,7 +534,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 		X_mid_data, Y_num, 230, 
 		Kernel_seq3_0_conv1_0_0, Kernel_num, 
 		stride, padding, 
-		58, 7.469348609447479248e-02, 55, 3.207130357623100281e-02, 
+		58, 7.469348609447479248e-02, 66, 1.026936098933219910e-01, 55, 3.207130357623100281e-02, 
         Kernel_seq3_0_conv1_0_0_scale, Mu_seq3_0_conv1_0_1, Var_seq3_0_conv1_0_1, Gamma_seq3_0_conv1_0_1, Bias_seq3_0_conv1_0_1);
     
 
@@ -547,7 +547,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 		X3_data, Y_num, 256, 
 		Kernel_seq3_0_conv1_0_3, Kernel_num, 
 		stride, padding, 
-		55, 3.207130357623100281e-02, 59, 3.827788308262825012e-02,
+		55, 3.207130357623100281e-02, 64, 3.513325005769729614e-02, 59, 3.827788308262825012e-02,
         Kernel_seq3_0_conv1_0_3_scale, Mu_seq3_0_conv1_1, Var_seq3_0_conv1_1, Gamma_seq3_0_conv1_1, Bias_seq3_0_conv1_1);
 
     // seq3.0.conv2
@@ -560,10 +560,21 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 		X_mid_data, Y_num, 460, 
 		Kernel_seq3_0_conv2_0_0, Kernel_num, 
 		stride, padding, 
-		59, 3.827788308262825012e-02, 61, 2.794230915606021881e-02, 
+		59, 3.827788308262825012e-02, 74, 7.229902595281600952e-02, 61, 2.794230915606021881e-02, 
         Kernel_seq3_0_conv2_0_0_scale, Mu_seq3_0_conv2_0_1, Var_seq3_0_conv2_0_1, Gamma_seq3_0_conv2_0_1, Bias_seq3_0_conv2_0_1);
     
     // seq3.0.downsample
+    X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
+    Y_num[0] = 1; Y_num[1] = 256; Y_num[2] = 4; Y_num[3] = 14; Y_num[4] = 14;
+    Kernel_num[0] = 1; Kernel_num[1] = 1; Kernel_num[2] = 1;
+    stride[0] = 2; stride[1] = 2; stride[2] = 2;
+    padding[0] = 0; padding[1] = 0; padding[2] = 0;
+    CB(X2_data, X_num, 64, 
+		X_tmp_data, Y_num, 256, 
+		Kernel_seq3_0_downsample_0, Kernel_num, 
+		stride, padding, 
+		58, 7.469348609447479248e-02, 72, 3.776641562581062317e-02, 52, 4.242179170250892639e-02, 
+        Kernel_seq3_0_downsample_0_scale, Mu_seq3_0_downsample_1, Var_seq3_0_downsample_1, Gamma_seq3_0_downsample_1, Bias_seq3_0_downsample_1);
     
 
     // ================================ end ===================

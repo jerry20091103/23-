@@ -69,7 +69,7 @@ void CB(dtype* X_data, int_t* X_num, int_t XC,
 		dtype* Y_data, int_t* Y_num, int_t YC, 
 		ktype* Kernel_data, int_t* Kernel_num,
 		int_t* stride, int_t* padding, 
-		dtype conv_zp, ftype conv_scale, dtype batch_zp, ftype batch_scale, 
+		dtype conv_in_zp, ftype conv_in_scale, dtype conv_out_zp, ftype conv_out_scale, dtype batch_zp, ftype batch_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias);
 #endif
 

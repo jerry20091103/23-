@@ -541,19 +541,19 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 
     // // ======================== AdaptiveAvgPool3d ==================================
 
-    // for(param_t c = 0; c < 512; c++){
-    //     param_t tmp_Y = 0;
-    //     for(param_t kd = 0; kd < 2; kd++)
-    //         for(param_t kh = 0; kh < 7; kh++)
-    //             for(param_t kw = 0; kw < 7; kw++)
-    //                 tmp_Y += X_seq[c*98 + kd*49 + kh*7 + kw];
-    //     X_bram[c] = (ytype)(tmp_Y/98);
-    // }
+    for(int_t c = 0; c < 512; c++){
+        int_t tmp_Y = 0;
+        for(int_t kd = 0; kd < 2; kd++)
+            for(int_t kh = 0; kh < 7; kh++)
+                for(int_t kw = 0; kw < 7; kw++)
+                    tmp_Y += X_seq[c*98 + kd*49 + kh*7 + kw];
+        X_bram[c] = roundf((ftype)tmp_Y/98);//(ytype)(tmp_Y/98);
+    }
 
     // // ======================== Linear ==================================
 
-	// for(param_t i = 0; i < 512; i++)
-    //     Kernel_bram[i] = Kernel_linear[i];
+	for(int_t i = 0; i < 5120; i++)
+        Kernel_bram[i] = Kernel_linear[i];
     
     // for(int c = 0; c < 10; c++){
     //     int yPos = c;

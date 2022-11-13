@@ -70,7 +70,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 
     #pragma HLS BIND_STORAGE variable=X_bram type=RAM_2P impl=URAM
     #pragma HLS ARRAY_RESHAPE variable= X_bram factor=9 type=block
-    // ========================R2Plus1dStem ==================================
+    // // ========================R2Plus1dStem ==================================
 	param_t X_num[5] = {1, 3, 16, 112, 112};
     param_t Y_num[5] = {1, 45, 16, 56, 56};
     param_t Kernel_num[3] = {1, 7, 7};
@@ -557,10 +557,10 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     
     for(int_t c = 0; c < 10; c++){
         int_t yPos = c;
-        param_t tmp_Y = 0;
+        int_t tmp_Y = 0;
         for(int i = 0; i < 512; i++)
-            tmp_Y += Kernel_bram[c*512+i]*((param_t)X_bram[i]-31);
-        tmp_Y = (param_t)roundf((tmp_Y*1.290386915206909180e-01f*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02f) + 127;
+            tmp_Y += Kernel_bram[c*512+i]*((int_t)X_bram[i]-31);
+        tmp_Y = (int_t)roundf((tmp_Y*1.290386915206909180e-01f*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02f) + 127;
         X_linear[yPos] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
     }
 

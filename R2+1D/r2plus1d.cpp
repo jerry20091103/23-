@@ -190,7 +190,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride10[3] = {1, 1, 1};
     param_t padding10[3] = {1, 0, 0};
     CBRR(X_mid_data, X_tmp_data, X_num10, 8, 
-		X_data, X_tmp_data, Y_num10, 8, 
+		X_data, X_batch_data, Y_num10, 8, 
 		Kernel_seq1_1_conv2_0_3, Kernel_num10,
 		stride10, padding10, 
 		61, 2.891838178038597107e-02, 71, 2.731916867196559906e-02, 46, 7.029289007186889648e-02, 53, 5.917721241712570190e-02, 49, 7.128605991601943970e-02, 
@@ -242,7 +242,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride14[3] = {2, 2, 2};
     param_t padding14[3] = {0, 0, 0};
     CB(X_data, X_num14, 8, 
-		X_tmp_data, Y_num14, 64, 
+		X_batch_data, Y_num14, 64, 
 		Kernel_seq2_0_downsample_0, Kernel_num14, 
 		stride14, padding14, 
 		49, 7.128605991601943970e-02, 68, 5.711162462830543518e-02, 53, 5.571814253926277161e-02, 
@@ -253,7 +253,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t Kernel_num15[3] = {3, 1, 1};
     param_t stride15[3] = {1, 1, 1};
     param_t padding15[3] = {1, 0, 0};
-    CBRR(X_mid_data, X_tmp_data, X_num15, 64, 
+    CBRR(X_mid_data, X_batch_data, X_num15, 64, 
 		X2_data, X_tmp_data, Y_num15, 64, 
 		Kernel_seq2_0_conv2_0_3, Kernel_num15,
 		stride15, padding15, 
@@ -304,7 +304,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride19[3] = {1, 1, 1};
     param_t padding19[3] = {1, 0, 0};
     CBRR(X_mid_data, X_tmp_data, X_num19, 64, 
-		X2_data, X_tmp_data, Y_num19, 64, 
+		X2_data, X_batch_data, Y_num19, 64, 
 		Kernel_seq2_1_conv2_0_3, Kernel_num19,
 		stride19, padding19, 
 		69, 3.150121122598648071e-02, 66, 2.438377402722835541e-02, 59, 5.941560864448547363e-02, 70, 6.300298124551773071e-02, 58, 7.469348609447479248e-02, 
@@ -356,7 +356,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride23[3] = {2, 2, 2};
     param_t padding23[3] = {0, 0, 0};
     CB(X2_data, X_num23, 64, 
-		X_tmp_data, Y_num23, 256, 
+		X_batch_data, Y_num23, 256, 
 		Kernel_seq3_0_downsample_0, Kernel_num23, 
 		stride23, padding23, 
 		58, 7.469348609447479248e-02, 72, 3.776641562581062317e-02, 52, 4.242179170250892639e-02, 
@@ -367,7 +367,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t Kernel_num24[3] = {3, 1, 1};
     param_t stride24[3] = {1, 1, 1};
     param_t padding24[3] = {1, 0, 0};
-    CBRR(X_mid_data, X_tmp_data, X_num24, 460, 
+    CBRR(X_mid_data, X_batch_data, X_num24, 460, 
 		X3_data, X_tmp_data, Y_num24, 256, 
 		Kernel_seq3_0_conv2_0_3, Kernel_num24,
 		stride24, padding24, 
@@ -419,7 +419,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride28[3] = {1, 1, 1};
     param_t padding28[3] = {1, 0, 0};
     CBRR(X_mid_data, X_tmp_data, X_num28, 288, 
-		X3_data, X_tmp_data, Y_num28, 256, 
+		X3_data, X_batch_data, Y_num28, 256, 
 		Kernel_seq3_1_conv2_0_3, Kernel_num28,
 		stride28, padding28, 
 		74, 2.272782102227210999e-02, 82, 3.477662429213523865e-02, 56, 4.819526150822639465e-02, 78, 3.744378685951232910e-02, 58, 4.908789321780204773e-02,
@@ -471,7 +471,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride32[3] = {2, 2, 2};
     param_t padding32[3] = {0, 0, 0};
     CB(X3_data, X_num32, 64, 
-		X_tmp_data, Y_num32, 256, 
+		X_batch_data, Y_num32, 256, 
 		Kernel_seq4_0_downsample_0, Kernel_num32, 
 		stride32, padding32, 
 		58, 4.908789321780204773e-02, 60, 2.351688779890537262e-02, 59, 5.310279503464698792e-02,
@@ -482,7 +482,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t Kernel_num33[3] = {3, 1, 1};
     param_t stride33[3] = {1, 1, 1};
     param_t padding33[3] = {1, 0, 0};
-    CBRR(X_mid_data, X_tmp_data, X_num33, 921, 
+    CBRR(X_mid_data, X_batch_data, X_num33, 921, 
 		X_seq, X_tmp_data, Y_num33, 512, 
 		Kernel_seq4_0_conv2_0_3, Kernel_num33,
 		stride33, padding33, 
@@ -534,44 +534,11 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t padding37[3] = {1, 0, 0};
     
     CBRRAL(X_mid_data, X_tmp_data, X_num37, 1152,
-		X_linear, Y_num, 512, 
+		X_linear, Y_num37, 512, 
 		Kernel_seq4_1_conv2_0_3, Kernel_num37, Kernel_linear,
 		stride37, padding37, 
 		63, 2.590175159275531769e-02, 59, 2.505685016512870789e-02, 53, 1.033632829785346985e-01, 42, 1.026933342218399048e-01, 31, 1.290386915206909180e-01,
     Kernel_seq4_1_conv2_0_3_scale, Mu_seq4_1_conv2_1, Var_seq4_1_conv2_1, Gamma_seq4_1_conv2_1, Bias_seq4_1_conv2_1);
-    
-    
-    // CBRR(X_mid_data, X_tmp_data, X_num37, 1152, 
-		// X_seq, X_tmp_data, Y_num37, 512, 
-		// Kernel_seq4_1_conv2_0_3, Kernel_num37,
-		// stride37, padding37, 
-		// 63, 2.590175159275531769e-02, 59, 2.505685016512870789e-02, 53, 1.033632829785346985e-01, 42, 1.026933342218399048e-01, 31, 1.290386915206909180e-01,
-		// Kernel_seq4_1_conv2_0_3_scale, Mu_seq4_1_conv2_1, Var_seq4_1_conv2_1, Gamma_seq4_1_conv2_1, Bias_seq4_1_conv2_1);
-    
-    // // ======================== AdaptiveAvgPool3d ==================================
-
-    // for(int_t c = 0; c < 512; c++){
-    //     int_t tmp_Y = 0;
-    //     for(int_t kd = 0; kd < 2; kd++)
-    //         for(int_t kh = 0; kh < 7; kh++)
-    //             for(int_t kw = 0; kw < 7; kw++)
-    //                 tmp_Y += X_seq[c*98 + kd*49 + kh*7 + kw];
-    //     X_bram[c] = roundf((ftype)tmp_Y/98);//(ytype)(tmp_Y/98);
-    // }
-
-    // // ======================== Linear ==================================
-
-	  // for(int_t i = 0; i < 5120; i++)
-    //     Kernel_bram[i] = Kernel_linear[i];
-    
-    // for(int c = 0; c < 10; c++){
-    //     int yPos = c;
-    //     int_t tmp_Y = 0;
-    //     for(int i = 0; i < 512; i++)
-    //         tmp_Y += Kernel_bram[c*512+i]*((int_t)X_bram[i]-31);
-    //     tmp_Y = (int_t)roundf((tmp_Y*1.290386915206909180e-01*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02) + 127;
-    //     X_linear[yPos] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
-    // }
 
     return;
 }

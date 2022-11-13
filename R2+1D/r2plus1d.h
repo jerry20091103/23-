@@ -6,7 +6,7 @@
 // It works!
 // typedef int8_t dtype;
 typedef uint8_t dtype;
-typedef ap_int<24> ytype;
+typedef ap_int<20> ytype;
 typedef int int_t;
 typedef float ftype;
 typedef int8_t ktype;

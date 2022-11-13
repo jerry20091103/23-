@@ -29,7 +29,7 @@ void Conv3d(dtype* X_data, param_t* X_num, int_t xi, int_t XC, ytype* Y_data, pa
 			for (int_t yh = 0; yh < Y_num[3]; yh++){
 				YW_LOOP:
 				for (int_t yw = 0; yw < Y_num[4]; yw++){
-					#pragma HLS UNROLL factor=4
+					//#pragma HLS UNROLL factor=2
 					int_t yPos = yc*Y_num[2]*Y_num[3]*Y_num[4] + yd*Y_num[3]*Y_num[4] + yh*Y_num[4] + yw;
 					int_t tmp_Y = 0;
 					XC_LOOP:

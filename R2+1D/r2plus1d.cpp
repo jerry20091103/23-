@@ -71,7 +71,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS BIND_STORAGE variable=X_bram type=RAM_2P impl=URAM
     #pragma HLS ARRAY_RESHAPE variable= X_bram factor=9 type=block
     // ========================R2Plus1dStem ==================================
-	param_t X_num[5] = {1, 3, 16, 112, 112};
+	  param_t X_num[5] = {1, 3, 16, 112, 112};
     param_t Y_num[5] = {1, 45, 16, 56, 56};
     param_t Kernel_num[3] = {1, 7, 7};
     param_t stride[3] = {1, 2, 2};
@@ -532,35 +532,44 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t Kernel_num37[3] = {3, 1, 1};
     param_t stride37[3] = {1, 1, 1};
     param_t padding37[3] = {1, 0, 0};
-    CBRR(X_mid_data, X_tmp_data, X_num37, 1152, 
-		X_seq, X_tmp_data, Y_num37, 512, 
-		Kernel_seq4_1_conv2_0_3, Kernel_num37,
+    
+    CBRRAL(X_mid_data, X_tmp_data, X_num37, 1152,
+		X_linear, Y_num, 512, 
+		Kernel_seq4_1_conv2_0_3, Kernel_num37, Kernel_linear,
 		stride37, padding37, 
 		63, 2.590175159275531769e-02, 59, 2.505685016512870789e-02, 53, 1.033632829785346985e-01, 42, 1.026933342218399048e-01, 31, 1.290386915206909180e-01,
-		Kernel_seq4_1_conv2_0_3_scale, Mu_seq4_1_conv2_1, Var_seq4_1_conv2_1, Gamma_seq4_1_conv2_1, Bias_seq4_1_conv2_1);
-
+    Kernel_seq4_1_conv2_0_3_scale, Mu_seq4_1_conv2_1, Var_seq4_1_conv2_1, Gamma_seq4_1_conv2_1, Bias_seq4_1_conv2_1);
+    
+    
+    // CBRR(X_mid_data, X_tmp_data, X_num37, 1152, 
+		// X_seq, X_tmp_data, Y_num37, 512, 
+		// Kernel_seq4_1_conv2_0_3, Kernel_num37,
+		// stride37, padding37, 
+		// 63, 2.590175159275531769e-02, 59, 2.505685016512870789e-02, 53, 1.033632829785346985e-01, 42, 1.026933342218399048e-01, 31, 1.290386915206909180e-01,
+		// Kernel_seq4_1_conv2_0_3_scale, Mu_seq4_1_conv2_1, Var_seq4_1_conv2_1, Gamma_seq4_1_conv2_1, Bias_seq4_1_conv2_1);
+    
     // // ======================== AdaptiveAvgPool3d ==================================
 
-    for(int_t c = 0; c < 512; c++){
-        int_t tmp_Y = 0;
-        for(int_t kd = 0; kd < 2; kd++)
-            for(int_t kh = 0; kh < 7; kh++)
-                for(int_t kw = 0; kw < 7; kw++)
-                    tmp_Y += X_seq[c*98 + kd*49 + kh*7 + kw];
-        X_bram[c] = roundf((ftype)tmp_Y/98);//(ytype)(tmp_Y/98);
-    }
+    // for(int_t c = 0; c < 512; c++){
+    //     int_t tmp_Y = 0;
+    //     for(int_t kd = 0; kd < 2; kd++)
+    //         for(int_t kh = 0; kh < 7; kh++)
+    //             for(int_t kw = 0; kw < 7; kw++)
+    //                 tmp_Y += X_seq[c*98 + kd*49 + kh*7 + kw];
+    //     X_bram[c] = roundf((ftype)tmp_Y/98);//(ytype)(tmp_Y/98);
+    // }
 
     // // ======================== Linear ==================================
 
-	for(int_t i = 0; i < 5120; i++)
-        Kernel_bram[i] = Kernel_linear[i];
+	  // for(int_t i = 0; i < 5120; i++)
+    //     Kernel_bram[i] = Kernel_linear[i];
     
     // for(int c = 0; c < 10; c++){
     //     int yPos = c;
-    //     param_t tmp_Y = 0;
+    //     int_t tmp_Y = 0;
     //     for(int i = 0; i < 512; i++)
-    //         tmp_Y += Kernel_bram[c*512+i]*((param_t)X_bram[i]-31);
-    //     tmp_Y = (param_t)roundf((tmp_Y*1.290386915206909180e-01*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02) + 127;
+    //         tmp_Y += Kernel_bram[c*512+i]*((int_t)X_bram[i]-31);
+    //     tmp_Y = (int_t)roundf((tmp_Y*1.290386915206909180e-01*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02) + 127;
     //     X_linear[yPos] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
     // }
 

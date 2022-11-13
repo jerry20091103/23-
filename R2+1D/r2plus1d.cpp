@@ -185,7 +185,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 		70, 4.148417711257934570e-02, 68, 3.422784805297851562e-02, 61, 2.891838178038597107e-02, 
         Kernel_seq1_1_conv2_0_0_scale, Mu_seq1_1_conv2_0_1, Var_seq1_1_conv2_0_1, Gamma_seq1_1_conv2_0_1, Bias_seq1_1_conv2_0_1);
 
-    int_t X_num10[5] = {1, 114, 16, 56, 56};
+    int_t X_num10[5] = {1, 144, 16, 56, 56};
     int_t Y_num10[5] = {1, 64, 16, 56, 56};
     int_t Kernel_num10[3] = {3, 1, 1};
     int_t stride10[3] = {1, 1, 1};

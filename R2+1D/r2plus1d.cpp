@@ -534,7 +534,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t padding37[3] = {1, 0, 0};
     
     CBRRAL(X_mid_data, X_tmp_data, X_num37, 1152,
-		X_linear, Y_num, 512, 
+		X_linear, Y_num37, 512, 
 		Kernel_seq4_1_conv2_0_3, Kernel_num37, Kernel_linear,
 		stride37, padding37, 
 		63, 2.590175159275531769e-02, 59, 2.505685016512870789e-02, 53, 1.033632829785346985e-01, 42, 1.026933342218399048e-01, 31, 1.290386915206909180e-01,

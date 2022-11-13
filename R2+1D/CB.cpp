@@ -29,8 +29,8 @@ void CB(dtype* X_data, int_t* X_num, int_t XC,
             for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
                 int_t tmp = roundf(Y_bram[offset+k]*conv_in_scale*Kernel_scale[yi*YC+c] / conv_out_scale) + conv_out_zp;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-conv_out_zp)*conv_out_scale - Mu[yi*YC+c]) / sqrtf(Var[yi*YC+c]+0.00001f)) * Gamma[yi*YC+c] + Bias[yi*YC+c]) / batch_scale);
-                Y_data[yi*YC*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = (tmp+batch_zp > 255) ? 255 : (tmp < 0) ? 0 : tmp+batch_zp;
+                tmp = (int_t)roundf(((((tmp-conv_out_zp)*conv_out_scale - Mu[yi*YC+c]) / sqrtf(Var[yi*YC+c]+0.00001f)) * Gamma[yi*YC+c] + Bias[yi*YC+c]) / batch_scale)+batch_zp;
+                Y_data[yi*YC*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
 
             }
         }

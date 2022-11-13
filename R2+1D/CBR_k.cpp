@@ -19,13 +19,12 @@ void CBR_k(dtype* X_data, int_t* X_num, int_t XC,
         for(int_t xi = 0; xi < XI; xi++){
             for(int_t k = 0; k < XC*X_num[2]*X_num[3]*X_num[4]; k++)
                 X_bram[k] = X_data[xi*XC*X_num[2]*X_num[3]*X_num[4]+k];
-            int_t i = 0;
             for(int_t yc = 0; yc < YC; yc++)
-                for(int_t xc = 0; xc < XC; xc++)
+                for(int_t xc = 0; xc < XC && yi*YC+yc < Y_num[1]; xc++)
                     for(int_t j = 0; j < Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; j++){
-                        Kernel_bram[i++] =  Kernel_data[(yi*YC + yc)*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + (xi*XC + xc)*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + j];
+                        Kernel_bram[yc*XC*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]+xc*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]+j] =  Kernel_data[(yi*YC + yc)*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + (xi*XC + xc)*Kernel_num[0]*Kernel_num[1]*Kernel_num[2] + j];
                     }
-            Conv3d_k(X_bram, X_num, xi, XC, Y_bram, Y_num, yi, YC, Kernel_bram, Kernel_num, stride, padding, conv_zp);
+            Conv3d_k(X_bram, X_num, xi, XC, Y_bram, Y_num, yi, YC, Kernel_bram, Kernel_num, stride, padding, conv_in_zp);
         }
         
         for(int_t c = 0; c < YC; c++){

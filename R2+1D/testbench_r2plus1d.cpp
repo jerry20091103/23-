@@ -26,63 +26,6 @@ int_t main() {
 	dtype *output = (dtype*)malloc(OUTPUT_SIZE * sizeof(dtype));
 	dtype *output_golden = (dtype*)malloc(OUTPUT_SIZE * sizeof(dtype));
 
-	ktype *Kernel_stem_0 = (ktype*)malloc(6615 * sizeof(ktype));
-	ktype *Kernel_stem_3 = (ktype*)malloc(8640 * sizeof(ktype));
-
-	ktype *Kernel_seq1_0_conv1_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
-	ktype *Kernel_seq1_0_conv2_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
-	ktype *Kernel_seq1_1_conv1_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
-	ktype *Kernel_seq1_1_conv2_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
-	ktype *Kernel_seq1_0_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
-	ktype *Kernel_seq1_0_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
-	ktype *Kernel_seq1_1_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
-	ktype *Kernel_seq1_1_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
-	// kernel_size=(64, 144, 1, 3, 3),  kernel_size=(64, 144, 3, 1, 1)
-
-	ktype *Kernel_seq2_0_conv1_0_0 = (ktype*)malloc(132480 * sizeof(ktype));
-	ktype *Kernel_seq2_0_conv1_0_3 = (ktype*)malloc(88320 * sizeof(ktype));
-	// kernel_size=(64, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-	ktype *Kernel_seq2_0_conv2_0_0 = (ktype*)malloc(264960 * sizeof(ktype));
-	ktype *Kernel_seq2_0_conv2_0_3 = (ktype*)malloc(88320 * sizeof(ktype));
-	// kernel_size=(128, 230, 1, 3, 3), kernel_size=(128, 230, 3, 1, 1)
-	ktype *Kernel_seq2_0_downsample_0 = (ktype*)malloc(8192 * sizeof(ktype));
-	// kernel_size=(64, 128, 1, 1, 1)
-	ktype *Kernel_seq2_1_conv1_0_0 = (ktype*)malloc(331776 * sizeof(ktype));
-	ktype *Kernel_seq2_1_conv1_0_3 = (ktype*)malloc(110592 * sizeof(ktype));
-	ktype *Kernel_seq2_1_conv2_0_0 = (ktype*)malloc(331776 * sizeof(ktype));
-	ktype *Kernel_seq2_1_conv2_0_3 = (ktype*)malloc(110592 * sizeof(ktype));
-	// kernel_size=(128, 288, 1, 3, 3),  kernel_size=(128, 288, 3, 1, 1)
-
-	ktype *Kernel_seq3_0_conv1_0_0 = (ktype*)malloc(529920 * sizeof(ktype));
-	ktype *Kernel_seq3_0_conv1_0_3 = (ktype*)malloc(353280 * sizeof(ktype));
-	// kernel_size=(128, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-	ktype *Kernel_seq3_0_conv2_0_0 = (ktype*)malloc(1059840 * sizeof(ktype));
-	ktype *Kernel_seq3_0_conv2_0_3 = (ktype*)malloc(353280 * sizeof(ktype));
-	// kernel_size=(256, 460, 1, 3, 3), kernel_size=(256, 460, 3, 1, 1)
-	ktype *Kernel_seq3_0_downsample_0 = (ktype*)malloc(32768 * sizeof(ktype));
-	// kernel_size=(128, 256, 1, 1, 1)
-	ktype *Kernel_seq3_1_conv1_0_0 = (ktype*)malloc(1327104 * sizeof(ktype));
-	ktype *Kernel_seq3_1_conv1_0_3 = (ktype*)malloc(442368 * sizeof(ktype));
-	ktype *Kernel_seq3_1_conv2_0_0 = (ktype*)malloc(1327104 * sizeof(ktype));
-	ktype *Kernel_seq3_1_conv2_0_3 = (ktype*)malloc(442368 * sizeof(ktype));
-	// kernel_size=(256, 576, 1, 3, 3),  kernel_size=(256, 576, 3, 1, 1)
-
-	ktype *Kernel_seq4_0_conv1_0_0 = (ktype*)malloc(2121984 * sizeof(ktype));
-	ktype *Kernel_seq4_0_conv1_0_3 = (ktype*)malloc(1414656 * sizeof(ktype));
-	// kernel_size=(256, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-	ktype *Kernel_seq4_0_conv2_0_0 = (ktype*)malloc(4243968 * sizeof(ktype));
-	ktype *Kernel_seq4_0_conv2_0_3 = (ktype*)malloc(1414656 * sizeof(ktype));
-	// kernel_size=(512, 921, 1, 3, 3), kernel_size=(512, 921, 3, 1, 1)
-	ktype *Kernel_seq4_0_downsample_0 = (ktype*)malloc(131072 * sizeof(ktype));
-	// kernel4size=(256, 512, 1, 1, 1)
-	ktype *Kernel_seq4_1_conv1_0_0 = (ktype*)malloc(5308416 * sizeof(ktype));
-	ktype *Kernel_seq4_1_conv1_0_3 = (ktype*)malloc(1769472 * sizeof(ktype));
-	ktype *Kernel_seq4_1_conv2_0_0 = (ktype*)malloc(5308416 * sizeof(ktype));
-	ktype *Kernel_seq4_1_conv2_0_3 = (ktype*)malloc(1769472 * sizeof(ktype));
-	// kernel_size=(512, 1152, 1, 3, 3),  kernel_size=(512, 1152, 3, 1, 1)
-	// kernel_size=5120
-	ktype *Kernel_linear = (ktype*)malloc(5120 * sizeof(ktype));
-
 	// malloc buffer
 	dtype *X_stem_1 = (dtype*)malloc(2257920 * sizeof(dtype));
 	dtype *X_stem_2 = (dtype*)malloc(3211264 * sizeof(dtype));
@@ -95,19 +38,64 @@ int_t main() {
 	dtype *X_batch_data = (dtype*)malloc(7225344 * sizeof(dtype));
 	dtype *X_mid_data = (dtype*)malloc(7225344 * sizeof(dtype));
 
+	// load kernel
+	ktype *Kernel_stem_0 = (ktype*)malloc(6615 * sizeof(ktype));
+	ktype *Kernel_stem_3 = (ktype*)malloc(8640 * sizeof(ktype));
+
+	ktype *Kernel_seq1_0_conv1_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_0_conv2_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv1_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv2_0_0 = (ktype*)malloc(82944 * sizeof(ktype));
+	ktype *Kernel_seq1_0_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+	ktype *Kernel_seq1_0_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv1_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+	ktype *Kernel_seq1_1_conv2_0_3 = (ktype*)malloc(27648 * sizeof(ktype));
+
+	ktype *Kernel_seq2_0_conv1_0_0 = (ktype*)malloc(132480 * sizeof(ktype));
+	ktype *Kernel_seq2_0_conv1_0_3 = (ktype*)malloc(88320 * sizeof(ktype));
+	ktype *Kernel_seq2_0_conv2_0_0 = (ktype*)malloc(264960 * sizeof(ktype));
+	ktype *Kernel_seq2_0_conv2_0_3 = (ktype*)malloc(88320 * sizeof(ktype));
+	ktype *Kernel_seq2_0_downsample_0 = (ktype*)malloc(8192 * sizeof(ktype));
+	ktype *Kernel_seq2_1_conv1_0_0 = (ktype*)malloc(331776 * sizeof(ktype));
+	ktype *Kernel_seq2_1_conv1_0_3 = (ktype*)malloc(110592 * sizeof(ktype));
+	ktype *Kernel_seq2_1_conv2_0_0 = (ktype*)malloc(331776 * sizeof(ktype));
+	ktype *Kernel_seq2_1_conv2_0_3 = (ktype*)malloc(110592 * sizeof(ktype));
+
+	ktype *Kernel_seq3_0_conv1_0_0 = (ktype*)malloc(529920 * sizeof(ktype));
+	ktype *Kernel_seq3_0_conv1_0_3 = (ktype*)malloc(353280 * sizeof(ktype));
+	ktype *Kernel_seq3_0_conv2_0_0 = (ktype*)malloc(1059840 * sizeof(ktype));
+	ktype *Kernel_seq3_0_conv2_0_3 = (ktype*)malloc(353280 * sizeof(ktype));
+	ktype *Kernel_seq3_0_downsample_0 = (ktype*)malloc(32768 * sizeof(ktype));
+	ktype *Kernel_seq3_1_conv1_0_0 = (ktype*)malloc(1327104 * sizeof(ktype));
+	ktype *Kernel_seq3_1_conv1_0_3 = (ktype*)malloc(442368 * sizeof(ktype));
+	ktype *Kernel_seq3_1_conv2_0_0 = (ktype*)malloc(1327104 * sizeof(ktype));
+	ktype *Kernel_seq3_1_conv2_0_3 = (ktype*)malloc(442368 * sizeof(ktype));
+
+	ktype *Kernel_seq4_0_conv1_0_0 = (ktype*)malloc(2121984 * sizeof(ktype));
+	ktype *Kernel_seq4_0_conv1_0_3 = (ktype*)malloc(1414656 * sizeof(ktype));
+	ktype *Kernel_seq4_0_conv2_0_0 = (ktype*)malloc(4243968 * sizeof(ktype));
+	ktype *Kernel_seq4_0_conv2_0_3 = (ktype*)malloc(1414656 * sizeof(ktype));
+	ktype *Kernel_seq4_0_downsample_0 = (ktype*)malloc(131072 * sizeof(ktype));
+	ktype *Kernel_seq4_1_conv1_0_0 = (ktype*)malloc(5308416 * sizeof(ktype));
+	ktype *Kernel_seq4_1_conv1_0_3 = (ktype*)malloc(1769472 * sizeof(ktype));
+	ktype *Kernel_seq4_1_conv2_0_0 = (ktype*)malloc(5308416 * sizeof(ktype));
+	ktype *Kernel_seq4_1_conv2_0_3 = (ktype*)malloc(1769472 * sizeof(ktype));
+
+	ktype *Kernel_linear = (ktype*)malloc(5120 * sizeof(ktype));
+
 	// load stem kernel
 	if(!LoadArr<ktype>("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadArr<ktype>("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
 
-	// // load layer1 kernel
-	// if(!LoadArr<ktype>(kernel_1_dat_name[0], Kernel_seq1_0_conv1_0_0, 82944)) return 0;
-	// if(!LoadArr<ktype>(kernel_1_dat_name[1], Kernel_seq1_0_conv1_0_3, 27648)) return 0;
-	// if(!LoadArr<ktype>(kernel_1_dat_name[2], Kernel_seq1_0_conv2_0_0, 82944)) return 0;
-	// if(!LoadArr<ktype>(kernel_1_dat_name[3], Kernel_seq1_0_conv2_0_3, 27648)) return 0;
-	// if(!LoadArr<ktype>(kernel_1_dat_name[4], Kernel_seq1_1_conv1_0_0, 82944)) return 0;
-	// if(!LoadArr<ktype>(kernel_1_dat_name[5], Kernel_seq1_1_conv1_0_3, 27648)) return 0;
-	// if(!LoadArr<ktype>(kernel_1_dat_name[6], Kernel_seq1_1_conv2_0_0, 82944)) return 0;
-	// if(!LoadArr<ktype>(kernel_1_dat_name[7], Kernel_seq1_1_conv2_0_3, 27648)) return 0;
+	// load layer1 kernel
+	if(!LoadArr<ktype>(kernel_1_dat_name[0], Kernel_seq1_0_conv1_0_0, 82944)) return 0;
+	if(!LoadArr<ktype>(kernel_1_dat_name[1], Kernel_seq1_0_conv1_0_3, 27648)) return 0;
+	if(!LoadArr<ktype>(kernel_1_dat_name[2], Kernel_seq1_0_conv2_0_0, 82944)) return 0;
+	if(!LoadArr<ktype>(kernel_1_dat_name[3], Kernel_seq1_0_conv2_0_3, 27648)) return 0;
+	if(!LoadArr<ktype>(kernel_1_dat_name[4], Kernel_seq1_1_conv1_0_0, 82944)) return 0;
+	if(!LoadArr<ktype>(kernel_1_dat_name[5], Kernel_seq1_1_conv1_0_3, 27648)) return 0;
+	if(!LoadArr<ktype>(kernel_1_dat_name[6], Kernel_seq1_1_conv2_0_0, 82944)) return 0;
+	if(!LoadArr<ktype>(kernel_1_dat_name[7], Kernel_seq1_1_conv2_0_3, 27648)) return 0;
 
 	// // load layer2 kernel
 	// if(!LoadArr<ktype>(kernel_2_dat_name[0], Kernel_seq2_0_conv1_0_0, 132480)) return 0;
@@ -119,36 +107,35 @@ int_t main() {
 	// if(!LoadArr<ktype>(kernel_2_dat_name[6], Kernel_seq2_1_conv1_0_3, 110592)) return 0;
 	// if(!LoadArr<ktype>(kernel_2_dat_name[7], Kernel_seq2_1_conv2_0_0, 331776)) return 0;
 	// if(!LoadArr<ktype>(kernel_2_dat_name[8], Kernel_seq2_1_conv2_0_3, 110592)) return 0;
-//
-//	// load layer3 kernel
-//	if(!LoadArr<ktype>(kernel_3_dat_name[0], Kernel_seq3_0_conv1_0_0, 529920)) return 0;
-//	if(!LoadArr<ktype>(kernel_3_dat_name[1], Kernel_seq3_0_conv1_0_3, 353280)) return 0;
-//	if(!LoadArr<ktype>(kernel_3_dat_name[2], Kernel_seq3_0_conv2_0_0, 1059840)) return 0;
-//	if(!LoadArr<ktype>(kernel_3_dat_name[3], Kernel_seq3_0_conv2_0_3, 353280)) return 0;
-//	if(!LoadArr<ktype>(kernel_3_dat_name[4], Kernel_seq3_0_downsample_0, 32768)) return 0;
-//	if(!LoadArr<ktype>(kernel_3_dat_name[5], Kernel_seq3_1_conv1_0_0, 1327104)) return 0;
-//	if(!LoadArr<ktype>(kernel_3_dat_name[6], Kernel_seq3_1_conv1_0_3, 442368)) return 0;
-//	if(!LoadArr<ktype>(kernel_3_dat_name[7], Kernel_seq3_1_conv2_0_0, 1327104)) return 0;
-//	if(!LoadArr<ktype>(kernel_3_dat_name[8], Kernel_seq3_1_conv2_0_3, 442368)) return 0;
-//
-//	// load layer4 kernel
-//	if(!LoadArr<ktype>(kernel_4_dat_name[0], Kernel_seq4_0_conv1_0_0, 2121984)) return 0;
-//	if(!LoadArr<ktype>(kernel_4_dat_name[1], Kernel_seq4_0_conv1_0_3, 1414656)) return 0;
-//	if(!LoadArr<ktype>(kernel_4_dat_name[2], Kernel_seq4_0_conv2_0_0, 4243968)) return 0;
-//	if(!LoadArr<ktype>(kernel_4_dat_name[3], Kernel_seq4_0_conv2_0_3, 1414656)) return 0;
-//	if(!LoadArr<ktype>(kernel_4_dat_name[4], Kernel_seq4_0_downsample_0, 131072)) return 0;
-//	if(!LoadArr<ktype>(kernel_4_dat_name[5], Kernel_seq4_1_conv1_0_0, 5308416)) return 0;
-//	if(!LoadArr<ktype>(kernel_4_dat_name[6], Kernel_seq4_1_conv1_0_3, 1769472)) return 0;
-//	if(!LoadArr<ktype>(kernel_4_dat_name[7], Kernel_seq4_1_conv2_0_0, 5308416)) return 0;
-//	if(!LoadArr<ktype>(kernel_4_dat_name[8], Kernel_seq4_1_conv2_0_3, 1769472)) return 0;
-//
-//	// load linear kernel
-//	if(!LoadArr<ktype>(fc_dat_name[0], Kernel_linear, 5120)) return 0;
+
+	// // load layer3 kernel
+	// if(!LoadArr<ktype>(kernel_3_dat_name[0], Kernel_seq3_0_conv1_0_0, 529920)) return 0;
+	// if(!LoadArr<ktype>(kernel_3_dat_name[1], Kernel_seq3_0_conv1_0_3, 353280)) return 0;
+	// if(!LoadArr<ktype>(kernel_3_dat_name[2], Kernel_seq3_0_conv2_0_0, 1059840)) return 0;
+	// if(!LoadArr<ktype>(kernel_3_dat_name[3], Kernel_seq3_0_conv2_0_3, 353280)) return 0;
+	// if(!LoadArr<ktype>(kernel_3_dat_name[4], Kernel_seq3_0_downsample_0, 32768)) return 0;
+	// if(!LoadArr<ktype>(kernel_3_dat_name[5], Kernel_seq3_1_conv1_0_0, 1327104)) return 0;
+	// if(!LoadArr<ktype>(kernel_3_dat_name[6], Kernel_seq3_1_conv1_0_3, 442368)) return 0;
+	// if(!LoadArr<ktype>(kernel_3_dat_name[7], Kernel_seq3_1_conv2_0_0, 1327104)) return 0;
+	// if(!LoadArr<ktype>(kernel_3_dat_name[8], Kernel_seq3_1_conv2_0_3, 442368)) return 0;
+
+	// // load layer4 kernel
+	// if(!LoadArr<ktype>(kernel_4_dat_name[0], Kernel_seq4_0_conv1_0_0, 2121984)) return 0;
+	// if(!LoadArr<ktype>(kernel_4_dat_name[1], Kernel_seq4_0_conv1_0_3, 1414656)) return 0;
+	// if(!LoadArr<ktype>(kernel_4_dat_name[2], Kernel_seq4_0_conv2_0_0, 4243968)) return 0;
+	// if(!LoadArr<ktype>(kernel_4_dat_name[3], Kernel_seq4_0_conv2_0_3, 1414656)) return 0;
+	// if(!LoadArr<ktype>(kernel_4_dat_name[4], Kernel_seq4_0_downsample_0, 131072)) return 0;
+	// if(!LoadArr<ktype>(kernel_4_dat_name[5], Kernel_seq4_1_conv1_0_0, 5308416)) return 0;
+	// if(!LoadArr<ktype>(kernel_4_dat_name[6], Kernel_seq4_1_conv1_0_3, 1769472)) return 0;
+	// if(!LoadArr<ktype>(kernel_4_dat_name[7], Kernel_seq4_1_conv2_0_0, 5308416)) return 0;
+	// if(!LoadArr<ktype>(kernel_4_dat_name[8], Kernel_seq4_1_conv2_0_3, 1769472)) return 0;
+
+	// // load linear kernel
+	// if(!LoadArr<ktype>(fc_dat_name[0], Kernel_linear, 5120)) return 0;
 
 	// load input / output
 	if(!LoadArr<dtype>("input.dat", 					input, 			INPUT_SIZE)) return 0;
 	if(!LoadArr<dtype>("output.dat", 			 output_golden, 	  OUTPUT_SIZE)) return 0;
-	// if(!LoadArr<dtype>("tmp.dat", 			 		X_stem_2, 	  OUTPUT_SIZE)) return 0;
 
 	// ====================================
 	// Function to test here:
@@ -164,7 +151,7 @@ int_t main() {
 
 	// calculate errors
 	ftype errors;
-	errors = 100 * ftype(validate_file(X_stem_2, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
+	errors = 100 * ftype(validate_file(X_data, output_golden, OUTPUT_STRUCTURE, outfile)) / OUTPUT_SIZE;
 	
 	if (errors != 0) {
 		printf("[FAIL] There are some errors QQ, error rate: %f%\n", errors);

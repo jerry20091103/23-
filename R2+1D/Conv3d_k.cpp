@@ -20,14 +20,13 @@ void Conv3d_k(dtype* X_data, int_t* X_num, int_t xi, int_t XC, ytype* Y_data, in
 	int_t YD = Y_num[2]; // (D+2*padding[0]-KD)/stride[0] + 1
 	int_t YH = Y_num[3]; // (H+2*padding[1]-KH)/stride[1] + 1
 	int_t YW = Y_num[4]; // (W+2*padding[2]-KW)/stride[2] + 1
-	int_t i = 0;
-	for(int_t yc = 0; yc < YC/* && yi*YC+yc < Y_num[1]*/; yc++)
+	for(int_t yc = 0; yc < YC && yi*YC+yc < Y_num[1]; yc++)
 		for (int_t yd = 0; yd < YD; yd++)
 			for (int_t yh = 0; yh < YH; yh++)
 				for (int_t yw = 0; yw < YW; yw++){
 					int_t yPos = yc*YD*YH*YW + yd*YH*YW + yh*YW + yw;
 					int_t tmp_Y = 0;
-					for(int_t xc = 0; xc < XC; xc++)
+					for(int_t xc = 0; xc < XC && xi*XC+xc < X_num[1]; xc++)
 						for(int_t kd = 0; kd < KD; kd++)
 							for(int_t kh = 0; kh < KH; kh++)
 								for(int_t kw = 0; kw < KW; kw++){

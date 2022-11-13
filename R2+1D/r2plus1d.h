@@ -10,6 +10,7 @@ typedef ap_int<24> ytype;
 typedef int int_t;
 typedef float ftype;
 typedef int8_t ktype;
+typedef const int16_t cparam_t;
 #include "inner_data.h"
 void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             ktype* Kernel_seq1_0_conv1_0_0, ktype* Kernel_seq1_0_conv1_0_3, ktype* Kernel_seq1_0_conv2_0_0, ktype* Kernel_seq1_0_conv2_0_3, ktype* Kernel_seq1_1_conv1_0_0, ktype* Kernel_seq1_1_conv1_0_3, ktype* Kernel_seq1_1_conv2_0_0, ktype* Kernel_seq1_1_conv2_0_3,

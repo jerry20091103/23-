@@ -52,7 +52,7 @@ void CBRRAL(dtype* X_data, dtype* X_tmp_data, param_t* X_num, int_t XC,
         int_t tmp_Y = 0;
         for(int i = 0; i < 512; i++)
             tmp_Y += Kernel_bram[c*512+i]*((int_t)Y_bram[i]-31);
-        tmp_Y = (int_t)roundf((tmp_Y*1.290386915206909180e-01*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02) + 127;
+        tmp_Y = (int_t)roundf((tmp_Y*1.290386915206909180e-01f*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02f) + 127;
         Y_data[c] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
     }
 

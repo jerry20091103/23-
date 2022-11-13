@@ -33,7 +33,6 @@ int_t main() {
 	dtype *X2_data = (dtype*)malloc(802816 * sizeof(dtype));
 	dtype *X3_data = (dtype*)malloc(200704 * sizeof(dtype));
 	dtype *X_seq = (dtype*)malloc(50176 * sizeof(dtype));
-	dtype *X_adap = (dtype*)malloc(512 * sizeof(dtype));
 	dtype *X_tmp_data = (dtype*)malloc(3211264 * sizeof(dtype));
 	dtype *X_batch_data = (dtype*)malloc(7225344 * sizeof(dtype));
 	dtype *X_mid_data = (dtype*)malloc(7225344 * sizeof(dtype));
@@ -218,7 +217,6 @@ int_t main() {
 	free(X2_data);
 	free(X3_data);
 	free(X_seq);
-	free(X_adap);
 	free(X_tmp_data);
 	free(X_batch_data);
 	free(X_mid_data);

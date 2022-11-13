@@ -547,7 +547,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t kh = 0; kh < 7; kh++)
                 for(int_t kw = 0; kw < 7; kw++)
                     tmp_Y += X_seq[c*98 + kd*49 + kh*7 + kw];
-        X_bram[c] = roundf((ftype)tmp_Y/98);//(ytype)(tmp_Y/98);
+        X_bram[c] = roundf((ftype)tmp_Y/98);
     }
 
     // // ======================== Linear ==================================
@@ -555,14 +555,14 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 	for(int_t i = 0; i < 5120; i++)
         Kernel_bram[i] = Kernel_linear[i];
     
-    // for(int c = 0; c < 10; c++){
-    //     int yPos = c;
-    //     param_t tmp_Y = 0;
-    //     for(int i = 0; i < 512; i++)
-    //         tmp_Y += Kernel_bram[c*512+i]*((param_t)X_bram[i]-31);
-    //     tmp_Y = (param_t)roundf((tmp_Y*1.290386915206909180e-01*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02) + 127;
-    //     X_linear[yPos] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
-    // }
+    for(int_t c = 0; c < 10; c++){
+        int_t yPos = c;
+        param_t tmp_Y = 0;
+        for(int i = 0; i < 512; i++)
+            tmp_Y += Kernel_bram[c*512+i]*((param_t)X_bram[i]-31);
+        tmp_Y = (param_t)roundf((tmp_Y*1.290386915206909180e-01f*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02f) + 127;
+        X_linear[yPos] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
+    }
 
     return;
 }

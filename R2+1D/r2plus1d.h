@@ -10,7 +10,7 @@ typedef ap_int<24> ytype;
 typedef int int_t;
 typedef float ftype;
 typedef int8_t ktype;
-typedef const int16_t cparam_t;
+typedef int16_t param_t;
 #include "inner_data.h"
 void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             ktype* Kernel_seq1_0_conv1_0_0, ktype* Kernel_seq1_0_conv1_0_3, ktype* Kernel_seq1_0_conv2_0_0, ktype* Kernel_seq1_0_conv2_0_3, ktype* Kernel_seq1_1_conv1_0_0, ktype* Kernel_seq1_1_conv1_0_3, ktype* Kernel_seq1_1_conv2_0_0, ktype* Kernel_seq1_1_conv2_0_3,
@@ -22,7 +22,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             dtype* X_tmp_data, dtype* X_batch_data, dtype* X_mid_data);
 // void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, ytype* Y_data, int_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding,  ftype scale_in, dtype zp_in, ftype scale_out);
 
-void Conv3d(dtype* X_data, int_t* X_num, int_t XI, int_t XC, ytype* Y_data, int_t* Y_num, int_t YI, int_t YC, ktype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, dtype zp_in);
+void Conv3d(dtype* X_data, param_t* X_num, int_t XI, int_t XC, ytype* Y_data, param_t* Y_num, int_t YI, int_t YC, ktype* Kernel_data, param_t* Kernel_num, param_t* stride, param_t* padding, dtype zp_in);
 void BatchNorm3d(dtype* X_data, dtype* Y_data, int_t* X_num, ftype* mu_, ftype* var_, ftype* r, ftype* b, ftype scale_in, dtype zp_in, ftype scale_out, dtype zp_out);
 void ReLU(dtype* X_data, dtype* Y_data, int_t* X_num, dtype zp);
 void Conv2Plus1D(dtype* X_data, int_t* X_num, dtype* X_mid_data, dtype* X_batch_data, dtype* X_out_data, int_t* X_out_num, int_t midplanes,
@@ -41,29 +41,29 @@ void Sequential(dtype* X_data, dtype* X2_data, dtype* X3_data, dtype* X4_data,
 void Residual(dtype* X, dtype* X_tmp, int_t* size, ftype X_scale, ftype X_tmp_scale, ftype out_scale, dtype X_zeropoint, dtype X_tmp_zeropoint, dtype out_zeropoint);
 void AdaptiveAvgPool3d(dtype* X_data, dtype* Y_data);
 void Linear(dtype* X_data, int_t* X_num, dtype* Y_data, ktype* Kernel);
-void Conv3d_k(dtype* X_data, int_t* X_num, int_t xi, int_t XC, ytype* Y_data, int_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, int_t* Kernel_num, int_t* stride, int_t* padding, dtype zp_in);
-void CBR(dtype* X_data, int_t* X_num, int_t XC, 
-		dtype* Y_data, int_t* Y_num, int_t YC, 
-		ktype* Kernel_data, int_t* Kernel_num,
-		int_t* stride, int_t* padding, 
+void Conv3d_k(dtype* X_data, param_t* X_num, int_t xi, int_t XC, ytype* Y_data, param_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, param_t* Kernel_num, param_t* stride, param_t* padding, dtype zp_in);
+void CBR(dtype* X_data, param_t* X_num, int_t XC, 
+		dtype* Y_data, param_t* Y_num, int_t YC, 
+		ktype* Kernel_data, param_t* Kernel_num,
+		param_t* stride, param_t* padding, 
 		dtype conv_in_zp, ftype conv_in_scale, dtype conv_out_zp, ftype conv_out_scale, dtype batch_zp, ftype batch_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias);
-void CBR_k(dtype* X_data, int_t* X_num, int_t XC, 
-		dtype* Y_data, int_t* Y_num, int_t YC, 
-		ktype* Kernel_data, int_t* Kernel_num,
-		int_t* stride, int_t* padding, 
+void CBR_k(dtype* X_data, param_t* X_num, int_t XC, 
+		dtype* Y_data, param_t* Y_num, int_t YC, 
+		ktype* Kernel_data, param_t* Kernel_num,
+		param_t* stride, param_t* padding, 
 		dtype conv_in_zp, ftype conv_in_scale, dtype conv_out_zp, ftype conv_out_scale, dtype batch_zp, ftype batch_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias);
-void CBRR(dtype* X_data, dtype* X_tmp_data, int_t* X_num, int_t XC, 
-		dtype* Y_data, dtype* Y_tmp_data, int_t* Y_num, int_t YC, 
-		ktype* Kernel_data, int_t* Kernel_num,
-		int_t* stride, int_t* padding, 
+void CBRR(dtype* X_data, dtype* X_tmp_data, param_t* X_num, int_t XC, 
+		dtype* Y_data, dtype* Y_tmp_data, param_t* Y_num, int_t YC, 
+		ktype* Kernel_data, param_t* Kernel_num,
+		param_t* stride, param_t* padding, 
 		dtype conv_in_zp, ftype conv_in_scale, dtype conv_out_zp, ftype conv_out_scale, dtype X_tmp_zp, ftype X_tmp_scale, dtype batch_zp, ftype batch_scale, dtype res_zp, ftype res_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias);
-void CB(dtype* X_data, int_t* X_num, int_t XC, 
-		dtype* Y_data, int_t* Y_num, int_t YC, 
-		ktype* Kernel_data, int_t* Kernel_num,
-		int_t* stride, int_t* padding, 
+void CB(dtype* X_data, param_t* X_num, int_t XC, 
+		dtype* Y_data, param_t* Y_num, int_t YC, 
+		ktype* Kernel_data, param_t* Kernel_num,
+		param_t* stride, param_t* padding, 
 		dtype conv_in_zp, ftype conv_in_scale, dtype conv_out_zp, ftype conv_out_scale, dtype batch_zp, ftype batch_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias);
 #endif

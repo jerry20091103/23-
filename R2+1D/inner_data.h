@@ -191,4 +191,5 @@ extern ftype Gamma_seq4_1_conv2_0_1[1152];
 extern ftype Gamma_seq4_1_conv2_1[512];
 extern ftype Gamma_stem_1[45];
 extern ftype Gamma_stem_4[64];
+extern ftype KernelBias[10];
 #endif

@@ -72,11 +72,11 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS BIND_STORAGE variable=X_bram type=RAM_2P impl=URAM
     #pragma HLS ARRAY_RESHAPE variable= X_bram factor=9 type=block
     // ========================R2Plus1dStem ==================================
-	int_t X_num[5] = {1, 3, 16, 112, 112};
-    int_t Y_num[5] = {1, 45, 16, 56, 56};
-    int_t Kernel_num[3] = {1, 7, 7};
-    int_t stride[3] = {1, 2, 2};
-    int_t padding[3] = {0, 3, 3};
+	// int_t X_num[5] = {1, 3, 16, 112, 112};
+    // int_t Y_num[5] = {1, 45, 16, 56, 56};
+    // int_t Kernel_num[3] = {1, 7, 7};
+    // int_t stride[3] = {1, 2, 2};
+    // int_t padding[3] = {0, 3, 3};
     // CBR(X, X_num, 1, 
 	// 	X_stem_1, Y_num, 5, 
 	// 	Kernel_stem_0, Kernel_num, 
@@ -225,40 +225,40 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         Kernel_seq2_0_conv1_0_3_scale, Mu_seq2_0_conv1_1, Var_seq2_0_conv1_1, Gamma_seq2_0_conv1_1, Bias_seq2_0_conv1_1);
 
     // seq2.0.conv2
-    X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 230; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 1; Kernel_num[1] = 3; Kernel_num[2] = 3;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 0; padding[1] = 1; padding[2] = 1;
-    CBR(X2_data, X_num, 64, 
-		X_mid_data, Y_num, 64, 
-		Kernel_seq2_0_conv2_0_0, Kernel_num, 
-		stride, padding, 
+    int_t X_num13[5] = {1, 128, 8, 28, 28};
+    int_t Y_num13[5] = {1, 230, 8, 28, 28};
+    int_t Kernel_num13[3] = {1, 3, 3};
+    int_t stride13[3] = {1, 1, 1};
+    int_t padding13[3] = {0, 1, 1};
+    CBR(X2_data, X_num13, 64, 
+		X_mid_data, Y_num13, 64, 
+		Kernel_seq2_0_conv2_0_0, Kernel_num13, 
+		stride13, padding13, 
 		52, 3.730613738298416138e-02, 68, 6.581791490316390991e-02, 75, 3.696846589446067810e-02, 
         Kernel_seq2_0_conv2_0_0_scale, Mu_seq2_0_conv2_0_1, Var_seq2_0_conv2_0_1, Gamma_seq2_0_conv2_0_1, Bias_seq2_0_conv2_0_1);
     
     // seq2.0.downsample
-    X_num[0] = 1; X_num[1] = 64; X_num[2] = 16; X_num[3] = 56; X_num[4] = 56;
-    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 1; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 2; stride[1] = 2; stride[2] = 2;
-    padding[0] = 0; padding[1] = 0; padding[2] = 0;
-    CB(X_data, X_num, 8, 
-		X_tmp_data, Y_num, 64, 
-		Kernel_seq2_0_downsample_0, Kernel_num, 
-		stride, padding, 
+    int_t X_num14[5] = {1, 64, 16, 56, 56};
+    int_t Y_num14[5] = {1, 128, 8, 28, 28};
+    int_t Kernel_num14[3] = {1, 1, 1};
+    int_t stride14[3] = {2, 2, 2};
+    int_t padding14[3] = {0, 0, 0};
+    CB(X_data, X_num14, 8, 
+		X_tmp_data, Y_num14, 64, 
+		Kernel_seq2_0_downsample_0, Kernel_num14, 
+		stride14, padding14, 
 		49, 7.128605991601943970e-02, 68, 5.711162462830543518e-02, 53, 5.571814253926277161e-02, 
         Kernel_seq2_0_downsample_0_scale, Mu_seq2_0_downsample_1, Var_seq2_0_downsample_1, Gamma_seq2_0_downsample_1, Bias_seq2_0_downsample_1);
 
-    X_num[0] = 1; X_num[1] = 230; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
-    Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
-    Kernel_num[0] = 3; Kernel_num[1] = 1; Kernel_num[2] = 1;
-    stride[0] = 1; stride[1] = 1; stride[2] = 1;
-    padding[0] = 1; padding[1] = 0; padding[2] = 0;
-    CBRR(X_mid_data, X_tmp_data, X_num, 64, 
-		X2_data, X_tmp_data, Y_num, 64, 
-		Kernel_seq2_0_conv2_0_3, Kernel_num,
-		stride, padding, 
+    int_t X_num15[5] = {1, 230, 8, 28, 28};
+    int_t Y_num15[5] = {1, 128, 8, 28, 28};
+    int_t Kernel_num15[3] = {3, 1, 1};
+    int_t stride15[3] = {1, 1, 1};
+    int_t padding15[3] = {1, 0, 0};
+    CBRR(X_mid_data, X_tmp_data, X_num15, 64, 
+		X2_data, X_tmp_data, Y_num15, 64, 
+		Kernel_seq2_0_conv2_0_3, Kernel_num15,
+		stride15, padding15, 
 		75, 3.696846589446067810e-02, 70, 3.792280331254005432e-02, 53, 5.571814253926277161e-02, 61, 5.221061781048774719e-02, 59, 5.941560864448547363e-02, 
 		Kernel_seq2_0_conv2_0_3_scale, Mu_seq2_0_conv2_1, Var_seq2_0_conv2_1, Gamma_seq2_0_conv2_1, Bias_seq2_0_conv2_1);
 
@@ -272,31 +272,8 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 	// 	X_mid_data, Y_num, 64, 
 	// 	Kernel_seq2_1_conv1_0_0,  Kernel_num,
 	// 	stride, padding, 
-	// 	59, 5.941560864448547363e-02, 74, 2.571923658251762390e-02, 
+	// 	59, 5.941560864448547363e-02, 64, 1.044261455535888672e-01, 74, 2.571923658251762390e-02, 
 	// 	Kernel_seq2_1_conv1_0_0_scale, Mu_seq2_1_conv1_0_1, Var_seq2_1_conv1_0_1, Gamma_seq2_1_conv1_0_1, Bias_seq2_1_conv1_0_1);
-    // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-    //     Kernel_bram[i] = Kernel_seq2_1_conv1_0_0[i];
-
-    // for(int_t yi = 0; yi < 5; yi++){
-    //     for(int_t k = 0; k < 64*Y_num[2]*Y_num[3]*Y_num[4]; k++)
-    //         Y_bram[k] = 0;
-        
-    //     for(int_t xi = 0; xi < 2; xi++){
-    //         for(int_t k = 0; k < 64*X_num[2]*X_num[3]*X_num[4]; k++)
-    //             X_bram[k] = X2_data[xi*64*X_num[2]*X_num[3]*X_num[4]+k];
-
-    //         Conv3d(X_bram, X_num, xi, 64, Y_bram, Y_num, yi, 64, Kernel_bram, Kernel_num, stride, padding, 59);
-    //     }
-        
-    //     for(int_t c = 0; c < 64; c++){
-    //         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
-    //         for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-    //             int_t tmp = (int_t)roundf((((Y_bram[offset+k]*5.941560864448547363e-02*Kernel_seq2_1_conv1_0_0_scale[yi*64+c] - Mu_seq2_1_conv1_0_1[yi*64+c]) / sqrtf(Var_seq2_1_conv1_0_1[yi*64+c]+0.00001)) * Gamma_seq2_1_conv1_0_1[yi*64+c] + Bias_seq2_1_conv1_0_1[yi*8+c])/2.571923658251762390e-02);
-    //             Y_bram[offset+k] = (tmp+74 > 255) ? 255 : (tmp < 0) ? 74 : tmp+74;
-    //             X_mid_data[yi*64*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
-    //         }
-    //     }
-    // }
 
     // X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
     // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
@@ -307,31 +284,8 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 	// 	X2_data, Y_num, 64, 
 	// 	Kernel_seq2_1_conv1_0_3,  Kernel_num,
 	// 	stride, padding, 
-	// 	74, 2.571923658251762390e-02, 69, 4.108780622482299805e-02, 
+	// 	74, 2.571923658251762390e-02, 63, 2.876071259379386902e-02, 69, 4.108780622482299805e-02, 
 	// 	Kernel_seq2_1_conv1_0_3_scale, Mu_seq2_1_conv1_1, Var_seq2_1_conv1_1, Gamma_seq2_1_conv1_1, Bias_seq2_1_conv1_1);
-    // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-    //     Kernel_bram[i] = Kernel_seq2_1_conv1_0_3[i];
-
-    // for(int_t yi = 0; yi < 2; yi++){
-    //     for(int_t k = 0; k < 64*Y_num[2]*Y_num[3]*Y_num[4]; k++)
-    //         Y_bram[k] = 0;
-        
-    //     for(int_t xi = 0; xi < 5; xi++){
-    //         for(int_t k = 0; k < 64*X_num[2]*X_num[3]*X_num[4]; k++)
-    //             X_bram[k] = X_mid_data[xi*64*X_num[2]*X_num[3]*X_num[4]+k];
-
-    //         Conv3d(X_bram, X_num, xi, 64, Y_bram, Y_num, yi, 64, Kernel_bram, Kernel_num, stride, padding, 74);
-    //     }
-        
-    //     for(int_t c = 0; c < 64; c++){
-    //         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
-    //         for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-    //             int_t tmp = (int_t)roundf((((Y_bram[offset+k]*2.571923658251762390e-02*Kernel_seq2_1_conv1_0_3_scale[yi*64+c] - Mu_seq2_1_conv1_1[yi*64+c]) / sqrtf(Var_seq2_1_conv1_1[yi*64+c]+0.00001)) * Gamma_seq2_1_conv1_1[yi*64+c] + Bias_seq2_1_conv1_1[yi*64+c])/4.108780622482299805e-02);
-    //             Y_bram[offset+k] = (tmp+69 > 255) ? 255 : (tmp < 0) ? 69 : tmp+69;
-    //             X2_data[yi*8*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
-    //         }
-    //     }
-    // }
 
     // // seq2.1.conv2
     // X_num[0] = 1; X_num[1] = 128; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
@@ -343,31 +297,8 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 	// 	X_mid_data, Y_num, 64, 
 	// 	Kernel_seq2_1_conv2_0_0,  Kernel_num,
 	// 	stride, padding, 
-	// 	69, 4.108780622482299805e-02, 69, 3.150121122598648071e-02, 
+	// 	69, 4.108780622482299805e-02, 55, 4.689884185791015625e-02, 69, 3.150121122598648071e-02, 
 	// 	Kernel_seq2_1_conv2_0_0_scale, Mu_seq2_1_conv2_0_1, Var_seq2_1_conv2_0_1, Gamma_seq2_1_conv2_0_1, Bias_seq2_1_conv2_0_1);
-    // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-    //     Kernel_bram[i] = Kernel_seq2_1_conv2_0_0[i];
-
-    // for(int_t yi = 0; yi < 5; yi++){
-    //     for(int_t k = 0; k < 64*Y_num[2]*Y_num[3]*Y_num[4]; k++)
-    //         Y_bram[k] = 0;
-        
-    //     for(int_t xi = 0; xi < 2; xi++){
-    //         for(int_t k = 0; k < 64*X_num[2]*X_num[3]*X_num[4]; k++)
-    //             X_bram[k] = X2_data[xi*64*X_num[2]*X_num[3]*X_num[4]+k];
-
-    //         Conv3d(X_bram, X_num, xi, 64, Y_bram, Y_num, yi, 64, Kernel_bram, Kernel_num, stride, padding, 69);
-    //     }
-        
-    //     for(int_t c = 0; c < 64; c++){
-    //         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
-    //         for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-    //             int_t tmp = (int_t)roundf((((Y_bram[offset+k]*4.108780622482299805e-02*Kernel_seq2_1_conv2_0_0_scale[yi*64+c] - Mu_seq2_1_conv2_0_1[yi*64+c]) / sqrtf(Var_seq2_1_conv2_0_1[yi*64+c]+0.00001)) * Gamma_seq2_1_conv2_0_1[yi*64+c] + Bias_seq2_1_conv2_0_1[yi*64+c])/3.150121122598648071e-02);
-    //             Y_bram[offset+k] = (tmp+69 > 255) ? 255 : (tmp < 0) ? 69 : tmp+69;
-    //             X_mid_data[yi*64*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
-    //         }
-    //     }
-    // }
 
     // X_num[0] = 1; X_num[1] = 288; X_num[2] = 8; X_num[3] = 28; X_num[4] = 28;
     // Y_num[0] = 1; Y_num[1] = 128; Y_num[2] = 8; Y_num[3] = 28; Y_num[4] = 28;
@@ -378,32 +309,8 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 	// 	X2_data, X_tmp_data, Y_num, 64, 
 	// 	Kernel_seq2_1_conv2_0_3, Kernel_num,
 	// 	stride, padding, 
-	// 	69, 3.150121122598648071e-02, 59, 5.941560864448547363e-02, 58, 7.469348609447479248e-02, 
+	// 	69, 3.150121122598648071e-02, 66, 2.438377402722835541e-02, 59, 5.941560864448547363e-02, 70, 6.300298124551773071e-02, 58, 7.469348609447479248e-02, 
 	// 	Kernel_seq2_1_conv2_0_3_scale, Mu_seq2_1_conv2_1, Var_seq2_1_conv2_1, Gamma_seq2_1_conv2_1, Bias_seq2_1_conv2_1);
-    // for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
-    //     Kernel_bram[i] = Kernel_seq1_1_conv2_0_3[i];
-
-    // for(int_t yi = 0; yi < 2; yi++){
-    //     for(int_t k = 0; k < 64*Y_num[2]*Y_num[3]*Y_num[4]; k++)
-    //         Y_bram[k] = 0;
-        
-    //     for(int_t xi = 0; xi < 5; xi++){
-    //         for(int_t k = 0; k < 64*X_num[2]*X_num[3]*X_num[4]; k++)
-    //             X_bram[k] = X_mid_data[xi*64*X_num[2]*X_num[3]*X_num[4]+k];
-
-    //         Conv3d(X_bram, X_num, xi, 64, Y_bram, Y_num, yi, 64, Kernel_bram, Kernel_num, stride, padding, 69);
-    //     }
-        
-    //     for(int_t c = 0; c < 64; c++){
-    //         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
-    //         for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-    //             int_t tmp = (int_t)roundf(((Y_bram[offset+k]*3.150121122598648071e-02*Kernel_seq1_1_conv2_0_3_scale[yi*64+c] - Mu_seq1_1_conv2_1[yi*64+c]) / sqrtf(Var_seq1_1_conv2_1[yi*64+c]+0.00001)) * Gamma_seq1_1_conv2_1[yi*64+c] + Bias_seq1_1_conv2_1[yi*64+c]);
-    //             tmp += (dtype)roundf((ftype)((X_tmp_data[yi*64*Y_num[2]*Y_num[3]*Y_num[4]+offset+k])-59) * 5.941560864448547363e-02 / 7.469348609447479248e-02);
-    //             Y_bram[offset+k] = (tmp+58 > 255) ? 255 : (tmp < 0) ? 58 : tmp+58;
-    //             X2_data[yi*64*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = Y_bram[offset+k];
-    //         }
-    //     }
-    // }
 
     // // ========================Sequential 3==================================
     // //                      ====basicblock 0=================================

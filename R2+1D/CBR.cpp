@@ -10,7 +10,7 @@ void CBR(dtype* X_data, param_t* X_num, int_t XC,
 		dtype conv_in_zp, ftype conv_in_scale, dtype conv_out_zp, ftype conv_out_scale, dtype batch_zp, ftype batch_scale, 
 		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias)
 {
-//    #pragma HLS ARRAY_PARTITION variable= Y_bram factor=8 type=cyclic
+	#pragma HLS ARRAY_PARTITION variable= Y_bram factor=8 type=cyclic
     KERNEL_LOAD_LOOP:
 	for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
         Kernel_bram[i] = Kernel_data[i];
@@ -20,7 +20,7 @@ void CBR(dtype* X_data, param_t* X_num, int_t XC,
     for(int_t yi = 0; yi < YI; yi++){
         Y_ZERO_LOOP:
         for(int_t k = 0; k < YC*Y_num[2]*Y_num[3]*Y_num[4]; k++){
-        //    #pragma HLS UNROLL factor = 8
+            #pragma HLS UNROLL factor = 8
             Y_bram[k] = 0; 
         }
         X_TILE_LOOP:

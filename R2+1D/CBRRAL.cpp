@@ -16,7 +16,7 @@ void CBRRAL(dtype* X_data, dtype* X_tmp_data, param_t* X_num, int_t XC,
     
     Y_ZERO_LOOP:
     for(int_t k = 0; k < YC*Y_num[2]*Y_num[3]*Y_num[4]; k++){
-        // #pragma HLS UNROLL factor=16
+        #pragma HLS UNROLL factor=8
         Y_bram[k] = 0; 
     }
     

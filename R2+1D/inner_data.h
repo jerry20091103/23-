@@ -4,7 +4,7 @@
 
 extern ktype Kernel_bram[2654208];
 extern dtype X_bram[401408];
-extern ytype Y_bram[401408];
+extern ytype Y_bram[200704];
 extern ftype Kernel_linear_scale[10];
 extern ftype Kernel_seq1_0_conv1_0_0_scale[144];
 extern ftype Kernel_seq1_0_conv1_0_3_scale[64];

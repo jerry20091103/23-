@@ -77,7 +77,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride[3] = {1, 2, 2};
     param_t padding[3] = {0, 3, 3};
     CBR(X, X_num, 1, 
-		X_stem_1, Y_num, 5, 
+		X_stem_1, Y_num, 4, 
 		Kernel_stem_0, Kernel_num, 
 		stride, padding, 
 		56, 3.756307810544967651e-02, 60, 0.4609071612358093262, 55, 0.07323520630598068237, 
@@ -89,7 +89,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride2[3] = {1, 1, 1};
     param_t padding2[3] = {1, 0, 0};
     CBR(X_stem_1, Y_num, 5, 
-		X_stem_2, Y_num2, 8, 
+		X_stem_2, Y_num2, 4, 
 		Kernel_stem_3, Kernel_num2, 
 		stride2, padding2, 
 		55, 0.07323520630598068237, 70, 0.09311912953853607178, 65, 0.07423608750104904175, 
@@ -101,7 +101,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t Kernel_num3[3] = {1, 3, 3};
     param_t padding3[3] = {0, 1, 1};
     CBR(X_stem_2, Y_num2, 8, 
-		X_mid_data, Y_num3, 8, 
+		X_mid_data, Y_num3, 4, 
 		Kernel_seq1_0_conv1_0_0, Kernel_num3, 
 		stride2, padding3, 
 		65, 0.07423608750104904175, 64, 8.706942945718765259e-02, 60, 4.489336907863616943e-02, 
@@ -109,7 +109,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     
     
     CBR(X_mid_data, Y_num3, 8, 
-		X_data, Y_num2, 8, 
+		X_data, Y_num2, 4, 
 		Kernel_seq1_0_conv1_0_3, Kernel_num2, 
 		stride2, padding2, 
 		60, 4.489336907863616943e-02, 71, 4.961582273244857788e-02, 74, 5.436319485306739807e-02,
@@ -117,7 +117,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     
     // seq1.0.conv2
     CBR(X_data, Y_num2, 8, 
-		X_mid_data, Y_num3, 8, 
+		X_mid_data, Y_num3, 4, 
 		Kernel_seq1_0_conv2_0_0, Kernel_num3, 
 		stride2, padding3, 
 		74, 5.436319485306739807e-02, 60, 6.804036349058151245e-02, 62, 4.303903132677078247e-02,
@@ -125,7 +125,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     
     
     CBRR(X_mid_data, X_stem_2, Y_num3, 8, 
-		X_data, X_tmp_data, Y_num2, 8, 
+		X_data, X_tmp_data, Y_num2, 4, 
 		Kernel_seq1_0_conv2_0_3, Kernel_num2,
 		stride2, padding2, 
 		62, 4.303903132677078247e-02, 66, 3.850702568888664246e-02, 65, 0.07423608750104904175, 68, 4.517441987991333008e-02, 46, 7.029289007186889648e-02, 
@@ -133,7 +133,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     
     //                      ====basicblock 1=================================
     CBR(X_data, Y_num2, 8, 
-		X_mid_data, Y_num3, 8, 
+		X_mid_data, Y_num3, 4, 
 		Kernel_seq1_1_conv1_0_0, Kernel_num3, 
 		stride2, padding3, 
 		46, 7.029289007186889648e-02, 72, 9.410868585109710693e-02, 76, 3.406318649649620056e-02,
@@ -141,7 +141,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 
     
     CBR(X_mid_data, Y_num3, 8, 
-		X_data, Y_num2, 8, 
+		X_data, Y_num2, 4, 
 		Kernel_seq1_1_conv1_0_3, Kernel_num2, 
 		stride2, padding2, 
 		76, 3.406318649649620056e-02, 67, 3.386811539530754089e-02, 70, 4.148417711257934570e-02,
@@ -149,14 +149,14 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     
     // seq1.1.conv2
     CBR(X_data, Y_num2, 8, 
-		X_mid_data, Y_num3, 8, 
+		X_mid_data, Y_num3, 4, 
 		Kernel_seq1_1_conv2_0_0, Kernel_num3, 
 		stride2, padding3, 
 		70, 4.148417711257934570e-02, 68, 3.422784805297851562e-02, 61, 2.891838178038597107e-02, 
         Kernel_seq1_1_conv2_0_0_scale, Mu_seq1_1_conv2_0_1, Var_seq1_1_conv2_0_1, Gamma_seq1_1_conv2_0_1, Bias_seq1_1_conv2_0_1);
 
     CBRR(X_mid_data, X_tmp_data, Y_num3, 8, 
-		X_data, X_batch_data, Y_num2, 8, 
+		X_data, X_batch_data, Y_num2, 4, 
 		Kernel_seq1_1_conv2_0_3, Kernel_num2,
 		stride2, padding2, 
 		61, 2.891838178038597107e-02, 71, 2.731916867196559906e-02, 46, 7.029289007186889648e-02, 53, 5.917721241712570190e-02, 49, 7.128605991601943970e-02, 
@@ -166,7 +166,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //                      ====basicblock 0=================================
     param_t Y_num11[5] = {1, 230, 16, 28, 28};
     CBR(X_data, Y_num2, 8, 
-		X_mid_data, Y_num11, 32, 
+		X_mid_data, Y_num11, 16, 
 		Kernel_seq2_0_conv1_0_0, Kernel_num3, 
 		stride, padding3, 
 		49, 7.128605991601943970e-02, 76, 1.296460330486297607e-01, 66, 3.834486752748489380e-02, 
@@ -176,7 +176,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t Y_num12[5] = {1, 128, 8, 28, 28};
     param_t stride12[3] = {2, 1, 1};
     CBR(X_mid_data, Y_num11, 32, 
-		X2_data, Y_num12, 64, 
+		X2_data, Y_num12, 32, 
 		Kernel_seq2_0_conv1_0_3, Kernel_num2, 
 		stride12, padding2, 
 		66, 3.834486752748489380e-02, 64, 3.311596438288688660e-02, 52, 3.730613738298416138e-02,
@@ -185,7 +185,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     // seq2.0.conv2
     param_t Y_num13[5] = {1, 230, 8, 28, 28};
     CBR(X2_data, Y_num12, 64, 
-		X_mid_data, Y_num13, 64, 
+		X_mid_data, Y_num13, 32, 
 		Kernel_seq2_0_conv2_0_0, Kernel_num3, 
 		stride2, padding3, 
 		52, 3.730613738298416138e-02, 68, 6.581791490316390991e-02, 75, 3.696846589446067810e-02, 
@@ -195,7 +195,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride14[3] = {2, 2, 2};
     param_t padding14[3] = {0, 0, 0};
     CB(X_data, Y_num2, 8, 
-		X_batch_data, Y_num12, 64, 
+		X_batch_data, Y_num12, 32, 
 		Kernel_seq2_0_downsample_0, stride2, 
 		stride14, padding14, 
 		49, 7.128605991601943970e-02, 68, 5.711162462830543518e-02, 53, 5.571814253926277161e-02, 
@@ -203,7 +203,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 
     
     CBRR(X_mid_data, X_batch_data, Y_num13, 64, 
-		X2_data, X_tmp_data, Y_num12, 64, 
+		X2_data, X_tmp_data, Y_num12, 32, 
 		Kernel_seq2_0_conv2_0_3, Kernel_num2,
 		stride2, padding2, 
 		75, 3.696846589446067810e-02, 70, 3.792280331254005432e-02, 53, 5.571814253926277161e-02, 61, 5.221061781048774719e-02, 59, 5.941560864448547363e-02, 
@@ -212,7 +212,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //                      ====basicblock 1=================================   need to clip kernel
     param_t Y_num16[5] = {1, 288, 8, 28, 28};
     CBR(X2_data, Y_num12, 64, 
-		X_mid_data, Y_num16, 64, 
+		X_mid_data, Y_num16, 32, 
 		Kernel_seq2_1_conv1_0_0,  Kernel_num3,
 		stride2, padding3, 
 		59, 5.941560864448547363e-02, 64, 1.044261455535888672e-01, 74, 2.571923658251762390e-02, 
@@ -220,7 +220,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 
     
     CBR(X_mid_data, Y_num16, 64, 
-		X2_data, Y_num12, 64, 
+		X2_data, Y_num12, 32, 
 		Kernel_seq2_1_conv1_0_3,  Kernel_num2,
 		stride2, padding2, 
 		74, 2.571923658251762390e-02, 63, 2.876071259379386902e-02, 69, 4.108780622482299805e-02, 
@@ -228,7 +228,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 
     // seq2.1.conv2
     CBR(X2_data, Y_num12, 64, 
-		X_mid_data, Y_num16, 64, 
+		X_mid_data, Y_num16, 32, 
 		Kernel_seq2_1_conv2_0_0,  Kernel_num3,
 		stride2, padding3, 
 		69, 4.108780622482299805e-02, 55, 4.689884185791015625e-02, 69, 3.150121122598648071e-02, 
@@ -236,7 +236,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 
     
     CBRR(X_mid_data, X_tmp_data, Y_num16, 64, 
-		X2_data, X_batch_data, Y_num12, 64, 
+		X2_data, X_batch_data, Y_num12, 32, 
 		Kernel_seq2_1_conv2_0_3, Kernel_num2,
 		stride2, padding2, 
 		69, 3.150121122598648071e-02, 66, 2.438377402722835541e-02, 59, 5.941560864448547363e-02, 70, 6.300298124551773071e-02, 58, 7.469348609447479248e-02, 
@@ -246,7 +246,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //                      ====basicblock 0=================================
     param_t Y_num20[5] = {1, 460, 8, 14, 14};
     CBR(X2_data, Y_num12, 64, 
-		X_mid_data, Y_num20, 230, 
+		X_mid_data, Y_num20, 105, 
 		Kernel_seq3_0_conv1_0_0, Kernel_num3, 
 		stride, padding3, 
 		58, 7.469348609447479248e-02, 66, 1.026936098933219910e-01, 55, 3.207130357623100281e-02, 
@@ -264,7 +264,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     // seq3.0.conv2
     param_t Y_num22[5] = {1, 460, 4, 14, 14};
     CBR(X3_data, Y_num21, 256, 
-		X_mid_data, Y_num22, 460, 
+		X_mid_data, Y_num22, 256, 
 		Kernel_seq3_0_conv2_0_0, Kernel_num3, 
 		stride2, padding3, 
 		59, 3.827788308262825012e-02, 74, 7.229902595281600952e-02, 61, 2.794230915606021881e-02, 
@@ -290,7 +290,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //                      ====basicblock 1================================= 
     param_t Y_num25[5] = {1, 576, 4, 14, 14};
     CBR(X3_data, Y_num21, 256, 
-		X_mid_data, Y_num25, 288, 
+		X_mid_data, Y_num25, 144, 
 		Kernel_seq3_1_conv1_0_0,  Kernel_num3,
 		stride2, padding3, 
 		56, 4.819526150822639465e-02, 60, 9.108851104974746704e-02, 64, 1.979854144155979156e-02, 
@@ -305,7 +305,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     
     // seq3.1.conv2
     CBR(X3_data, Y_num21, 256, 
-		X_mid_data, Y_num25, 288, 
+		X_mid_data, Y_num25, 144, 
 		Kernel_seq3_1_conv2_0_0,  Kernel_num3,
 		stride2, padding3, 
 		55, 2.682571485638618469e-02, 58, 4.488958418369293213e-02, 74, 2.272782102227210999e-02,

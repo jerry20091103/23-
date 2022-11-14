@@ -30,7 +30,7 @@ void CB(dtype* X_data, param_t* X_num, int_t XC,
 			Conv3d(X_bram, X_num, xi, XC, Y_bram, Y_num, yi, YC, Kernel_bram, Kernel_num, stride, padding, conv_in_zp);
         }
         Y_CHANNEL_LOOP:
-        for(int_t c = 0; c < YC; c++){
+        for(int_t c = 0; c < YC && yi*YC+c < Y_num[1]; c++){
             BATCH_LOOP:
             int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
             for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){

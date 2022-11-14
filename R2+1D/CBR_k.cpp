@@ -25,7 +25,7 @@ void CBR_k(dtype* X_data, param_t* X_num, int_t XC,
             for(int_t k = 0; k < XC*X_num[2]*X_num[3]*X_num[4]; k++)
                 X_bram[k] = X_data[xi*XC*X_num[2]*X_num[3]*X_num[4]+k];
             Y_CHANNEL_IN_LOOP:
-            for(int_t yc = 0; yc < YC; yc++){
+            for(int_t yc = 0; yc < YC && yi*YC+c < Y_num[1]; yc++){
                 X_CHANNEL_LOOP:
                 for(int_t xc = 0; xc < XC && yi*YC+yc < Y_num[1]; xc++){
                     KERNEL_LOAD_LOOP:

@@ -81,17 +81,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     KERNEL_LOAD_LOOP_0:
     for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
       Kernel_bram[i] = Kernel_stem_0[i];
-    int_t YI = (Y_num[1]%4) ? (Y_num[1]/4+1) : (Y_num[1]/4);
-    int_t XI = (X_num[1]%1) ? (X_num[1]/1+1) : (X_num[1]/1);
     Y_TILE_LOOP_0:
-    for(int_t yi = 0; yi < YI; yi++){
+    for(int_t yi = 0; yi < 12; yi++){
       Y_ZERO_LOOP_0:
       for(int_t k = 0; k < 4*Y_num[2]*Y_num[3]*Y_num[4]; k++){
         // #pragma HLS UNROLL factor = 8
         Y_bram[k] = 0; 
       }
       X_TILE_LOOP_0:
-      for(int_t xi = 0; xi < XI; xi++){
+      for(int_t xi = 0; xi < 3; xi++){
         X_LOAD_LOOP_0:
         for(int_t k = 0; k < 1*X_num[2]*X_num[3]*X_num[4]; k++)
           X_bram[k] = X[xi*1*X_num[2]*X_num[3]*X_num[4]+k];
@@ -102,9 +100,9 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         int_t offset = c*Y_num[2]*Y_num[3]*Y_num[4];
         BATCH_RELU_LOOP_0:
         for(int_t k = 0; k < Y_num[2]*Y_num[3]*Y_num[4]; k++){
-          int_t tmp = (int_t)roundf(Y_bram[offset+k]*3.756307810544967651e-02*Kernel_stem_0_scale[yi*4+c] / 0.4609071612358093262) + 60;
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*3.756307810544967651e-02f*Kernel_stem_0_scale[yi*4+c] / 0.4609071612358093262f) + 60;
           tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-          tmp = (int_t)roundf(((((tmp-60)*0.4609071612358093262 - Mu_stem_1[yi*4+c]) / sqrtf(Var_stem_1[yi*4+c]+0.00001f)) * Gamma_stem_1[yi*4+c] + Bias_stem_1[yi*4+c]) / 0.07323520630598068237);
+          tmp = (int_t)roundf(((((tmp-60)*0.4609071612358093262f - Mu_stem_1[yi*4+c]) / sqrtf(Var_stem_1[yi*4+c]+0.00001f)) * Gamma_stem_1[yi*4+c] + Bias_stem_1[yi*4+c]) / 0.07323520630598068237f);
           X_stem_1[yi*4*Y_num[2]*Y_num[3]*Y_num[4]+offset+k] = (tmp+55 > 255) ? 255 : (tmp < 0) ? 55 : tmp+55;
         }
       }
@@ -119,17 +117,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     KERNEL_LOAD_LOOP_1:
     for(int_t i = 0; i < Y_num2[1]*Y_num[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++)
           Kernel_bram[i] = Kernel_stem_3[i];
-    YI = (Y_num2[1]%4) ? (Y_num2[1]/4+1) : (Y_num2[1]/4);
-    XI = (Y_num[1]%5) ? (Y_num[1]/5+1) : (Y_num[1]/5);
     Y_TILE_LOOP_1:
-    for(int_t yi = 0; yi < YI; yi++){
+    for(int_t yi = 0; yi < 16; yi++){
     Y_ZERO_LOOP_1:
     for(int_t k = 0; k < 4*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
       // #pragma HLS UNROLL factor = 8
       Y_bram[k] = 0; 
     }
     X_TILE_LOOP_1:
-    for(int_t xi = 0; xi < XI; xi++){
+    for(int_t xi = 0; xi < 9; xi++){
       X_LOAD_LOOP_1:
       for(int_t k = 0; k < 5*Y_num[2]*Y_num[3]*Y_num[4]; k++)
           X_bram[k] = X_stem_1[xi*5*Y_num[2]*Y_num[3]*Y_num[4]+k];
@@ -140,9 +136,9 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
       int_t offset = c*Y_num2[2]*Y_num2[3]*Y_num2[4];
       BATCH_RELU_LOOP_1:
       for(int_t k = 0; k < Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
-          int_t tmp = (int_t)roundf(Y_bram[offset+k]*0.07323520630598068237*Kernel_stem_3_scale[yi*4+c] / 0.09311912953853607178) + 70;
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*0.07323520630598068237f*Kernel_stem_3_scale[yi*4+c] / 0.09311912953853607178f) + 70;
           tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-          tmp = (int_t)roundf(((((tmp-70)*0.09311912953853607178 - Mu_stem_4[yi*4+c]) / sqrtf(Var_stem_4[yi*4+c]+0.00001f)) * Gamma_stem_4[yi*4+c] + Bias_stem_4[yi*4+c]) / 0.07423608750104904175);
+          tmp = (int_t)roundf(((((tmp-70)*0.09311912953853607178f - Mu_stem_4[yi*4+c]) / sqrtf(Var_stem_4[yi*4+c]+0.00001f)) * Gamma_stem_4[yi*4+c] + Bias_stem_4[yi*4+c]) / 0.07423608750104904175f);
           X_stem_2[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k] = (tmp+65 > 255) ? 255 : (tmp < 0) ? 65 : tmp+65;
         }
       }
@@ -155,17 +151,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     KERNEL_LOAD_LOOP_2:
     for(int_t i = 0; i < Y_num3[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++)
       Kernel_bram[i] = Kernel_seq1_0_conv1_0_0[i];
-    YI = (Y_num3[1]%4) ? (Y_num3[1]/4+1) : (Y_num3[1]/4);
-    XI = (Y_num2[1]%8) ? (Y_num2[1]/8+1) : (Y_num2[1]/8);
     Y_TILE_LOOP_2:
-    for(int_t yi = 0; yi < YI; yi++){
+    for(int_t yi = 0; yi < 36; yi++){
       Y_ZERO_LOOP_2:
       for(int_t k = 0; k < 4*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
         #pragma HLS UNROLL factor = 8
         Y_bram[k] = 0; 
       }
       X_TILE_LOOP_2:
-      for(int_t xi = 0; xi < XI; xi++){
+      for(int_t xi = 0; xi < 8; xi++){
         X_LOAD_LOOP_2:
         for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++)
           X_bram[k] = X_stem_2[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
@@ -176,9 +170,9 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         int_t offset = c*Y_num3[2]*Y_num3[3]*Y_num3[4];
         BATCH_RELU_LOOP_2:
         for(int_t k = 0; k < Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
-          int_t tmp = (int_t)roundf(Y_bram[offset+k]*0.07423608750104904175*Kernel_seq1_0_conv1_0_0_scale[yi*4+c] / 8.706942945718765259e-02) + 64;
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*0.07423608750104904175f*Kernel_seq1_0_conv1_0_0_scale[yi*4+c] / 8.706942945718765259e-02f) + 64;
           tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-          tmp = (int_t)roundf(((((tmp-64)*8.706942945718765259e-02 - Mu_seq1_0_conv1_0_1[yi*4+c]) / sqrtf(Var_seq1_0_conv1_0_1[yi*4+c]+0.00001f)) * Gamma_seq1_0_conv1_0_1[yi*4+c] + Bias_seq1_0_conv1_0_1[yi*4+c]) / 4.489336907863616943e-02);
+          tmp = (int_t)roundf(((((tmp-64)*8.706942945718765259e-02f - Mu_seq1_0_conv1_0_1[yi*4+c]) / sqrtf(Var_seq1_0_conv1_0_1[yi*4+c]+0.00001f)) * Gamma_seq1_0_conv1_0_1[yi*4+c] + Bias_seq1_0_conv1_0_1[yi*4+c]) / 4.489336907863616943e-02f);
           X_mid_data[yi*4*Y_num3[2]*Y_num3[3]*Y_num3[4]+offset+k] = (tmp+60 > 255) ? 255 : (tmp < 0) ? 60 : tmp+60;
         }
       }
@@ -188,17 +182,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     KERNEL_LOAD_LOOP_3:
     for(int_t i = 0; i < Y_num2[1]*Y_num3[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++)
       Kernel_bram[i] = Kernel_seq1_0_conv1_0_3[i];
-    YI = (Y_num2[1]%4) ? (Y_num2[1]/4+1) : (Y_num2[1]/4);
-    XI = (Y_num3[1]%8) ? (Y_num3[1]/8+1) : (Y_num3[1]/8);
     Y_TILE_LOOP_3:
-    for(int_t yi = 0; yi < YI; yi++){
+    for(int_t yi = 0; yi < 16; yi++){
       Y_ZERO_LOOP_3:
       for(int_t k = 0; k < 4*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
         #pragma HLS UNROLL factor = 8
         Y_bram[k] = 0; 
       }
       X_TILE_LOOP_3:
-      for(int_t xi = 0; xi < XI; xi++){
+      for(int_t xi = 0; xi < 18; xi++){
         X_LOAD_LOOP_3:
         for(int_t k = 0; k < 8*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++)
           X_bram[k] = X_mid_data[xi*8*Y_num3[2]*Y_num3[3]*Y_num3[4]+k];
@@ -209,9 +201,9 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         int_t offset = c*Y_num2[2]*Y_num2[3]*Y_num2[4];
         BATCH_RELU_LOOP_3:
         for(int_t k = 0; k < Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
-          int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.489336907863616943e-02*Kernel_seq1_0_conv1_0_3_scale[yi*4+c] / 4.961582273244857788e-02) + 71;
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.489336907863616943e-02f*Kernel_seq1_0_conv1_0_3_scale[yi*4+c] / 4.961582273244857788e-02f) + 71;
           tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-          tmp = (int_t)roundf(((((tmp-71)*4.961582273244857788e-02 - Mu_seq1_0_conv1_1[yi*4+c]) / sqrtf(Var_seq1_0_conv1_1[yi*4+c]+0.00001f)) * Gamma_seq1_0_conv1_1[yi*4+c] + Bias_seq1_0_conv1_1[yi*4+c]) / 5.436319485306739807e-02);
+          tmp = (int_t)roundf(((((tmp-71)*4.961582273244857788e-02f - Mu_seq1_0_conv1_1[yi*4+c]) / sqrtf(Var_seq1_0_conv1_1[yi*4+c]+0.00001f)) * Gamma_seq1_0_conv1_1[yi*4+c] + Bias_seq1_0_conv1_1[yi*4+c]) / 5.436319485306739807e-02f);
           X_data[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k] = (tmp+74 > 255) ? 255 : (tmp < 0) ? 74 : tmp+74;
         }
       }
@@ -220,17 +212,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     KERNEL_LOAD_LOOP_4:
     for(int_t i = 0; i < Y_num3[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++)
       Kernel_bram[i] = Kernel_seq1_0_conv2_0_0[i];
-    YI = (Y_num3[1]%4) ? (Y_num3[1]/4+1) : (Y_num3[1]/4);
-    XI = (Y_num2[1]%8) ? (Y_num2[1]/8+1) : (Y_num2[1]/8);
     Y_TILE_LOOP_4:
-    for(int_t yi = 0; yi < YI; yi++){
+    for(int_t yi = 0; yi < 36; yi++){
       Y_ZERO_LOOP_4:
       for(int_t k = 0; k < 4*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
         #pragma HLS UNROLL factor = 8
         Y_bram[k] = 0; 
       }
       X_TILE_LOOP_4:
-      for(int_t xi = 0; xi < XI; xi++){
+      for(int_t xi = 0; xi < 8; xi++){
         X_LOAD_LOOP_4:
         for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++)
           X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
@@ -241,9 +231,9 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         int_t offset = c*Y_num3[2]*Y_num3[3]*Y_num3[4];
         BATCH_RELU_LOOP_4:
         for(int_t k = 0; k < Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
-          int_t tmp = (int_t)roundf(Y_bram[offset+k]*5.436319485306739807e-02*Kernel_seq1_0_conv2_0_0_scale[yi*4+c] / 6.804036349058151245e-02) + 60;
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*5.436319485306739807e-02f*Kernel_seq1_0_conv2_0_0_scale[yi*4+c] / 6.804036349058151245e-02f) + 60;
           tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-          tmp = (int_t)roundf(((((tmp-60)*6.804036349058151245e-02 - Mu_seq1_0_conv2_0_1[yi*4+c]) / sqrtf(Var_seq1_0_conv2_0_1[yi*4+c]+0.00001f)) * Gamma_seq1_0_conv2_0_1[yi*4+c] + Bias_seq1_0_conv2_0_1[yi*4+c]) / 4.303903132677078247e-02);
+          tmp = (int_t)roundf(((((tmp-60)*6.804036349058151245e-02f - Mu_seq1_0_conv2_0_1[yi*4+c]) / sqrtf(Var_seq1_0_conv2_0_1[yi*4+c]+0.00001f)) * Gamma_seq1_0_conv2_0_1[yi*4+c] + Bias_seq1_0_conv2_0_1[yi*4+c]) / 4.303903132677078247e-02f);
           X_mid_data[yi*4*Y_num3[2]*Y_num3[3]*Y_num3[4]+offset+k] = (tmp+62 > 255) ? 255 : (tmp < 0) ? 62 : tmp+62;
         }
       }
@@ -253,17 +243,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     KERNEL_LOAD_LOOP_5:
 	  for(int_t i = 0; i < Y_num2[1]*Y_num3[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++)
       Kernel_bram[i] = Kernel_seq1_0_conv2_0_3[i];
-    YI = (Y_num2[1]%4) ? (Y_num2[1]/4+1) : (Y_num2[1]/4);
-	  XI = (Y_num3[1]%8) ? (Y_num3[1]/8+1) : (Y_num3[1]/8);
     Y_TILE_LOOP_5:
-    for(int_t yi = 0; yi < YI; yi++){
+    for(int_t yi = 0; yi < 16; yi++){
       Y_ZERO_LOOP_5:
       for(int_t k = 0; k < 4*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
         #pragma HLS UNROLL factor=8
         Y_bram[k] = 0; 
       }
       X_TILE_LOOP_5:
-      for(int_t xi = 0; xi < XI; xi++){
+      for(int_t xi = 0; xi < 18; xi++){
         X_LOAD_LOOP_5:
         for(int_t k = 0; k < 8*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++)
           X_bram[k] = X_mid_data[xi*8*Y_num3[2]*Y_num3[3]*Y_num3[4]+k];
@@ -274,11 +262,11 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         int_t offset = c*Y_num2[2]*Y_num2[3]*Y_num2[4];
         BATCH_RES_RELU_LOOP_5:
         for(int_t k = 0; k < Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
-          int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.303903132677078247e-02*Kernel_seq1_0_conv2_0_3_scale[yi*4+c] / 3.850702568888664246e-02) + 66;
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.303903132677078247e-02f*Kernel_seq1_0_conv2_0_3_scale[yi*4+c] / 3.850702568888664246e-02f) + 66;
           tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-          tmp = (int_t)roundf(((((tmp-66)*3.850702568888664246e-02 - Mu_seq1_0_conv2_1[yi*4+c]) / sqrtf(Var_seq1_0_conv2_1[yi*4+c]+0.00001f)) * Gamma_seq1_0_conv2_1[yi*4+c] + Bias_seq1_0_conv2_1[yi*4+c]) / 4.517441987991333008e-02) + 68;
+          tmp = (int_t)roundf(((((tmp-66)*3.850702568888664246e-02f - Mu_seq1_0_conv2_1[yi*4+c]) / sqrtf(Var_seq1_0_conv2_1[yi*4+c]+0.00001f)) * Gamma_seq1_0_conv2_1[yi*4+c] + Bias_seq1_0_conv2_1[yi*4+c]) / 4.517441987991333008e-02f) + 68;
           tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-          tmp = (int_t)roundf(((tmp-68)*4.517441987991333008e-02 + ((X_stem_2[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k]-65)*0.07423608750104904175)) / 7.029289007186889648e-02);
+          tmp = (int_t)roundf(((tmp-68)*4.517441987991333008e-02f + ((X_stem_2[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k]-65)*0.07423608750104904175f)) / 7.029289007186889648e-02f);
           tmp = (tmp+46 > 255) ? 255 : (tmp < 0) ? 46 : tmp+46;
           X_data[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k] = tmp;
           X_tmp_data[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k] = tmp;
@@ -286,36 +274,131 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
       }
     }
     
-    //                      ====basicblock 1=================================
-    CBR(X_data, Y_num2, 8, 
-		X_mid_data, Y_num3, 4, 
-		Kernel_seq1_1_conv1_0_0, Kernel_num3, 
-		stride2, padding3, 
-		46, 7.029289007186889648e-02, 72, 9.410868585109710693e-02, 76, 3.406318649649620056e-02,
-        Kernel_seq1_1_conv1_0_0_scale, Mu_seq1_1_conv1_0_1, Var_seq1_1_conv1_0_1, Gamma_seq1_1_conv1_0_1, Bias_seq1_1_conv1_0_1);
+    //                      ====basicblock 1=================================	
+    KERNEL_LOAD_LOOP_6:
+    for(int_t i = 0; i < Y_num3[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++)
+      Kernel_bram[i] = Kernel_seq1_1_conv1_0_0[i];
+    Y_TILE_LOOP_6:
+    for(int_t yi = 0; yi < 36; yi++){
+      Y_ZERO_LOOP_6:
+      for(int_t k = 0; k < 4*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
+        #pragma HLS UNROLL factor = 8
+        Y_bram[k] = 0; 
+      }
+      X_TILE_LOOP_6:
+      for(int_t xi = 0; xi < 8; xi++){
+        X_LOAD_LOOP_6:
+        for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++)
+          X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
+        Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num3, yi, 4, Kernel_bram, Kernel_num3, stride2, padding3, 46);
+      }
+      Y_CHANNEL_LOOP_6:
+      for(int_t c = 0; c < 4 && yi*4+c < Y_num3[1]; c++){
+        int_t offset = c*Y_num3[2]*Y_num3[3]*Y_num3[4];
+        BATCH_RELU_LOOP_6:
+        for(int_t k = 0; k < Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*7.029289007186889648e-02f*Kernel_seq1_1_conv1_0_0_scale[yi*4+c] / 9.410868585109710693e-02f) + 72;
+          tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
+          tmp = (int_t)roundf(((((tmp-72)*9.410868585109710693e-02f - Mu_seq1_1_conv1_0_1[yi*4+c]) / sqrtf(Var_seq1_1_conv1_0_1[yi*4+c]+0.00001f)) * Gamma_seq1_1_conv1_0_1[yi*4+c] + Bias_seq1_1_conv1_0_1[yi*4+c]) / 3.406318649649620056e-02f);
+          X_mid_data[yi*4*Y_num3[2]*Y_num3[3]*Y_num3[4]+offset+k] = (tmp+76 > 255) ? 255 : (tmp < 0) ? 76 : tmp+76;
+        }
+      }
+    }
+    
+    KERNEL_LOAD_LOOP_7:
+    for(int_t i = 0; i < Y_num2[1]*Y_num3[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++)
+      Kernel_bram[i] = Kernel_seq1_1_conv1_0_3[i];
+    Y_TILE_LOOP_7:
+    for(int_t yi = 0; yi < 16; yi++){
+      Y_ZERO_LOOP_7:
+      for(int_t k = 0; k < 4*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
+        #pragma HLS UNROLL factor = 8
+        Y_bram[k] = 0; 
+      }
+      X_TILE_LOOP_7:
+      for(int_t xi = 0; xi < 18; xi++){
+        X_LOAD_LOOP_7:
+        for(int_t k = 0; k < 8*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++)
+          X_bram[k] = X_mid_data[xi*8*Y_num3[2]*Y_num3[3]*Y_num3[4]+k];
+        Conv3d(X_bram, Y_num3, xi, 8, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 76);
+      }
+      Y_CHANNEL_LOOP_7:
+      for(int_t c = 0; c < 4 && yi*4+c < Y_num2[1]; c++){
+        int_t offset = c*Y_num2[2]*Y_num2[3]*Y_num2[4];
+        BATCH_RELU_LOOP_7:
+        for(int_t k = 0; k < Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*3.406318649649620056e-02f*Kernel_seq1_1_conv1_0_3_scale[yi*4+c] / 3.386811539530754089e-02f) + 67;
+          tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
+          tmp = (int_t)roundf(((((tmp-67)*3.386811539530754089e-02f - Mu_seq1_1_conv1_1[yi*4+c]) / sqrtf(Var_seq1_1_conv1_1[yi*4+c]+0.00001f)) * Gamma_seq1_1_conv1_1[yi*4+c] + Bias_seq1_1_conv1_1[yi*4+c]) / 4.148417711257934570e-02f);
+          X_data[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k] = (tmp+70 > 255) ? 255 : (tmp < 0) ? 70 : tmp+70;
+        }
+      }
+    }
 
-    
-    CBR(X_mid_data, Y_num3, 8, 
-		X_data, Y_num2, 4, 
-		Kernel_seq1_1_conv1_0_3, Kernel_num2, 
-		stride2, padding2, 
-		76, 3.406318649649620056e-02, 67, 3.386811539530754089e-02, 70, 4.148417711257934570e-02,
-        Kernel_seq1_1_conv1_0_3_scale, Mu_seq1_1_conv1_1, Var_seq1_1_conv1_1, Gamma_seq1_1_conv1_1, Bias_seq1_1_conv1_1);
-    
     // seq1.1.conv2
-    CBR(X_data, Y_num2, 8, 
-		X_mid_data, Y_num3, 4, 
-		Kernel_seq1_1_conv2_0_0, Kernel_num3, 
-		stride2, padding3, 
-		70, 4.148417711257934570e-02, 68, 3.422784805297851562e-02, 61, 2.891838178038597107e-02, 
-        Kernel_seq1_1_conv2_0_0_scale, Mu_seq1_1_conv2_0_1, Var_seq1_1_conv2_0_1, Gamma_seq1_1_conv2_0_1, Bias_seq1_1_conv2_0_1);
-
-    CBRR(X_mid_data, X_tmp_data, Y_num3, 8, 
-		X_data, X_batch_data, Y_num2, 4, 
-		Kernel_seq1_1_conv2_0_3, Kernel_num2,
-		stride2, padding2, 
-		61, 2.891838178038597107e-02, 71, 2.731916867196559906e-02, 46, 7.029289007186889648e-02, 53, 5.917721241712570190e-02, 49, 7.128605991601943970e-02, 
-		Kernel_seq1_1_conv2_0_3_scale, Mu_seq1_1_conv2_1, Var_seq1_1_conv2_1, Gamma_seq1_1_conv2_1, Bias_seq1_1_conv2_1);
+    KERNEL_LOAD_LOOP_8:
+    for(int_t i = 0; i < Y_num3[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++)
+      Kernel_bram[i] = Kernel_seq1_1_conv2_0_0[i];
+    Y_TILE_LOOP_8:
+    for(int_t yi = 0; yi < 36; yi++){
+      Y_ZERO_LOOP_8:
+      for(int_t k = 0; k < 4*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
+        #pragma HLS UNROLL factor = 8
+        Y_bram[k] = 0; 
+      }
+      X_TILE_LOOP_8:
+      for(int_t xi = 0; xi < 8; xi++){
+        X_LOAD_LOOP_8:
+        for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++)
+          X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
+        Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num3, yi, 4, Kernel_bram, Kernel_num3, stride2, padding3, 70);
+      }
+      Y_CHANNEL_LOOP_8:
+      for(int_t c = 0; c < 4 && yi*4+c < Y_num3[1]; c++){
+        int_t offset = c*Y_num3[2]*Y_num3[3]*Y_num3[4];
+        BATCH_RELU_LOOP_8:
+        for(int_t k = 0; k < Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.148417711257934570e-02f*Kernel_seq1_1_conv2_0_0_scale[yi*4+c] / 3.422784805297851562e-02f) + 68;
+          tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
+          tmp = (int_t)roundf(((((tmp-68)*3.422784805297851562e-02f - Mu_seq1_1_conv2_0_1[yi*4+c]) / sqrtf(Var_seq1_1_conv2_0_1[yi*4+c]+0.00001f)) * Gamma_seq1_1_conv2_0_1[yi*4+c] + Bias_seq1_1_conv2_0_1[yi*4+c]) / 2.891838178038597107e-02f);
+          X_mid_data[yi*4*Y_num3[2]*Y_num3[3]*Y_num3[4]+offset+k] = (tmp+61 > 255) ? 255 : (tmp < 0) ? 61 : tmp+61;
+        }
+      }
+    }
+    
+    KERNEL_LOAD_LOOP_9:
+	  for(int_t i = 0; i < Y_num2[1]*Y_num3[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++)
+      Kernel_bram[i] = Kernel_seq1_1_conv2_0_3[i];
+    Y_TILE_LOOP_9:
+    for(int_t yi = 0; yi < 16; yi++){
+      Y_ZERO_LOOP_9:
+      for(int_t k = 0; k < 4*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
+        #pragma HLS UNROLL factor=8
+        Y_bram[k] = 0; 
+      }
+      X_TILE_LOOP_9:
+      for(int_t xi = 0; xi < 18; xi++){
+        X_LOAD_LOOP_9:
+        for(int_t k = 0; k < 8*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++)
+            X_bram[k] = X_mid_data[xi*8*Y_num3[2]*Y_num3[3]*Y_num3[4]+k];
+        Conv3d(X_bram, Y_num3, xi, 8, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 61);
+      }
+      Y_CHANNEL_LOOP_9:
+      for(int_t c = 0; c < 4 && yi*4+c < Y_num2[1]; c++){
+        int_t offset = c*Y_num2[2]*Y_num2[3]*Y_num2[4];
+        BATCH_RES_RELU_LOOP_9:
+        for(int_t k = 0; k < Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
+          int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.891838178038597107e-02f*Kernel_seq1_1_conv2_0_3_scale[yi*4+c] / 2.731916867196559906e-02f) + 71;
+          tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
+          tmp = (int_t)roundf(((((tmp-71)*2.731916867196559906e-02f - Mu_seq1_1_conv2_1[yi*4+c]) / sqrtf(Var_seq1_1_conv2_1[yi*4+c]+0.00001f)) * Gamma_seq1_1_conv2_1[yi*4+c] + Bias_seq1_1_conv2_1[yi*4+c]) / 5.917721241712570190e-02f) + 53;
+          tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
+          tmp = (int_t)roundf(((tmp-53)*5.917721241712570190e-02f + ((X_tmp_data[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k]-46)*7.029289007186889648e-02f)) / 7.128605991601943970e-02f);
+          tmp = (tmp+49 > 255) ? 255 : (tmp < 0) ? 49 : tmp+49;
+          X_data[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k] = tmp;
+          X_batch_data[yi*4*Y_num2[2]*Y_num2[3]*Y_num2[4]+offset+k] = tmp;
+        }
+      }
+    }
     
     // ========================Sequential 2==================================
     //                      ====basicblock 0=================================
@@ -324,7 +407,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 		X_mid_data, Y_num11, 16, 
 		Kernel_seq2_0_conv1_0_0, Kernel_num3, 
 		stride, padding3, 
-		49, 7.128605991601943970e-02, 76, 1.296460330486297607e-01, 66, 3.834486752748489380e-02, 
+		49, 7.128605991601943970e-02f, 76, 1.296460330486297607e-01, 66, 3.834486752748489380e-02, 
         Kernel_seq2_0_conv1_0_0_scale, Mu_seq2_0_conv1_0_1, Var_seq2_0_conv1_0_1, Gamma_seq2_0_conv1_0_1, Bias_seq2_0_conv1_0_1);
     
     
@@ -353,7 +436,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
 		X_batch_data, Y_num12, 32, 
 		Kernel_seq2_0_downsample_0, stride2, 
 		stride14, padding14, 
-		49, 7.128605991601943970e-02, 68, 5.711162462830543518e-02, 53, 5.571814253926277161e-02, 
+		49, 7.128605991601943970e-02f, 68, 5.711162462830543518e-02, 53, 5.571814253926277161e-02, 
         Kernel_seq2_0_downsample_0_scale, Mu_seq2_0_downsample_1, Var_seq2_0_downsample_1, Gamma_seq2_0_downsample_1, Bias_seq2_0_downsample_1);
 
     

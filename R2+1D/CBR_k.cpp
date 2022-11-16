@@ -34,7 +34,7 @@ void CBR_k(dtype* X_data, param_t* X_num, int_t XC,
             //         }
             //     }
             // }
-            Conv3d_k(X_bram, X_num, xi, XC, Y_bram, Y_num, yi, YC, Kernel_data, Kernel_num, stride, padding, conv_in_zp);
+            Conv3d(X_bram, X_num, xi, XC, Y_bram, Y_num, yi, YC, Kernel_data, Kernel_num, stride, padding, conv_in_zp);
         }
         Y_CHANNEL_LOOP:
         for(int_t c = 0; c < YC; c++){

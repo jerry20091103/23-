@@ -417,7 +417,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
       for(int_t xi = 0; xi < 8; xi++){
         X_LOAD_LOOP_2_0:
         for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++)
-          X_bram[k] = X2_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
+          X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
         Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num11, yi, 16, Kernel_bram, Kernel_num3, stride, padding3, 49);
       }
       Y_CHANNEL_LOOP_2_0:
@@ -514,7 +514,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
       for(int_t xi = 0; xi < 8; xi++){
         X_LOAD_LOOP_2_3:
         for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++)
-          X_bram[k] = X2_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
+          X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
         Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num12, yi, 32, Kernel_bram, stride2, stride14, padding14, 49);
       }
       Y_CHANNEL_LOOP_2_3:

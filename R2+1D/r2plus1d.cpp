@@ -496,7 +496,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     // seq4.0.conv2
     param_t Y_num31[5] = {1, 921, 2, 7, 7};
     CBR_k(X_seq, Y_num30, 512, 
-		X_mid_data, Y_num31, 461, 
+		X_mid_data, Y_num31, 921, 
 		Kernel_seq4_0_conv2_0_0, Kernel_num3, 
 		stride2, padding3, 
 		49, 3.296769410371780396e-02, 61, 5.654629692435264587e-02, 60, 2.629663422703742981e-02,
@@ -521,7 +521,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     //                      ====basicblock 1================================= 
     param_t Y_num34[5] = {1, 1152, 2, 7, 7};
     CBR_k(X_seq, Y_num30, 512, 
-		X_mid_data, Y_num34, 576, 
+		X_mid_data, Y_num34, 1152, 
 		Kernel_seq4_1_conv1_0_0,  Kernel_num3,
 		stride2, padding3, 
 		53, 1.033632829785346985e-01, 59, 5.083529949188232422e-01, 66, 2.375184185802936554e-02,
@@ -537,7 +537,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     
     // seq4.1.conv2
     CBR_k(X_seq, Y_num30, 512, 
-		X_mid_data, Y_num34, 576, 
+		X_mid_data, Y_num34, 1152, 
 		Kernel_seq4_1_conv2_0_0,  Kernel_num3,
 		stride2, padding3, 
 		68, 2.595668099820613861e-02, 67, 8.170315623283386230e-02, 63, 2.590175159275531769e-02,

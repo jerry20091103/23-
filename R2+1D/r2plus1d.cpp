@@ -20,13 +20,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS INTERFACE m_axi depth=802816  bundle=gmem0 port=X2_data      max_widen_bitwidth=32 
     #pragma HLS INTERFACE m_axi depth=200704  bundle=gmem0 port=X3_data      max_widen_bitwidth=32 
     #pragma HLS INTERFACE m_axi depth=50176   bundle=gmem0 port=X_seq        max_widen_bitwidth=32 
-	#pragma HLS INTERFACE m_axi depth=10      bundle=gmem0 port=X_linear     max_widen_bitwidth=32 
+	  #pragma HLS INTERFACE m_axi depth=10      bundle=gmem0 port=X_linear     max_widen_bitwidth=32 
     #pragma HLS INTERFACE m_axi depth=3211264 bundle=gmem1 port=X_tmp_data   max_widen_bitwidth=32 
     #pragma HLS INTERFACE m_axi depth=7225344 bundle=gmem2 port=X_batch_data max_widen_bitwidth=32 
     #pragma HLS INTERFACE m_axi depth=7225344 bundle=gmem1 port=X_mid_data   max_widen_bitwidth=32 
 
     #pragma HLS INTERFACE m_axi depth=6615    port=Kernel_stem_0               max_widen_bitwidth=32
-	#pragma HLS INTERFACE m_axi depth=8640    port=Kernel_stem_3               max_widen_bitwidth=32
+	  #pragma HLS INTERFACE m_axi depth=8640    port=Kernel_stem_3               max_widen_bitwidth=32
     #pragma HLS INTERFACE m_axi depth=82944   port=Kernel_seq1_0_conv1_0_0     max_widen_bitwidth=32
     #pragma HLS INTERFACE m_axi depth=27648   port=Kernel_seq1_0_conv1_0_3     max_widen_bitwidth=32
     #pragma HLS INTERFACE m_axi depth=82944   port=Kernel_seq1_0_conv2_0_0     max_widen_bitwidth=32
@@ -85,7 +85,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     for(int_t yi = 0; yi < 12; yi++){
       Y_ZERO_LOOP_0:
       for(int_t k = 0; k < 4*Y_num[2]*Y_num[3]*Y_num[4]; k++){
-        // #pragma HLS UNROLL factor = 8
+        #pragma HLS UNROLL factor = 8
         Y_bram[k] = 0; 
       }
       X_TILE_LOOP_0:
@@ -119,23 +119,23 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
           Kernel_bram[i] = Kernel_stem_3[i];
     Y_TILE_LOOP_1:
     for(int_t yi = 0; yi < 16; yi++){
-    Y_ZERO_LOOP_1:
-    for(int_t k = 0; k < 4*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
-      // #pragma HLS UNROLL factor = 8
-      Y_bram[k] = 0; 
-    }
-    X_TILE_LOOP_1:
-    for(int_t xi = 0; xi < 9; xi++){
-      X_LOAD_LOOP_1:
-      for(int_t k = 0; k < 5*Y_num[2]*Y_num[3]*Y_num[4]; k++)
-          X_bram[k] = X_stem_1[xi*5*Y_num[2]*Y_num[3]*Y_num[4]+k];
-      Conv3d(X_bram, Y_num, xi, 5, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 55);
-    }
-    Y_CHANNEL_LOOP_1:
-    for(int_t c = 0; c < 4 && yi*4+c < Y_num2[1]; c++){
-      int_t offset = c*Y_num2[2]*Y_num2[3]*Y_num2[4];
-      BATCH_RELU_LOOP_1:
-      for(int_t k = 0; k < Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
+      Y_ZERO_LOOP_1:
+      for(int_t k = 0; k < 4*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
+        #pragma HLS UNROLL factor = 8
+        Y_bram[k] = 0; 
+      }
+      X_TILE_LOOP_1:
+      for(int_t xi = 0; xi < 9; xi++){
+        X_LOAD_LOOP_1:
+        for(int_t k = 0; k < 5*Y_num[2]*Y_num[3]*Y_num[4]; k++)
+            X_bram[k] = X_stem_1[xi*5*Y_num[2]*Y_num[3]*Y_num[4]+k];
+        Conv3d(X_bram, Y_num, xi, 5, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 55);
+      }
+      Y_CHANNEL_LOOP_1:
+      for(int_t c = 0; c < 4 && yi*4+c < Y_num2[1]; c++){
+        int_t offset = c*Y_num2[2]*Y_num2[3]*Y_num2[4];
+        BATCH_RELU_LOOP_1:
+        for(int_t k = 0; k < Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
           int_t tmp = (int_t)roundf(Y_bram[offset+k]*0.07323520630598068237f*Kernel_stem_3_scale[yi*4+c] / 0.09311912953853607178f) + 70;
           tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
           tmp = (int_t)roundf(((((tmp-70)*0.09311912953853607178f - Mu_stem_4[yi*4+c]) / sqrtf(Var_stem_4[yi*4+c]+0.00001f)) * Gamma_stem_4[yi*4+c] + Bias_stem_4[yi*4+c]) / 0.07423608750104904175f);

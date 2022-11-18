@@ -5,6 +5,7 @@ using namespace std;
 
 void Conv3d(dtype* X_data, param_t* X_num, int_t xi, int_t XC, ytype* Y_data, param_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, param_t* Kernel_num, param_t* stride, param_t* padding, dtype zp_in)
 {
+#pragma HLS INLINE
 	// get X(input) size
 	// int_t X_num[1] = X_num[1];
 	// int_t X_num[2] = X_num[2];
@@ -23,13 +24,13 @@ void Conv3d(dtype* X_data, param_t* X_num, int_t xi, int_t XC, ytype* Y_data, pa
 	
 	YC_LOOP:
 	for(int_t yc = 0; yc < YC && yi*YC+yc < Y_num[1]; yc++){
+		#pragma HLS UNROLL factor=2
 		YD_LOOP:
 		for (int_t yd = 0; yd < Y_num[2]; yd++){
 			YH_LOOP:
 			for (int_t yh = 0; yh < Y_num[3]; yh++){
 				YW_LOOP:
 				for (int_t yw = 0; yw < Y_num[4]; yw++){
-					#pragma HLS UNROLL factor=4
 					int_t yPos = yc*Y_num[2]*Y_num[3]*Y_num[4] + yd*Y_num[3]*Y_num[4] + yh*Y_num[4] + yw;
 					int_t tmp_Y = 0;
 					XC_LOOP:

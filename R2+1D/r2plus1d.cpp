@@ -77,7 +77,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t stride[3] = {1, 2, 2};
     param_t padding[3] = {0, 3, 3};
     #pragma HLS ARRAY_PARTITION variable= Y_bram factor=8 type=cyclic
-    #pragma HLS ALLOCATION function instances=Conv3d limit=1
+//    #pragma HLS ALLOCATION function instances=Conv3d limit=1
     KERNEL_LOAD_LOOP_0:
     for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++){
         #pragma HLS UNROLL factor = 8

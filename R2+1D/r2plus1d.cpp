@@ -796,7 +796,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num20[2]*Y_num20[3]*Y_num20[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*7.469348609447479248e-02f*Kernel_seq3_0_conv1_0_0_scale[yi*115+c] / 1.026936098933219910e-01f) + 66;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-66)*1.026936098933219910e-01f - Mu_seq3_0_conv1_0_1[yi*115+c]) / sqrtf(Var_seq3_0_conv1_0_1[yi*115+c]+0.00001f)) * Gamma_seq3_0_conv1_0_1[yi*115+c] + Bias_seq3_0_conv1_0_1[yi*115+c]) / 3.207130357623100281e-02);
+                tmp = (int_t)roundf(((((tmp-66)*1.026936098933219910e-01f - Mu_seq3_0_conv1_0_1[yi*115+c]) / Var_seq3_0_conv1_0_1[yi*115+c]) * Gamma_seq3_0_conv1_0_1[yi*115+c] + Bias_seq3_0_conv1_0_1[yi*115+c]) / 3.207130357623100281e-02);
                 X_mid_data[yi*115*Y_num20[2]*Y_num20[3]*Y_num20[4]+offset+k] = (tmp+55 > 255) ? 255 : (tmp < 0) ? 55 : tmp+55;
             }
         }
@@ -833,7 +833,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*3.207130357623100281e-02f*Kernel_seq3_0_conv1_0_3_scale[yi*256+c] / 3.513325005769729614e-02f) + 64;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-64)*3.513325005769729614e-02f - Mu_seq3_0_conv1_1[yi*256+c]) / sqrtf(Var_seq3_0_conv1_1[yi*256+c]+0.00001f)) * Gamma_seq3_0_conv1_1[yi*256+c] + Bias_seq3_0_conv1_1[yi*256+c]) / 3.827788308262825012e-02f);
+                tmp = (int_t)roundf(((((tmp-64)*3.513325005769729614e-02f - Mu_seq3_0_conv1_1[yi*256+c]) / Var_seq3_0_conv1_1[yi*256+c]) * Gamma_seq3_0_conv1_1[yi*256+c] + Bias_seq3_0_conv1_1[yi*256+c]) / 3.827788308262825012e-02f);
                 X3_data[yi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+offset+k] = (tmp+59 > 255) ? 255 : (tmp < 0) ? 59 : tmp+59;
             }
         }
@@ -870,7 +870,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num22[2]*Y_num22[3]*Y_num22[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*3.827788308262825012e-02f*Kernel_seq3_0_conv2_0_0_scale[yi*256+c] / 7.229902595281600952e-02f) + 74;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-74)*7.229902595281600952e-02f - Mu_seq3_0_conv2_0_1[yi*256+c]) / sqrtf(Var_seq3_0_conv2_0_1[yi*256+c]+0.00001f)) * Gamma_seq3_0_conv2_0_1[yi*256+c] + Bias_seq3_0_conv2_0_1[yi*256+c]) / 2.794230915606021881e-02f);
+                tmp = (int_t)roundf(((((tmp-74)*7.229902595281600952e-02f - Mu_seq3_0_conv2_0_1[yi*256+c]) / Var_seq3_0_conv2_0_1[yi*256+c]) * Gamma_seq3_0_conv2_0_1[yi*256+c] + Bias_seq3_0_conv2_0_1[yi*256+c]) / 2.794230915606021881e-02f);
                 X_mid_data[yi*256*Y_num22[2]*Y_num22[3]*Y_num22[4]+offset+k] = (tmp+61 > 255) ? 255 : (tmp < 0) ? 61 : tmp+61;
             }
         }
@@ -907,7 +907,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 int_t tmp = roundf(Y_bram[offset+k]*7.469348609447479248e-02f*Kernel_seq3_0_downsample_0_scale[yi*256+c] / 3.776641562581062317e-02f) + 72;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-72)*3.776641562581062317e-02f - Mu_seq3_0_downsample_1[yi*256+c]) / sqrtf(Var_seq3_0_downsample_1[yi*256+c]+0.00001f)) * Gamma_seq3_0_downsample_1[yi*256+c] + Bias_seq3_0_downsample_1[yi*256+c]) / 4.242179170250892639e-02f)+52;
+                tmp = (int_t)roundf(((((tmp-72)*3.776641562581062317e-02f - Mu_seq3_0_downsample_1[yi*256+c]) / Var_seq3_0_downsample_1[yi*256+c]) * Gamma_seq3_0_downsample_1[yi*256+c] + Bias_seq3_0_downsample_1[yi*256+c]) / 4.242179170250892639e-02f)+52;
                 X_batch_data[yi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+offset+k] = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
 
             }
@@ -943,7 +943,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.794230915606021881e-02f*Kernel_seq3_0_conv2_0_3_scale[yi*256+c] / 3.355694189667701721e-02f) + 57;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-57)*3.355694189667701721e-02f - Mu_seq3_0_conv2_1[yi*256+c]) / sqrtf(Var_seq3_0_conv2_1[yi*256+c]+0.00001f)) * Gamma_seq3_0_conv2_1[yi*256+c] + Bias_seq3_0_conv2_1[yi*256+c]) / 3.775262087583541870e-02f) + 63;
+                tmp = (int_t)roundf(((((tmp-57)*3.355694189667701721e-02f - Mu_seq3_0_conv2_1[yi*256+c]) / Var_seq3_0_conv2_1[yi*256+c]) * Gamma_seq3_0_conv2_1[yi*256+c] + Bias_seq3_0_conv2_1[yi*256+c]) / 3.775262087583541870e-02f) + 63;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
                 tmp = (int_t)roundf(((tmp-63)*3.775262087583541870e-02f + ((X_batch_data[yi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+offset+k]-52)*4.242179170250892639e-02f)) / 4.819526150822639465e-02f);
                 tmp = (tmp+56 > 255) ? 255 : (tmp < 0) ? 56 : tmp+56;
@@ -986,7 +986,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num25[2]*Y_num25[3]*Y_num25[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.819526150822639465e-02f*Kernel_seq3_1_conv1_0_0_scale[yi*192+c] / 9.108851104974746704e-02f) + 60;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-60)*9.108851104974746704e-02f - Mu_seq3_1_conv1_0_1[yi*192+c]) / sqrtf(Var_seq3_1_conv1_0_1[yi*192+c]+0.00001f)) * Gamma_seq3_1_conv1_0_1[yi*192+c] + Bias_seq3_1_conv1_0_1[yi*192+c]) / 1.979854144155979156e-02f);
+                tmp = (int_t)roundf(((((tmp-60)*9.108851104974746704e-02f - Mu_seq3_1_conv1_0_1[yi*192+c]) / Var_seq3_1_conv1_0_1[yi*192+c]) * Gamma_seq3_1_conv1_0_1[yi*192+c] + Bias_seq3_1_conv1_0_1[yi*192+c]) / 1.979854144155979156e-02f);
                 X_mid_data[yi*192*Y_num25[2]*Y_num25[3]*Y_num25[4]+offset+k] = (tmp+64 > 255) ? 255 : (tmp < 0) ? 64 : tmp+64;
             }
         }
@@ -1021,7 +1021,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*1.979854144155979156e-02f*Kernel_seq3_1_conv1_0_3_scale[yi*256+c] / 2.204562351107597351e-02f) + 64;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-64)*2.204562351107597351e-02f - Mu_seq3_1_conv1_1[yi*256+c]) / sqrtf(Var_seq3_1_conv1_1[yi*256+c]+0.00001f)) * Gamma_seq3_1_conv1_1[yi*256+c] + Bias_seq3_1_conv1_1[yi*256+c]) / 2.682571485638618469e-02f);
+                tmp = (int_t)roundf(((((tmp-64)*2.204562351107597351e-02f - Mu_seq3_1_conv1_1[yi*256+c]) / Var_seq3_1_conv1_1[yi*256+c]) * Gamma_seq3_1_conv1_1[yi*256+c] + Bias_seq3_1_conv1_1[yi*256+c]) / 2.682571485638618469e-02f);
                 X3_data[yi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+offset+k] = (tmp+55 > 255) ? 255 : (tmp < 0) ? 55 : tmp+55;
             }
         }
@@ -1056,7 +1056,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num25[2]*Y_num25[3]*Y_num25[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.682571485638618469e-02f*Kernel_seq3_1_conv2_0_0_scale[yi*192+c] / 4.488958418369293213e-02f) + 58;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-58)*4.488958418369293213e-02f - Mu_seq3_1_conv2_0_1[yi*192+c]) / sqrtf(Var_seq3_1_conv2_0_1[yi*192+c]+0.00001f)) * Gamma_seq3_1_conv2_0_1[yi*192+c] + Bias_seq3_1_conv2_0_1[yi*192+c]) / 2.272782102227210999e-02f);
+                tmp = (int_t)roundf(((((tmp-58)*4.488958418369293213e-02f - Mu_seq3_1_conv2_0_1[yi*192+c]) / Var_seq3_1_conv2_0_1[yi*192+c]) * Gamma_seq3_1_conv2_0_1[yi*192+c] + Bias_seq3_1_conv2_0_1[yi*192+c]) / 2.272782102227210999e-02f);
                 X_mid_data[yi*192*Y_num25[2]*Y_num25[3]*Y_num25[4]+offset+k] = (tmp+74 > 255) ? 255 : (tmp < 0) ? 74 : tmp+74;
             }
         }
@@ -1092,7 +1092,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.272782102227210999e-02f*Kernel_seq3_1_conv2_0_3_scale[yi*256+c] / 3.477662429213523865e-02f) + 82;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-82)*3.477662429213523865e-02f - Mu_seq3_1_conv2_1[yi*256+c]) / sqrtf(Var_seq3_1_conv2_1[yi*256+c]+0.00001f)) * Gamma_seq3_1_conv2_1[yi*256+c] + Bias_seq3_1_conv2_1[yi*256+c]) / 3.744378685951232910e-02f) + 78;
+                tmp = (int_t)roundf(((((tmp-82)*3.477662429213523865e-02f - Mu_seq3_1_conv2_1[yi*256+c]) / Var_seq3_1_conv2_1[yi*256+c]) * Gamma_seq3_1_conv2_1[yi*256+c] + Bias_seq3_1_conv2_1[yi*256+c]) / 3.744378685951232910e-02f) + 78;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
                 tmp = (int_t)roundf(((tmp-78)*3.744378685951232910e-02f + ((X_tmp_data[yi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+offset+k]-56)*4.819526150822639465e-02f)) / 4.908789321780204773e-02f);
                 tmp = (tmp+58 > 255) ? 255 : (tmp < 0) ? 58 : tmp+58;
@@ -1132,7 +1132,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num29[2]*Y_num29[3]*Y_num29[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.908789321780204773e-02f*Kernel_seq4_0_conv1_0_0_scale[yi*921+c] / 7.933901995420455933e-02f) + 64;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-64)*7.933901995420455933e-02f - Mu_seq4_0_conv1_0_1[yi*921+c]) / sqrtf(Var_seq4_0_conv1_0_1[yi*921+c]+0.00001f)) * Gamma_seq4_0_conv1_0_1[yi*921+c] + Bias_seq4_0_conv1_0_1[yi*921+c]) / 2.300033532083034515e-02f);
+                tmp = (int_t)roundf(((((tmp-64)*7.933901995420455933e-02f - Mu_seq4_0_conv1_0_1[yi*921+c]) / Var_seq4_0_conv1_0_1[yi*921+c]) * Gamma_seq4_0_conv1_0_1[yi*921+c] + Bias_seq4_0_conv1_0_1[yi*921+c]) / 2.300033532083034515e-02f);
                 X_mid_data[yi*921*Y_num29[2]*Y_num29[3]*Y_num29[4]+offset+k] = (tmp+71 > 255) ? 255 : (tmp < 0) ? 71 : tmp+71;
             }
         }
@@ -1170,7 +1170,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.300033532083034515e-02f*Kernel_seq4_0_conv1_0_3_scale[yi*512+c] / 4.174583032727241516e-02f) + 60;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-60)*4.174583032727241516e-02f - Mu_seq4_0_conv1_1[yi*512+c]) / sqrtf(Var_seq4_0_conv1_1[yi*512+c]+0.00001f)) * Gamma_seq4_0_conv1_1[yi*512+c] + Bias_seq4_0_conv1_1[yi*512+c]) / 3.296769410371780396e-02f);
+                tmp = (int_t)roundf(((((tmp-60)*4.174583032727241516e-02f - Mu_seq4_0_conv1_1[yi*512+c]) / Var_seq4_0_conv1_1[yi*512+c]) * Gamma_seq4_0_conv1_1[yi*512+c] + Bias_seq4_0_conv1_1[yi*512+c]) / 3.296769410371780396e-02f);
                 X_seq[yi*512*Y_num30[2]*Y_num30[3]*Y_num30[4]+offset+k] = (tmp+49 > 255) ? 255 : (tmp < 0) ? 49 : tmp+49;
             }
         }
@@ -1201,7 +1201,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num31[2]*Y_num31[3]*Y_num31[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*3.296769410371780396e-02f*Kernel_seq4_0_conv2_0_0_scale[yi*921+c] / 5.654629692435264587e-02f) + 61;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-61)*5.654629692435264587e-02f - Mu_seq4_0_conv2_0_1[yi*921+c]) / sqrtf(Var_seq4_0_conv2_0_1[yi*921+c]+0.00001f)) * Gamma_seq4_0_conv2_0_1[yi*921+c] + Bias_seq4_0_conv2_0_1[yi*921+c]) / 2.629663422703742981e-02f);
+                tmp = (int_t)roundf(((((tmp-61)*5.654629692435264587e-02f - Mu_seq4_0_conv2_0_1[yi*921+c]) / Var_seq4_0_conv2_0_1[yi*921+c]) * Gamma_seq4_0_conv2_0_1[yi*921+c] + Bias_seq4_0_conv2_0_1[yi*921+c]) / 2.629663422703742981e-02f);
                 X_mid_data[yi*921*Y_num31[2]*Y_num31[3]*Y_num31[4]+offset+k] = (tmp+60 > 255) ? 255 : (tmp < 0) ? 60 : tmp+60;
             }
         }
@@ -1237,7 +1237,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
                 int_t tmp = roundf(Y_bram[offset+k]*4.908789321780204773e-02f*Kernel_seq4_0_downsample_0_scale[yi*256+c] / 2.351688779890537262e-02f) + 60;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-60)*2.351688779890537262e-02f - Mu_seq4_0_downsample_1[yi*256+c]) / sqrtf(Var_seq4_0_downsample_1[yi*256+c]+0.00001f)) * Gamma_seq4_0_downsample_1[yi*256+c] + Bias_seq4_0_downsample_1[yi*256+c]) / 5.310279503464698792e-02f)+59;
+                tmp = (int_t)roundf(((((tmp-60)*2.351688779890537262e-02f - Mu_seq4_0_downsample_1[yi*256+c]) / Var_seq4_0_downsample_1[yi*256+c]) * Gamma_seq4_0_downsample_1[yi*256+c] + Bias_seq4_0_downsample_1[yi*256+c]) / 5.310279503464698792e-02f)+59;
                 X_batch_data[yi*256*Y_num30[2]*Y_num30[3]*Y_num30[4]+offset+k] = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
 
             }
@@ -1273,7 +1273,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.629663422703742981e-02f*Kernel_seq4_0_conv2_0_3_scale[yi*512+c] / 3.702012076973915100e-02f) + 56;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-56)*3.702012076973915100e-02f - Mu_seq4_0_conv2_1[yi*512+c]) / sqrtf(Var_seq4_0_conv2_1[yi*512+c]+0.00001f)) * Gamma_seq4_0_conv2_1[yi*512+c] + Bias_seq4_0_conv2_1[yi*512+c]) / 8.961183577775955200e-02f) + 57;
+                tmp = (int_t)roundf(((((tmp-56)*3.702012076973915100e-02f - Mu_seq4_0_conv2_1[yi*512+c]) / Var_seq4_0_conv2_1[yi*512+c]) * Gamma_seq4_0_conv2_1[yi*512+c] + Bias_seq4_0_conv2_1[yi*512+c]) / 8.961183577775955200e-02f) + 57;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
                 tmp = (int_t)roundf(((tmp-57)*8.961183577775955200e-02f + ((X_batch_data[yi*512*Y_num30[2]*Y_num30[3]*Y_num30[4]+offset+k]-59)*5.310279503464698792e-02f)) / 1.033632829785346985e-01f);
                 tmp = (tmp+53 > 255) ? 255 : (tmp < 0) ? 53 : tmp+53;
@@ -1309,7 +1309,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num34[2]*Y_num34[3]*Y_num34[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*1.033632829785346985e-01f*Kernel_seq4_1_conv1_0_0_scale[yi*1152+c] / 5.083529949188232422e-01f) + 59;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-59)*5.083529949188232422e-01 - Mu_seq4_1_conv1_0_1[yi*1152+c]) / sqrtf(Var_seq4_1_conv1_0_1[yi*1152+c]+0.00001f)) * Gamma_seq4_1_conv1_0_1[yi*1152+c] + Bias_seq4_1_conv1_0_1[yi*1152+c]) / 2.375184185802936554e-02f);
+                tmp = (int_t)roundf(((((tmp-59)*5.083529949188232422e-01 - Mu_seq4_1_conv1_0_1[yi*1152+c]) / Var_seq4_1_conv1_0_1[yi*1152+c]) * Gamma_seq4_1_conv1_0_1[yi*1152+c] + Bias_seq4_1_conv1_0_1[yi*1152+c]) / 2.375184185802936554e-02f);
                 X_mid_data[yi*1152*Y_num34[2]*Y_num34[3]*Y_num34[4]+offset+k] = (tmp+66 > 255) ? 255 : (tmp < 0) ? 66 : tmp+66;
             }
         }
@@ -1345,7 +1345,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.375184185802936554e-02f*Kernel_seq4_1_conv1_0_3_scale[yi*512+c] / 3.209327906370162964e-02f) + 57;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-57)*3.209327906370162964e-02f - Mu_seq4_1_conv1_1[yi*512+c]) / sqrtf(Var_seq4_1_conv1_1[yi*512+c]+0.00001f)) * Gamma_seq4_1_conv1_1[yi*512+c] + Bias_seq4_1_conv1_1[yi*512+c]) / 2.595668099820613861e-02f);
+                tmp = (int_t)roundf(((((tmp-57)*3.209327906370162964e-02f - Mu_seq4_1_conv1_1[yi*512+c]) / Var_seq4_1_conv1_1[yi*512+c]) * Gamma_seq4_1_conv1_1[yi*512+c] + Bias_seq4_1_conv1_1[yi*512+c]) / 2.595668099820613861e-02f);
                 X_seq[yi*512*Y_num30[2]*Y_num30[3]*Y_num30[4]+offset+k] = (tmp+68 > 255) ? 255 : (tmp < 0) ? 68 : tmp+68;
             }
         }
@@ -1374,7 +1374,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             for(int_t k = 0; k < Y_num34[2]*Y_num34[3]*Y_num34[4]; k++){
                 int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.595668099820613861e-02f*Kernel_seq4_1_conv2_0_0_scale[yi*1152+c] / 8.170315623283386230e-02f) + 67;
                 tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-                tmp = (int_t)roundf(((((tmp-67)*8.170315623283386230e-02f - Mu_seq4_1_conv2_0_1[yi*1152+c]) / sqrtf(Var_seq4_1_conv2_0_1[yi*1152+c]+0.00001f)) * Gamma_seq4_1_conv2_0_1[yi*1152+c] + Bias_seq4_1_conv2_0_1[yi*1152+c]) / 2.590175159275531769e-02f);
+                tmp = (int_t)roundf(((((tmp-67)*8.170315623283386230e-02f - Mu_seq4_1_conv2_0_1[yi*1152+c]) / Var_seq4_1_conv2_0_1[yi*1152+c]) * Gamma_seq4_1_conv2_0_1[yi*1152+c] + Bias_seq4_1_conv2_0_1[yi*1152+c]) / 2.590175159275531769e-02f);
                 X_mid_data[yi*1152*Y_num34[2]*Y_num34[3]*Y_num34[4]+offset+k] = (tmp+63 > 255) ? 255 : (tmp < 0) ? 63 : tmp+63;
             }
         }
@@ -1407,7 +1407,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         for(int_t k = 0; k < Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
             int_t tmp = (int_t)roundf(Y_bram[offset+k]*2.590175159275531769e-02f*Kernel_seq4_1_conv2_0_3_scale[c] / 2.505685016512870789e-02f) + 59;
             tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-            tmp = (int_t)roundf(((((tmp-59)*2.505685016512870789e-02f - Mu_seq4_1_conv2_1[c]) / sqrtf(Var_seq4_1_conv2_1[c]+0.00001f)) * Gamma_seq4_1_conv2_1[c] + Bias_seq4_1_conv2_1[c]) / 1.026933342218399048e-01f) + 42;
+            tmp = (int_t)roundf(((((tmp-59)*2.505685016512870789e-02f - Mu_seq4_1_conv2_1[c]) / Var_seq4_1_conv2_1[c]) * Gamma_seq4_1_conv2_1[c] + Bias_seq4_1_conv2_1[c]) / 1.026933342218399048e-01f) + 42;
             tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
             tmp = (int_t)roundf(((tmp-42)*1.026933342218399048e-01f + ((X_tmp_data[offset+k]-53)*1.033632829785346985e-01f)) / 1.290386915206909180e-01);
             tmp = (tmp+31 > 255) ? 255 : (tmp < 0) ? 31 : tmp+31;

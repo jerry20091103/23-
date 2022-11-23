@@ -19,7 +19,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             ktype* Kernel_seq4_0_conv1_0_0, ktype* Kernel_seq4_0_conv1_0_3, ktype* Kernel_seq4_0_conv2_0_0, ktype* Kernel_seq4_0_conv2_0_3, ktype* Kernel_seq4_0_downsample_0, ktype* Kernel_seq4_1_conv1_0_0, ktype* Kernel_seq4_1_conv1_0_3, ktype* Kernel_seq4_1_conv2_0_0, ktype* Kernel_seq4_1_conv2_0_3,
             ktype* Kernel_linear,
             dtype* X_stem_1, dtype* X_stem_2, dtype* X_data,dtype* X2_data, dtype* X3_data, dtype* X_seq, dtype* X_linear, 
-            dtype* X_tmp_data, dtype* X_batch_data, dtype* X_mid_data);
+            dtype* X_tmp_data, dtype* X_batch_data, dtype* X_mid_data, param_t* cnt);
 // void Conv3d(dtype* X_data, int_t* X_num, int_t xi, int_t XC, ytype* Y_data, int_t* Y_num, int_t yi, int_t YC, ktype* Kernel_data, int_t* Kernel_num, ftype* kernel_scale, int_t* stride, int_t* padding,  ftype scale_in, dtype zp_in, ftype scale_out);
 
 void Conv3d(dtype* X_data, param_t* X_num, int_t XI, int_t XC, ytype* Y_data, param_t* Y_num, int_t YI, int_t YC, ktype* Kernel_data, param_t* Kernel_num, param_t* stride, param_t* padding, dtype zp_in);
@@ -71,6 +71,6 @@ void CBRRAL(dtype* X_data, dtype* X_tmp_data, param_t* X_num, int_t XC,
 		ktype* Kernel_data, param_t* Kernel_num, ktype* Kernel_linear_data,
 		param_t* stride, param_t* padding, 
 		dtype conv_in_zp, ftype conv_in_scale, dtype conv_out_zp, ftype conv_out_scale, dtype X_tmp_zp, ftype X_tmp_scale, dtype batch_zp, ftype batch_scale, dtype res_zp, ftype res_scale, 
-		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias);
+		ftype* Kernel_scale, ftype* Mu, ftype* Var, ftype* Gamma, ftype* Bias, param_t* cnt);
 #endif
 

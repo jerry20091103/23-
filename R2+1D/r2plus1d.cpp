@@ -10,7 +10,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             ktype* Kernel_seq4_0_conv1_0_0, ktype* Kernel_seq4_0_conv1_0_3, ktype* Kernel_seq4_0_conv2_0_0, ktype* Kernel_seq4_0_conv2_0_3, ktype* Kernel_seq4_0_downsample_0, ktype* Kernel_seq4_1_conv1_0_0, ktype* Kernel_seq4_1_conv1_0_3, ktype* Kernel_seq4_1_conv2_0_0, ktype* Kernel_seq4_1_conv2_0_3,
             ktype* Kernel_linear,
             dtype* X_stem_1, dtype* X_stem_2, dtype* X_data, dtype* X2_data, dtype* X3_data, dtype* X_seq, dtype* X_linear, 
-            dtype* X_tmp_data, dtype* X_batch_data, dtype* X_mid_data)
+            dtype* X_tmp_data, dtype* X_batch_data, dtype* X_mid_data, param_t* cnt)
 {
     #pragma HLS INTERFACE s_axilite port=return
     #pragma HLS INTERFACE m_axi depth=602112  bundle=gmem0 port=X            max_widen_bitwidth=128
@@ -63,6 +63,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     #pragma HLS INTERFACE m_axi depth=5308416 port=Kernel_seq4_1_conv2_0_0     max_widen_bitwidth=128 num_write_outstanding=1 max_write_burst_length=2
     #pragma HLS INTERFACE m_axi depth=1769472 port=Kernel_seq4_1_conv2_0_3     max_widen_bitwidth=128 num_write_outstanding=1 max_write_burst_length=2
     #pragma HLS INTERFACE m_axi depth=5120    port=Kernel_linear               max_widen_bitwidth=128 num_write_outstanding=1 max_write_burst_length=2
+    #pragma HLS INTERFACE m_axi depth=2       port=cnt
     
     // URAM kernel buffer
     #pragma HLS BIND_STORAGE variable=Kernel_bram type=RAM_2P impl=URAM
@@ -80,11 +81,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
     param_t padding[3] = {0, 3, 3};
     #pragma HLS ARRAY_PARTITION variable= Y_bram factor=16 type=cyclic
 //    #pragma HLS ALLOCATION function instances=Conv3d limit=1
+    cnt[0] = 0;
+    cnt[1] = 0;
+
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_0:
     for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_stem_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_0:
     for(int_t yi = 0; yi < 12; yi++){
         Y_ZERO_LOOP_0:
@@ -94,11 +100,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_0:
         for(int_t xi = 0; xi < 3; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_0:
             for(int_t k = 0; k < 1*X_num[2]*X_num[3]*X_num[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X[xi*1*X_num[2]*X_num[3]*X_num[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, X_num, xi, 1, Y_bram, Y_num, yi, 4, Kernel_bram, Kernel_num, stride, padding, 56);
         }
         Y_CHANNEL_LOOP_0:
@@ -113,17 +121,20 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
     
     param_t Y_num2[5] = {1, 64, 16, 56, 56};
     param_t Kernel_num2[3] = {3, 1, 1};
     param_t stride2[3] = {1, 1, 1};
     param_t padding2[3] = {1, 0, 0};
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_1:
     for(int_t i = 0; i < Y_num2[1]*Y_num[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_stem_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_1:
     for(int_t yi = 0; yi < 16; yi++){
         Y_ZERO_LOOP_1:
@@ -133,11 +144,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_1:
         for(int_t xi = 0; xi < 9; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_1:
             for(int_t k = 0; k < 5*Y_num[2]*Y_num[3]*Y_num[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_stem_1[xi*5*Y_num[2]*Y_num[3]*Y_num[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num, xi, 5, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 55);
         }
         Y_CHANNEL_LOOP_1:
@@ -152,16 +165,19 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
     // ========================Sequential 1==================================
     //                      ====basicblock 0=================================
     param_t Y_num3[5] = {1, 144, 16, 56, 56};
     param_t Kernel_num3[3] = {1, 3, 3};
     param_t padding3[3] = {0, 1, 1};
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2:
     for(int_t i = 0; i < Y_num3[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq1_0_conv1_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2:
     for(int_t yi = 0; yi < 36; yi++){
         Y_ZERO_LOOP_2:
@@ -171,11 +187,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2:
         for(int_t xi = 0; xi < 8; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2:
             for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_stem_2[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num3, yi, 4, Kernel_bram, Kernel_num3, stride2, padding3, 65);
         }
         Y_CHANNEL_LOOP_2:
@@ -190,12 +208,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3:
     for(int_t i = 0; i < Y_num2[1]*Y_num3[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq1_0_conv1_0_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_3:
     for(int_t yi = 0; yi < 16; yi++){
         Y_ZERO_LOOP_3:
@@ -205,11 +226,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3:
         for(int_t xi = 0; xi < 18; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3:
             for(int_t k = 0; k < 8*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*8*Y_num3[2]*Y_num3[3]*Y_num3[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num3, xi, 8, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 60);
         }
         Y_CHANNEL_LOOP_3:
@@ -224,12 +247,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
     // seq1.0.conv2
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_4:
     for(int_t i = 0; i < Y_num3[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq1_0_conv2_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_4:
     for(int_t yi = 0; yi < 36; yi++){
         Y_ZERO_LOOP_4:
@@ -239,11 +265,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4:
         for(int_t xi = 0; xi < 8; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4:
             for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num3, yi, 4, Kernel_bram, Kernel_num3, stride2, padding3, 74);
         }
         Y_CHANNEL_LOOP_4:
@@ -258,12 +286,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_5:
     for(int_t i = 0; i < Y_num2[1]*Y_num3[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq1_0_conv2_0_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_5:
     for(int_t yi = 0; yi < 16; yi++){
         Y_ZERO_LOOP_5:
@@ -273,11 +304,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_5:
         for(int_t xi = 0; xi < 18; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_5:
             for(int_t k = 0; k < 8*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*8*Y_num3[2]*Y_num3[3]*Y_num3[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num3, xi, 8, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 62);
         }
         Y_CHANNEL_LOOP_5:
@@ -296,13 +329,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     //                      ====basicblock 1=================================
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_6:
     for(int_t i = 0; i < Y_num3[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq1_1_conv1_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_6:
     for(int_t yi = 0; yi < 36; yi++){
         Y_ZERO_LOOP_6:
@@ -312,11 +348,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_6:
         for(int_t xi = 0; xi < 8; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_6:
             for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num3, yi, 4, Kernel_bram, Kernel_num3, stride2, padding3, 46);
         }
         Y_CHANNEL_LOOP_6:
@@ -331,12 +369,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_7:
     for(int_t i = 0; i < Y_num2[1]*Y_num3[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq1_1_conv1_0_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_7:
     for(int_t yi = 0; yi < 16; yi++){
         Y_ZERO_LOOP_7:
@@ -346,11 +387,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_7:
         for(int_t xi = 0; xi < 18; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_7:
             for(int_t k = 0; k < 8*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*8*Y_num3[2]*Y_num3[3]*Y_num3[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num3, xi, 8, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 76);
         }
         Y_CHANNEL_LOOP_7:
@@ -365,13 +408,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // seq1.1.conv2
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_8:
     for(int_t i = 0; i < Y_num3[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq1_1_conv2_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_8:
     for(int_t yi = 0; yi < 36; yi++){
         Y_ZERO_LOOP_8:
@@ -381,11 +427,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_8:
         for(int_t xi = 0; xi < 8; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_8:
             for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num3, yi, 4, Kernel_bram, Kernel_num3, stride2, padding3, 70);
         }
         Y_CHANNEL_LOOP_8:
@@ -400,12 +448,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_9:
     for(int_t i = 0; i < Y_num2[1]*Y_num3[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq1_1_conv2_0_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_9:
     for(int_t yi = 0; yi < 16; yi++){
         Y_ZERO_LOOP_9:
@@ -415,11 +466,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_9:
         for(int_t xi = 0; xi < 18; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_9:
             for(int_t k = 0; k < 8*Y_num3[2]*Y_num3[3]*Y_num3[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*8*Y_num3[2]*Y_num3[3]*Y_num3[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num3, xi, 8, Y_bram, Y_num2, yi, 4, Kernel_bram, Kernel_num2, stride2, padding2, 61);
         }
         Y_CHANNEL_LOOP_9:
@@ -438,15 +491,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // ========================Sequential 2==================================
     //                      ====basicblock 0=================================
     param_t Y_num11[5] = {1, 230, 16, 28, 28};
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_0:
     for(int_t i = 0; i < Y_num11[1]*Y_num2[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_0_conv1_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_0:
     for(int_t yi = 0; yi < 15; yi++){
         Y_ZERO_LOOP_2_0:
@@ -456,11 +512,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2_0:
         for(int_t xi = 0; xi < 8; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2_0:
             for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num11, yi, 16, Kernel_bram, Kernel_num3, stride, padding3, 49);
         }
         Y_CHANNEL_LOOP_2_0:
@@ -475,14 +533,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     param_t Y_num12[5] = {1, 128, 8, 28, 28};
     param_t stride12[3] = {2, 1, 1};
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_1:
     for(int_t i = 0; i < Y_num12[1]*Y_num11[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_0_conv1_0_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_1:
     for(int_t yi = 0; yi < 4; yi++){
         Y_ZERO_LOOP_2_1:
@@ -492,11 +553,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2_1:
         for(int_t xi = 0; xi < 8; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2_1:
             for(int_t k = 0; k < 32*Y_num11[2]*Y_num11[3]*Y_num11[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*32*Y_num11[2]*Y_num11[3]*Y_num11[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num11, xi, 32, Y_bram, Y_num12, yi, 32, Kernel_bram, Kernel_num2, stride12, padding2, 66);
         }
         Y_CHANNEL_LOOP_2_1:
@@ -511,14 +574,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // seq2.0.conv2
     param_t Y_num13[5] = {1, 230, 8, 28, 28};
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_2:
     for(int_t i = 0; i < Y_num13[1]*Y_num12[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_0_conv2_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_2:
     for(int_t yi = 0; yi < 8; yi++){
         Y_ZERO_LOOP_2_2:
@@ -528,11 +594,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2_2:
         for(int_t xi = 0; xi < 2; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2_2:
             for(int_t k = 0; k < 64*Y_num12[2]*Y_num12[3]*Y_num12[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X2_data[xi*64*Y_num12[2]*Y_num12[3]*Y_num12[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num12, xi, 64, Y_bram, Y_num13, yi, 32, Kernel_bram, Kernel_num3, stride2, padding3, 52);
         }
         Y_CHANNEL_LOOP_2_2:
@@ -547,15 +615,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // // seq2.0.downsample
     param_t stride14[3] = {2, 2, 2};
     param_t padding14[3] = {0, 0, 0};
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_3:
     for(int_t i = 0; i < Y_num12[1]*Y_num2[1]*stride2[0]*stride2[1]*stride2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_0_downsample_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_3:
     for(int_t yi = 0; yi < 4; yi++){
         Y_ZERO_LOOP_2_3:
@@ -565,11 +636,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2_3:
         for(int_t xi = 0; xi < 8; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2_3:
             for(int_t k = 0; k < 8*Y_num2[2]*Y_num2[3]*Y_num2[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_data[xi*8*Y_num2[2]*Y_num2[3]*Y_num2[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num2, xi, 8, Y_bram, Y_num12, yi, 32, Kernel_bram, stride2, stride14, padding14, 49);
         }
         Y_CHANNEL_LOOP_2_3:
@@ -584,12 +657,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_4:
     for(int_t i = 0; i < Y_num12[1]*Y_num13[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_0_conv2_0_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_4:
     for(int_t yi = 0; yi < 4; yi++){
         Y_ZERO_LOOP_2_4:
@@ -599,11 +675,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2_4:
         for(int_t xi = 0; xi < 4; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2_4:
             for(int_t k = 0; k < 64*Y_num13[2]*Y_num13[3]*Y_num13[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*64*Y_num13[2]*Y_num13[3]*Y_num13[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num13, xi, 64, Y_bram, Y_num12, yi, 32, Kernel_bram, Kernel_num2, stride2, padding2, 75);
         }
         Y_CHANNEL_LOOP_2_4:
@@ -622,14 +700,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     //                      ====basicblock 1=================================
     param_t Y_num16[5] = {1, 288, 8, 28, 28};
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_5:
     for(int_t i = 0; i < Y_num16[1]*Y_num12[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_1_conv1_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_5:
     for(int_t yi = 0; yi < 9; yi++){
         Y_ZERO_LOOP_2_5:
@@ -637,33 +718,38 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             #pragma HLS UNROLL factor = 16
             Y_bram[k] = 0;
         }
-    X_TILE_LOOP_2_5:
-    for(int_t xi = 0; xi < 2; xi++){
-        X_LOAD_LOOP_2_5:
-        for(int_t k = 0; k < 64*Y_num12[2]*Y_num12[3]*Y_num12[4]; k++){
-            #pragma HLS UNROLL factor = 16
-            X_bram[k] = X2_data[xi*64*Y_num12[2]*Y_num12[3]*Y_num12[4]+k];
+        X_TILE_LOOP_2_5:
+        for(int_t xi = 0; xi < 2; xi++){
+            cnt[1] = 2;
+            X_LOAD_LOOP_2_5:
+            for(int_t k = 0; k < 64*Y_num12[2]*Y_num12[3]*Y_num12[4]; k++){
+                #pragma HLS UNROLL factor = 16
+                X_bram[k] = X2_data[xi*64*Y_num12[2]*Y_num12[3]*Y_num12[4]+k];
+            }
+            cnt[1] = 0;
+            Conv3d(X_bram, Y_num12, xi, 64, Y_bram, Y_num16, yi, 32, Kernel_bram, Kernel_num3, stride2, padding3, 59);
         }
-        Conv3d(X_bram, Y_num12, xi, 64, Y_bram, Y_num16, yi, 32, Kernel_bram, Kernel_num3, stride2, padding3, 59);
-      }
-    Y_CHANNEL_LOOP_2_5:
-    for(int_t c = 0; c < 32 && yi*32+c < Y_num16[1]; c++){
-        int_t offset = c*Y_num16[2]*Y_num16[3]*Y_num16[4];
-        BATCH_RELU_LOOP_2_5:
-        for(int_t k = 0; k < Y_num16[2]*Y_num16[3]*Y_num16[4]; k++){
-            int_t tmp = (int_t)roundf(Y_bram[offset+k]*5.941560864448547363e-02f*Kernel_seq2_1_conv1_0_0_scale[yi*32+c] / 1.044261455535888672e-01f) + 64;
-            tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-            tmp = (int_t)roundf(((((tmp-64)*1.044261455535888672e-01f - Mu_seq2_1_conv1_0_1[yi*32+c]) / sqrtf(Var_seq2_1_conv1_0_1[yi*32+c]+0.00001f)) * Gamma_seq2_1_conv1_0_1[yi*32+c] + Bias_seq2_1_conv1_0_1[yi*32+c]) / 2.571923658251762390e-02f);
-            X_mid_data[yi*32*Y_num16[2]*Y_num16[3]*Y_num16[4]+offset+k] = (tmp+74 > 255) ? 255 : (tmp < 0) ? 74 : tmp+74;
+        Y_CHANNEL_LOOP_2_5:
+        for(int_t c = 0; c < 32 && yi*32+c < Y_num16[1]; c++){
+            int_t offset = c*Y_num16[2]*Y_num16[3]*Y_num16[4];
+            BATCH_RELU_LOOP_2_5:
+            for(int_t k = 0; k < Y_num16[2]*Y_num16[3]*Y_num16[4]; k++){
+                int_t tmp = (int_t)roundf(Y_bram[offset+k]*5.941560864448547363e-02f*Kernel_seq2_1_conv1_0_0_scale[yi*32+c] / 1.044261455535888672e-01f) + 64;
+                tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
+                tmp = (int_t)roundf(((((tmp-64)*1.044261455535888672e-01f - Mu_seq2_1_conv1_0_1[yi*32+c]) / sqrtf(Var_seq2_1_conv1_0_1[yi*32+c]+0.00001f)) * Gamma_seq2_1_conv1_0_1[yi*32+c] + Bias_seq2_1_conv1_0_1[yi*32+c]) / 2.571923658251762390e-02f);
+                X_mid_data[yi*32*Y_num16[2]*Y_num16[3]*Y_num16[4]+offset+k] = (tmp+74 > 255) ? 255 : (tmp < 0) ? 74 : tmp+74;
+            }
         }
-      }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_6:
     for(int_t i = 0; i < Y_num12[1]*Y_num16[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_1_conv1_0_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_6:
     for(int_t yi = 0; yi < 4; yi++){
         Y_ZERO_LOOP_2_6:
@@ -673,11 +759,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2_6:
         for(int_t xi = 0; xi < 5; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2_6:
             for(int_t k = 0; k < 64*Y_num16[2]*Y_num16[3]*Y_num16[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*64*Y_num16[2]*Y_num16[3]*Y_num16[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num16, xi, 64, Y_bram, Y_num12, yi, 32, Kernel_bram, Kernel_num2, stride2, padding2, 74);
         }
         Y_CHANNEL_LOOP_2_6:
@@ -692,13 +780,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // seq2.1.conv2
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_7:
     for(int_t i = 0; i < Y_num16[1]*Y_num12[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_1_conv2_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_7:
     for(int_t yi = 0; yi < 9; yi++){
         Y_ZERO_LOOP_2_7:
@@ -708,31 +799,36 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2_7:
         for(int_t xi = 0; xi < 2; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2_7:
             for(int_t k = 0; k < 64*Y_num12[2]*Y_num12[3]*Y_num12[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X2_data[xi*64*Y_num12[2]*Y_num12[3]*Y_num12[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num12, xi, 64, Y_bram, Y_num16, yi, 32, Kernel_bram, Kernel_num3, stride2, padding3, 69);
         }
-      Y_CHANNEL_LOOP_2_7:
-      for(int_t c = 0; c < 32 && yi*32+c < Y_num16[1]; c++){
-        int_t offset = c*Y_num16[2]*Y_num16[3]*Y_num16[4];
-        BATCH_RELU_LOOP_2_7:
-        for(int_t k = 0; k < Y_num16[2]*Y_num16[3]*Y_num16[4]; k++){
-            int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.108780622482299805e-02f*Kernel_seq2_1_conv2_0_0_scale[yi*32+c] / 4.689884185791015625e-02f) + 55;
-            tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
-            tmp = (int_t)roundf(((((tmp-55)*4.689884185791015625e-02f - Mu_seq2_1_conv2_0_1[yi*32+c]) / sqrtf(Var_seq2_1_conv2_0_1[yi*32+c]+0.00001f)) * Gamma_seq2_1_conv2_0_1[yi*32+c] + Bias_seq2_1_conv2_0_1[yi*32+c]) / 3.150121122598648071e-02f);
-            X_mid_data[yi*32*Y_num16[2]*Y_num16[3]*Y_num16[4]+offset+k] = (tmp+69 > 255) ? 255 : (tmp < 0) ? 69 : tmp+69;
+        Y_CHANNEL_LOOP_2_7:
+        for(int_t c = 0; c < 32 && yi*32+c < Y_num16[1]; c++){
+            int_t offset = c*Y_num16[2]*Y_num16[3]*Y_num16[4];
+            BATCH_RELU_LOOP_2_7:
+            for(int_t k = 0; k < Y_num16[2]*Y_num16[3]*Y_num16[4]; k++){
+                int_t tmp = (int_t)roundf(Y_bram[offset+k]*4.108780622482299805e-02f*Kernel_seq2_1_conv2_0_0_scale[yi*32+c] / 4.689884185791015625e-02f) + 55;
+                tmp = (tmp > 255) ? 255 : (tmp < 0) ? 0 : tmp;
+                tmp = (int_t)roundf(((((tmp-55)*4.689884185791015625e-02f - Mu_seq2_1_conv2_0_1[yi*32+c]) / sqrtf(Var_seq2_1_conv2_0_1[yi*32+c]+0.00001f)) * Gamma_seq2_1_conv2_0_1[yi*32+c] + Bias_seq2_1_conv2_0_1[yi*32+c]) / 3.150121122598648071e-02f);
+                X_mid_data[yi*32*Y_num16[2]*Y_num16[3]*Y_num16[4]+offset+k] = (tmp+69 > 255) ? 255 : (tmp < 0) ? 69 : tmp+69;
+            }
         }
-      }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_2_8:
     for(int_t i = 0; i < Y_num12[1]*Y_num16[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq2_1_conv2_0_3[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_2_8:
     for(int_t yi = 0; yi < 4; yi++){
         Y_ZERO_LOOP_2_8:
@@ -742,11 +838,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_2_8:
         for(int_t xi = 0; xi < 5; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_2_8:
             for(int_t k = 0; k < 64*Y_num16[2]*Y_num16[3]*Y_num16[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*64*Y_num16[2]*Y_num16[3]*Y_num16[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num16, xi, 64, Y_bram, Y_num12, yi, 32, Kernel_bram, Kernel_num2, stride2, padding2, 69);
         }
         Y_CHANNEL_LOOP_2_8:
@@ -764,16 +862,19 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
       }
     }
+    cnt[0]++;
 
     // ========================Sequential 3==================================
     //                      ====basicblock 0=================================
     param_t Y_num20[5] = {1, 460, 8, 14, 14};
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3_0:
     for(int_t i = 0; i < Y_num20[1]*Y_num12[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_0_conv1_0_0[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_0:
     for(int_t yi = 0; yi < 4; yi++){
@@ -784,11 +885,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_0:
         for(int_t xi = 0; xi < 2; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_0:
             for(int_t k = 0; k < 64*Y_num12[2]*Y_num12[3]*Y_num12[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X2_data[xi*64*Y_num12[2]*Y_num12[3]*Y_num12[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num12, xi, 64, Y_bram, Y_num20, yi, 115, Kernel_bram, Kernel_num3, stride, padding3, 58);
         }
         Y_CHANNEL_LOOP_3_0:
@@ -803,14 +906,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     param_t Y_num21[5] = {1, 256, 4, 14, 14};
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3_1:
     for(int_t i = 0; i < Y_num21[1]*Y_num20[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_0_conv1_0_3[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_1:
     for(int_t yi = 0; yi < 1; yi++){
@@ -821,11 +927,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_1:
         for(int_t xi = 0; xi < 2; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_1:
             for(int_t k = 0; k < 230*Y_num20[2]*Y_num20[3]*Y_num20[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*230*Y_num20[2]*Y_num20[3]*Y_num20[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num20, xi, 230, Y_bram, Y_num21, yi, 256, Kernel_bram, Kernel_num2, stride12, padding2, 55);
         }
         Y_CHANNEL_LOOP_3_1:
@@ -840,14 +948,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
     // seq3.0.conv2
     param_t Y_num22[5] = {1, 460, 4, 14, 14};
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3_2:
     for(int_t i = 0; i < Y_num22[1]*Y_num21[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_0_conv2_0_0[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_2:
     for(int_t yi = 0; yi < 2; yi++){
@@ -858,11 +969,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_2:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_2:
             for(int_t k = 0; k < 256*Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X3_data[xi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num21, xi, 256, Y_bram, Y_num22, yi, 256, Kernel_bram, Kernel_num3, stride2, padding3, 59);
         }
         Y_CHANNEL_LOOP_3_2:
@@ -877,14 +990,17 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // seq3.0.downsample
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3_3:
 	for(int_t i = 0; i < Y_num21[1]*Y_num12[1]*stride2[0]*stride2[1]*stride2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_0_downsample_0[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_3:
     for(int_t yi = 0; yi < 1; yi++){
@@ -895,11 +1011,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_3:
         for(int_t xi = 0; xi < 2; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_3:
             for(int_t k = 0; k < 64*Y_num12[2]*Y_num12[3]*Y_num12[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X2_data[xi*64*Y_num12[2]*Y_num12[3]*Y_num12[4]+k];
             }
+            cnt[1] = 0;
 			Conv3d(X_bram, Y_num12, xi, 64, Y_bram, Y_num21, yi, 256, Kernel_bram, stride2, stride14, padding14, 58);
         }
         Y_CHANNEL_LOOP_3_3:
@@ -915,12 +1033,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
-  KERNEL_LOAD_LOOP_3_4:
+    cnt[1] = 1;
+    KERNEL_LOAD_LOOP_3_4:
 	for(int_t i = 0; i < Y_num21[1]*Y_num22[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_0_conv2_0_3[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_4:
     for(int_t yi = 0; yi < 1; yi++){
@@ -931,11 +1052,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_4:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_4:
             for(int_t k = 0; k < 460*Y_num22[2]*Y_num22[3]*Y_num22[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*460*Y_num22[2]*Y_num22[3]*Y_num22[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num22, xi, 460, Y_bram, Y_num21, yi, 256, Kernel_bram, Kernel_num2, stride2, padding2, 61);
         }
         Y_CHANNEL_LOOP_3_4:
@@ -954,16 +1077,19 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // ========================== CSIM PASS =================================
     //                      ====basicblock 1=================================
     param_t Y_num25[5] = {1, 576, 4, 14, 14};
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3_6:
     for(int_t i = 0; i < Y_num25[1]*Y_num21[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_1_conv1_0_0[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_6:
     for(int_t yi = 0; yi < 3; yi++){
@@ -974,11 +1100,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_6:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_6:
             for(int_t k = 0; k < 256*Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X3_data[xi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num21, xi, 256, Y_bram, Y_num25, yi, 192, Kernel_bram, Kernel_num3, stride2, padding3, 56);
         }
         Y_CHANNEL_LOOP_3_6:
@@ -993,12 +1121,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3_7:
 	for(int_t i = 0; i < Y_num21[1]*Y_num25[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_1_conv1_0_3[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_7:
     for(int_t yi = 0; yi < 1; yi++){
@@ -1009,11 +1140,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_7:
         for(int_t xi = 0; xi < 2; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_7:
             for(int_t k = 0; k < 288*Y_num25[2]*Y_num25[3]*Y_num25[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*288*Y_num25[2]*Y_num25[3]*Y_num25[4]+k];
             }
+            cnt[1] = 0;
 			Conv3d(X_bram, Y_num25, xi, 288, Y_bram, Y_num21, yi, 256, Kernel_bram, Kernel_num2, stride2, padding2, 64);
         }
         Y_CHANNEL_LOOP_3_7:
@@ -1028,12 +1161,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3_8:
 	for(int_t i = 0; i < Y_num25[1]*Y_num21[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_1_conv2_0_0[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_8:
     for(int_t yi = 0; yi < 3; yi++){
@@ -1044,11 +1180,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_8:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_8:
             for(int_t k = 0; k < 256*Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X3_data[xi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+k];
             }
+            cnt[1] = 0;
 			Conv3d(X_bram, Y_num21, xi, 256, Y_bram, Y_num25, yi, 192, Kernel_bram, Kernel_num3, stride2, padding3, 55);
         }
         Y_CHANNEL_LOOP_3_8:
@@ -1063,13 +1201,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_3_9:
 	for(int_t i = 0; i < Y_num21[1]*Y_num25[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq3_1_conv2_0_3[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_3_9:
     for(int_t yi = 0; yi < 1; yi++){
@@ -1080,11 +1221,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_3_9:
         for(int_t xi = 0; xi < 2; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_3_9:
             for(int_t k = 0; k < 288*Y_num25[2]*Y_num25[3]*Y_num25[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*288*Y_num25[2]*Y_num25[3]*Y_num25[4]+k];
             }
+            cnt[1] = 0;
 			Conv3d(X_bram, Y_num25, xi, 288, Y_bram, Y_num21, yi, 256, Kernel_bram, Kernel_num2, stride2, padding2, 74);
         }
         Y_CHANNEL_LOOP_3_9:
@@ -1102,15 +1245,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // ========================Sequential 4==================================
     //                      ====basicblock 0=================================
     param_t Y_num29[5] = {1, 921, 4, 7, 7};
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_4_0:
     for(int_t i = 0; i < Y_num29[1]*Y_num21[1]*Kernel_num3[0]*Kernel_num3[1]*Kernel_num3[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq4_0_conv1_0_0[i];
     }
+    cnt[1] = 0;
     Y_TILE_LOOP_4_0:
     for(int_t yi = 0; yi < 1; yi++){
         Y_ZERO_LOOP_4_0:
@@ -1120,11 +1266,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4_0:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4_0:
             for(int_t k = 0; k < 256*Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X3_data[xi*256*Y_num21[2]*Y_num21[3]*Y_num21[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num21, xi, 256, Y_bram, Y_num29, yi, 921, Kernel_bram, Kernel_num3, stride, padding3, 58);
         }
         Y_CHANNEL_LOOP_4_0:
@@ -1139,15 +1287,18 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
 
     param_t Y_num30[5] = {1, 512, 2, 7, 7};
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_4_1:
     for(int_t i = 0; i < Y_num30[1]*Y_num29[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq4_0_conv1_0_3[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_4_1:
     for(int_t yi = 0; yi < 1; yi++){
@@ -1158,11 +1309,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4_1:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4_1:
             for(int_t k = 0; k < 921*Y_num29[2]*Y_num29[3]*Y_num29[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*921*Y_num29[2]*Y_num29[3]*Y_num29[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num29, xi, 921, Y_bram, Y_num30, yi, 512, Kernel_bram, Kernel_num2, stride12, padding2, 71);
         }
         Y_CHANNEL_LOOP_4_1:
@@ -1177,9 +1330,10 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
+
     // seq4.0.conv2
     param_t Y_num31[5] = {1, 921, 2, 7, 7};
-
     Y_TILE_LOOP_4_2:
     for(int_t yi = 0; yi < 1; yi++){
         Y_ZERO_LOOP3_2:
@@ -1189,11 +1343,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4_2:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4_2:
             for(int_t k = 0; k < 512*Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_seq[xi*512*Y_num30[2]*Y_num30[3]*Y_num30[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num30, xi, 512, Y_bram, Y_num31, yi, 921, Kernel_seq4_0_conv2_0_0, Kernel_num3, stride2, padding3, 49);
         }
         Y_CHANNEL_LOOP_4_2:
@@ -1208,13 +1364,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     // seq4.0.downsample
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_4_3:
 	for(int_t i = 0; i < Y_num30[1]*Y_num21[1]*stride2[0]*stride2[1]*stride2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq4_0_downsample_0[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_4_3:
     for(int_t yi = 0; yi < 2; yi++){
@@ -1225,11 +1384,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4_3:
         for(int_t xi = 0; xi < 4; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4_3:
             for(int_t k = 0; k < 64*Y_num21[2]*Y_num21[3]*Y_num21[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X3_data[xi*64*Y_num21[2]*Y_num21[3]*Y_num21[4]+k];
             }
+            cnt[1] = 0;
 			Conv3d(X_bram, Y_num21, xi, 64, Y_bram, Y_num30, yi, 256, Kernel_bram, stride2, stride14, padding14, 58);
         }
         Y_CHANNEL_LOOP_4_3:
@@ -1245,12 +1406,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_4_4:
 	for(int_t i = 0; i < Y_num30[1]*Y_num31[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq4_0_conv2_0_3[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_4_4:
     for(int_t yi = 0; yi < 1; yi++){
@@ -1261,11 +1425,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4_4:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4_4:
             for(int_t k = 0; k < 921*Y_num31[2]*Y_num31[3]*Y_num31[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*921*Y_num31[2]*Y_num31[3]*Y_num31[4]+k];
             }
+            cnt[1] = 0;
 			Conv3d(X_bram, Y_num31, xi, 921, Y_bram, Y_num30, yi, 512, Kernel_bram, Kernel_num2, stride2, padding2, 60);
         }
         Y_CHANNEL_LOOP_4_4:
@@ -1284,6 +1450,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     //                      ====basicblock 1=================================
     param_t Y_num34[5] = {1, 1152, 2, 7, 7};
@@ -1297,11 +1464,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4_5:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4_5:
             for(int_t k = 0; k < 512*Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_seq[xi*512*Y_num30[2]*Y_num30[3]*Y_num30[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num30, xi, 512, Y_bram, Y_num34, yi, 1152, Kernel_seq4_1_conv1_0_0, Kernel_num3, stride2, padding3, 53);
         }
         Y_CHANNEL_LOOP_4_5:
@@ -1316,13 +1485,16 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
 
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_4_6:
     for(int_t i = 0; i < Y_num30[1]*Y_num34[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq4_1_conv1_0_3[i];
     }
+    cnt[1] = 0;
 
     Y_TILE_LOOP_4_6:
     for(int_t yi = 0; yi < 1; yi++){
@@ -1333,11 +1505,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4_6:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4_6:
             for(int_t k = 0; k < 1152*Y_num34[2]*Y_num34[3]*Y_num34[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_mid_data[xi*1152*Y_num34[2]*Y_num34[3]*Y_num34[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num34, xi, 1152, Y_bram, Y_num30, yi, 512, Kernel_bram, Kernel_num2, stride2, padding2, 66);
         }
         Y_CHANNEL_LOOP_4_6:
@@ -1352,6 +1526,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
     Y_TILE_LOOP_4_7:
     for(int_t yi = 0; yi < 1; yi++){
@@ -1362,11 +1537,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         X_TILE_LOOP_4_7:
         for(int_t xi = 0; xi < 1; xi++){
+            cnt[1] = 2;
             X_LOAD_LOOP_4_7:
             for(int_t k = 0; k < 512*Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
                 #pragma HLS UNROLL factor = 16
                 X_bram[k] = X_seq[xi*512*Y_num30[2]*Y_num30[3]*Y_num30[4]+k];
             }
+            cnt[1] = 0;
             Conv3d(X_bram, Y_num30, xi, 512, Y_bram, Y_num34, yi, 1152, Kernel_seq4_1_conv2_0_0, Kernel_num3, stride2, padding3, 68);
         }
         Y_CHANNEL_LOOP_4_7:
@@ -1381,12 +1558,22 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
             }
         }
     }
+    cnt[0]++;
 
+    // CBRRAL(X_mid_data, X_tmp_data, Y_num34, 1152,
+	// 	X_linear, Y_num30, 512, 
+	// 	Kernel_seq4_1_conv2_0_3, Kernel_num2, Kernel_linear,
+	// 	stride2, padding2, 
+	// 	63, 2.590175159275531769e-02, 59, 2.505685016512870789e-02, 53, 1.033632829785346985e-01, 42, 1.026933342218399048e-01, 31, 1.290386915206909180e-01,
+    //     Kernel_seq4_1_conv2_0_3_scale, Mu_seq4_1_conv2_1, Var_seq4_1_conv2_1, Gamma_seq4_1_conv2_1, Bias_seq4_1_conv2_1, cnt);
+
+    cnt[1] = 1;
     KERNEL_LOAD_LOOP_4_8:
 	for(int_t i = 0; i < Y_num30[1]*Y_num34[1]*Kernel_num2[0]*Kernel_num2[1]*Kernel_num2[2]; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_seq4_1_conv2_0_3[i];
     }
+    cnt[1] = 0;
 
     Y_ZERO_LOOP_4_8:
     for(int_t k = 0; k < 512*Y_num30[2]*Y_num30[3]*Y_num30[4]; k++){
@@ -1394,11 +1581,13 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         Y_bram[k] = 0;
     }
 
+    cnt[1] = 2;
     X_LOAD_LOOP_4_8:
     for(int_t k = 0; k < 1152*Y_num34[2]*Y_num34[3]*Y_num34[4]; k++){
         #pragma HLS UNROLL factor = 16
         X_bram[k] = X_mid_data[k];
     }
+    cnt[1] = 0;
     Conv3d(X_bram, Y_num34, 0, 1152, Y_bram, Y_num30, 0, 512, Kernel_bram, Kernel_num2, stride2, padding2, 63);
 
     Y_CHANNEL_LOOP_4_8:
@@ -1417,12 +1606,15 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         }
         Y_bram[c] = roundf((ftype)tmp_Y/98);
     }
+    cnt[0]++;
 
+    cnt[1] = 1;
 	KERNEL_LINEAR_LOAD_LOOP_4_8:
     for(int_t i = 0; i < 5120; i++){
         #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_linear[i];
     }
+    cnt[1] = 0;
     LINEAR_LOOP_4_8:
     for(int c = 0; c < 10; c++){
         int_t tmp_Y = 0;
@@ -1431,6 +1623,7 @@ void r2plus1d(dtype* X, ktype* Kernel_stem_0, ktype* Kernel_stem_3,
         tmp_Y = (int_t)roundf((tmp_Y*1.290386915206909180e-01f*Kernel_linear_scale[c]+KernelBias[c]) / 3.984360396862030029e-02f) + 127;
         X_linear[c] = (tmp_Y > 255) ? 255 : (tmp_Y < 0) ? 0 : (dtype)tmp_Y;
     }
+    cnt[0]++;
 
     return;
 }

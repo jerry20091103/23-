@@ -82,6 +82,8 @@ int_t main() {
 
 	ktype *Kernel_linear = (ktype*)malloc(5120 * sizeof(ktype));
 
+	param_t cnt[2];
+
 	// load stem kernel
 	if(!LoadArr<ktype>("stem.0.weight.dat", Kernel_stem_0, 6615)) return 0;
 	if(!LoadArr<ktype>("stem.3.weight.dat", Kernel_stem_3, 8640)) return 0;
@@ -146,7 +148,7 @@ int_t main() {
             Kernel_seq4_0_conv1_0_0, Kernel_seq4_0_conv1_0_3, Kernel_seq4_0_conv2_0_0, Kernel_seq4_0_conv2_0_3, Kernel_seq4_0_downsample_0, Kernel_seq4_1_conv1_0_0, Kernel_seq4_1_conv1_0_3, Kernel_seq4_1_conv2_0_0, Kernel_seq4_1_conv2_0_3,
             Kernel_linear, 
 			X_stem_1, X_stem_2, X_data, X2_data, X3_data, X_seq, output,
-			X_tmp_data, X_batch_data, X_mid_data);
+			X_tmp_data, X_batch_data, X_mid_data, cnt);
 
 	// calculate errors
 	ftype errors;

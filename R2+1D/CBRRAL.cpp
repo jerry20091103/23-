@@ -12,20 +12,24 @@ void CBRRAL(dtype* X_data, dtype* X_tmp_data, param_t* X_num, int_t XC,
 {
     cnt[1] = 1;
     KERNEL_LOAD_LOOP:
-	for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++)
+	for(int_t i = 0; i < Y_num[1]*X_num[1]*Kernel_num[0]*Kernel_num[1]*Kernel_num[2]; i++){
+        #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_data[i];
+    }
     cnt[1] = 0;
     
     Y_ZERO_LOOP:
     for(int_t k = 0; k < YC*Y_num[2]*Y_num[3]*Y_num[4]; k++){
-        #pragma HLS UNROLL factor=8
+        #pragma HLS UNROLL factor = 16
         Y_bram[k] = 0; 
     }
     
     cnt[1] = 2;
     X_LOAD_LOOP:
-    for(int_t k = 0; k < XC*X_num[2]*X_num[3]*X_num[4]; k++)
+    for(int_t k = 0; k < XC*X_num[2]*X_num[3]*X_num[4]; k++){
+        #pragma HLS UNROLL factor = 16
         X_bram[k] = X_data[k];
+    }
     cnt[1] = 0;
     Conv3d(X_bram, X_num, 0, XC, Y_bram, Y_num, 0, YC, Kernel_bram, Kernel_num, stride, padding, conv_in_zp);
     
@@ -51,8 +55,10 @@ void CBRRAL(dtype* X_data, dtype* X_tmp_data, param_t* X_num, int_t XC,
     
     cnt[1] = 1;
 	KERNEL_LINEAR_LOAD_LOOP:
-    for(int_t i = 0; i < 5120; i++)
+    for(int_t i = 0; i < 5120; i++){
+        #pragma HLS UNROLL factor = 16
         Kernel_bram[i] = Kernel_linear_data[i];
+    }
     cnt[1] = 0;
     LINEAR_LOOP:
     for(int c = 0; c < 10; c++){
